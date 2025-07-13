@@ -12,9 +12,10 @@ position = Vector2(579, 319)
 scale = Vector2(5, 5)
 texture = ExtResource("1_wbfu4")
 
-[node name="PauseMenu" parent="." instance=ExtResource("2_xkndl")]
+[node name="PauseMenu" parent="." node_paths=PackedStringArray("pauseMenuNode") instance=ExtResource("2_xkndl")]
 visible = false
 script = ExtResource("3_u44n3")
+pauseMenuNode = NodePath(".")
 
 [node name="MarginContainer" parent="PauseMenu" index="0"]
 theme_override_constants/margin_top = 200

@@ -1,11 +1,5 @@
-
-- Build pause menu in 2d scene
-    - menu is toggled by pressing esc key
-    - Quit to menu button
-    - Quit to desktop button
+- Build simple level with tiles
 
 - Add simple player movement
-
-- Build simple level with tiles
 
 - Add collisions
