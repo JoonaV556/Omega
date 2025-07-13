@@ -1,5 +1,3 @@
-- Build simple level with tiles
-
 - Add simple player movement
-
+- camera follows player
 - Add collisions
