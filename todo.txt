@@ -1,1 +1,19 @@
-- Compare with 1x1 and 1x2 chars with buildings
+- Build a main menu
+    - Game title 
+    - Start button
+    - Quit button
+
+- Build a simple 2D scene
+    - Character sprite in the center
+
+- Hook main menu to simple 2D scene
+
+- Build pause menu in 2d scene
+    - Quit to menu button
+    - Quit to desktop button
+
+
+
+- display player sprite on screen
+- program simple player movement wiht collisions
+- draw simple tile environment with collisions
