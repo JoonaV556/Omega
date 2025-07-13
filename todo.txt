@@ -1,14 +1,11 @@
-- Build a simple 2D scene
-    - Character sprite in the center
-
-- Hook main menu to simple 2D scene
 
 - Build pause menu in 2d scene
+    - menu is toggled by pressing esc key
     - Quit to menu button
     - Quit to desktop button
 
+- Add simple player movement
 
+- Build simple level with tiles
 
-- display player sprite on screen
-- program simple player movement wiht collisions
-- draw simple tile environment with collisions
+- Add collisions

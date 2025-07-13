@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://kwyfquthklgf"]
+[gd_scene load_steps=3 format=3 uid="uid://kwyfquthklgf"]
+
+[ext_resource type="Script" uid="uid://ur8n025uiigu" path="res://startGame.gd" id="1_eiy7p"]
+[ext_resource type="Script" uid="uid://vu0ipam1e220" path="res://quit.gd" id="1_i26rj"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -32,7 +35,12 @@ horizontal_alignment = 1
 [node name="Start" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Start"
+script = ExtResource("1_eiy7p")
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+script = ExtResource("1_i26rj")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="MarginContainer/VBoxContainer/Start" method="_startgame"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="MarginContainer/VBoxContainer/Quit" method="_quit"]
