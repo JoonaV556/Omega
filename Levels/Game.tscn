@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://3bg5gml2jkxg"]
+[gd_scene load_steps=15 format=4 uid="uid://3bg5gml2jkxg"]
 
 [ext_resource type="PackedScene" uid="uid://boadhvwpk0i80" path="res://Scenes/PauseMenu_ui_overlay.tscn" id="2_xkndl"]
 [ext_resource type="Script" uid="uid://eb172fc3t1cc" path="res://Scripts/togglePauseMenu.gd" id="3_u44n3"]
 [ext_resource type="Script" uid="uid://dmovndroak7do" path="res://Levels/camera_followtarget.gd" id="4_dygi0"]
 [ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="4_sb48q"]
+[ext_resource type="Texture2D" uid="uid://ckkeq8es56x3u" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Clutter.png" id="4_y58dp"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="5_dygi0"]
 [ext_resource type="AudioStream" uid="uid://dfnewyb3rx2ts" path="res://Audio/ZangarmarshAmbience.wav" id="5_jr1ro"]
 [ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="7_d5jmm"]
@@ -1232,8 +1233,60 @@ texture = ExtResource("4_sb48q")
 10:103/0 = 0
 11:103/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i12b1"]
+texture = ExtResource("4_y58dp")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_u44n3"]
 sources/0 = SubResource("TileSetAtlasSource_t88pq")
+sources/1 = SubResource("TileSetAtlasSource_i12b1")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y58dp"]
 size = Vector2(12, 5)
