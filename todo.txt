@@ -1,4 +1,3 @@
-- separate tileset tiles for learning 
 - add collision shapes for tiles
 - create tilemap tiles with collision
 
