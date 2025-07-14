@@ -1,4 +1,0 @@
-- add collision shapes for tiles
-- create tilemap tiles with collision
-
-- make player visible in front of objects and not visible behind them
