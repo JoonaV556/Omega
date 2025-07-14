@@ -1,2 +1,6 @@
-- play around with collisions 
-Add collisions
+- create a simple object with collisions 
+and make player unable to walk through it
+
+- apply collisions on tilemap tiles 
+
+- make player visible in front of objects and not visible behind them
