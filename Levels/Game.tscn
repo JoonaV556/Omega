@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=4 uid="uid://3bg5gml2jkxg"]
+[gd_scene load_steps=13 format=4 uid="uid://3bg5gml2jkxg"]
 
-[ext_resource type="PackedScene" uid="uid://boadhvwpk0i80" path="res://Scenes/PauseMenu.tscn" id="2_xkndl"]
+[ext_resource type="PackedScene" uid="uid://boadhvwpk0i80" path="res://Scenes/PauseMenu_ui_overlay.tscn" id="2_xkndl"]
 [ext_resource type="Script" uid="uid://eb172fc3t1cc" path="res://Scripts/togglePauseMenu.gd" id="3_u44n3"]
 [ext_resource type="Script" uid="uid://dmovndroak7do" path="res://Levels/camera_followtarget.gd" id="4_dygi0"]
 [ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="4_sb48q"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="5_dygi0"]
 [ext_resource type="AudioStream" uid="uid://dfnewyb3rx2ts" path="res://Audio/ZangarmarshAmbience.wav" id="5_jr1ro"]
+[ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="7_d5jmm"]
+[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="8_n3tvm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t88pq"]
 resource_name = "terrain"
@@ -1233,6 +1235,12 @@ texture = ExtResource("4_sb48q")
 [sub_resource type="TileSet" id="TileSet_u44n3"]
 sources/0 = SubResource("TileSetAtlasSource_t88pq")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y58dp"]
+size = Vector2(12, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3tvm"]
+size = Vector2(44, 7)
+
 [node name="Game" type="Node2D"]
 
 [node name="PauseMenu" parent="." node_paths=PackedStringArray("pauseMenuNode") instance=ExtResource("2_xkndl")]
@@ -1262,7 +1270,31 @@ stream = ExtResource("5_jr1ro")
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("5_dygi0")]
-position = Vector2(584, 336)
+position = Vector2(592, 336)
 speed = 100
+
+[node name="Box" type="StaticBody2D" parent="."]
+position = Vector2(560, 352)
+
+[node name="Sprite2D" type="Sprite2D" parent="Box"]
+texture_filter = 1
+position = Vector2(8, -8)
+texture = ExtResource("7_d5jmm")
+
+[node name="Obstacle" type="CollisionShape2D" parent="Box"]
+position = Vector2(8, -6.5)
+shape = SubResource("RectangleShape2D_y58dp")
+
+[node name="Speaker" type="StaticBody2D" parent="."]
+position = Vector2(512, 320)
+
+[node name="Sprite2D" type="Sprite2D" parent="Speaker"]
+texture_filter = 1
+position = Vector2(24, -16)
+texture = ExtResource("8_n3tvm")
+
+[node name="Obstacle" type="CollisionShape2D" parent="Speaker"]
+position = Vector2(23, -3.5)
+shape = SubResource("RectangleShape2D_n3tvm")
 
 [editable path="PauseMenu"]

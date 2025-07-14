@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://crb6llbbpsp4n"]
+
+[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="1_8rvu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3tvm"]
+size = Vector2(44, 7)
+
+[node name="dj_table" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(24, -16)
+texture = ExtResource("1_8rvu7")
+
+[node name="Obstacle" type="CollisionShape2D" parent="."]
+position = Vector2(23, -3.5)
+shape = SubResource("RectangleShape2D_n3tvm")

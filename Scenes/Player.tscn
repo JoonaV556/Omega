@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cyu471khpo26d" path="res://Sprites/blue.png" id="2_gntrk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
-radius = 3.0
+radius = 2.0
 height = 14.0
 
 [node name="Player" type="CharacterBody2D"]
