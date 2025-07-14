@@ -1,3 +1,9 @@
+- background ambience
+
 - Add simple player movement
+    - up down left right with wasd
+
 - camera follows player
+
+
 - Add collisions

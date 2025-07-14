@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://3bg5gml2jkxg"]
+[gd_scene load_steps=8 format=4 uid="uid://3bg5gml2jkxg"]
 
 [ext_resource type="Texture2D" uid="uid://cyu471khpo26d" path="res://Sprites/blue.png" id="1_wbfu4"]
 [ext_resource type="PackedScene" uid="uid://boadhvwpk0i80" path="res://Levels/PauseMenu.tscn" id="2_xkndl"]
 [ext_resource type="Script" uid="uid://eb172fc3t1cc" path="res://Scripts/togglePauseMenu.gd" id="3_u44n3"]
 [ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="4_sb48q"]
+[ext_resource type="AudioStream" uid="uid://dfnewyb3rx2ts" path="res://Audio/ZangarmarshAmbience.wav" id="5_jr1ro"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t88pq"]
 resource_name = "terrain"
@@ -1256,5 +1257,9 @@ tile_set = SubResource("TileSet_u44n3")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(584, 335)
 zoom = Vector2(3, 3)
+
+[node name="BackgroundAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jr1ro")
+autoplay = true
 
 [editable path="PauseMenu"]
