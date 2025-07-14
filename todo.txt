@@ -1,4 +1,2 @@
-- camera follows player
-
-
-- Add collisions
+- play around with collisions 
+Add collisions
