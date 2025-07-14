@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://davt8o55s7goo"]
+
+[ext_resource type="Texture2D" uid="uid://bey2lhiq8xtqk" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_Music_Box.png" id="1_wip3n"]
+[ext_resource type="Texture2D" uid="uid://cyu471khpo26d" path="res://Sprites/blue.png" id="2_cdvy8"]
+[ext_resource type="Texture2D" uid="uid://c1ucm3hugdrrv" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/22_Post_Office_Singles_16x16/22_Post_Office_16x16_Black_Mailbox_1_Front.png" id="3_1v8ax"]
+[ext_resource type="Texture2D" uid="uid://dd6ybn74tso7y" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/23_MIlitary_Base_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_3.png" id="4_d3ee6"]
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-7, -6)
+texture = ExtResource("1_wip3n")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(11, -6)
+texture = ExtResource("1_wip3n")
+offset = Vector2(5.37, 0)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(64, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
+position = Vector2(16, -16)
+texture = ExtResource("1_wip3n")
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2(96, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D2"]
+position = Vector2(16, -16)
+texture = ExtResource("1_wip3n")
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(44, -4)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Player"]
+position = Vector2(8, -16)
+texture = ExtResource("2_cdvy8")
+
+[node name="smallbox" type="Node2D" parent="."]
+position = Vector2(160, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="smallbox"]
+position = Vector2(8, -16)
+texture = ExtResource("3_1v8ax")
+
+[node name="smallbox2" type="Node2D" parent="."]
+position = Vector2(192, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="smallbox2"]
+position = Vector2(4, -4)
+texture = ExtResource("4_d3ee6")

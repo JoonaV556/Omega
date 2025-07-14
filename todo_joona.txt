@@ -1,2 +1,0 @@
-- branch
-- make player visible in front of objects and not visible behind them
