@@ -1,2 +1,6 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+Sprites/blue.png filter=lfs diff=lfs merge=lfs -text
+Sprites/blue.png.import filter=lfs diff=lfs merge=lfs -text
+Sprites/charsizetest.aseprite filter=lfs diff=lfs merge=lfs -text
+Sprites/Modern_Exteriors_16x16 filter=lfs diff=lfs merge=lfs -text
