@@ -4,3 +4,5 @@ Sprites/blue.png filter=lfs diff=lfs merge=lfs -text
 Sprites/blue.png.import filter=lfs diff=lfs merge=lfs -text
 Sprites/charsizetest.aseprite filter=lfs diff=lfs merge=lfs -text
 Sprites/Modern_Exteriors_16x16 filter=lfs diff=lfs merge=lfs -text
+Audio/ZangarmarshAmbience.wav filter=lfs diff=lfs merge=lfs -text
+Audio/ZangarmarshAmbience.wav.import filter=lfs diff=lfs merge=lfs -text
