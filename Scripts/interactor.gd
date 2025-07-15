@@ -19,7 +19,7 @@ func _on_body_exited(body: Node2D):
 		return
 		
 	body.interact_unavailable.emit()
-	interact_obj = body
+	interact_obj = null
 
 func _input(event):
 	if interact_obj == null:
