@@ -1,0 +1,29 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"sound_mood_default": "",
+"sound_moods": {},
+"style": ""
+},
+&"default_portrait": "New portrait",
+&"description": "HC DJ",
+&"display_name": "Robert",
+&"mirror": false,
+&"nicknames": ["Ruubert"],
+&"offset": Vector2(0, -100),
+&"portraits": {
+"New portrait": {
+"export_overrides": {
+"image": "\"res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Garage_Sales_16x16_Graffiti_10.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+}
+},
+&"scale": 1.0
+}

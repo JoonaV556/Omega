@@ -1,0 +1,18 @@
+join robert center [animation="Bounce In"]
+robert: Suh dude
+leave robert [animation="Bounce Out"]
+join ptg center [animation="Instant In" length="1.0" wait="true"]
+- Hello | [else="hide"]
+	jump friendly_robert
+- WTF?
+	jump hostile_robert
+label friendly_robert
+leave ptg [animation="Fade Out"]
+join robert center [animation="Bounce In"]
+See you later, goober...
+[end_timeline]
+label hostile_robert
+leave ptg [animation="Fade Out"]
+join robert center [animation="Bounce In"]
+Let go of my camera, goober
+[end_timeline]
