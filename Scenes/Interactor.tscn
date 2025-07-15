@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnvhvtgb7ef3i"]
+
+[ext_resource type="Script" uid="uid://iu2888ylbkwy" path="res://Scripts/interactor.gd" id="1_cr4d8"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_cr4d8"]
+
+[node name="Interactor" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_cr4d8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_cr4d8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_body_shape_exited"]

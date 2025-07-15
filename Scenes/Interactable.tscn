@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://mvxrpuei3bo4"]
+
+[ext_resource type="Script" uid="uid://bdr3tfkrqtkbm" path="res://Scripts/interactable.gd" id="1_pi15k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k18av"]
+size = Vector2(16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ie0vk"]
+font_size = 12
+
+[node name="InteractableStaticBody2d" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_pi15k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k18av")
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 2.0
+offset_top = -25.0
+offset_right = 42.0
+offset_bottom = -2.0
+label_settings = SubResource("LabelSettings_ie0vk")
