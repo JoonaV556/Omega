@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr4wpr863s4yf"]
+
+[ext_resource type="Script" uid="uid://cm6kyfr8mo6mk" path="res://Scripts/floor_switch_trigger.gd" id="1_5fha6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cieny"]
+size = Vector2(16, 16)
+
+[node name="NodeSwitchTrigger" type="Area2D"]
+collision_layer = 2147483648
+collision_mask = 2147483648
+script = ExtResource("1_5fha6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cieny")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

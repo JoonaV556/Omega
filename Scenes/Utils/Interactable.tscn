@@ -8,9 +8,9 @@ size = Vector2(16, 16)
 [sub_resource type="LabelSettings" id="LabelSettings_ie0vk"]
 font_size = 12
 
-[node name="InteractableStaticBody2d" type="StaticBody2D"]
-collision_layer = 2
-collision_mask = 2
+[node name="Interactable" type="StaticBody2D"]
+collision_layer = 2147483648
+collision_mask = 2147483648
 script = ExtResource("1_pi15k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
