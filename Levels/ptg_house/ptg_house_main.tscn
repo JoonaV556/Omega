@@ -11,7 +11,6 @@
 [node name="Envrionment" type="Node2D" parent="."]
 
 [node name="PtgHouseFloor2" parent="Envrionment" instance=ExtResource("1_63005")]
-collision_layer = 2
 
 [node name="Player" parent="Envrionment/PtgHouseFloor2" instance=ExtResource("2_80i4i")]
 speed = 100
@@ -19,20 +18,18 @@ speed = 100
 [node name="Camera" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("target") instance=ExtResource("3_l2nqf")]
 target = NodePath("../Player")
 
-[node name="FloorSwitchTrigger" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("target_floor", "hide_floors") instance=ExtResource("4_ok3gh")]
-position = Vector2(-65, 30)
-scale = Vector2(1, 2.24)
-collision_layer = 2
-collision_mask = 2
-target_floor = NodePath("../../PthHouseFloor1")
-hide_floors = [NodePath("..")]
+[node name="FloorSwitchTrigger" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("4_ok3gh")]
+position = Vector2(-72, 32)
+scale = Vector2(1, 2.04)
+floor_to_activate = NodePath("../../PthHouseFloor1")
+floors_to_deactivate = [NodePath("..")]
 
 [node name="PthHouseFloor1" parent="Envrionment" instance=ExtResource("5_unogl")]
 visible = false
 position = Vector2(-33, 6)
 
-[node name="FloorSwitchTrigger" parent="Envrionment/PthHouseFloor1" node_paths=PackedStringArray("target_floor", "hide_floors") instance=ExtResource("4_ok3gh")]
-position = Vector2(-74, 20)
-scale = Vector2(0.691929, 1.28)
-target_floor = NodePath("../../PtgHouseFloor2")
-hide_floors = [NodePath("..")]
+[node name="FloorSwitchTrigger" parent="Envrionment/PthHouseFloor1" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("4_ok3gh")]
+position = Vector2(-72, 20)
+scale = Vector2(0.760001, 1.4)
+floor_to_activate = NodePath("../../PtgHouseFloor2")
+floors_to_deactivate = [NodePath("..")]

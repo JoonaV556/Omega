@@ -1,17 +1,34 @@
 class_name Floor
 extends Node2D
 
-@export var collision_layer: int = 1
+signal activated
+signal deactivated
 
 func _ready():
-	for node in get_children():
-		if node is CollisionObject2D:
-			node.set_collision_layer(collision_layer)
-			node.set_collision_mask(collision_layer)
-			
+	activated.connect(_on_activated)
+	deactivated.connect(_on_deactivated)
+	
+	var has_player = false
+	for node in get_children():		
 		if not node.has_meta("is_player"):
 			continue
-		show()
+			
+		activate()
 		return
+		
+	deactivate()
+
+func activate():
+	propagate_call("set_deferred", ["disabled", false])
+	show()
 	
+func deactivate():
+	propagate_call("set_deferred", ["disabled", true])
 	hide()
+
+func _on_activated() -> void:
+	activate()
+
+
+func _on_deactivated() -> void:
+	deactivate()

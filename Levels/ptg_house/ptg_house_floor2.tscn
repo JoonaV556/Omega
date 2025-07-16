@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
-[ext_resource type="TileSet" uid="uid://batvcqcgo0v76" path="res://Levels/ptg_house.tres" id="2_f6w1b"]
+[ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://Levels/ptg_house.tres" id="2_f6w1b"]
 
 [node name="PtgHouseFloor2" type="Node2D"]
 script = ExtResource("1_kfulq")
