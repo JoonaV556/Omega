@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://o1cenfub505i"]
+
+[ext_resource type="PackedScene" uid="uid://dt1hvceqesi0n" path="res://Levels/ptg_house/ptg_house_floor2.tscn" id="1_63005"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="2_80i4i"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="3_l2nqf"]
+[ext_resource type="PackedScene" uid="uid://bwsd80t2eestl" path="res://Scenes/Utils/FloorSwitchTrigger.tscn" id="4_ok3gh"]
+[ext_resource type="PackedScene" uid="uid://xrb478um4m0f" path="res://Levels/ptg_house/pth_house_floor1.tscn" id="5_unogl"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Envrionment" type="Node2D" parent="."]
+
+[node name="PtgHouseFloor2" parent="Envrionment" instance=ExtResource("1_63005")]
+
+[node name="Player" parent="Envrionment/PtgHouseFloor2" instance=ExtResource("2_80i4i")]
+speed = 100
+
+[node name="FloorSwitchTrigger" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("4_ok3gh")]
+position = Vector2(-72, 32)
+scale = Vector2(1, 2.04)
+floor_to_activate = NodePath("../../PthHouseFloor1")
+floors_to_deactivate = [NodePath("..")]
+
+[node name="PthHouseFloor1" parent="Envrionment" instance=ExtResource("5_unogl")]
+visible = false
+position = Vector2(-33, 6)
+
+[node name="FloorSwitchTrigger" parent="Envrionment/PthHouseFloor1" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("4_ok3gh")]
+position = Vector2(-72, 20)
+scale = Vector2(0.760001, 1.4)
+floor_to_activate = NodePath("../../PtgHouseFloor2")
+floors_to_deactivate = [NodePath("..")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_l2nqf")]
+target = NodePath("../Envrionment/PtgHouseFloor2/Player")

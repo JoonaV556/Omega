@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpjknj0hpjq62"]
+
+[ext_resource type="Script" uid="uid://dmovndroak7do" path="res://Scripts/camera_followtarget.gd" id="1_375tr"]
+
+[node name="Camera" type="Camera2D" node_paths=PackedStringArray("target")]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.5
+script = ExtResource("1_375tr")
+target = NodePath("")
