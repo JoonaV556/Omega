@@ -1,0 +1,24 @@
+Draw levels in this order for ease of development.
+Makes y-sorting of sprites dramatically easier
+
+Y-sorting trick to make y-sorting easier:
+	1. When importing tilsheets to a tileset for tilemapping, apply default bottom y-sort to all tiles
+
+Tilemaplayers and their contents:
+	1. Background
+		- Z index -2 or less
+		- Y SORTING DISABLED 
+			walls
+			floors
+			windows
+	2. Background overlay
+		- Z index higher than layer
+		- Y SORTING DISABLED
+			Carpets
+			floor coverings etc.
+			Paintings 
+	----> Objects on same layer as player (Player can go behind and in front)
+	3. Prop layer 1
+		- Y SORTING ENABLED
+	4. Prop layer 2 
+		- Y SORTING ENABLED
