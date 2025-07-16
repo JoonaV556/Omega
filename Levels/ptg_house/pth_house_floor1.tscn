@@ -1,16 +1,13 @@
-[gd_scene load_steps=14 format=4 uid="uid://o1cenfub505i"]
+[gd_scene load_steps=11 format=4 uid="uid://xrb478um4m0f"]
 
-[ext_resource type="Texture2D" uid="uid://chusssai7kdnn" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Floors_16x16.png" id="1_mcsd4"]
-[ext_resource type="PackedScene" uid="uid://cxbwlqvuivf4l" path="res://Scenes/Utils/Floor.tscn" id="1_n12wo"]
-[ext_resource type="Texture2D" uid="uid://cimtcf5dqhkjm" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Walls_16x16.png" id="2_e82hj"]
-[ext_resource type="Texture2D" uid="uid://b50v7gv5ql3oy" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_borders_16x16.png" id="3_n12wo"]
-[ext_resource type="Texture2D" uid="uid://dnnlyny7pxpmv" path="res://Sprites/modern_interiors/1_Interiors/Theme_Sorter/17_Visibile_Upstairs_System_16x16.png" id="4_133s6"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="5_ae04p"]
-[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="6_i1vcg"]
-[ext_resource type="PackedScene" uid="uid://bwsd80t2eestl" path="res://Scenes/Utils/FloorSwitchTrigger.tscn" id="7_e82hj"]
+[ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_h8bqi"]
+[ext_resource type="Texture2D" uid="uid://chusssai7kdnn" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Floors_16x16.png" id="2_w10v5"]
+[ext_resource type="Texture2D" uid="uid://cimtcf5dqhkjm" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Walls_16x16.png" id="3_3bdhl"]
+[ext_resource type="Texture2D" uid="uid://b50v7gv5ql3oy" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_borders_16x16.png" id="4_elncx"]
+[ext_resource type="Texture2D" uid="uid://dnnlyny7pxpmv" path="res://Sprites/modern_interiors/1_Interiors/Theme_Sorter/17_Visibile_Upstairs_System_16x16.png" id="5_wivhp"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ln2ie"]
-texture = ExtResource("1_mcsd4")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l45oq"]
+texture = ExtResource("2_w10v5")
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
@@ -444,8 +441,8 @@ texture = ExtResource("1_mcsd4")
 13:37/0 = 0
 14:37/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s2k6h"]
-texture = ExtResource("2_e82hj")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwn02"]
+texture = ExtResource("3_3bdhl")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -1419,8 +1416,8 @@ texture = ExtResource("2_e82hj")
 19:37/0 = 0
 20:37/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_00y3c"]
-texture = ExtResource("3_n12wo")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p7y00"]
+texture = ExtResource("4_elncx")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -1669,8 +1666,8 @@ texture = ExtResource("3_n12wo")
 18:8/0 = 0
 20:8/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kpb41"]
-texture = ExtResource("4_133s6")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5jj3b"]
+texture = ExtResource("5_wivhp")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -1991,52 +1988,22 @@ texture = ExtResource("4_133s6")
 1:26/0 = 0
 2:26/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_dmim5"]
-sources/0 = SubResource("TileSetAtlasSource_ln2ie")
-sources/3 = SubResource("TileSetAtlasSource_s2k6h")
-sources/4 = SubResource("TileSetAtlasSource_00y3c")
-sources/6 = SubResource("TileSetAtlasSource_kpb41")
+[sub_resource type="TileSet" id="TileSet_s271m"]
+sources/0 = SubResource("TileSetAtlasSource_l45oq")
+sources/3 = SubResource("TileSetAtlasSource_bwn02")
+sources/4 = SubResource("TileSetAtlasSource_p7y00")
+sources/6 = SubResource("TileSetAtlasSource_5jj3b")
 
-[node name="Node2D" type="Node2D"]
+[node name="PthHouseFloor1" type="Node2D"]
+script = ExtResource("1_h8bqi")
+metadata/_custom_type_script = "uid://6cxc3robrc38"
 
-[node name="Envrionment" type="Node2D" parent="."]
-
-[node name="Floor2" parent="Envrionment" instance=ExtResource("1_n12wo")]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="Envrionment/Floor2"]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD7//v/AAAFAA0AAAD7//z/AAAFAA0AAAD7//3/AAAFAA0AAAD7//7/AAAFAA0AAAD7////AAAFAA0AAAD7/wAAAAAFAA0AAAD7/wEAAAAFAA0AAAD7/wIAAAAFAA0AAAD7/wMAAAAFAA0AAAD8//v/AAAFAA0AAAD8//z/AAAFAA0AAAD8//3/AAAFAA0AAAD8//7/AAAFAA0AAAD8////AAAFAA0AAAD8/wAAAAAFAA0AAAD8/wEAAAAFAA0AAAD8/wIAAAAFAA0AAAD8/wMAAAAFAA0AAAD9//v/AAAFAA0AAAD9//z/AAAFAA0AAAD9//3/AAAFAA0AAAD9//7/AAAFAA0AAAD9////AAAFAA0AAAD9/wAAAAAFAA0AAAD9/wEAAAAFAA0AAAD9/wIAAAAFAA0AAAD9/wMAAAAFAA0AAAD+//v/AAAFAA0AAAD+//z/AAAFAA0AAAD+//3/AAAFAA0AAAD+//7/AAAFAA0AAAD+////AAAFAA0AAAD+/wAAAAAFAA0AAAD+/wEAAAAFAA0AAAD+/wIAAAAFAA0AAAD+/wMAAAAFAA0AAAD///v/AAAFAA0AAAD///z/AAAFAA0AAAD///3/AAAFAA0AAAD///7/AAAFAA0AAAD/////AAAFAA0AAAD//wAAAAAFAA0AAAD//wEAAAAFAA0AAAD//wIAAAAFAA0AAAD//wMAAAAFAA0AAAAAAPv/AAAFAA0AAAAAAPz/AAAFAA0AAAAAAP3/AAAFAA0AAAAAAP7/AAAFAA0AAAAAAP//AAAFAA0AAAAAAAAAAAAFAA0AAAAAAAEAAAAFAA0AAAAAAAIAAAAFAA0AAAAAAAMAAAAFAA0AAAABAPv/AAAFAA0AAAABAPz/AAAFAA0AAAABAP3/AAAFAA0AAAABAP7/AAAFAA0AAAABAP//AAAFAA0AAAABAAAAAAAFAA0AAAABAAEAAAAFAA0AAAABAAIAAAAFAA0AAAABAAMAAAAFAA0AAAACAPv/AAAFAA0AAAACAPz/AAAFAA0AAAACAP3/AAAFAA0AAAACAP7/AAAFAA0AAAACAP//AAAFAA0AAAACAAAAAAAFAA0AAAACAAEAAAAFAA0AAAACAAIAAAAFAA0AAAACAAMAAAAFAA0AAAADAPv/AAAFAA0AAAADAPz/AAAFAA0AAAADAP3/AAAFAA0AAAADAP7/AAAFAA0AAAADAP//AAAFAA0AAAADAAAAAAAFAA0AAAADAAEAAAAFAA0AAAADAAIAAAAFAA0AAAADAAMAAAAFAA0AAAAEAPv/AAAFAA0AAAAEAPz/AAAFAA0AAAAEAP3/AAAFAA0AAAAEAP7/AAAFAA0AAAAEAP//AAAFAA0AAAAEAAAAAAAFAA0AAAAEAAEAAAAFAA0AAAAEAAIAAAAFAA0AAAAEAAMAAAAFAA0AAAD7//r/AwATABMAAAD8//r/AwATABMAAAD9//r/AwATABMAAAD+//r/AwATABMAAAD///r/AwATABMAAAAAAPr/AwATABMAAAABAPr/AwATABMAAAACAPr/AwATABMAAAADAPr/AwATABMAAAAEAPr/AwATABMAAAD7//n/AwAQABIAAAD8//n/AwAQABIAAAD9//n/AwAQABIAAAD+//n/AwAQABIAAAD///n/AwAQABIAAAAAAPn/AwAQABIAAAABAPn/AwAQABIAAAACAPn/AwAQABIAAAADAPn/AwAQABIAAAAEAPn/AwAQABIAAAD7//j/BAARAAQAAAD8//j/BAARAAQAAAD9//j/BAARAAQAAAD+//j/BAARAAQAAAD///j/BAARAAQAAAAAAPj/BAARAAQAAAABAPj/BAARAAQAAAACAPj/BAARAAQAAAADAPj/BAARAAQAAAAEAPj/BAARAAQAAAD6//n/BAAOAAUAAAD6//r/BAAOAAUAAAD6//v/BAAOAAUAAAD6//z/BAAOAAUAAAD6//3/BAAOAAUAAAD6//7/BAAOAAUAAAD6////BAAOAAUAAAD6/wAABAAOAAUAAAD6/wEABAAOAAUAAAD6/wIABAAOAAUAAAD6/wMABAAOAAUAAAAFAPn/BAANAAUAAAAFAPr/BAANAAUAAAAFAPv/BAANAAUAAAAFAPz/BAANAAUAAAAFAP3/BAANAAUAAAAFAP7/BAANAAUAAAAFAP//BAANAAUAAAAFAAAABAANAAUAAAAFAAEABAANAAUAAAAFAAIABAANAAUAAAAFAAMABAANAAUAAAA=")
-tile_set = SubResource("TileSet_dmim5")
+tile_set = SubResource("TileSet_s271m")
 
-[node name="TileMapLayer2" type="TileMapLayer" parent="Envrionment/Floor2"]
-position = Vector2(1, -1)
+[node name="TileMapLayer2" type="TileMapLayer" parent="."]
+position = Vector2(-106, -50)
+rotation = -1.56742
 tile_map_data = PackedByteArray("AAD7/wMABgABABQAAAD7/wIABgABABMAAAD8/wMABgACABQAAAD8/wIABgACABMAAAD8/wEABgACABIAAAD7/wEABgABABIAAAA=")
-tile_set = SubResource("TileSet_dmim5")
-
-[node name="Player" parent="Envrionment/Floor2" instance=ExtResource("5_ae04p")]
-speed = 100
-
-[node name="Camera" parent="Envrionment/Floor2" node_paths=PackedStringArray("target") instance=ExtResource("6_i1vcg")]
-target = NodePath("../Player")
-
-[node name="FloorSwitchTrigger" parent="Envrionment/Floor2" node_paths=PackedStringArray("target_floor", "hide_floors") instance=ExtResource("7_e82hj")]
-position = Vector2(-69, 58)
-scale = Vector2(1.28, 0.68)
-target_floor = NodePath("../../Floor1")
-hide_floors = [NodePath("..")]
-
-[node name="Floor1" parent="Envrionment" instance=ExtResource("1_n12wo")]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="Envrionment/Floor1"]
-tile_map_data = PackedByteArray("AAD7//v/AAAFAA0AAAD7//z/AAAFAA0AAAD7//3/AAAFAA0AAAD7//7/AAAFAA0AAAD7////AAAFAA0AAAD7/wAAAAAFAA0AAAD7/wEAAAAFAA0AAAD7/wIAAAAFAA0AAAD7/wMAAAAFAA0AAAD8//v/AAAFAA0AAAD8//z/AAAFAA0AAAD8//3/AAAFAA0AAAD8//7/AAAFAA0AAAD8////AAAFAA0AAAD8/wAAAAAFAA0AAAD8/wEAAAAFAA0AAAD8/wIAAAAFAA0AAAD8/wMAAAAFAA0AAAD9//v/AAAFAA0AAAD9//z/AAAFAA0AAAD9//3/AAAFAA0AAAD9//7/AAAFAA0AAAD9////AAAFAA0AAAD9/wAAAAAFAA0AAAD9/wEAAAAFAA0AAAD9/wIAAAAFAA0AAAD9/wMAAAAFAA0AAAD+//v/AAAFAA0AAAD+//z/AAAFAA0AAAD+//3/AAAFAA0AAAD+//7/AAAFAA0AAAD+////AAAFAA0AAAD+/wAAAAAFAA0AAAD+/wEAAAAFAA0AAAD+/wIAAAAFAA0AAAD+/wMAAAAFAA0AAAD///v/AAAFAA0AAAD///z/AAAFAA0AAAD///3/AAAFAA0AAAD///7/AAAFAA0AAAD/////AAAFAA0AAAD//wAAAAAFAA0AAAD//wEAAAAFAA0AAAD//wIAAAAFAA0AAAD//wMAAAAFAA0AAAAAAPv/AAAFAA0AAAAAAPz/AAAFAA0AAAAAAP3/AAAFAA0AAAAAAP7/AAAFAA0AAAAAAP//AAAFAA0AAAAAAAAAAAAFAA0AAAAAAAEAAAAFAA0AAAAAAAIAAAAFAA0AAAAAAAMAAAAFAA0AAAABAPv/AAAFAA0AAAABAPz/AAAFAA0AAAABAP3/AAAFAA0AAAABAP7/AAAFAA0AAAABAP//AAAFAA0AAAABAAAAAAAFAA0AAAABAAEAAAAFAA0AAAABAAIAAAAFAA0AAAABAAMAAAAFAA0AAAACAPv/AAAFAA0AAAACAPz/AAAFAA0AAAACAP3/AAAFAA0AAAACAP7/AAAFAA0AAAACAP//AAAFAA0AAAACAAAAAAAFAA0AAAACAAEAAAAFAA0AAAACAAIAAAAFAA0AAAACAAMAAAAFAA0AAAADAPv/AAAFAA0AAAADAPz/AAAFAA0AAAADAP3/AAAFAA0AAAADAP7/AAAFAA0AAAADAP//AAAFAA0AAAADAAAAAAAFAA0AAAADAAEAAAAFAA0AAAADAAIAAAAFAA0AAAADAAMAAAAFAA0AAAAEAPv/AAAFAA0AAAAEAPz/AAAFAA0AAAAEAP3/AAAFAA0AAAAEAP7/AAAFAA0AAAAEAP//AAAFAA0AAAAEAAAAAAAFAA0AAAAEAAEAAAAFAA0AAAAEAAIAAAAFAA0AAAAEAAMAAAAFAA0AAAD7//r/AwATABMAAAD8//r/AwATABMAAAD9//r/AwATABMAAAD+//r/AwATABMAAAD///r/AwATABMAAAAAAPr/AwATABMAAAABAPr/AwATABMAAAACAPr/AwATABMAAAADAPr/AwATABMAAAAEAPr/AwATABMAAAD7//n/AwAQABIAAAD8//n/AwAQABIAAAD9//n/AwAQABIAAAD+//n/AwAQABIAAAD///n/AwAQABIAAAAAAPn/AwAQABIAAAABAPn/AwAQABIAAAACAPn/AwAQABIAAAADAPn/AwAQABIAAAAEAPn/AwAQABIAAAD7//j/BAARAAQAAAD8//j/BAARAAQAAAD9//j/BAARAAQAAAD+//j/BAARAAQAAAD///j/BAARAAQAAAAAAPj/BAARAAQAAAABAPj/BAARAAQAAAACAPj/BAARAAQAAAADAPj/BAARAAQAAAAEAPj/BAARAAQAAAD6//n/BAAOAAUAAAD6//r/BAAOAAUAAAD6//v/BAAOAAUAAAD6//z/BAAOAAUAAAD6//3/BAAOAAUAAAD6//7/BAAOAAUAAAD6////BAAOAAUAAAD6/wAABAAOAAUAAAD6/wEABAAOAAUAAAD6/wIABAAOAAUAAAD6/wMABAAOAAUAAAAFAPn/BAANAAUAAAAFAPr/BAANAAUAAAAFAPv/BAANAAUAAAAFAPz/BAANAAUAAAAFAP3/BAANAAUAAAAFAP7/BAANAAUAAAAFAP//BAANAAUAAAAFAAAABAANAAUAAAAFAAEABAANAAUAAAAFAAIABAANAAUAAAAFAAMABAANAAUAAAA=")
-tile_set = SubResource("TileSet_dmim5")
-
-[node name="TileMapLayer2" type="TileMapLayer" parent="Envrionment/Floor1"]
-position = Vector2(0, -12)
-tile_map_data = PackedByteArray("AAD7/wMABgABABQAAAD7/wIABgABABMAAAD8/wMABgACABQAAAD8/wIABgACABMAAAD8/wEABgACABIAAAD7/wEABgABABIAAAA=")
-tile_set = SubResource("TileSet_dmim5")
-
-[node name="FloorSwitchTrigger" parent="Envrionment/Floor1" node_paths=PackedStringArray("target_floor", "hide_floors") instance=ExtResource("7_e82hj")]
-position = Vector2(-70, 22)
-scale = Vector2(1.2, 0.8)
-target_floor = NodePath("../../Floor2")
-hide_floors = [NodePath("..")]
+tile_set = SubResource("TileSet_s271m")
