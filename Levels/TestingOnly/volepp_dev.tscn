@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="3_x8k8t"]
 [ext_resource type="Texture2D" uid="uid://ckkeq8es56x3u" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Clutter.png" id="4_arfya"]
 [ext_resource type="AudioStream" uid="uid://dfnewyb3rx2ts" path="res://Audio/ZangarmarshAmbience.wav" id="6_lf58o"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="7_132ah"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="7_132ah"]
 [ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="8_85wvh"]
 [ext_resource type="PackedScene" uid="uid://bnvhvtgb7ef3i" path="res://Scenes/Utils/Interactor.tscn" id="8_x8k8t"]
 [ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="9_ndbdv"]
