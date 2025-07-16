@@ -15,9 +15,6 @@
 [node name="Player" parent="Envrionment/PtgHouseFloor2" instance=ExtResource("2_80i4i")]
 speed = 100
 
-[node name="Camera" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("target") instance=ExtResource("3_l2nqf")]
-target = NodePath("../Player")
-
 [node name="FloorSwitchTrigger" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("4_ok3gh")]
 position = Vector2(-72, 32)
 scale = Vector2(1, 2.04)
@@ -33,3 +30,6 @@ position = Vector2(-72, 20)
 scale = Vector2(0.760001, 1.4)
 floor_to_activate = NodePath("../../PtgHouseFloor2")
 floors_to_deactivate = [NodePath("..")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_l2nqf")]
+target = NodePath("../Envrionment/PtgHouseFloor2/Player")
