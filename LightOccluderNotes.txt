@@ -1,0 +1,6 @@
+problem:
+	Light occluder as a child of sprite casts shadows on the sprite itself, not just behind it
+solution:
+	Light occluder -> Show behind parent = true
+	Sprite visibility only on layer 2 
+	Light cull mask on 1 and 2 

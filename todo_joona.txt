@@ -1,4 +1,9 @@
 - experiment with lighting in ptg room
-
+    - Add zoom to camera (zoom with mouse scroll)
+    - remove player from room before commit
+    - Make shadows softer by default
+    - setup desk lamp light 
+    - setup window light 
+        - experiment with pixelated light textures in aseprite
 -------Milestones
 Prologue
