@@ -1,4 +1,3 @@
-- Setup mass y sorting for common tilesheets
 - experiment with lighting in ptg room
 
 -------Milestones
