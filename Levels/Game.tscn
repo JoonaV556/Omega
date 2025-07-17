@@ -51,11 +51,12 @@ tile_set = ExtResource("3_n3tvm")
 
 [node name="Player" parent="Environment" instance=ExtResource("5_dygi0")]
 position = Vector2(592, 336)
-speed = 100
 
-[node name="Camera" parent="Environment" node_paths=PackedStringArray("target") instance=ExtResource("6_n3tvm")]
+[node name="Camera" parent="Environment" instance=ExtResource("6_n3tvm")]
 position = Vector2(584, 336)
-target = NodePath("../Player")
+
+[node name="FollowTarget" parent="Environment/Camera" index="1" node_paths=PackedStringArray("target")]
+target = NodePath("../../Player")
 
 [node name="Box" type="StaticBody2D" parent="Environment"]
 position = Vector2(560, 352)
@@ -84,3 +85,4 @@ position = Vector2(23, -3.5)
 shape = SubResource("RectangleShape2D_n3tvm")
 
 [editable path="PauseMenu"]
+[editable path="Environment/Camera"]
