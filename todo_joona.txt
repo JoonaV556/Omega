@@ -1,6 +1,12 @@
 - experiment with lighting in ptg room
     - setup window light 
         - experiment with pixelated light textures in aseprite
+            - pixelated radial gradient
+            - pixelated cone gradient
+                - 180   deg
+                - 90    deg
+                - 30    deg
+            - 130 degree gradient with flat window source
     - Make shadows softer by default
         - create default scene for 2d point lights
 -------Milestones
