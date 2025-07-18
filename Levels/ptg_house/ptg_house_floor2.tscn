@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=7 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
 [ext_resource type="TileSet" uid="uid://uwrp4j1iwm8k" path="res://TileSets/TileSet_Collision.tres" id="3_7c4bt"]
 [ext_resource type="Texture2D" uid="uid://birp5xiwc2cfd" path="res://Sprites/GradientRadial.png" id="4_yi3cj"]
 [ext_resource type="Texture2D" uid="uid://c4koksuc515ta" path="res://Sprites/light_gradients/radial_gradient_window_4_64x64.png" id="5_0gj7a"]
+
+[sub_resource type="Environment" id="Environment_0gj7a"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.16
+adjustment_enabled = true
+adjustment_saturation = 1.2
 
 [node name="PtgHouseFloor2" type="Node2D"]
 script = ExtResource("1_kfulq")
@@ -65,5 +72,8 @@ shadow_filter_smooth = 0.9
 texture = ExtResource("5_0gj7a")
 texture_scale = 3.8
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate (Lighting)" type="CanvasModulate" parent="."]
 color = Color(0.36, 0.36, 0.36, 1)
+
+[node name="WorldEnvironment (Post-processing)" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0gj7a")
