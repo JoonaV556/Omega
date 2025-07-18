@@ -1,7 +1,3 @@
-- create default scene for 2d point lights
-    - white simple gradient
-    - layers correct
-    - size 4x4m
 - Setup intro mood with ambient sounds
     - pc humming
     - gay music?
