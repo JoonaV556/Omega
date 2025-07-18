@@ -1,6 +1,12 @@
 - Setup intro mood with ambient sounds
     - pc humming
     - gay music?
+
 - add player footstep sounds
+
+- Effects volume level scales with camera zoom
 -------Milestones
 Prologue
+
+DONT FORGET ----------
+- Add credits for attributed asset devs 

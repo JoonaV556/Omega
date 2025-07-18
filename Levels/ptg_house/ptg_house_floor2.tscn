@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=11 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
 [ext_resource type="TileSet" uid="uid://uwrp4j1iwm8k" path="res://TileSets/TileSet_Collision.tres" id="3_7c4bt"]
 [ext_resource type="Texture2D" uid="uid://birp5xiwc2cfd" path="res://Sprites/GradientRadial.png" id="4_yi3cj"]
 [ext_resource type="Texture2D" uid="uid://c4koksuc515ta" path="res://Sprites/light_gradients/radial_gradient_window_4_64x64.png" id="5_0gj7a"]
+[ext_resource type="AudioStream" uid="uid://f7xqcau561ua" path="res://Audio/room-tone_smallroom_1.wav" id="6_2q6lk"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="6_3q28v"]
+[ext_resource type="AudioStream" uid="uid://binbnr6okjje" path="res://Audio/computer_humm_loop.wav" id="6_o6eow"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="7_o6eow"]
 
 [sub_resource type="Environment" id="Environment_0gj7a"]
 background_mode = 3
@@ -77,3 +81,28 @@ color = Color(0.36, 0.36, 0.36, 1)
 
 [node name="WorldEnvironment (Post-processing)" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0gj7a")
+
+[node name="AudioStreamPlayer_room_tune" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2q6lk")
+volume_db = -6.0
+autoplay = true
+bus = &"Effects"
+
+[node name="AudioStreamPlayer2D_computer_humm" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(71, -64)
+stream = ExtResource("6_o6eow")
+volume_db = -16.0
+autoplay = true
+max_distance = 150.0
+attenuation = 2.0
+panning_strength = 2.0
+bus = &"Effects"
+
+[node name="Player" parent="." instance=ExtResource("6_3q28v")]
+
+[node name="Camera" parent="." instance=ExtResource("7_o6eow")]
+
+[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+target = NodePath("../../Player")
+
+[editable path="Camera"]

@@ -15,3 +15,6 @@ camera = NodePath("..")
 [node name="FollowTarget" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("2_f1cf7")
 camera = NodePath("..")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
