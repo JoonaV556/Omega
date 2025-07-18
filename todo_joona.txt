@@ -1,6 +1,6 @@
-- experiment with lighting in ptg room
-    - setup window light 
-    - Make shadows softer by default
-        - create default scene for 2d point lights
+- create default scene for 2d point lights
+- Setup intro mood with ambient sounds
+    - pc humming
+    - gay music?
 -------Milestones
 Prologue

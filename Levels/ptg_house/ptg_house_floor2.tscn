@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=6 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
 [ext_resource type="TileSet" uid="uid://uwrp4j1iwm8k" path="res://TileSets/TileSet_Collision.tres" id="3_7c4bt"]
 [ext_resource type="Texture2D" uid="uid://birp5xiwc2cfd" path="res://Sprites/GradientRadial.png" id="4_yi3cj"]
+[ext_resource type="Texture2D" uid="uid://c4koksuc515ta" path="res://Sprites/light_gradients/radial_gradient_window_4_64x64.png" id="5_0gj7a"]
 
 [node name="PtgHouseFloor2" type="Node2D"]
 script = ExtResource("1_kfulq")
@@ -46,13 +47,23 @@ tile_set = ExtResource("3_7c4bt")
 texture_filter = 1
 position = Vector2(86, -57)
 color = Color(1, 0.976, 0.64, 1)
-energy = 1.3
 range_item_cull_mask = 3
 shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 10.0
 texture = ExtResource("4_yi3cj")
-texture_scale = 0.37
+texture_scale = 0.2
+
+[node name="PointLight2D_window_light" type="PointLight2D" parent="Envrionment"]
+texture_filter = 1
+position = Vector2(8, -101)
+energy = 1.3
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 0.9
+texture = ExtResource("5_0gj7a")
+texture_scale = 3.8
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.359069, 0.359069, 0.359069, 1)
+color = Color(0.36, 0.36, 0.36, 1)
