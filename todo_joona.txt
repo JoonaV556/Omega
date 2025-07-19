@@ -1,10 +1,16 @@
-- Setup intro mood with ambient sounds
-    - pc humming
-    - gay music?
+- generic male body
+    - walking animation
+
+- player sprite
+- player walking animation
+- player breathing animation
 
 - add player footstep sounds
 
 - Effects volume level scales with camera zoom
+
+- Compile prologue script into a implementable gameplay script
+
 -------Milestones
 Prologue
 

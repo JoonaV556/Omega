@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=9 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
@@ -6,9 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://birp5xiwc2cfd" path="res://Sprites/GradientRadial.png" id="4_yi3cj"]
 [ext_resource type="Texture2D" uid="uid://c4koksuc515ta" path="res://Sprites/light_gradients/radial_gradient_window_4_64x64.png" id="5_0gj7a"]
 [ext_resource type="AudioStream" uid="uid://f7xqcau561ua" path="res://Audio/room-tone_smallroom_1.wav" id="6_2q6lk"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="6_3q28v"]
 [ext_resource type="AudioStream" uid="uid://binbnr6okjje" path="res://Audio/computer_humm_loop.wav" id="6_o6eow"]
-[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="7_o6eow"]
 
 [sub_resource type="Environment" id="Environment_0gj7a"]
 background_mode = 3
@@ -68,7 +66,6 @@ texture_scale = 0.2
 [node name="PointLight2D_window_light" type="PointLight2D" parent="Envrionment"]
 texture_filter = 1
 position = Vector2(8, -101)
-energy = 1.3
 range_item_cull_mask = 3
 shadow_enabled = true
 shadow_filter = 1
@@ -91,18 +88,9 @@ bus = &"Effects"
 [node name="AudioStreamPlayer2D_computer_humm" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(71, -64)
 stream = ExtResource("6_o6eow")
-volume_db = -16.0
+volume_db = -12.0
 autoplay = true
 max_distance = 150.0
 attenuation = 2.0
 panning_strength = 2.0
 bus = &"Effects"
-
-[node name="Player" parent="." instance=ExtResource("6_3q28v")]
-
-[node name="Camera" parent="." instance=ExtResource("7_o6eow")]
-
-[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
-target = NodePath("../../Player")
-
-[editable path="Camera"]
