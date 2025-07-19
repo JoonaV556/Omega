@@ -6,7 +6,7 @@
 [node name="Camera" type="Camera2D"]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
-position_smoothing_speed = 2.5
+position_smoothing_speed = 4.0
 
 [node name="Zoom" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("1_375tr")
