@@ -1,9 +1,8 @@
-- generic male body
-    - walking animation
-
-- player sprite
-- player walking animation
-- player breathing animation
+- draw male base breathing animation
+- Setup sprites in godot 
+    - player sprite
+    - player walking animation
+    - player breathing animation
 
 - add player footstep sounds
 
@@ -11,8 +10,8 @@
 
 - Compile prologue script into a implementable gameplay script
 
--------Milestones
+------------Milestones
 Prologue
 
-DONT FORGET ----------
+------------DONT FORGET 
 - Add credits for attributed asset devs 

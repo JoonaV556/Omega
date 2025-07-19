@@ -1,0 +1,6 @@
+Y-sorting 
+
+1. setup y sort origin points on tilesets - usually sprite bottom edge
+2. disable y-sort on character sprites and character parent nodes
+
+3. enable y-sorting on level root node - of which all other childs like player and tilemaps are childs of 
