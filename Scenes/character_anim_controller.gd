@@ -8,8 +8,6 @@ func _process(delta: float) -> void:
 		return
 	var velocity = character_body.get_real_velocity()
 	var magnitude = velocity.length()
-	print("Velocity: " + str(velocity))
-	print("Velocity magnitude: " + str(magnitude))
 	var moving = magnitude > 1.0
 	#up
 	if (velocity.x > -1.0 and velocity.x < 1.0) and velocity.y < -98.0:

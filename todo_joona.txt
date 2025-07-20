@@ -1,10 +1,6 @@
-- draw male base breathing animation
-- Setup sprites in godot 
-    - player sprite
-    - player walking animation
-    - player breathing animation
-
 - add player footstep sounds
+
+- create actual player sprite
 
 - Effects volume level scales with camera zoom
 
