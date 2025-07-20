@@ -1,4 +1,7 @@
 - add player footstep sounds
+    - find good footstep sounds
+    - setup audio node 
+    - write script
 
 - create actual player sprite
 

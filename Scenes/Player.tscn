@@ -1,8 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://chtck7hchxyj1"]
+[gd_scene load_steps=33 format=3 uid="uid://chtck7hchxyj1"]
 
 [ext_resource type="Script" uid="uid://cvq6trp7fbysb" path="res://Scripts/character_mover.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://eeqf7eoigppm" path="res://Sprites/male_base_spritesheet.png" id="2_kyqiw"]
-[ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Scenes/character_anim_controller.gd" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Scripts/character_anim_controller.gd" id="3_gntrk"]
+[ext_resource type="AudioStream" uid="uid://b4w5t8biy75ik" path="res://Audio/footstep.wav" id="4_5ixxa"]
+[ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Scripts/footsteps_sfx_controller.gd" id="4_dewec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ixxa"]
 atlas = ExtResource("2_kyqiw")
@@ -245,3 +247,15 @@ occluder = SubResource("OccluderPolygon2D_kyqiw")
 position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jr1ro")
+
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("animsprite")]
+stream = ExtResource("4_5ixxa")
+volume_db = -8.0
+pitch_scale = 1.3
+max_distance = 400.0
+attenuation = 2.0
+script = ExtResource("4_dewec")
+animsprite = NodePath("../AnimatedSprite2D")
+footstep_frames = Array[int]([1, 3])
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]

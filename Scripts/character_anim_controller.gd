@@ -1,4 +1,6 @@
 extends AnimatedSprite2D
+# Controls character sprite animations by reading the state of CharacterBody2D
+
 @export var character_body: CharacterBody2D
 enum look_dir {down, up, left, right}
 var current_look_dir = look_dir.down
