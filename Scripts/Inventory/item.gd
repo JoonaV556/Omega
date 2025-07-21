@@ -10,3 +10,6 @@ func _ready():
 		push_warning("Item ", self, " does not have an icon")
 	else: 
 		$Icon.texture = icon
+
+func set_icon(new_icon: Texture2D):
+	icon = new_icon

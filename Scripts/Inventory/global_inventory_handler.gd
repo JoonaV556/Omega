@@ -11,5 +11,5 @@ func _ready():
 	single_inventory_view.hide()
 	
 func open_single_inventory(inventory: Inventory):
-	single_inventory_view.set_inventory(inventory)
+	single_inventory_view.load_inventory(inventory)
 	single_inventory_view.show()

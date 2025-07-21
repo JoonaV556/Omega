@@ -1,6 +1,9 @@
 class_name Player
 extends Character
 
+const BeachBall = preload("res://Scenes/Inventory/Items/BeachBall.tscn")
+const Shell = preload("res://Scenes/Inventory/Items/Shell.tscn")
+
 @export var speed = 400
 
 var inventory: Inventory

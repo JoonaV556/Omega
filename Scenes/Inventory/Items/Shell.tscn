@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://rijhr3smljka"]
+
+[ext_resource type="Texture2D" uid="uid://duiaaoqq2p50t" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_Brown_Shell_2_Vers_1.png" id="2_s511x"]
+
+[sub_resource type="GDScript" id="GDScript_yuoq4"]
+script/source = "class_name Shell
+extends Item
+"
+
+[node name="Shell" type="Node2D"]
+script = SubResource("GDScript_yuoq4")
+item_name = "Shell"
+icon = ExtResource("2_s511x")
+max_stack = 100
+metadata/_custom_type_script = "uid://bjeovvayb0kwg"
