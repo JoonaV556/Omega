@@ -1,16 +1,11 @@
-- add player footstep sounds
-    - find good footstep sounds
-    - setup audio node 
-    - write script
-
-- create actual player sprite
-
-- Effects volume level scales with camera zoom
-
 - Compile prologue script into a implementable gameplay script
 
-------------Milestones
+------------ Milestones
 Prologue
 
-------------DONT FORGET 
+------------ Nice To HAve
+- SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
+
+
+------------ DONT FORGET 
 - Add credits for attributed asset devs 
