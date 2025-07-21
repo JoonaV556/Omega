@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://boadhvwpk0i80" path="res://Scenes/PauseMenu_ui_overlay.tscn" id="2_xkndl"]
 [ext_resource type="TileSet" uid="uid://dv3lks3c2q17y" path="res://TileSets/SmallClutter.tres" id="3_n3tvm"]
 [ext_resource type="Script" uid="uid://eb172fc3t1cc" path="res://Scripts/togglePauseMenu.gd" id="3_u44n3"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="5_dygi0"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="5_dygi0"]
 [ext_resource type="AudioStream" uid="uid://dfnewyb3rx2ts" path="res://Audio/ZangarmarshAmbience.wav" id="5_jr1ro"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="6_n3tvm"]
 [ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="7_d5jmm"]
@@ -51,7 +51,6 @@ tile_set = ExtResource("3_n3tvm")
 
 [node name="Player" parent="Environment" instance=ExtResource("5_dygi0")]
 position = Vector2(592, 336)
-speed = 100
 
 [node name="Camera" parent="Environment" node_paths=PackedStringArray("target") instance=ExtResource("6_n3tvm")]
 position = Vector2(584, 336)
