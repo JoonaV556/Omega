@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=14 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bvnbr2vdatyno" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Pier_Clothes_4.png" id="5_8ppwh"]
 [ext_resource type="AudioStream" uid="uid://f7xqcau561ua" path="res://Audio/room-tone_smallroom_1.wav" id="6_2q6lk"]
 [ext_resource type="AudioStream" uid="uid://binbnr6okjje" path="res://Audio/computer_humm_loop.wav" id="6_o6eow"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="11_axn5c"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="12_8ppwh"]
 
 [sub_resource type="Environment" id="Environment_0gj7a"]
 background_mode = 3
@@ -121,3 +123,14 @@ max_distance = 150.0
 attenuation = 2.0
 panning_strength = 2.0
 bus = &"Effects"
+
+[node name="Player" parent="." instance=ExtResource("11_axn5c")]
+position = Vector2(10, -17)
+
+[node name="Camera" parent="." instance=ExtResource("12_8ppwh")]
+position = Vector2(7, -11)
+
+[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+target = NodePath("../../Player")
+
+[editable path="Camera"]
