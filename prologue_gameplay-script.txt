@@ -1,0 +1,14 @@
+- Intro Cut-Scene
+    - Close-up on alarm clock near PTG's bed on left side of room.
+    - Alarm clock rings violently 
+    - Camera moves across room from bed on the left towards right side.
+        - During camera movement, some items are displayed:
+            - A white drawing board:
+                - Rough map of the island is drawn on the board
+                - Red circles highlight various points around the island
+                - Small descriptions of various events are written around the highlighted pooints
+            - A window, showing a grand overlooking view over the inner city and suburbs. 
+            Behind the city, large towering walls covering a research district are visible high up on the mountain.
+            Some high-rise office buildings are visible over the walls.
+            On the left side of the city, a small section of ocean coastline is visible.
+            Long piers of a marine harbor stretch to some lenght along the coastline.
