@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=12 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
@@ -10,8 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bvnbr2vdatyno" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Pier_Clothes_4.png" id="5_8ppwh"]
 [ext_resource type="AudioStream" uid="uid://f7xqcau561ua" path="res://Audio/room-tone_smallroom_1.wav" id="6_2q6lk"]
 [ext_resource type="AudioStream" uid="uid://binbnr6okjje" path="res://Audio/computer_humm_loop.wav" id="6_o6eow"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="11_axn5c"]
-[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="12_8ppwh"]
 
 [sub_resource type="Environment" id="Environment_0gj7a"]
 background_mode = 3
@@ -40,24 +38,27 @@ tile_set = ExtResource("2_f6w1b")
 
 [node name="TileMapLayer_Background_Clutter" type="TileMapLayer" parent="Envrionment"]
 z_index = -2
-tile_map_data = PackedByteArray("AAACAAEAAgAFABMAAAACAAIAAgAFABQAAAAEAAAAAgAMACkAAAAFAAAAAgANACkAAAD8//r/AgAAACkAAAD8//v/AgAAACoAAAD8//z/AgAAACsAAAACAP3/AgAOAB8AAAA=")
+tile_map_data = PackedByteArray("AAACAAEAAgAFABMAAAACAAIAAgAFABQAAAAEAAAAAgAMACkAAAAFAAAAAgANACkAAAACAP3/AgAOAB8AAAA=")
 tile_set = ExtResource("3_axn5c")
 
 [node name="Sprite2D_Waifu" type="Sprite2D" parent="Envrionment"]
 z_index = -1
 texture_filter = 1
-position = Vector2(79, -89)
+position = Vector2(-96, -90)
 texture = ExtResource("3_o6eow")
 
 [node name="TileMapLayer_Props1" type="TileMapLayer" parent="Envrionment"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD///n/AQAAAEsAAAD///r/AQAAAEwAAAAAAPn/AQABAEsAAAABAPn/AQACAEsAAAABAPr/AQACAEwAAAABAPv/AQACAB8AAAACAPv/AQACAB8AAAACAPz/AQACACAAAAADAPz/AQABACAAAAD///v/AwAEABQAAAD///z/AwAEABUAAAABAPz/AQACACAAAAD9//v/AwACABQAAAD9//z/AwACABUAAAD+//v/AwADABQAAAD+//z/AwADABUAAAAAAPr/AQABAEwAAAAAAPv/AQAAAB8AAAACAPn/AgACAA0AAAACAPr/AgACAA4AAAADAPn/AgADAA0AAAD9//3/AwACABYAAAD+//3/AwADABYAAAAAAPz/AQAAACAAAAAEAPz/AwAAADMAAAAEAPv/AwAAADEAAAAFAP3/AwADACkAAAAFAPz/AwAAADIAAAAFAPv/AwAAADEAAAAFAP7/AwADACoAAAADAPv/AQABAB8AAAADAPr/AgADAA4AAAD5//r/AgAEAEUAAAD5//v/AgAEAEYAAAD5//z/AgAEAEcAAAD6//r/AgAFAEUAAAD6//v/AgAFAEYAAAD6//z/AgAFAEcAAAD7//r/AgAGAEUAAAD7//v/AgAGAEYAAAD7//z/AgAGAEcAAAAEAAEAAQAGACYAAAD+/wEAAgAIADgAAAA=")
+tile_map_data = PackedByteArray("AAD///n/AQAAAEsAAAD///r/AQAAAEwAAAAAAPn/AQABAEsAAAABAPn/AQACAEsAAAABAPr/AQACAEwAAAABAPv/AQACAB8AAAACAPz/AQACACAAAAADAPz/AQABACAAAAD///v/AwAEABQAAAD///z/AwAEABUAAAABAPz/AQACACAAAAD9//v/AwACABQAAAD+//v/AwADABQAAAD+//z/AwADABUAAAAAAPr/AQABAEwAAAAAAPv/AQAAAB8AAAADAPn/AgADAA0AAAD9//3/AwACABYAAAD+//3/AwADABYAAAAAAPz/AQAAACAAAAAEAPz/AwAAADMAAAAEAPv/AwAAADEAAAAFAP3/AwADACkAAAAFAPz/AwAAADIAAAAFAPv/AwAAADEAAAAFAP7/AwADACoAAAADAPv/AQABAB8AAAADAPr/AgADAA4AAAD+/wEAAgAIADgAAAD5//v/AQACADoAAAD6//v/AQADADoAAAD5//z/AQACADsAAAD5//3/AQACADwAAAD6//z/AQADADsAAAD6//3/AQADADwAAAD7//v/AQAHAAoAAAD7//z/AQAHAAsAAAACAPv/AQACAB8AAAACAPr/AgACAA4AAAACAPn/AgACAA0AAAD8//v/AgACADQAAAD8//z/AgACADQAAAD8//3/AgACADUAAAD9//z/AwACABUAAAA=")
 tile_set = ExtResource("2_f6w1b")
 
-[node name="Sprite2D_Waifu2" type="Sprite2D" parent="Envrionment"]
+[node name="Clothes" type="Node2D" parent="Envrionment"]
+position = Vector2(-24, -41)
+
+[node name="Sprite2D_Clothes" type="Sprite2D" parent="Envrionment/Clothes"]
 y_sort_enabled = true
 texture_filter = 1
-position = Vector2(-18, -24)
+position = Vector2(4, 14)
 texture = ExtResource("5_8ppwh")
 
 [node name="TileMapLayer_Props2" type="TileMapLayer" parent="Envrionment"]
@@ -72,13 +73,13 @@ tile_set = ExtResource("2_f6w1b")
 
 [node name="TileMapLayer_Background_Clutter2" type="TileMapLayer" parent="Envrionment"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAACAAEAAgAFABMAAAACAAIAAgAFABQAAAAEAAAAAgAMACkAAAAFAAAAAgANACkAAAD8//r/AgAAACkAAAD8//v/AgAAACoAAAD8//z/AgAAACsAAAACAP3/AgAOAB8AAAAFAP3/AAADACkAAAAEAP//AAACABIAAAAAAPz/AgACADAAAAABAPv/AgADAC8AAAAAAPv/AgACAC8AAAA=")
+tile_map_data = PackedByteArray("AAAEAAAAAgAMACkAAAAFAAAAAgANACkAAAACAP3/AgAOAB8AAAAFAP3/AAADACkAAAAEAP//AAACABIAAAAAAPz/AgACADAAAAABAPv/AgADAC8AAAAAAPv/AgACAC8AAAA=")
 tile_set = ExtResource("3_axn5c")
 
 [node name="TileMapLayer_Collision" type="TileMapLayer" parent="Envrionment"]
 visible = false
 z_index = 1
-tile_map_data = PackedByteArray("AAD4/wMAAAALAAYAAAD5/wMAAAALAAYAAAD6/wMAAAALAAYAAAD7/wMAAAALAAYAAAD8/wMAAAALAAYAAAD9/wMAAAALAAYAAAD+/wMAAAALAAYAAAD//wMAAAALAAYAAAAAAAMAAAALAAYAAAABAAMAAAALAAYAAAACAAMAAAALAAYAAAADAAMAAAALAAYAAAAEAAMAAAALAAYAAAAFAAMAAAALAAYAAAAGAAMAAAALAAYAAAAGAPz/AAALAAYAAAAGAP3/AAALAAYAAAAGAP7/AAALAAYAAAAGAP//AAALAAYAAAAGAAAAAAALAAYAAAAGAAEAAAALAAYAAAAGAAIAAAALAAYAAAD4/wIAAAALAAYAAAD4/wEAAAALAAYAAAD4/wAAAAALAAYAAAD4////AAALAAYAAAD4//7/AAALAAYAAAD4//3/AAALAAYAAAD4//z/AAALAAYAAAD5//z/AAALAAYAAAD6//z/AAALAAYAAAD7//z/AAALAAYAAAD8//3/AAALAAYAAAD9//3/AAALAAYAAAD8//z/AAALAAYAAAD9//z/AAALAAYAAAD+//z/AAALAAYAAAD///z/AAALAAYAAAAAAPz/AAALAAYAAAABAPz/AAALAAYAAAACAPz/AAALAAYAAAADAPz/AAALAAYAAAADAP3/AAALAAYAAAAEAPz/AAALAAYAAAAFAPz/AAALAAYAAAAFAP3/AAALAAYAAAAFAP7/AAALAAYAAAAFAP//AAALAAYAAAD9/wIAAAALAAYAAAD9/wEAAAALAAYAAAD7/wAAAAALAAYAAAD8/wAAAAALAAYAAAD9/wAAAAALAAYAAAA=")
+tile_map_data = PackedByteArray("AAD4/wMAAAALAAYAAAD5/wMAAAALAAYAAAD6/wMAAAALAAYAAAD7/wMAAAALAAYAAAD8/wMAAAALAAYAAAD9/wMAAAALAAYAAAD+/wMAAAALAAYAAAD//wMAAAALAAYAAAAAAAMAAAALAAYAAAABAAMAAAALAAYAAAACAAMAAAALAAYAAAADAAMAAAALAAYAAAAEAAMAAAALAAYAAAAFAAMAAAALAAYAAAAGAAMAAAALAAYAAAAGAPz/AAALAAYAAAAGAP3/AAALAAYAAAAGAP7/AAALAAYAAAAGAP//AAALAAYAAAAGAAAAAAALAAYAAAAGAAEAAAALAAYAAAAGAAIAAAALAAYAAAD4/wIAAAALAAYAAAD4/wEAAAALAAYAAAD4/wAAAAALAAYAAAD4////AAALAAYAAAD4//7/AAALAAYAAAD4//3/AAALAAYAAAD4//z/AAALAAYAAAD5//z/AAALAAYAAAD6//z/AAALAAYAAAD8//z/AAALAAYAAAD9//z/AAALAAYAAAD+//z/AAALAAYAAAD///z/AAALAAYAAAAAAPz/AAALAAYAAAABAPz/AAALAAYAAAACAPz/AAALAAYAAAADAPz/AAALAAYAAAADAP3/AAALAAYAAAAEAPz/AAALAAYAAAAFAPz/AAALAAYAAAAFAP3/AAALAAYAAAAFAP7/AAALAAYAAAAFAP//AAALAAYAAAD9/wIAAAALAAYAAAD9/wEAAAALAAYAAAD7/wAAAAALAAYAAAD8/wAAAAALAAYAAAD9/wAAAAALAAYAAAA=")
 tile_set = ExtResource("3_7c4bt")
 
 [node name="PointLight2D_desk_lamp" type="PointLight2D" parent="Envrionment"]
@@ -123,14 +124,3 @@ max_distance = 150.0
 attenuation = 2.0
 panning_strength = 2.0
 bus = &"Effects"
-
-[node name="Player" parent="." instance=ExtResource("11_axn5c")]
-position = Vector2(10, -17)
-
-[node name="Camera" parent="." instance=ExtResource("12_8ppwh")]
-position = Vector2(7, -11)
-
-[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
-target = NodePath("../../Player")
-
-[editable path="Camera"]

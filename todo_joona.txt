@@ -1,4 +1,10 @@
-- Compile prologue script into a implementable gameplay script
+- Move bed on the left side
+
+
+- Research godot cutscenes
+- Create first prologue animation 
+    - Draw sprites 
+    - Edit into a cutscene
 
 ------------ Milestones
 Prologue
