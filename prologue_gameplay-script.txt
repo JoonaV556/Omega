@@ -6,7 +6,7 @@
             - A white drawing board:
                 - Rough map of the island is drawn on the board
                 - Red circles highlight various points around the island
-                - Small descriptions of various events are written around the highlighted pooints
+                - Small descriptions of various events are written around the highlighted points
             - A window, showing a grand overlooking view over the inner city and suburbs. 
             Behind the city, large towering walls covering a research district are visible high up on the mountain.
             Some high-rise office buildings are visible over the walls.
@@ -19,9 +19,11 @@
         - Game audio effects can be heard. Finally an audio clue indicates the ptg has lost a match.
         - PTG gets annoyed and bangs the keyboard. Closes the game afterwards.
     - Screen fades from black and ptg rises from the gaming chair, burping. "I need some chips"
+	- [COMMENT] Could there be some other way to hint that PTG needs to get chips without explicitly saying anything? Maybe by picking up (or just looking at) a bag of chips from the table and realizing it's empty? If that doesn't give enough of a hint, there could be some thought bubble etc. visible saying e.g. "there should be more in the kitchen". I like the idea of the PTG not saying anything out loud explicitly in the entire game. 
     - Goal: Get chips
     - goal: Get chips from kitchen cupboard
     - No chips in cupboard - "OH NO" 
+	- [COMMENT] Same as before. Maybe could just sigh etc.?`At this point he could also pick up a journal/notebook from the table that already has the text (as in a todo list) "Get more chips". That could then function as the journal for the rest of the game. 
     - goal: Get chips from store
     - walk out of the house
     - *dialogue* greet mr. neighbor
@@ -31,10 +33,10 @@
     - run into lunatic:
         - *dialogue* listen to lunatic speech - READ SCRIPT FOR DIALOGUE DETAILS
     - enter store and buy chips
-        - Intoduction to inventory system:
+        - Introduction to inventory system:
             - Get chips from shelf
             - Pay the chips to store clerk
-    - goal: go back to home
+    - goal: go back home
     - At the front door:
         - *dialogue* with neighbour Mr. Hargrove - read script for DETAILS
     - Get back to computer - Time to hit the discord
@@ -51,17 +53,20 @@
     - Sun is setting
     - Smoke starts to rise up from the laboratory
     - Weather forecast is interrupted -> Emergency news broadcast takes over 
-    - Host tells listeners about loud bang which occured at laboratory district. Source is still unknown. 
+    - Host tells listeners about loud bang which occurred at laboratory district. Source is still unknown. 
+	- [COMMENT] Camera pans more towards the window before explosion? Otherwise the TV might take up too much of the player's attention
 ---------------EXPLOSION--------------->
     - Ground starts shaking semi-violently. Glass can be heard shattering downstairs.
     - Camera view suddenly flashes into blinding white light
     - Seconds later blinding light fades down, lab is visible again. 
     - Deafening explosion sound hits camera -> 
+	- [COMMENT] would be super cool to show the pressure wave in some way. I understand though that it might be tough to animate.
     Massive mushroom cloud of dirt is pouring out of the lab-zone
     - Supernatural-looking beam of blue light rises directly up from the explosion, fades between heavy overcast clouds.
+	- At this point (after showing the blue beam for a while), the camera could pan back to the window+TV shot.
     - Newscaster is caught mouth wide open after explosion, regains focus and tells watchers about explosion. 
-    Caster advises listeners to stay indoors at all times.
-    Caster instructs watchers to keep the channel on for further official updates.
+    Caster advises listeners to stay indoors at all times. [COMMENT] For now instead of at all times?
+    Caster instructs watchers to stay on the channel on for further official updates.
     
 - Screen fades into black
 
@@ -70,6 +75,7 @@
         - Island-wide power outage begins, lights go out, <ptg> is forced to quit sitting on computer. 
         - <ptg> stands up for a second 
         - like the lazy bitch he usually is - he decides to pull out his portable charger and a handheld gaming device and starts playing.
+	- [COMMENT] I think it would have even more of a comedic impact if the tone of these text is more like a report. E.g. "<ptg> starts gaming on his phone/handheld gaming device with the power of power banks he has charged up". I think this could make the tone more consistent, but the change in what kind of stuff is being said changes quite dramatically from "Island-wide power outage begins" to "<ptg> starts gaming". Also this matches the tone of "PTG's handheld console runs out of power". I like the back reference from the last report to this first one. 
     - Friday 1.14. 10:15 p.m.
         - Police sirens are blaring across various parts of the city
         SFX - police sirens
@@ -92,7 +98,7 @@
         - Water pressure is lost.
         - Violent clashes and lawlessness spread around the city
         - Criminals begin looting stores
-        - Occasional gunshots glare accross the morning sky
+        - Occasional gunshots glare across the morning sky
     - Saturday 1.15. 3:15 p.m.
         - Emergency radio broadcast instructs people to setup water barrels outside on yards.
         People are instructed to lock doors and remain indoors. 
@@ -100,6 +106,7 @@
     - Sunday 1.16. 4:30 p.m.
         - PTG's handheld console runs out of power.
         - No more time to dick around. 
+	- [COMMENT] If these "reports" were to have a bit more semi-formal tone (see earlier comment), could be e.g. "Now he has nothing left" and there could maybe be one additional report like two minutes later or something saying "<ptg> decides to act out of boredom" or something
         - Fade out from black
 
 - Act 1 Begins.
