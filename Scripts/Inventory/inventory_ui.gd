@@ -1,4 +1,4 @@
-class_name InventoryView
+class_name InventoryUI
 extends CanvasLayer
 
 var selected_slot: InventorySlot # Which slot has an item been selected (dragged) from

@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddy2076hiokhh"]
+
+[ext_resource type="Script" uid="uid://7ebl3qt5ioyu" path="res://Scripts/Inventory/single_inventory_ui.gd" id="1_lnd7p"]
+[ext_resource type="PackedScene" uid="uid://bccesafq5fjcq" path="res://Scenes/Inventory/InventorySlot.tscn" id="2_irhif"]
+
+[node name="SingleInventoryUI" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_lnd7p")
+metadata/_custom_type_script = "uid://b4sdwnkui4n5s"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+self_modulate = Color(1, 1, 1, 0.568627)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="PanelContainer/CenterContainer/MarginContainer"]
+layout_mode = 2
+columns = 10
+
+[node name="InventorySlot0" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot1" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot17" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot18" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot19" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot20" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot21" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot22" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot23" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot24" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot25" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot26" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot27" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot28" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
+
+[node name="InventorySlot29" parent="PanelContainer/CenterContainer/MarginContainer/Grid" instance=ExtResource("2_irhif")]
+layout_mode = 2
