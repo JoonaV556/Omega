@@ -15,14 +15,8 @@ func _ready():
 	
 	if not Engine.is_editor_hint() and _is_debug():
 		var test_journal = Journal.new()
-		var test_quest1 = Quest.new("Fuck around")
-		test_quest1.add_note(Note.new("Maybe you could try fucking around?"))
-		var test_quest2 = Quest.new("Find out")
-		test_quest2.add_note(Note.new("You set out ot find out"))
-		test_quest2.add_note(Note.new("You found out..."))
-		
-		test_journal.add_quest(test_quest1)
-		test_journal.add_quest(test_quest2)
+		test_journal.add_quest(preload("res://Resources/Quests/fuck_around.tres"))
+		test_journal.add_quest(preload("res://Resources/Quests/find_out.tres"))
 		
 		load_journal(test_journal)
 	
@@ -47,10 +41,10 @@ func _load_quest_notes_by_index(index: int, journal: Journal):
 	for note in notes:
 		_add_quest_note(note)
 	
-func _add_quest_note(note: Note):
+func _add_quest_note(note: String):
 	var note_label = Label.new()
 	quest_notes.add_child(note_label)
-	note_label.text = note.text
+	note_label.text = note
 
 func _clear_quest_titles():
 	for index in range(quest_titles.item_count):
