@@ -24,5 +24,5 @@ func _on_body_exited(body: Node2D):
 func _input(event):
 	if interact_obj == null:
 		return
-	if Input.is_key_pressed(KEY_E):
+	if Input.is_action_just_pressed("Interact"):
 		interact_obj.interact.emit()
