@@ -1,0 +1,29 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"sound_mood_default": "",
+"sound_moods": {},
+"style": ""
+},
+&"default_portrait": "port1",
+&"description": "",
+&"display_name": "donut",
+&"mirror": false,
+&"nicknames": ["dinker"],
+&"offset": Vector2(0, 0),
+&"portraits": {
+"port1": {
+"export_overrides": {
+"image": "\"res://Sprites/modern_interiors/1_Interiors/Theme_Sorter_Singles/12_Kitchen_Singles/Kitchen_Singles_401.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+}
+},
+&"scale": 1.0
+}

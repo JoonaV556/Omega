@@ -14,5 +14,5 @@ See you later, goober...
 label hostile_robert
 leave ptg [animation="Fade Out"]
 join robert center [animation="Bounce In"]
-Let go of my camera, goober
+robert: Let go of my camera, goober
 [end_timeline]
