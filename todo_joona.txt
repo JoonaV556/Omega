@@ -1,17 +1,25 @@
-- Move bed on the left side
+Gunplay demo
+- Small demo level
+
+- Dark lighting
+- Flashlight
+- Gun
+- Shooting targets
+- Melee weapon 
+- Melee targets 
+- Dynamic footstep sounds based on ground 
+- Ambient environment sfx 
 
 
-- Research godot cutscenes
-- Create first prologue animation 
-    - Draw sprites 
-    - Edit into a cutscene
 
+
+
+
+
+old
 ------------ Milestones
 Prologue
-
 ------------ Nice To HAve
 - SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
-
-
 ------------ DONT FORGET 
 - Add credits for attributed asset devs 
