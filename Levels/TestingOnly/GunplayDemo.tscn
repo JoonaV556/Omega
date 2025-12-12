@@ -1,10 +1,23 @@
-[gd_scene load_steps=7 format=4 uid="uid://c1dg3pmxm2b73"]
+[gd_scene load_steps=11 format=4 uid="uid://c1dg3pmxm2b73"]
 
 [ext_resource type="TileSet" uid="uid://c4jd7mfj4gav0" path="res://TileSets/GunplayDemo.tres" id="1_tx0qg"]
+[ext_resource type="Texture2D" uid="uid://b5q4ve4wgj8bp" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Lantern_2.png" id="2_tmurq"]
 [ext_resource type="PackedScene" uid="uid://vvucrudxajby" path="res://Scenes/world_environment_(post_processing).tscn" id="2_utif4"]
 [ext_resource type="PackedScene" uid="uid://cn20curmxqi0e" path="res://Scenes/canvas_modulate_(lighting).tscn" id="3_owtkx"]
+[ext_resource type="Texture2D" uid="uid://dpwi18m31p7sh" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/19_Graveyard_16x16.png" id="3_tnpg5"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="4_p07uj"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="5_tmurq"]
+
+[sub_resource type="Gradient" id="Gradient_tnpg5"]
+offsets = PackedFloat32Array(0, 0.780374)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ihud"]
+gradient = SubResource("Gradient_tnpg5")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Environment" id="Environment_p07uj"]
 
@@ -19,17 +32,64 @@ tile_map_data = PackedByteArray("AAAEAAIAAAARAD4AAAAFAAIAAAARAD4AAAAGAAIAAAAKAD0
 tile_set = ExtResource("1_tx0qg")
 
 [node name="TileMapLayer3" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD6//r/AQAUACcAAAAJAPz/AQAVACUAAAD7//T/AQATACcAAAD///z/AQATACYAAAAAAPb/AQATACcAAAADAPn/AQAVACUAAAAHAPr/AQAVACUAAAABAO3/AQAVACYAAAD3/+3/AQATACUAAAD1/+//AQAVACYAAADz//j/AQATACYAAAD1//b/AQAVACYAAAD3//D/AQAUACUAAAAHAO3/AQAUACYAAAAEAO//AQATACUAAADy/wAAAQATACUAAADy/wEAAQAVACcAAAD0/wQAAQAVACUAAADz/wYAAQAVACYAAAD4/wgAAQAUACUAAAAAAAwAAQAUACYAAAAOAA0AAQAUACcAAAAQAA0AAQATACUAAAAIAA4AAQAVACcAAAAAAA0AAQATACcAAAD+/w0AAQAUACcAAAD7/wwAAQAUACYAAAD5/wwAAQATACUAAAD2/woAAQAUACcAAAD6/w0AAQATACUAAAD9/w4AAQAVACcAAAD+/w4AAQAUACYAAAAFAA4AAQATACUAAAAVAAsAAQAUACcAAAAWAAkAAQAUACYAAAAXAAkAAQATACcAAAAWAAcAAQAVACYAAAASAAUAAQAUACUAAAARAAYAAQAVACYAAAASAAcAAQAUACUAAAASAAQAAQAVACYAAAAVAAcAAQAUACcAAAAUAAoAAQAVACcAAAATAAoAAQAUACcAAAAYAA0AAQAUACUAAAAZAAkAAQAVACcAAAAZAAgAAQAVACUAAAAZAAcAAQAVACUAAAAYAO3/AQAVACcAAAAbAO//AQATACUAAAAbAPH/AQAUACYAAAAaAOv/AQAVACUAAAASAOv/AQAVACYAAAALAOv/AQAVACYAAAAHAOv/AQAVACUAAAAHAOz/AQATACcAAAAOAAIAAQAHAKkAAAALAAIAAQAHAKkAAAAJAP//AQAHAKkAAAAEAP//AQAHAKkAAAAYAP//AQAHAKkAAAAaAPz/AQAIAKkAAAAaAPv/AQAKAKkAAAAOAAQAAQAIAKkAAAAOAAcAAQAHAKkAAAALAAcAAQAIAKkAAAAOAAUAAQAIAKkAAAAPAAYAAQAIAKkAAAAPAAUAAQAIAKkAAAARAPr/AQAIAKkAAAAQAPv/AQAIAKkAAAAUAP//AQAHAKkAAAAVAAEAAQAHAKkAAAAWAAEAAQAIAKkAAAAVAAIAAQAHAKkAAAAHAP//AQAJAK0AAAALAAMAAQAKAKoAAAD+////AQAKAKoAAAD8////AQAKAKoAAAD6/wIAAQAKAKsAAAD6/wMAAQALAKsAAAD9/wcAAQALAKsAAAD//wcAAQALAKsAAAACAAcAAQAKAKsAAAAGAAgAAQALAKsAAAAMAPX/AQAKAKkAAAANAPb/AQAKAKkAAAANAPf/AQAHAKkAAAAOAPf/AQAKAKkAAAAOAPr/AQALAKsAAAATAPv/AQAHAKkAAAASAPr/AQALAKsAAAAWAPH/AQAKAKoAAAAXAPH/AQALAKsAAAAXAPL/AQALAKsAAAAaAPX/AQAHAKkAAAAaAPr/AQAHAKkAAAAUAPH/AQAKAKkAAAAOAO//AQAKAKoAAAAKAPL/AQAHAKkAAAAJAPP/AQAKAKsAAAALAPT/AQAIAKkAAAAOAAMAAQAKAKoAAAA=")
+tile_map_data = PackedByteArray("AAD6//r/AQAUACcAAAAJAPz/AQAVACUAAAD7//T/AQATACcAAAD///z/AQATACYAAAAAAPb/AQATACcAAAADAPn/AQAVACUAAAAHAPr/AQAVACUAAAABAO3/AQAVACYAAAD3/+3/AQATACUAAAD1/+//AQAVACYAAADz//j/AQATACYAAAD1//b/AQAVACYAAAD3//D/AQAUACUAAAAHAO3/AQAUACYAAAAEAO//AQATACUAAADy/wAAAQATACUAAADy/wEAAQAVACcAAAD0/wQAAQAVACUAAADz/wYAAQAVACYAAAD4/wgAAQAUACUAAAAAAAwAAQAUACYAAAAOAA0AAQAUACcAAAAQAA0AAQATACUAAAAIAA4AAQAVACcAAAAAAA0AAQATACcAAAD+/w0AAQAUACcAAAD7/wwAAQAUACYAAAD5/wwAAQATACUAAAD2/woAAQAUACcAAAD6/w0AAQATACUAAAD9/w4AAQAVACcAAAD+/w4AAQAUACYAAAAFAA4AAQATACUAAAAVAAsAAQAUACcAAAAWAAkAAQAUACYAAAAXAAkAAQATACcAAAAWAAcAAQAVACYAAAASAAUAAQAUACUAAAARAAYAAQAVACYAAAASAAcAAQAUACUAAAASAAQAAQAVACYAAAAVAAcAAQAUACcAAAAUAAoAAQAVACcAAAATAAoAAQAUACcAAAAYAA0AAQAUACUAAAAZAAkAAQAVACcAAAAZAAgAAQAVACUAAAAZAAcAAQAVACUAAAAYAO3/AQAVACcAAAAbAO//AQATACUAAAAbAPH/AQAUACYAAAAaAOv/AQAVACUAAAASAOv/AQAVACYAAAALAOv/AQAVACYAAAAHAOv/AQAVACUAAAAHAOz/AQATACcAAAAOAAIAAQAHAKkAAAALAAIAAQAHAKkAAAAJAP//AQAHAKkAAAAEAP//AQAHAKkAAAAYAP//AQAHAKkAAAAaAPz/AQAIAKkAAAAaAPv/AQAKAKkAAAAOAAQAAQAIAKkAAAAOAAcAAQAHAKkAAAALAAcAAQAIAKkAAAAOAAUAAQAIAKkAAAAPAAYAAQAIAKkAAAAPAAUAAQAIAKkAAAARAPr/AQAIAKkAAAAQAPv/AQAIAKkAAAAUAP//AQAHAKkAAAAVAAEAAQAHAKkAAAAWAAEAAQAIAKkAAAAVAAIAAQAHAKkAAAAHAP//AQAJAK0AAAALAAMAAQAKAKoAAAD+////AQAKAKoAAAD8////AQAKAKoAAAD6/wIAAQAKAKsAAAD6/wMAAQALAKsAAAD9/wcAAQALAKsAAAD//wcAAQALAKsAAAACAAcAAQAKAKsAAAAGAAgAAQALAKsAAAAMAPX/AQAKAKkAAAANAPb/AQAKAKkAAAANAPf/AQAHAKkAAAAOAPf/AQAKAKkAAAAOAPr/AQALAKsAAAATAPv/AQAHAKkAAAASAPr/AQALAKsAAAAWAPH/AQAKAKoAAAAXAPH/AQALAKsAAAAXAPL/AQALAKsAAAAaAPX/AQAHAKkAAAAaAPr/AQAHAKkAAAAUAPH/AQAKAKkAAAAOAO//AQAKAKoAAAAKAPL/AQAHAKkAAAAJAPP/AQAKAKsAAAALAPT/AQAIAKkAAAAOAAMAAQAKAKoAAAAEAAMAAQAZABwAAAAFAAMAAQAaABwAAAAGAAMAAQAbABwAAAA=")
 tile_set = ExtResource("1_tx0qg")
 
 [node name="TileMapLayer4" type="TileMapLayer" parent="."]
 tile_set = ExtResource("1_tx0qg")
 
+[node name="TileSingles" type="Node2D" parent="."]
+
+[node name="camplight" type="Sprite2D" parent="TileSingles"]
+position = Vector2(74, 43)
+texture = ExtResource("2_tmurq")
+
+[node name="PointLight2D" type="PointLight2D" parent="TileSingles/camplight"]
+scale = Vector2(2.87723, 1.63129)
+color = Color(1, 0.932, 0.76, 1)
+energy = 1.1
+texture = SubResource("GradientTexture2D_8ihud")
+
+[node name="pumpkin" type="Sprite2D" parent="TileSingles"]
+position = Vector2(-12, -180)
+texture = ExtResource("3_tnpg5")
+region_enabled = true
+region_rect = Rect2(193, 528, 15, 16)
+
+[node name="PointLight2D" type="PointLight2D" parent="TileSingles/pumpkin"]
+scale = Vector2(1.86733, 1.86733)
+color = Color(1, 0.898, 0.64, 1)
+energy = 1.1
+texture = SubResource("GradientTexture2D_8ihud")
+
+[node name="pumpkin2" type="Sprite2D" parent="TileSingles"]
+position = Vector2(-31, -58)
+texture = ExtResource("3_tnpg5")
+region_enabled = true
+region_rect = Rect2(193, 528, 15, 16)
+
+[node name="PointLight2D" type="PointLight2D" parent="TileSingles/pumpkin2"]
+scale = Vector2(1.86733, 1.86733)
+color = Color(1, 0.898, 0.64, 1)
+energy = 1.1
+texture = SubResource("GradientTexture2D_8ihud")
+
+[node name="pumpkin3" type="Sprite2D" parent="TileSingles"]
+position = Vector2(127, -71)
+texture = ExtResource("3_tnpg5")
+region_enabled = true
+region_rect = Rect2(193, 528, 15, 16)
+
+[node name="PointLight2D" type="PointLight2D" parent="TileSingles/pumpkin3"]
+scale = Vector2(1.86733, 1.86733)
+color = Color(1, 0.898, 0.64, 1)
+energy = 1.1
+texture = SubResource("GradientTexture2D_8ihud")
+
 [node name="WorldEnvironment (Post-processing)" parent="." instance=ExtResource("2_utif4")]
 environment = SubResource("Environment_p07uj")
 
 [node name="CanvasModulate (Lighting)" parent="." instance=ExtResource("3_owtkx")]
-visible = false
 position = Vector2(343, 112)
 color = Color(0.133197, 0.133196, 0.133196, 1)
 

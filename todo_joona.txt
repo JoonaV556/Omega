@@ -2,7 +2,10 @@ Gunplay demo
 - Small demo level
 -- lights 
 -- edge woods 
+-- animated waterfall 
+-- play around / study other animation possibilities for environment
 -- bit of detail
+
 
 - Flashlight
 - Gun
@@ -11,6 +14,10 @@ Gunplay demo
 - Melee targets 
 - Dynamic footstep sounds based on ground 
 - Ambient environment sfx 
+
+polish
+- fix character lighting
+- 
 
 
 
