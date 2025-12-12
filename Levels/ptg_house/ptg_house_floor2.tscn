@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dt1hvceqesi0n"]
+[gd_scene load_steps=13 format=4 uid="uid://dt1hvceqesi0n"]
 
 [ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_kfulq"]
 [ext_resource type="TileSet" uid="uid://rve4n2uuor20" path="res://TileSets/ptg_house.tres" id="2_f6w1b"]
@@ -10,13 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bvnbr2vdatyno" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Pier_Clothes_4.png" id="5_8ppwh"]
 [ext_resource type="AudioStream" uid="uid://f7xqcau561ua" path="res://Audio/room-tone_smallroom_1.wav" id="6_2q6lk"]
 [ext_resource type="AudioStream" uid="uid://binbnr6okjje" path="res://Audio/computer_humm_loop.wav" id="6_o6eow"]
-
-[sub_resource type="Environment" id="Environment_0gj7a"]
-background_mode = 3
-glow_enabled = true
-glow_bloom = 0.16
-adjustment_enabled = true
-adjustment_saturation = 1.2
+[ext_resource type="PackedScene" uid="uid://cn20curmxqi0e" path="res://Scenes/canvas_modulate_(lighting).tscn" id="9_axn5c"]
+[ext_resource type="PackedScene" uid="uid://vvucrudxajby" path="res://Scenes/world_environment_(post_processing).tscn" id="10_8ppwh"]
 
 [node name="PtgHouseFloor2" type="Node2D"]
 y_sort_enabled = true
@@ -103,11 +98,9 @@ shadow_filter_smooth = 0.9
 texture = ExtResource("5_0gj7a")
 texture_scale = 3.8
 
-[node name="CanvasModulate (Lighting)" type="CanvasModulate" parent="."]
-color = Color(0.36, 0.36, 0.36, 1)
+[node name="CanvasModulate (Lighting)" parent="." instance=ExtResource("9_axn5c")]
 
-[node name="WorldEnvironment (Post-processing)" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0gj7a")
+[node name="WorldEnvironment (Post-processing)" parent="." instance=ExtResource("10_8ppwh")]
 
 [node name="AudioStreamPlayer_room_tune" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2q6lk")

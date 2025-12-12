@@ -1,7 +1,9 @@
 Gunplay demo
 - Small demo level
+-- lights 
+-- edge woods 
+-- bit of detail
 
-- Dark lighting
 - Flashlight
 - Gun
 - Shooting targets
