@@ -1,9 +1,7 @@
 Gunplay demo
 - Small demo level
--- edge woods 
 -- animated waterfall 
 -- play around / study other animation possibilities for environment
--- bit of detail
 
 
 - Flashlight
