@@ -1,21 +1,6 @@
-Gunplay demo
-- Small demo level
--- animated waterfall 
--- play around / study other animation possibilities for environment
+theme
 
-
-- Flashlight
-- Gun
-- Shooting targets
-- Melee weapon 
-- Melee targets 
-- Dynamic footstep sounds based on ground 
-- Ambient environment sfx 
-
-polish
-- fix character lighting
-- 
-
+max fps
 
 
 

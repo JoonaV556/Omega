@@ -189,13 +189,14 @@ environment = SubResource("Environment_p07uj")
 
 [node name="CanvasModulate (Lighting)" parent="." instance=ExtResource("3_owtkx")]
 position = Vector2(343, 112)
-color = Color(0.133197, 0.133196, 0.133196, 1)
+color = Color(0.21, 0.21, 0.21, 1)
 
 [node name="Player" parent="." instance=ExtResource("4_p07uj")]
 position = Vector2(26, 45)
 
 [node name="Camera" parent="." instance=ExtResource("5_tmurq")]
 position = Vector2(44, 43)
+position_smoothing_speed = 8.0
 
 [node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
 target = NodePath("../../Player")
