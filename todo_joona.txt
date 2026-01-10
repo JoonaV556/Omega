@@ -1,6 +1,8 @@
-theme
-
-max fps
+Navigate roguelike city streets towards lab gate
+Complete optional storyline objectives to learn more
+Choose both which factions to fight, and which factions side with
+World state and battle outcomes change based on faction you're fighting
+Personal hub area for rest and other stuff
 
 
 
