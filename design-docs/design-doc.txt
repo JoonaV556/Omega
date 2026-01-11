@@ -12,11 +12,12 @@ In a nutshell:
     Personal hub area for rest and other stuff
 
 
-Idea pool (Random cool features):
+Feature pool:
     Hub / Personal home base
         City entry
 
-    Persistent Fog of War - Discover secret places by navigating unknown city areas
+    Persistent Fog of War - Progress through the city by navigating through unknown areas
+    
 
     Scouting mission - Navigate around the city in instanced, roguelike missions.
         Mission stage progression
@@ -66,4 +67,4 @@ Problems / plotholes / whatever - These gotta be addressed some way
         Possible solutions:
             Alien leaders of the hellish invasion have god-like supernatural powers which re-shaped and molded the island into a hard-to-navigate maze.
             Maybe this was done to prevent people from escaping the island?
-            Kinda like how the fog in Silent Hill games makes the town feel like an endless maze of horrors and challenges, forcing player to study the environment
+            Kinda like how the fog in Silent Hill games makes the town feel like an endless maze of horrors and challenges, forcing player to study and learn the environment

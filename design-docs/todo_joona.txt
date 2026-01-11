@@ -1,6 +1,5 @@
-- Plan core mechanics & specs
-- Start building
-
+- Specs for level generator 1st pass
+- Draw & plan algorithm steps
 
 
 

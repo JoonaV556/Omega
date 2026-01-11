@@ -8,6 +8,3 @@ func _process(delta: float) -> void:
 	if camera == null:
 		return
 	camera.position = target.position
-	
-	var map: TileMapLayer
-	map.set_cell()
