@@ -1,0 +1,44 @@
+- Plan core mechanics & specs
+- Start building
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+old
+------------ Milestones
+Prologue
+------------ Nice To HAve
+- SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
+------------ DONT FORGET 
+- Add credits for attributed asset devs 

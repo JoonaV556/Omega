@@ -1,0 +1,69 @@
+In a nutshell:
+    Navigate maze-like streets of Omega Seaside while fighting hellish alien forces and progressing towards the secret laboratory.
+
+
+
+    Discover secret places by navigating unknown areas - fog of war 
+    Complete optional storyline objectives across the city 
+    Choose both which factions to fight, and which factions to support (or maybe your own faction?)
+    Fight hellish monster hordes invading the city
+    World state and battle outcomes change based on faction you're fighting
+    Dynamic environment which reacts to player actions
+    Personal hub area for rest and other stuff
+
+
+Idea pool (Random cool features):
+    Hub / Personal home base
+        City entry
+
+    Persistent Fog of War - Discover secret places by navigating unknown city areas
+
+    Scouting mission - Navigate around the city in instanced, roguelike missions.
+        Mission stage progression
+            After completing a stage, player can decide to either extract and save progress, or take a chance and enter another stage.
+            Mission stages become progressively harder, but provide more rewards
+                Rewards:
+                    More area progression towards the laboratory
+                    Multiplied XP?
+                    Some kinda multiplayer-style leaderboard?
+
+        Patrolling NPC squads / with their own goals
+
+        Encounters between npc squads - Different factions might fight each other
+
+    Main story objectives
+        Discover important characters and follow a storylines during scouting missions 
+        Discover secret npcs and hidden plotlines by navigating unknown areas
+
+    RPG-mechanics / Character progression
+
+    Weapons
+        Melee
+        Unarmed 
+        Guns
+
+    Apparel? 
+
+    NPC Factions with varying goals
+
+    Enemies
+        Undead horde and their alien overlords
+        NPC factions
+        
+
+    Progression across different city areas
+        Themed city areas:
+            Juicy park (Commercial theme-park of a large candy corporation)
+
+    Progression towards lab / the deeper you go, more difficult challenges you face
+
+
+
+
+Problems / plotholes / whatever - These gotta be addressed some way
+    1. Core game feature is navigating unknown maze-like city streets to discover imoportant areas and advance towards the lab.
+    Why the player cannot just look up a city map online?
+        Possible solutions:
+            Alien leaders of the hellish invasion have god-like supernatural powers which re-shaped and molded the island into a hard-to-navigate maze.
+            Maybe this was done to prevent people from escaping the island?
+            Kinda like how the fog in Silent Hill games makes the town feel like an endless maze of horrors and challenges, forcing player to study the environment
