@@ -1,4 +1,35 @@
-- 
+- create bsp tree nodes correctly in the level data 
+- draw the level data in the tilemaplayer
+- bsp grid level
+    nodes (squares)     = 0
+    roads (between nodes) = 1 
+    array structure
+
+tree
+    levels = [[bsp_node]] 
+
+bsp_node
+    position
+    width
+    height
+    parent = null
+    children
+
+    _init(pos, width, height)
+
+
+    createchild() -> bsp_node
+        node = bsp_node.new()
+        node.parent = this
+        this.children.append(node)
+        return node
+    
+
+
+
+- remove edge connections to remove unwanted map entrances
+- use tunnelers to intorduce wanted entrances and exits
+
 
 
 

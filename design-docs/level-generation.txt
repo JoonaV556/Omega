@@ -3,7 +3,26 @@ Specs - 1st pass:
 - 1 Entry (Player starts here)
 - 2 Extraction points
 - Entry in south 
-- Extractions in nort
+- Extractions in north
 
-1 create tilemap
-2
+
+idea pool:
+-entryways for npc groups
+-variable width roads
+-place buildings
+-rivers 
+-parks 
+-grid neighbourhoods
+-megastructures
+-ocean beach on one side
+
+
+Algo: 
+
+iteration_count (tree levels)
+
+
+- Generate root node on tree level 0 
+- split root into two children on lvl 1 
+- split childs of childs into new nodes on lvl 2 
+- etc.
