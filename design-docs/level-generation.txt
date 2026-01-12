@@ -1,0 +1,9 @@
+Specs - 1st pass:
+- Preset size (Width & height)
+- 1 Entry (Player starts here)
+- 2 Extraction points
+- Entry in south 
+- Extractions in nort
+
+1 create tilemap
+2

@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=4 uid="uid://8kxgw6jg3qd"]
+
+[ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_6gpsk"]
+[ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="2_husrb"]
+[ext_resource type="PackedScene" uid="uid://vvucrudxajby" path="res://Scenes/world_environment_(post_processing).tscn" id="4_rtbfv"]
+[ext_resource type="PackedScene" uid="uid://cn20curmxqi0e" path="res://Scenes/canvas_modulate_(lighting).tscn" id="5_bsm0p"]
+[ext_resource type="Script" uid="uid://da3lcj5vk6sfi" path="res://Scripts/level_generator.gd" id="6_00ef6"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="6_inkfx"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Levels/TestingOnly/close_app_debug.gd" id="6_iojkq"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="7_x4aj6"]
+
+[sub_resource type="Environment" id="Environment_p07uj"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TestBackground" type="Sprite2D" parent="."]
+visible = false
+z_index = -4000
+texture = ExtResource("1_6gpsk")
+
+[node name="TestTilemap" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAACAAMAAAABAAAAAAACAAMAAAACAAAAAAACAAMAAAADAAAAAAACAAMAAAAEAAAAAAACAAMAAAD/////AAAHAAIAAAD///7/AAAHAAIAAAD///3/AAAHAAIAAAD///z/AAAHAAIAAAD///v/AAAHAAIAAAA=")
+tile_set = ExtResource("2_husrb")
+
+[node name="WorldEnvironment (Post-processing)" parent="." instance=ExtResource("4_rtbfv")]
+environment = SubResource("Environment_p07uj")
+
+[node name="CanvasModulate (Lighting)" parent="." instance=ExtResource("5_bsm0p")]
+visible = false
+position = Vector2(343, 112)
+color = Color(0.21, 0.21, 0.21, 1)
+
+[node name="Player" parent="." instance=ExtResource("6_inkfx")]
+position = Vector2(8, -2)
+
+[node name="Camera" parent="." instance=ExtResource("7_x4aj6")]
+position = Vector2(44, 43)
+position_smoothing_speed = 8.0
+
+[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+target = NodePath("../../Player")
+
+[node name="LevelGenerator" type="Node" parent="." node_paths=PackedStringArray("root", "player")]
+script = ExtResource("6_00ef6")
+root = NodePath("..")
+player = NodePath("../Player")
+tiles = ExtResource("2_husrb")
+width = 15
+
+[node name="Editor - Esc-to-close" type="Node" parent="."]
+script = ExtResource("6_iojkq")
+
+[editable path="Camera"]

@@ -1,5 +1,4 @@
-- Specs for level generator 1st pass
-- Draw & plan algorithm steps
+- 
 
 
 
