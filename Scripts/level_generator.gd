@@ -66,7 +66,7 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 	# generate level data with a binary tree
 	var l_tree: Array
 	var iterations_done = 0
-	for i in range(0, _iterations):
+	for i in range(_iterations):
 		var number_created = 0
 		l_tree.append([] as Array[BspNode])
 		
@@ -78,11 +78,16 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 			
 		# create child nodes for the parents on the upper level and add them on the current level
 		else:
+			var children: Array
 			for node: BspNode in l_tree[i-1]:
-				var children = node._create_children()
-				for child in children:
-					l_tree[i].append(child)
+				var child_candidates = node._create_children()
+				# skip bad children
+				if (child_candidates == null) or (child_candidates.size() == 0) :
+					push_error("Failed generating children for 1 parent. Skipping...")
+					continue
+				children.append_array(child_candidates)
 				number_created += 2
+			l_tree[i].append_array(children)
 		iterations_done += 1
 		print("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
 	print("Created a total of "+str(iterations_done)+" levels on BSP tree")

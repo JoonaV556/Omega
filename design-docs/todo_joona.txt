@@ -1,5 +1,5 @@
 - fix critical bugs on world gen algo (add safety boundaries for room size, if boundaries met -> perevent division)
-	prevent cutting square if both sides are 1 in size 
+	fix levelgen iterating over array while modifying it
 		add error catching
 	prevent cutting square on a side with a size of only 1 tile
 - optionally draw bulk worlds side by side for easy comparing
