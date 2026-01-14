@@ -12,11 +12,18 @@ func _init(_position, _width, _height):
 	self.height 	= _height
 	
 ## Creates a pair of children for this node and returns them in an array
+## Returns an empty array if the parent is too small to be split in half in the first place
 func _create_children() -> Array[BspNode]:
-	# assign coords and sizes to children by splitting the parent
+	# prevent generating if we are a too small to be split in half
+	var new_children: Array[BspNode] 
+	if (self.width < 2) or (self.height < 2):
+		push_error("BSP parent too small to be split into children!")
+		return new_children
+	
 	# pick random cut angle 0 = hor, 1 = vertical
 	var rng = RandomNumberGenerator.new()
 	var cut_ang = rng.randi_range(0,1)
+	
 	# pick cut position and size children based on cut
 	var cut_pos
 	# first kid
@@ -52,6 +59,8 @@ func _create_children() -> Array[BspNode]:
 	node_1.parent = self
 	var node_2 = BspNode.new(c2_position, c2_width, c2_height)
 	node_2.parent = self
-	var new_children: Array[BspNode] = [node_1, node_2]
+	
+	new_children.append(node_1)
+	new_children.append(node_2)
 	self.children.append(new_children)
 	return new_children
