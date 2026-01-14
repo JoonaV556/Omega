@@ -1,4 +1,5 @@
 extends Node
+class_name LevelGenerator
 
 @export 
 var root: 	Node2D
@@ -25,14 +26,15 @@ var roadcoords: Vector2i = Vector2i(1,7)
 var tmap		: TileMapLayer
 var first_update = true
 var level		: Array 		= [[]] # two dim array
+var g_ready_to_generate: bool = false
 
 func _process(delta: float) -> void:
 	if first_update:
 		first_update = false
-		_generate()
+		g_ready_to_generate = true
 
-## Tries to generate the level, returns false if generation fails
-func _generate() -> bool:
+## Tries to generate the level, returns the map data as a bsp tree 
+func _draw_level() -> bool:
 	# create tilemap under root node
 	assert(root != null, "Cannot continue, root is not set")
 	if root == null:
@@ -58,29 +60,30 @@ func _generate() -> bool:
 				print("Set cell " + str(j) + ", " + str(i))
 	print("Generated "+str(generated_tiles)+" tiles!")
 	
+	return true
+	
+func _generate(_width: int, _height: int, _iterations: int) -> Array:
 	# generate level data with a binary tree
-	var tree: Array
-	var done_iterations = 0
-	for i in range(0, bsp_tree_iterations):
+	var l_tree: Array
+	var iterations_done = 0
+	for i in range(0, _iterations):
 		var number_created = 0
-		tree.append([] as Array[BspNode])
+		l_tree.append([] as Array[BspNode])
+		
 		# create root node 
 		if i == 0:
-			
-			var root = BspNode.new(Vector2i(0,0), width, height)
-			tree[i].append(root)
+			var root = BspNode.new(Vector2i(0,0), _width, _height)
+			l_tree[i].append(root)
 			number_created += 1
+			
 		# create child nodes for the parents on the upper level and add them on the current level
 		else:
-			for node: BspNode in tree[i-1]:
+			for node: BspNode in l_tree[i-1]:
 				var children = node._create_children()
 				for child in children:
-					tree[i].append(child)
+					l_tree[i].append(child)
 				number_created += 2
-		done_iterations += 1
+		iterations_done += 1
 		print("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
-	print("Created a total of "+str(done_iterations)+" levels on BSP tree")
-	
-	
-	
-	return true
+	print("Created a total of "+str(iterations_done)+" levels on BSP tree")
+	return l_tree

@@ -1,32 +1,15 @@
-- create bsp tree nodes correctly in the level data 
-- draw the level data in the tilemaplayer
-- bsp grid level
-    nodes (squares)     = 0
-    roads (between nodes) = 1 
-    array structure
+- fix levelgen generating squares of negative size
+- Draw levelgenerators level data on screen with random colors
 
-tree
-    levels = [[bsp_node]] 
-
-bsp_node
-    position
-    width
-    height
-    parent = null
-    children
-
-    _init(pos, width, height)
+	
+- draw the grid as a tilemap
+- give varying colors to each tile to make identification easier
+- option to randomize color of each drawn node 
+- prevent too small square divisions
 
 
-    createchild() -> bsp_node
-        node = bsp_node.new()
-        node.parent = this
-        this.children.append(node)
-        return node
-    
-
-
-
+- introduce roads as gaps between nodes 
+- draw the grid as a tilemap
 - remove edge connections to remove unwanted map entrances
 - use tunnelers to intorduce wanted entrances and exits
 
