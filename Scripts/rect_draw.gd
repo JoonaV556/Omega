@@ -13,13 +13,24 @@ var g_level_height: int = 25
 @export
 var g_iterations: int = 4
 
+@export_group("Bulk generation")
+@export var bulk_generate: bool = false
+@export_range(2, 999) var bulk_generate_count: int = 2
+
 var g_drawn: bool = false
 
 # wait for generator to be ready
 func _process(delta: float) -> void:
 	if g_generator.g_ready_to_generate and (g_drawn == false):
 		g_drawn = true
-		_draw_level()
+		# _draw_level()
+		
+		if bulk_generate:
+			var count = 0
+			for i in range(bulk_generate_count):
+				var world = g_generator._generate(g_level_width, g_level_height, g_iterations)
+				count += 1
+			print("Generated "+str(count)+" worlds in bulk!")
 	
 func _draw_level() -> void:
 	var level = g_generator._generate(g_level_width, g_level_height, g_iterations)

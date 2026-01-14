@@ -1,5 +1,10 @@
-- fix levelgen generating squares of negative size
-- Draw levelgenerators level data on screen with random colors
+- fix critical bugs on world gen algo (add safety boundaries for room size, if boundaries met -> perevent division)
+	prevent cutting square if both sides are 1 in size 
+		add error catching
+	prevent cutting square on a side with a size of only 1 tile
+- optionally draw bulk worlds side by side for easy comparing
+- generate cut points with clamped normal distribution instead of true rng to improve uniformity
+- add cut direction assurances to prevent all cuts from being same direction - BE CAREFUL, THIS MIGHT MAKE LEVEL GEN BORING
 
 	
 - draw the grid as a tilemap
