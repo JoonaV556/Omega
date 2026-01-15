@@ -1,8 +1,5 @@
-- fix critical bugs on world gen algo (add safety boundaries for room size, if boundaries met -> perevent division)
-	if only one side is larger than 1, always cut that side
-	
-	
 - optionally draw bulk worlds side by side for easy comparing
+
 - generate cut points with clamped normal distribution instead of true rng to improve uniformity
 - add cut direction assurances to prevent all cuts from being same direction - BE CAREFUL, THIS MIGHT MAKE LEVEL GEN BORING
 

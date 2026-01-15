@@ -5,7 +5,7 @@ extends AnimatedSprite2D
 enum look_dir {down, up, left, right}
 var current_look_dir = look_dir.down
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if character_body == null:
 		return
 	var velocity = character_body.get_real_velocity()

@@ -4,7 +4,7 @@ extends Node2D
 @export var zoom_step: 	float 	= 0.3
 @export var min_zoom: 	Vector2 = Vector2(1.0, 1.0)
 @export var max_zoom: 	Vector2 = Vector2(5.0, 5.0)
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ZoomIn"):
 		if not (camera.zoom.x + zoom_step) >= max_zoom.x:
 			camera.zoom.x += zoom_step
