@@ -44,9 +44,8 @@ min_zoom = Vector2(0.1, 0.1)
 [node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
 target = NodePath("../../Player")
 
-[node name="LevelGenerator" type="Node" parent="." node_paths=PackedStringArray("root", "player")]
+[node name="LevelGenerator" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("6_00ef6")
-root = NodePath("..")
 player = NodePath("../Player")
 tiles = ExtResource("2_husrb")
 print_each_generated_cell_coord = false
@@ -69,7 +68,7 @@ grow_vertical = 0
 script = ExtResource("9_qql5g")
 g_generator = NodePath("../LevelGenerator")
 bulk_generate = true
-bulk_generate_count = 10
+bulk_generate_count = 100
 metadata/_custom_type_script = "uid://cy8k88j267u7m"
 
 [editable path="Camera"]

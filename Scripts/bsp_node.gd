@@ -16,7 +16,7 @@ func _init(_position, _width, _height):
 func _create_children() -> Array[BspNode]:
 	# prevent generating if we are a too small to be split in half
 	var new_children: Array[BspNode] 
-	if (self.width < 2) or (self.height < 2):
+	if (self.width < 2) and (self.height < 2):
 		push_error("BSP parent too small to be split into children!")
 		return new_children
 	
@@ -46,7 +46,12 @@ func _create_children() -> Array[BspNode]:
 	var c2_height
 	# pick cut position and size children based on cut
 	if cut_ang == 0:	# cut on y-axis (horizontal cut)
-		cut_pos = rng.randi_range(self.position.y + 1, self.position.y + self.height - 2) # weird range is to prevent cuts too close to parents edges
+		if self.height <= 2:
+			# always cut from center if height is only 2
+			cut_pos = self.position.y + 1
+		else:
+			 # weird range is to prevent cuts too close to parents edges
+			cut_pos = rng.randi_range(self.position.y + 1, self.position.y + self.height - 2)
 		c1_position = 	self.position
 		c1_width  = 	self.width
 		c1_height = 	cut_pos - self.position.y
@@ -54,7 +59,11 @@ func _create_children() -> Array[BspNode]:
 		c2_width = 		self.width
 		c2_height = 	self.height - c1_height
 	else:				# cut on x-axis (vertical cut)
-		cut_pos = rng.randi_range(self.position.x + 1, self.position.x + self.width - 2)
+		if self.width <= 2:
+			# always cut from middle if width is only 2
+			cut_pos = self.position.x + 1 
+		else:
+			cut_pos = rng.randi_range(self.position.x + 1, self.position.x + self.width - 2)
 		c1_position = 	self.position
 		c1_width = 		cut_pos - self.position.x
 		c1_height = 	self.height

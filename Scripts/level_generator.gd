@@ -2,7 +2,7 @@ extends Node
 class_name LevelGenerator
 
 @export 
-var root: 	Node2D
+var scene_root: 	Node2D
 @export
 var player: Node2D
 @export 
@@ -36,14 +36,14 @@ func _process(_delta: float) -> void:
 ## Tries to generate the level, returns the map data as a bsp tree 
 func _draw_level() -> bool:
 	# create tilemap under root node
-	assert(root != null, "Cannot continue, root is not set")
-	if root == null:
+	assert(scene_root != null, "Cannot continue, root is not set")
+	if scene_root == null:
 		return false
 	tmap = TileMapLayer.new()
 	tmap.name = "TilemapLayer_Generated"
 	if tiles != null:
 		tmap.tile_set = tiles;
-	root.add_child(tmap)
+	scene_root.add_child(tmap)
 	
 	# Move player in front of tilemap
 	if player != null:
