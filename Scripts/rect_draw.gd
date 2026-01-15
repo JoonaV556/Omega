@@ -27,8 +27,8 @@ func _process(delta: float) -> void:
 		
 		if bulk_generate:
 			var count = 0
-			for i in range(bulk_generate_count):
-				var world = g_generator._generate(g_level_width, g_level_height, g_iterations)
+			for i: int in range(bulk_generate_count):
+				var _world = g_generator._generate(g_level_width, g_level_height, g_iterations)
 				count += 1
 			print("Generated "+str(count)+" worlds in bulk!")
 	
@@ -36,7 +36,7 @@ func _draw_level() -> void:
 	var level = g_generator._generate(g_level_width, g_level_height, g_iterations)
 	var l_target_layer: Array[BspNode] = level[level.size() - 1]
 	
-	for l_node in l_target_layer:
+	for l_node: BspNode in l_target_layer:
 		# create a color rectangle 
 		var l_rect = ColorRect.new()
 		# make it a child of this node 

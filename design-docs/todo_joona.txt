@@ -1,7 +1,7 @@
 - fix critical bugs on world gen algo (add safety boundaries for room size, if boundaries met -> perevent division)
-	fix levelgen iterating over array while modifying it
-		add error catching
-	prevent cutting square on a side with a size of only 1 tile
+	if only one side is larger than 1, always cut that side
+	
+	
 - optionally draw bulk worlds side by side for easy comparing
 - generate cut points with clamped normal distribution instead of true rng to improve uniformity
 - add cut direction assurances to prevent all cuts from being same direction - BE CAREFUL, THIS MIGHT MAKE LEVEL GEN BORING

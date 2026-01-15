@@ -28,7 +28,7 @@ var first_update = true
 var level		: Array 		= [[]] # two dim array
 var g_ready_to_generate: bool = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if first_update:
 		first_update = false
 		g_ready_to_generate = true
@@ -52,8 +52,8 @@ func _draw_level() -> bool:
 	# testing draw a square of tiles
 	print("Generating map with the following width and height: "+str(width)+", "+str(height))
 	var generated_tiles = 0
-	for i in range(-1, -(height+1), -1):
-		for j in range(width):
+	for i: int in range(-1, -(height+1), -1):
+		for j: int in range(width):
 			tmap.set_cell(Vector2i(j, i), 0, groundcoords)
 			generated_tiles += 1
 			if print_each_generated_cell_coord:
@@ -66,7 +66,7 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 	# generate level data with a binary tree
 	var l_tree: Array
 	var iterations_done = 0
-	for i in range(_iterations):
+	for i:int in range(_iterations):
 		var number_created = 0
 		l_tree.append([] as Array[BspNode])
 		
