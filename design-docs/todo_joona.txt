@@ -1,19 +1,14 @@
-- city soundscape
+- fix RectDraw world sizing bug occuring when width and height are not 25 and iterations is other than 5
+
+- add cut direction assurances to prevent all cuts from being same direction - BE CAREFUL, THIS MIGHT MAKE LEVEL GEN BORING
 - world grid
 - convert bsp world to world grid
-- choose cut points with clamped normal distribution instead of true rng to improve uniformity
-- add cut direction assurances to prevent all cuts from being same direction - BE CAREFUL, THIS MIGHT MAKE LEVEL GEN BORING
 - generate roads between squares (variable width)
 - generate one entrance
 - generate two exits 
 - place player on south entrance
 - make only roads navigable
-- generate side entrances
-- Ambient weather sound system
-	define background zones
-		jungle
-		beach 
-		lab
+- generate side entrances for npc squads
 		
 
 - place buildings in bsp squares

@@ -50,8 +50,16 @@ func _create_children() -> Array[BspNode]:
 			# always cut from center if height is only 2
 			cut_pos = self.position.y + 1
 		else:
-			 # weird range is to prevent cuts too close to parents edges
-			cut_pos = rng.randi_range(self.position.y + 1, self.position.y + self.height - 2)
+			# choose cut pos with normal distribution to prevent crazy results
+			var n_mean: 		float = float(self.position.y) + float(self.height / 2.0)
+			var n_deviation: 	float = float((self.height / 2.0) / 3.0) # 99% of values are within 3 standard deviations. So 1/3 of 1/2 of our height gives an appropriate deviation
+			# clamp the random in acceptable range
+			# weird range is to prevent cuts too close to parents edges
+			cut_pos = int(clampf(
+				rng.randfn(n_mean, n_deviation),
+				self.position.y + 1,
+				self.position.y + self.height - 2
+				))
 		c1_position = 	self.position
 		c1_width  = 	self.width
 		c1_height = 	cut_pos - self.position.y
@@ -63,7 +71,16 @@ func _create_children() -> Array[BspNode]:
 			# always cut from middle if width is only 2
 			cut_pos = self.position.x + 1 
 		else:
-			cut_pos = rng.randi_range(self.position.x + 1, self.position.x + self.width - 2)
+			# choose cut pos with normal distribution to prevent crazy results
+			var n_mean: 		float = float(self.position.x) + float(self.width / 2.0)
+			var n_deviation: 	float = float((self.width / 2.0) / 3.0) # 99% of values are within 3 standard deviations. So 1/3 of 1/2 of our height gives an appropriate deviation
+			# clamp the random in acceptable range
+			# weird range is to prevent cuts too close to parents edges
+			cut_pos = int(clampf(
+				rng.randfn(n_mean, n_deviation),
+				self.position.x + 1,
+				self.position.x + self.width - 2
+				))
 		c1_position = 	self.position
 		c1_width = 		cut_pos - self.position.x
 		c1_height = 	self.height
