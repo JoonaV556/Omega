@@ -1,8 +1,22 @@
-- optionally draw bulk worlds side by side for easy comparing
-
-- generate cut points with clamped normal distribution instead of true rng to improve uniformity
+- city soundscape
+- world grid
+- convert bsp world to world grid
+- choose cut points with clamped normal distribution instead of true rng to improve uniformity
 - add cut direction assurances to prevent all cuts from being same direction - BE CAREFUL, THIS MIGHT MAKE LEVEL GEN BORING
+- generate roads between squares (variable width)
+- generate one entrance
+- generate two exits 
+- place player on south entrance
+- make only roads navigable
+- generate side entrances
+- Ambient weather sound system
+	define background zones
+		jungle
+		beach 
+		lab
+		
 
+- place buildings in bsp squares
 	
 - draw the grid as a tilemap
 - give varying colors to each tile to make identification easier

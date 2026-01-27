@@ -69,8 +69,8 @@ func draw_worlds(worlds: Array):
 			x_offset 			= 0
 			y_offset			+= y_delta
 			num_placed_on_column+= 1
-			extra_x = 0
-			extra_y += draw_bulk_gap
+			extra_x 			= 0
+			extra_y 			+= draw_bulk_gap
 			
 		_draw_level(worlds[i], Vector2i(x_offset + extra_x, y_offset + extra_y))
 		extra_x += draw_bulk_gap
