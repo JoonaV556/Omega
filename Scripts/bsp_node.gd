@@ -23,16 +23,13 @@ func _create_children() -> Array[BspNode]:
 	# pick cut angle 0 = hor, 1 = vertical
 	var cut_ang: int
 	var rng = RandomNumberGenerator.new()
-	# always cut longer side if shorter side is 1
-	var other_taller = (width <= 1 and height > 1)
-	var other_wider = (height <= 1 and width > 1)
-	if other_taller or other_wider:
-		if other_taller:
-			cut_ang = 0
-		else:
-			cut_ang = 1
-	else:
+	# pick cut angle
+	if self.width == self.height:
 		cut_ang = rng.randi_range(0,1)
+	elif self.width > self.height:
+		cut_ang = 1
+	else: 
+		cut_ang = 0
 	
 	# pick cut position and size children based on cut
 	var cut_pos

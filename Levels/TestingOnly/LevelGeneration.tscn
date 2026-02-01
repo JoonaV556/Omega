@@ -34,6 +34,7 @@ color = Color(0.21, 0.21, 0.21, 1)
 
 [node name="Player" parent="." instance=ExtResource("6_inkfx")]
 position = Vector2(8, -2)
+speed = 500
 
 [node name="Camera" parent="." instance=ExtResource("7_x4aj6")]
 position = Vector2(44, 43)
@@ -68,16 +69,15 @@ grow_vertical = 0
 [node name="RectDraw" type="Node2D" parent="." node_paths=PackedStringArray("g_generator")]
 script = ExtResource("9_qql5g")
 g_generator = NodePath("../LevelGenerator")
-g_level_width = 100
-g_level_height = 100
+g_iterations = 5
 bulk_generate = true
-bulk_generate_count = 5
+bulk_generate_count = 9
 draw_bulk_worlds = true
 metadata/_custom_type_script = "uid://cy8k88j267u7m"
 
 [node name="SFX-Ambience-Jungle" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_rtbfv")
-volume_db = -8.0
+volume_db = -10.0
 autoplay = true
 
 [editable path="Camera"]
