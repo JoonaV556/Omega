@@ -29,10 +29,9 @@ var g_drawn: bool = false
 func _process(_delta: float) -> void:
 	if g_generator.g_ready_to_generate and (g_drawn == false):
 		g_drawn = true
-		var level = g_generator._generate(g_level_width, g_level_height, g_iterations)
-		_draw_level(level)
-		
+	
 		if bulk_generate:
+			print_debug("Drawing levels in bulk...")
 			var count = 0
 			var _worlds: Array = []
 			var _throwaway_world
@@ -42,15 +41,19 @@ func _process(_delta: float) -> void:
 						g_generator._generate(g_level_width, g_level_height, g_iterations)
 					) 
 					count += 1
-				self.draw_worlds(_worlds)
+				self.draw_levels(_worlds)
 			else:
 				for i: int in range(bulk_generate_count):
 					_throwaway_world = g_generator._generate(g_level_width, g_level_height, g_iterations)
 					count += 1
-			print("Generated "+str(count)+" worlds in bulk!")
+			print_debug("Generated "+str(count)+" worlds in bulk!")
+		else: 
+			print_debug("Drawing a single level...")
+			var level = g_generator._generate(g_level_width, g_level_height, g_iterations)
+			_draw_level(level)
 
-func draw_worlds(worlds: Array):
-	print("asd")
+func draw_levels(worlds: Array):
+	print_debug("asd")
 	var x_offset: 				int = 0
 	var y_offset: 				int = 0
 	var x_delta:					= g_level_width

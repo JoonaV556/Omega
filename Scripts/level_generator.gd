@@ -50,15 +50,15 @@ func _draw_level() -> bool:
 		player.move_to_front()
 	
 	# testing draw a square of tiles
-	print("Generating map with the following width and height: "+str(width)+", "+str(height))
+	print_debug("Generating map with the following width and height: "+str(width)+", "+str(height))
 	var generated_tiles = 0
 	for i: int in range(-1, -(height+1), -1):
 		for j: int in range(width):
 			tmap.set_cell(Vector2i(j, i), 0, groundcoords)
 			generated_tiles += 1
 			if print_each_generated_cell_coord:
-				print("Set cell " + str(j) + ", " + str(i))
-	print("Generated "+str(generated_tiles)+" tiles!")
+				print_debug("Set cell " + str(j) + ", " + str(i))
+	print_debug("Generated "+str(generated_tiles)+" tiles!")
 	
 	return true
 	
@@ -89,6 +89,6 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 				number_created += 2
 			l_tree[i].append_array(children)
 		iterations_done += 1
-		print("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
-	print("Created a total of "+str(iterations_done)+" levels on BSP tree")
+		print_debug("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
+	print_debug("Created a total of "+str(iterations_done)+" levels on BSP tree")
 	return l_tree

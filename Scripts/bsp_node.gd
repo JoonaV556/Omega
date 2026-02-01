@@ -89,7 +89,7 @@ func _create_children() -> Array[BspNode]:
 		c2_height = 	self.height	
 	
 	if (c1_height <= 0) or (c1_width <= 0) or (c2_height <= 0) or (c2_width <= 0):
-		print("alert")
+		print_debug("alert")
 	
 	var node_1 = BspNode.new(c1_position, c1_width, c1_height)
 	node_1.parent = self
