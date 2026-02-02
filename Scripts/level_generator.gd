@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 		first_update = false
 		g_ready_to_generate = true
 
-## Tries to generate the level, returns the map data as a bsp tree 
+
 func _draw_level() -> bool:
 	# create tilemap under root node
 	assert(scene_root != null, "Cannot continue, root is not set")
@@ -49,7 +49,7 @@ func _draw_level() -> bool:
 	if player != null:
 		player.move_to_front()
 	
-	# testing draw a square of tiles
+	# testing - draw a square of tiles
 	print_debug("Generating map with the following width and height: "+str(width)+", "+str(height))
 	var generated_tiles = 0
 	for i: int in range(-1, -(height+1), -1):
@@ -62,6 +62,7 @@ func _draw_level() -> bool:
 	
 	return true
 	
+## Tries to generate the level, returns the map data as a bsp tree 
 func _generate(_width: int, _height: int, _iterations: int) -> Array:
 	# generate level data with a binary tree
 	var l_tree: Array

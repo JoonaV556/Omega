@@ -1,7 +1,10 @@
-## Helper script for drawing levelgenerators levels without tilemaps, useful for visualizing procedural level data
+## Provides functions for visually rendering procedurally generated level data
 extends Node2D
-class_name RectDraw
+class_name LevelRenderer
 
+## If true, renders a single level using tilemaps on game start
+@export
+var render_on_tilemap: bool = true
 @export
 var g_generator: LevelGenerator 
 @export
@@ -13,14 +16,14 @@ var g_level_height: int = 25
 @export
 var g_iterations: int = 4
 
-@export_group("Bulk generation")
-@export var bulk_generate: 						bool = false
-@export_range(2, 999) var bulk_generate_count: 	int = 2
-## Whether to draw bulk worlds in a grid for analysis purposes
-@export var draw_bulk_worlds: 					bool = false
+@export_group("Bulk generation - Debug feature")
+@export var enable_bulk_generation: 						bool = false
+@export_range(2, 999) var bulk_generate_count: 	int = 4
+## Whether to draw bulk levels in a grid for analysis purposes
+@export var enable_bulk_draw: 					bool = false
 @export_range(2, 999) var draw_bulk_columns: 	int = 4
 @export_range(2, 999) var draw_bulk_rows: 		int = 99
-## Extra gap placed between drawn worlds
+## Extra gap placed between drawn levels
 @export_range(0, 999) var draw_bulk_gap: 		int = 2
 
 var g_drawn: bool = false
@@ -30,27 +33,26 @@ func _process(_delta: float) -> void:
 	if g_generator.g_ready_to_generate and (g_drawn == false):
 		g_drawn = true
 	
-		if bulk_generate:
-			print_debug("Drawing levels in bulk...")
-			var count = 0
-			var _worlds: Array = []
-			var _throwaway_world
-			if (draw_bulk_worlds):
-				for i: int in range(bulk_generate_count):
-					_worlds.append(
-						g_generator._generate(g_level_width, g_level_height, g_iterations)
-					) 
-					count += 1
-				self.draw_levels(_worlds)
-			else:
-				for i: int in range(bulk_generate_count):
-					_throwaway_world = g_generator._generate(g_level_width, g_level_height, g_iterations)
-					count += 1
-			print_debug("Generated "+str(count)+" worlds in bulk!")
-		else: 
-			print_debug("Drawing a single level...")
-			var level = g_generator._generate(g_level_width, g_level_height, g_iterations)
-			_draw_level(level)
+		if enable_bulk_generation:
+			bulk_generate()
+
+func bulk_generate() -> void:
+	print_debug("Generating levels in bulk...")
+	var count = 0
+	var _levels: Array = []
+	var _throwaway_world
+	if (enable_bulk_draw):
+		for i: int in range(bulk_generate_count):
+			_levels.append(
+				g_generator._generate(g_level_width, g_level_height, g_iterations)
+			) 
+			count += 1
+		self.draw_levels(_levels)
+	else:
+		for i: int in range(bulk_generate_count):
+			_throwaway_world = g_generator._generate(g_level_width, g_level_height, g_iterations)
+			count += 1
+	print_debug("Generated "+str(count)+" levels in bulk!")
 
 func draw_levels(worlds: Array):
 	print_debug("asd")
