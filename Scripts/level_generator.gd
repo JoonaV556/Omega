@@ -91,4 +91,20 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 		iterations_done += 1
 		print_debug("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
 	print_debug("Created a total of "+str(iterations_done)+" levels on BSP tree")
+	
+	# Shrink sides of each bsp node to introduce roads in between
+	for _node: BspNode in l_tree[l_tree.size()-1]:
+		# prevent cutting from sides on map edges
+		var can_cut_left = (_node.position.x > 0) 
+		var can_cut_right = (_node.position.x + _node.width) < _width
+		var can_cut_up = (_node.position.y + _node.height) < _height
+		var can_cut_down = (_node.position.y > 0)
+		if can_cut_left:
+			_node.cut_side(BspNode.side.Left, 1)
+		if can_cut_right:
+			_node.cut_side(BspNode.side.Right, 1)
+		if can_cut_up:
+			_node.cut_side(BspNode.side.Up, 1)
+		if can_cut_down:
+			_node.cut_side(BspNode.side.Down, 1)
 	return l_tree
