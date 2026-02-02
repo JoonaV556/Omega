@@ -1,10 +1,7 @@
-## Provides functions for visually rendering procedurally generated level data
+## Provides functions for rendering level data with debugging features
 extends Node2D
 class_name LevelRenderer
 
-## If true, renders a single level using tilemaps on game start
-@export
-var render_on_tilemap: bool = true
 @export
 var g_generator: LevelGenerator 
 @export
@@ -26,12 +23,12 @@ var g_iterations: int = 4
 ## Extra gap placed between drawn levels
 @export_range(0, 999) var draw_bulk_gap: 		int = 2
 
-var g_drawn: bool = false
+var g_rendered_once: bool = false
 
 # wait for generator to be ready
 func _process(_delta: float) -> void:
-	if g_generator.g_ready_to_generate and (g_drawn == false):
-		g_drawn = true
+	if g_generator.g_ready_to_generate and (g_rendered_once == false):
+		g_rendered_once = true
 	
 		if enable_bulk_generation:
 			bulk_generate()
@@ -47,14 +44,14 @@ func bulk_generate() -> void:
 				g_generator._generate(g_level_width, g_level_height, g_iterations)
 			) 
 			count += 1
-		self.draw_levels(_levels)
+		self.render_levels_rect(_levels)
 	else:
 		for i: int in range(bulk_generate_count):
 			_throwaway_world = g_generator._generate(g_level_width, g_level_height, g_iterations)
 			count += 1
 	print_debug("Generated "+str(count)+" levels in bulk!")
 
-func draw_levels(worlds: Array):
+func render_levels_rect(worlds: Array):
 	print_debug("asd")
 	var x_offset: 				int = 0
 	var y_offset: 				int = 0
@@ -77,12 +74,12 @@ func draw_levels(worlds: Array):
 			extra_x 			= 0
 			extra_y 			+= draw_bulk_gap
 			
-		_draw_level(worlds[i], Vector2i(x_offset + extra_x, y_offset + extra_y))
+		render_level_rect(worlds[i], Vector2i(x_offset + extra_x, y_offset + extra_y))
 		extra_x += draw_bulk_gap
 		num_placed_on_row 		+= 1
 		x_offset += x_delta
 
-func _draw_level(level, _position_offset := Vector2i(0, 0)) -> void:
+func render_level_rect(level, _position_offset := Vector2i(0, 0)) -> void:
 	var l_target_layer: Array[BspNode] = level[level.size() - 1]
 	
 	for l_node: BspNode in l_target_layer:

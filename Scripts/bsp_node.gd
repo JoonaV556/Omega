@@ -6,10 +6,30 @@ var height: 	int
 var parent: 	BspNode
 var children: 	Array
 
+enum side {Left, Right, Up, Down}
+
 func _init(_position, _width, _height):
 	self.position 	= _position
 	self.width 		= _width
 	self.height 	= _height
+
+## Cuts off specified amount of tiles from specified side of node
+func cut_side(cut_side: side, cut_amount: int = 0):
+	match cut_side:
+		side.Left:
+			if (self.width - cut_amount) > 2:
+				self.width -= cut_amount
+				self.position = Vector2i(self.position.x + 1, self.position.y)
+		side.Right:
+			if (self.width - cut_amount) > 2:
+				self.width -= cut_amount
+		side.Up:
+			if (self.height - cut_amount) > 2:
+				self.height -= cut_amount
+		side.Down:
+			if (self.height - cut_amount) > 2:
+				self.height -= cut_amount
+				self.position = Vector2i(self.position.x, self.position.y + 1)
 	
 ## Creates a pair of children for this node and returns them in an array
 ## Returns an empty array if the parent is too small to be split in half in the first place

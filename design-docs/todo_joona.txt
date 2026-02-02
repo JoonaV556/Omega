@@ -1,8 +1,12 @@
-- draw levels with tilemap 
-	render 
+- generate roads between bsp squares (variable width)
+	shrink nodes to give space for roads
+		bsp node - slice function - cuts a slice from side 
+			test functionality
+		level generator - shrink nodes on all sides except ones on edge
+	convert level to grid, squar
+	render roads
 
-- convert bsp world to world grid
-- generate roads between squares (variable width)
+
 - generate one entrance
 - generate two exits 
 - place player on south entrance

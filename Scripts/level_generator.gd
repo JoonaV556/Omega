@@ -33,7 +33,6 @@ func _process(_delta: float) -> void:
 		first_update = false
 		g_ready_to_generate = true
 
-
 func _draw_level() -> bool:
 	# create tilemap under root node
 	assert(scene_root != null, "Cannot continue, root is not set")
