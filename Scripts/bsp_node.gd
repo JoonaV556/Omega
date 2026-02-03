@@ -17,17 +17,17 @@ func _init(_position, _width, _height):
 func cut_side(_side: side, cut_amount: int = 0):
 	match _side:
 		side.Left:
-			if (self.width - cut_amount) > 2:
+			if (self.width - cut_amount) >= 2:
 				self.width -= cut_amount
 				self.position = Vector2i(self.position.x + 1, self.position.y)
 		side.Right:
-			if (self.width - cut_amount) > 2:
+			if (self.width - cut_amount) >= 2:
 				self.width -= cut_amount
 		side.Up:
-			if (self.height - cut_amount) > 2:
+			if (self.height - cut_amount) >= 2:
 				self.height -= cut_amount
 		side.Down:
-			if (self.height - cut_amount) > 2:
+			if (self.height - cut_amount) >= 2:
 				self.height -= cut_amount
 				self.position = Vector2i(self.position.x, self.position.y + 1)
 	
