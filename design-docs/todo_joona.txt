@@ -1,17 +1,19 @@
 - generate roads between bsp squares (variable width)
 	shrink nodes to give space for roads
-		bsp node - slice function - cuts a slice from side 
-			test functionality
-		level generator - shrink nodes on all sides except ones on edge
+		debug shrinking with visualizer
 	convert level to grid, squar
-	render roads
+	render level with level_generator, using tilemaps
 
 
 - generate one entrance
 - generate two exits 
 - place player on south entrance
 - make only roads navigable
+- make some bsp nodes / city squarez accessible to introduce space for fights & combat
 - generate side entrances for npc squads
+- add singular patrolling npcs
+- add patrolling npc squads
+
 		
 
 - place buildings in bsp squares

@@ -14,8 +14,8 @@ func _init(_position, _width, _height):
 	self.height 	= _height
 
 ## Cuts off specified amount of tiles from specified side of node
-func cut_side(cut_side: side, cut_amount: int = 0):
-	match cut_side:
+func cut_side(_side: side, cut_amount: int = 0):
+	match _side:
 		side.Left:
 			if (self.width - cut_amount) > 2:
 				self.width -= cut_amount
