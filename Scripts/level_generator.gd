@@ -108,3 +108,57 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 		if can_cut_down:
 			_node.cut_side(BspNode.side.Down, 1)
 	return l_tree
+
+## Generates a road grid from a level grid [br]
+## Format: Array[Array[bool]], where arrays represent grid positions and booleans represent roads. True == road
+func generate_road_grid(_level_tree: Array) -> Array[Array]:
+	var _road_grid: Array[Array] = []
+	# figure out size of the level - bsp tree root node tells us that info
+	var _level_root_node: BspNode = _level_tree[0][0]
+	var _level_width: int = _level_root_node.width
+	var _level_height: int = _level_root_node.height
+	# prepare grid with all tiles as road
+	var _row_template: Array[bool] = []
+	_row_template.resize(_level_width)
+	_row_template.fill(true)
+	_road_grid.resize(_level_height)
+	for i in range(_level_height):
+		_road_grid[i] = _row_template.duplicate(true)
+	# unmark tiles with bsp nodes as roads, so only roads are left true
+	for _nd: BspNode in _level_tree[(_level_tree.size()-1)]:
+		for _y in range(_nd.position.y, (_nd.position.y + _nd.height)):
+			for _x in range(_nd.position.x, (_nd.position.x + _nd.width)):
+				_road_grid[_y][_x] = false
+	return _road_grid
+
+## Generates a grid representing all bsp nodes in the level. [br]
+## Format: Array[Array[int]], where arrays represent grid positions and integers represent index of each node. [br]
+## 0 == NO NODE		[br]
+## 1 == node n.1	[br]
+## 2 == node n.2	[br]
+## Check out example below: [br]
+## 1 1 2 2			[br]
+## 1 1 2 2			[br]
+## 3 3 2 2			[br]
+## 3 3 0 0
+func generate_node_grid(_level_tree: Array) -> Array[Array]:
+	var _node_grid: Array[Array] = []
+	# figure out size of the level - bsp tree root node tells us that info
+	var _level_root_node: BspNode = _level_tree[0][0]
+	var _level_width: int = _level_root_node.width
+	var _level_height: int = _level_root_node.height
+	# prepare grid with all tiles marked as non-nodes, i.e. 0
+	var _row_template: Array[int] = []
+	_row_template.resize(_level_width)
+	_row_template.fill(0)
+	_node_grid.resize(_level_height)
+	for y in range(_level_height): 
+		_node_grid[y] = _row_template.duplicate(true)
+	# mark tiles with bsp nodes - 1, 2, 3, etc...
+	var _node_index: int = 1
+	for _nd: BspNode in _level_tree[(_level_tree.size()-1)]:
+		for _y in range(_nd.position.y, (_nd.position.y + _nd.height)):
+			for _x in range(_nd.position.x, (_nd.position.x + _nd.width)):
+				_node_grid[_y][_x] = _node_index
+		_node_index += 1
+	return _node_grid

@@ -1,9 +1,9 @@
 - generate roads between bsp squares (variable width)
-	shrink nodes to give space for roads
-		debug shrinking with visualizer
-	convert level to grid, squar
-	render level with level_generator, using tilemaps
-
+	convert level to grid
+		convert roads to road grid
+		convert nodes to node grid 
+	somehow test road & node grid generation
+	build level on tilemap using grids
 
 - generate one entrance
 - generate two exits 
@@ -13,8 +13,6 @@
 - generate side entrances for npc squads
 - add singular patrolling npcs
 - add patrolling npc squads
-
-		
 
 - place buildings in bsp squares
 	
@@ -30,6 +28,14 @@
 - use tunnelers to intorduce wanted entrances and exits
 
 
+
+old
+------------ Milestones
+Prologue
+------------ Nice To HAve
+- SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
+------------ DONT FORGET 
+- Add credits for attributed asset devs 
 
 
 
