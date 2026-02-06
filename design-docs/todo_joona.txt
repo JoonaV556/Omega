@@ -1,9 +1,6 @@
 - generate roads between bsp squares (variable width)
-	convert level to grid
-		convert roads to road grid
-		convert nodes to node grid 
-	somehow test road & node grid generation
 	build level on tilemap using grids
+		generate level on game start
 
 - generate one entrance
 - generate two exits 

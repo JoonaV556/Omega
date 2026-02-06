@@ -2,6 +2,8 @@ extends Node
 class_name LevelGenerator
 
 @export 
+var draw_on_first_update: bool = true
+@export 
 var scene_root: 	Node2D
 @export
 var player: Node2D
@@ -32,6 +34,8 @@ func _process(_delta: float) -> void:
 	if first_update:
 		first_update = false
 		g_ready_to_generate = true
+		if draw_on_first_update:
+			_draw_level()
 
 func _draw_level() -> bool:
 	# create tilemap under root node
@@ -49,15 +53,31 @@ func _draw_level() -> bool:
 		player.move_to_front()
 	
 	# testing - draw a square of tiles
-	print_debug("Generating map with the following width and height: "+str(width)+", "+str(height))
-	var generated_tiles = 0
-	for i: int in range(-1, -(height+1), -1):
-		for j: int in range(width):
-			tmap.set_cell(Vector2i(j, i), 0, groundcoords)
-			generated_tiles += 1
-			if print_each_generated_cell_coord:
-				print_debug("Set cell " + str(j) + ", " + str(i))
-	print_debug("Generated "+str(generated_tiles)+" tiles!")
+	#print_debug("Generating map with the following width and height: "+str(width)+", "+str(height))
+	#var generated_tiles = 0
+	#for i: int in range(-1, -(height+1), -1):
+		#for j: int in range(width):
+			#tmap.set_cell(Vector2i(j, i), 0, groundcoords)
+			#generated_tiles += 1
+			#if print_each_generated_cell_coord:
+				#print_debug("Set cell " + str(j) + ", " + str(i))
+	#print_debug("Generated "+str(generated_tiles)+" tiles!")
+	
+	# Generate level 
+	var _level: Array 			= _generate(self.width, self.height, self.bsp_tree_iterations)
+	var _roads: Array[Array] 	= generate_road_grid(_level)
+	var _nodes: Array[Array] 	= generate_node_grid(_level)
+	
+	push_error("zzz - still buggy")
+	# Draw level on tilemap
+	for _y in range(self.height):
+		for _x in range(self.width):
+			# draw road
+			if _roads[_x][_y] == true:
+				tmap.set_cell(Vector2i(_y, _x), 0, roadcoords)
+			# draw node
+			if _nodes[_x][_y] != 0:
+				tmap.set_cell(Vector2i(_y, _x), 0, groundcoords)
 	
 	return true
 	
