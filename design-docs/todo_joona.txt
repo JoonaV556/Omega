@@ -1,8 +1,6 @@
-- mass gen on tilemap to detect bugs
-
 - prevent node cuts too close to edges
 
-- ensure one entrance
+- ensure one south entrance
 
 - ensure two exits 
 

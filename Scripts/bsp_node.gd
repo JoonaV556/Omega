@@ -33,7 +33,8 @@ func cut_side(_side: side, cut_amount: int = 0):
 	
 ## Creates a pair of children for this node and returns them in an array
 ## Returns an empty array if the parent is too small to be split in half in the first place
-func _create_children() -> Array[BspNode]:
+## todo: rename to split() maybe?
+func _create_children(_force_horizontal_split: bool = false) -> Array[BspNode]:
 	# prevent generating if we are a too small to be split in half
 	var new_children: Array[BspNode] 
 	if (self.width < 2) and (self.height < 2):
@@ -44,12 +45,15 @@ func _create_children() -> Array[BspNode]:
 	var cut_ang: int
 	var rng = RandomNumberGenerator.new()
 	# pick cut angle
-	if self.width == self.height:
-		cut_ang = rng.randi_range(0,1)
-	elif self.width > self.height:
+	if _force_horizontal_split:
 		cut_ang = 1
-	else: 
-		cut_ang = 0
+	else:
+		if self.width == self.height:
+			cut_ang = rng.randi_range(0,1)
+		elif self.width > self.height:
+			cut_ang = 1
+		else: 
+			cut_ang = 0
 	
 	# pick cut position and size children based on cut
 	var cut_pos

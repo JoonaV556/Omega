@@ -58,6 +58,7 @@ func draw_level() -> bool:
 	if player != null:
 		player.move_to_front()
 	
+	# generate and draw level
 	if enable_bulk_generation:
 		var num_generated: int = 0
 		for i in range(bulk_generate_count):
@@ -91,10 +92,24 @@ func draw_level() -> bool:
 					tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
 	return true
 
+## Makes a level vertically traversible from south->north by cutting a way through
+func make_vertically_traversable(_level: Array[Array]):
+	var _bad_nodes: Array[BspNode] 	= []
+	# check if the level is traversible
+	for _node: BspNode in _level[-1]:
+		var _level_root_width: int = _level[0][0].width
+		if _node.width >= _level_root_width:
+			push_warning("non-vertically traversable node detected!")
+			_bad_nodes.append(_node)
+	# cut through non-traversible parts by splitting bad nodes
+	for _bad_node: BspNode in _bad_nodes:
+		_level[-1].erase(_bad_node)
+		_level[-1].append_array(_bad_node._create_children())
+
 ## Tries to generate the level, returns the map data as a bsp tree 
-func _generate(_width: int, _height: int, _iterations: int) -> Array:
+func _generate(_width: int, _height: int, _iterations: int, _make_vertically_traversible: bool = true) -> Array:
 	# generate level data with a binary tree
-	var l_tree: Array
+	var l_tree: Array[Array]
 	var iterations_done = 0
 	for i:int in range(_iterations):
 		var number_created = 0
@@ -122,6 +137,10 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 		print_debug("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
 	print_debug("Created a total of "+str(iterations_done)+" levels on BSP tree")
 	
+	# ensure the level has at least one way through vertically (south->north)
+	if _make_vertically_traversible:
+		make_vertically_traversable(l_tree)
+	
 	# Shrink sides of each bsp node to introduce roads in between
 	for _node: BspNode in l_tree[l_tree.size()-1]:
 		# prevent cutting from sides on map edges
@@ -141,7 +160,7 @@ func _generate(_width: int, _height: int, _iterations: int) -> Array:
 
 ## Generates a road grid from a level grid [br]
 ## Format: Array[Array[bool]], where arrays represent grid positions and booleans represent roads. True == road
-func generate_road_grid(_level_tree: Array) -> Array[Array]:
+func generate_road_grid(_level_tree: Array) -> Array:
 	var _road_grid: Array[Array] = []
 	# figure out size of the level - bsp tree root node tells us that info
 	var _level_root_node: BspNode = _level_tree[0][0]
