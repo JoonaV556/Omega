@@ -1,17 +1,26 @@
+- mass gen on tilemap to detect bugs
+
+- prevent node cuts too close to edges
+
 - ensure one entrance
+
 - ensure two exits 
-- place player on south entrance
+
+- place player on south entranc
+
 - make only roads navigable
+
 - make some bsp nodes / city squarez accessible to introduce space for fights & combat
+
 - generate side entrances for npc squads
+
 - add singular patrolling npcs
+
 - add patrolling npc squads
 
 - place buildings in bsp squares
 	
 - draw the grid as a tilemap
-- give varying colors to each tile to make identification easier
-- option to randomize color of each drawn node 
 - prevent too small square divisions
 
 

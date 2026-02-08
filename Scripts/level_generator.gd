@@ -25,6 +25,12 @@ var groundcoords: Vector2i = Vector2i(17,56)
 @export
 var roadcoords: Vector2i = Vector2i(1,7) 
 
+@export_subgroup("Debug")
+@export
+var enable_bulk_generation: bool = false
+@export_range(2, 99)
+var bulk_generate_count: int = 0
+
 var tmap		: TileMapLayer
 var first_update = true
 var level		: Array 		= [[]] # two dim array
@@ -52,33 +58,39 @@ func draw_level() -> bool:
 	if player != null:
 		player.move_to_front()
 	
-	# testing - draw a square of tiles
-	#print_debug("Generating map with the following width and height: "+str(width)+", "+str(height))
-	#var generated_tiles = 0
-	#for i: int in range(-1, -(height+1), -1):
-		#for j: int in range(width):
-			#tmap.set_cell(Vector2i(j, i), 0, groundcoords)
-			#generated_tiles += 1
-			#if print_each_generated_cell_coord:
-				#print_debug("Set cell " + str(j) + ", " + str(i))
-	#print_debug("Generated "+str(generated_tiles)+" tiles!")
-	
-	# Generate level 
-	var _level: Array 			= _generate(self.width, self.height, self.bsp_tree_iterations)
-	var _roads: Array[Array] 	= generate_road_grid(_level)
-	var _nodes: Array[Array] 	= generate_node_grid(_level)
-	
-	# Draw level on tilemap
-	for _y in range(-1, -(self.height-1), -1):
-		for _x in range(self.width):
-			# draw road
-			if _roads[_y][_x] == true:
-				tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
-			# draw node
-			if _nodes[_y][_x] != 0:
-				tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
+	if enable_bulk_generation:
+		var num_generated: int = 0
+		for i in range(bulk_generate_count):
+			# generate level
+			var _level: Array 			= _generate(self.width, self.height, self.bsp_tree_iterations)
+			var _roads: Array[Array] 	= generate_road_grid(_level)
+			var _nodes: Array[Array] 	= generate_node_grid(_level)
+			# Draw level on tilemap
+			for _y in range(-1, -(self.height-1), -1):
+				for _x in range(self.width):
+					# draw road
+					if _roads[_y][_x] == true:
+						tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, roadcoords)
+					# draw node
+					if _nodes[_y][_x] != 0:
+						tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, groundcoords)
+			num_generated += 1
+	else:
+		# Generate level 
+		var _level: Array 			= _generate(self.width, self.height, self.bsp_tree_iterations)
+		var _roads: Array[Array] 	= generate_road_grid(_level)
+		var _nodes: Array[Array] 	= generate_node_grid(_level)
+		# Draw level on tilemap
+		for _y in range(-1, -(self.height-1), -1):
+			for _x in range(self.width):
+				# draw road
+				if _roads[_y][_x] == true:
+					tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
+				# draw node
+				if _nodes[_y][_x] != 0:
+					tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
 	return true
-	
+
 ## Tries to generate the level, returns the map data as a bsp tree 
 func _generate(_width: int, _height: int, _iterations: int) -> Array:
 	# generate level data with a binary tree

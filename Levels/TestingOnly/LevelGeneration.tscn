@@ -34,7 +34,7 @@ color = Color(0.21, 0.21, 0.21, 1)
 
 [node name="Player" parent="." instance=ExtResource("6_inkfx")]
 position = Vector2(8, -2)
-speed = 500
+speed = 1500
 
 [node name="Camera" parent="." instance=ExtResource("7_x4aj6")]
 position = Vector2(44, 43)
@@ -55,6 +55,8 @@ print_each_generated_cell_coord = false
 width = 50
 groundcoords = Vector2i(1, 12)
 roadcoords = Vector2i(4, 8)
+enable_bulk_generation = true
+bulk_generate_count = 10
 
 [node name="Editor - Esc-to-close" type="Node" parent="."]
 script = ExtResource("6_iojkq")
