@@ -73,10 +73,10 @@ func _draw_level() -> bool:
 	for _y in range(self.height):
 		for _x in range(self.width):
 			# draw road
-			if _roads[_x][_y] == true:
+			if _roads[_y][_x] == true:
 				tmap.set_cell(Vector2i(_y, _x), 0, roadcoords)
 			# draw node
-			if _nodes[_x][_y] != 0:
+			if _nodes[_y][_x] != 0:
 				tmap.set_cell(Vector2i(_y, _x), 0, groundcoords)
 	
 	return true
