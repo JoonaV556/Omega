@@ -1,9 +1,5 @@
-- generate roads between bsp squares (variable width)
-	build level on tilemap using grids
-		generate level on game start
-
-- generate one entrance
-- generate two exits 
+- ensure one entrance
+- ensure two exits 
 - place player on south entrance
 - make only roads navigable
 - make some bsp nodes / city squarez accessible to introduce space for fights & combat

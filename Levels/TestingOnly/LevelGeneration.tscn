@@ -52,8 +52,7 @@ scene_root = NodePath("..")
 player = NodePath("../Player")
 tiles = ExtResource("2_husrb")
 print_each_generated_cell_coord = false
-width = 120
-height = 240
+width = 50
 groundcoords = Vector2i(1, 12)
 roadcoords = Vector2i(4, 8)
 

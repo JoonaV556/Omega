@@ -35,9 +35,9 @@ func _process(_delta: float) -> void:
 		first_update = false
 		g_ready_to_generate = true
 		if draw_on_first_update:
-			_draw_level()
+			draw_level()
 
-func _draw_level() -> bool:
+func draw_level() -> bool:
 	# create tilemap under root node
 	assert(scene_root != null, "Cannot continue, root is not set")
 	if scene_root == null:
@@ -68,17 +68,15 @@ func _draw_level() -> bool:
 	var _roads: Array[Array] 	= generate_road_grid(_level)
 	var _nodes: Array[Array] 	= generate_node_grid(_level)
 	
-	push_error("zzz - still buggy")
 	# Draw level on tilemap
-	for _y in range(self.height):
+	for _y in range(-1, -(self.height-1), -1):
 		for _x in range(self.width):
 			# draw road
 			if _roads[_y][_x] == true:
-				tmap.set_cell(Vector2i(_y, _x), 0, roadcoords)
+				tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
 			# draw node
 			if _nodes[_y][_x] != 0:
-				tmap.set_cell(Vector2i(_y, _x), 0, groundcoords)
-	
+				tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
 	return true
 	
 ## Tries to generate the level, returns the map data as a bsp tree 
