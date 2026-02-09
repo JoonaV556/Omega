@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Quest" load_steps=2 format=3 uid="uid://bpl30fes1t60k"]
+
+[ext_resource type="Script" uid="uid://dasj1grspeclu" path="res://Scripts/Quests/quest.gd" id="1_3fin4"]
+
+[resource]
+script = ExtResource("1_3fin4")
+title = "Find Out"
+notes = PackedStringArray("You found out...", "You set out ot find out")
+completed = false
+metadata/_custom_type_script = "uid://dasj1grspeclu"
