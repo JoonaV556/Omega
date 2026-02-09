@@ -1,49 +1,64 @@
 @tool
-class_name SingleInventoryView
-extends InventoryView
+class_name SingleInventoryUI
+extends InventoryUI
+
+@onready var grid = $PanelContainer/CenterContainer/MarginContainer/Grid
 
 const InventorySlotInstance = preload("res://Scenes/Inventory/InventorySlot.tscn")
-const SingleInventoryViewInstance = preload("res://Scenes/Inventory/SingleInventoryView.tscn")
+const SingleInventoryUIInstance = preload("res://Scenes/Inventory/SingleInventoryUI.tscn")
 
 var loaded_inventory: Inventory
 
+func _is_debug():
+	return self == get_tree().current_scene
+
 func _ready():
 	super._ready()
-	if Engine.is_editor_hint():
+	if not Engine.is_editor_hint() and _is_debug():
 		var inventory = Inventory.new()
 		
+		var test_item = Item.new()
+		test_item.set_icon(load("res://Sprites/test_item_icon.png"))
+		test_item.max_stack = 100
 		var test_item_stack = ItemStack.new()
+		test_item_stack.set_item(test_item)
 		test_item_stack.set_quantity(1)
+		var test_item_stack2 = ItemStack.new()
+		test_item_stack2.set_item(test_item)
+		test_item_stack2.set_quantity(99)
 		inventory.add(test_item_stack)
+		inventory.add(test_item_stack2)
 		
 		load_inventory(inventory)
 
 func load_inventory(inventory: Inventory):
 	loaded_inventory = inventory
-	var grid = $PanelContainer/CenterContainer/MarginContainer/Grid
 	
 	for child in grid.get_children():
 		grid.remove_child(child)
 	
 	grid.columns = inventory.columns
 	
-	var slot
 	for i in range(inventory.get_size()):
 		var stack = inventory.get_stack(i)
-		slot = InventorySlotInstance.instantiate()
+		_add_inventory_slot(i, stack)	
+
+func _add_inventory_slot(index: int, stack: ItemStack):
+		var slot = InventorySlotInstance.instantiate()
 		grid.add_child(slot)
-		slot.name = "InventorySlot" + str(i)
+		slot.name = "InventorySlot" + str(index)
 		slot.set_stack(stack)
 		slot.stack = stack
-		slot.gui_input.connect(_handle_item_gui_input.bind(int(i)))
-		slot.mouse_entered.connect(_handle_slot_mouse_entered.bind(int(i)))
+		slot.gui_input.connect(_handle_item_gui_input.bind(int(index)))
+		slot.mouse_entered.connect(_handle_slot_mouse_entered.bind(int(index)))
 		slot.mouse_exited.connect(_handle_slot_mouse_exited)
 		
 		if Engine.is_editor_hint():
 			slot.owner = get_tree().edited_scene_root
+	
 
 func get_slot_with_index(index: int):
-	return $PanelContainer/CenterContainer/MarginContainer/Grid.get_node("InventorySlot" + str(index))
+	return grid.get_node("InventorySlot" + str(index))
 
 func _handle_item_gui_input(event: InputEvent, index: int):
 	if event is not InputEventMouseButton: return
