@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://64rl7mfvtwpi"]
+
+[ext_resource type="Texture2D" uid="uid://cyu471khpo26d" path="res://Sprites/blue.png" id="1_i60gv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h5fps"]
+radius = 2.0
+height = 14.0
+
+[node name="Character" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -16)
+texture = ExtResource("1_i60gv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_h5fps")

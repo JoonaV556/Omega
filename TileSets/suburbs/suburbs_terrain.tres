@@ -1,21 +1,9 @@
-[gd_scene load_steps=19 format=4 uid="uid://c3iiyib0f4td"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bukal8fg05oom"]
 
-[ext_resource type="PackedScene" uid="uid://boadhvwpk0i80" path="res://Scenes/PauseMenu_ui_overlay.tscn" id="1_kcy00"]
-[ext_resource type="Script" uid="uid://eb172fc3t1cc" path="res://Scripts/togglePauseMenu.gd" id="2_gl7p3"]
-[ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="3_x8k8t"]
-[ext_resource type="Texture2D" uid="uid://ckkeq8es56x3u" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Clutter.png" id="4_arfya"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="7_132ah"]
-[ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="8_85wvh"]
-[ext_resource type="PackedScene" uid="uid://bnvhvtgb7ef3i" path="res://Scenes/Utils/Interactor.tscn" id="8_x8k8t"]
-[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="9_ndbdv"]
-[ext_resource type="Script" uid="uid://bbojvb02rbf0b" path="res://Scripts/speaker.gd" id="10_arfya"]
-[ext_resource type="Texture2D" uid="uid://il4jy8fu7y6a" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Garage_Sales_16x16_Graffiti_10.png" id="10_cgjdo"]
-[ext_resource type="Script" uid="uid://cgs4hce0xy5a5" path="res://Scripts/robert.gd" id="10_oqiiw"]
-[ext_resource type="PackedScene" uid="uid://mvxrpuei3bo4" path="res://Scenes/Utils/Interactable.tscn" id="13_a1vss"]
+[ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="1_duuyb"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t88pq"]
-resource_name = "terrain"
-texture = ExtResource("3_x8k8t")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nd1hv"]
+texture = ExtResource("1_duuyb")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -332,6 +320,17 @@ texture = ExtResource("3_x8k8t")
 10:26/0 = 0
 11:26/0 = 0
 0:27/0 = 0
+0:27/0/terrain_set = 0
+0:27/0/terrain = 0
+0:27/0/probability = 0.02
+0:27/0/terrains_peering_bit/right_side = 0
+0:27/0/terrains_peering_bit/bottom_right_corner = 0
+0:27/0/terrains_peering_bit/bottom_side = 0
+0:27/0/terrains_peering_bit/bottom_left_corner = 0
+0:27/0/terrains_peering_bit/left_side = 0
+0:27/0/terrains_peering_bit/top_left_corner = 0
+0:27/0/terrains_peering_bit/top_side = 0
+0:27/0/terrains_peering_bit/top_right_corner = 0
 1:27/0 = 0
 2:27/0 = 0
 3:27/0 = 0
@@ -540,9 +539,26 @@ texture = ExtResource("3_x8k8t")
 6:44/0 = 0
 7:44/0 = 0
 8:44/0 = 0
+8:44/0/terrain_set = 0
+8:44/0/terrain = 0
+8:44/0/terrains_peering_bit/right_side = 0
+8:44/0/terrains_peering_bit/bottom_right_corner = 0
+8:44/0/terrains_peering_bit/bottom_side = 0
 9:44/0 = 0
 10:44/0 = 0
+10:44/0/terrain_set = 0
+10:44/0/terrain = 0
+10:44/0/terrains_peering_bit/right_side = 0
+10:44/0/terrains_peering_bit/bottom_right_corner = 0
+10:44/0/terrains_peering_bit/bottom_side = 0
+10:44/0/terrains_peering_bit/bottom_left_corner = 0
+10:44/0/terrains_peering_bit/left_side = 0
 11:44/0 = 0
+11:44/0/terrain_set = 0
+11:44/0/terrain = 0
+11:44/0/terrains_peering_bit/bottom_side = 0
+11:44/0/terrains_peering_bit/bottom_left_corner = 0
+11:44/0/terrains_peering_bit/left_side = 0
 0:45/0 = 0
 1:45/0 = 0
 2:45/0 = 0
@@ -552,6 +568,13 @@ texture = ExtResource("3_x8k8t")
 6:45/0 = 0
 7:45/0 = 0
 8:45/0 = 0
+8:45/0/terrain_set = 0
+8:45/0/terrain = 0
+8:45/0/terrains_peering_bit/right_side = 0
+8:45/0/terrains_peering_bit/bottom_right_corner = 0
+8:45/0/terrains_peering_bit/bottom_side = 0
+8:45/0/terrains_peering_bit/top_side = 0
+8:45/0/terrains_peering_bit/top_right_corner = 0
 9:45/0 = 0
 11:45/0 = 0
 0:46/0 = 0
@@ -563,9 +586,15 @@ texture = ExtResource("3_x8k8t")
 6:46/0 = 0
 7:46/0 = 0
 8:46/0 = 0
-9:46/0 = 0
 10:46/0 = 0
 11:46/0 = 0
+11:46/0/terrain_set = 0
+11:46/0/terrain = 0
+11:46/0/terrains_peering_bit/bottom_side = 0
+11:46/0/terrains_peering_bit/bottom_left_corner = 0
+11:46/0/terrains_peering_bit/left_side = 0
+11:46/0/terrains_peering_bit/top_left_corner = 0
+11:46/0/terrains_peering_bit/top_side = 0
 0:47/0 = 0
 1:47/0 = 0
 2:47/0 = 0
@@ -575,9 +604,26 @@ texture = ExtResource("3_x8k8t")
 6:47/0 = 0
 7:47/0 = 0
 8:47/0 = 0
+8:47/0/terrain_set = 0
+8:47/0/terrain = 0
+8:47/0/terrains_peering_bit/right_side = 0
+8:47/0/terrains_peering_bit/top_side = 0
+8:47/0/terrains_peering_bit/top_right_corner = 0
 9:47/0 = 0
+9:47/0/terrain_set = 0
+9:47/0/terrain = 0
+9:47/0/terrains_peering_bit/right_side = 0
+9:47/0/terrains_peering_bit/left_side = 0
+9:47/0/terrains_peering_bit/top_left_corner = 0
+9:47/0/terrains_peering_bit/top_side = 0
+9:47/0/terrains_peering_bit/top_right_corner = 0
 10:47/0 = 0
 11:47/0 = 0
+11:47/0/terrain_set = 0
+11:47/0/terrain = 0
+11:47/0/terrains_peering_bit/left_side = 0
+11:47/0/terrains_peering_bit/top_left_corner = 0
+11:47/0/terrains_peering_bit/top_side = 0
 0:48/0 = 0
 1:48/0 = 0
 2:48/0 = 0
@@ -1235,161 +1281,22 @@ texture = ExtResource("3_x8k8t")
 9:103/0 = 0
 10:103/0 = 0
 11:103/0 = 0
+9:46/0 = 0
+9:46/0/terrain_set = 0
+9:46/0/terrain = 0
+9:46/0/terrains_peering_bit/right_side = 0
+9:46/0/terrains_peering_bit/bottom_right_corner = 0
+9:46/0/terrains_peering_bit/bottom_side = 0
+9:46/0/terrains_peering_bit/bottom_left_corner = 0
+9:46/0/terrains_peering_bit/left_side = 0
+9:46/0/terrains_peering_bit/top_left_corner = 0
+9:46/0/terrains_peering_bit/top_side = 0
+9:46/0/terrains_peering_bit/top_right_corner = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i12b1"]
-texture = ExtResource("4_arfya")
-2:3/0 = 0
-2:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-0:0/size_in_atlas = Vector2i(2, 3)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 0, -8, -8, 8, -8, 16, 0, 16, 16, 8, 24, -8, 24, -16, 16)
-2:0/size_in_atlas = Vector2i(2, 3)
-2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 16, 0, 16, 16, 8, 24, -8, 24, -16, 16, -16, 0)
-0:3/size_in_atlas = Vector2i(1, 2)
-0:3/0 = 0
-0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, 9, 8, 9, 8, 16, -6, 16)
-1:3/size_in_atlas = Vector2i(1, 2)
-1:3/0 = 0
-1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(5, 9, 5, 15, -6, 15, -6, 9)
-4:3/size_in_atlas = Vector2i(1, 2)
-4:3/0 = 0
-4:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2, 7, -2, 7, 7, -8, 7)
-3:3/size_in_atlas = Vector2i(1, 2)
-3:3/0 = 0
-3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -2, 7, -2, 7, 7, -8, 7)
-0:6/size_in_atlas = Vector2i(2, 2)
-0:6/0 = 0
-2:6/size_in_atlas = Vector2i(1, 2)
-2:6/0 = 0
-4:5/size_in_atlas = Vector2i(1, 2)
-4:5/0 = 0
-3:5/size_in_atlas = Vector2i(1, 2)
-3:5/0 = 0
-0:8/size_in_atlas = Vector2i(2, 2)
-0:8/0 = 0
-2:8/size_in_atlas = Vector2i(1, 2)
-2:8/0 = 0
-3:7/size_in_atlas = Vector2i(1, 2)
-3:7/0 = 0
-4:7/size_in_atlas = Vector2i(1, 2)
-4:7/0 = 0
-4:0/size_in_atlas = Vector2i(1, 3)
-4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 20, 7, 20, 7, 24, -8, 24)
-
-[sub_resource type="TileSet" id="TileSet_u44n3"]
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_t88pq")
-sources/1 = SubResource("TileSetAtlasSource_i12b1")
-
-[sub_resource type="GDScript" id="GDScript_a1vss"]
-script/source = "extends Camera2D
-# Makes the camera follow the given target object on screen
-@export var target: Node2D
-func _process(delta: float) -> void:
-	position = target.position
-"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y58dp"]
-size = Vector2(12, 5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3tvm"]
-size = Vector2(44, 7)
-
-[node name="volepp_dev" type="Node2D"]
-
-[node name="PauseMenu" parent="." node_paths=PackedStringArray("pauseMenuNode") instance=ExtResource("1_kcy00")]
-visible = false
-script = ExtResource("2_gl7p3")
-pauseMenuNode = NodePath(".")
-
-[node name="MarginContainer" parent="PauseMenu" index="0"]
-theme_override_constants/margin_top = 200
-
-[node name="TileMapLayer_Ground" type="TileMapLayer" parent="."]
-texture_filter = 1
-position = Vector2(448, 256)
-tile_map_data = PackedByteArray("AAAHAAQAAAAJAAYAAAAHAAUAAAAJAAYAAAAHAAYAAAAJAAcAAAAIAAYAAAAFAAYAAAAIAAUAAAAJAAYAAAAJAAUAAAAJAAYAAAAJAAQAAAAJAAYAAAAIAAQAAAAJAAYAAAAJAAYAAAAJAAYAAAADAAAAAAAJAAYAAAADAAEAAAAJAAYAAAADAAIAAAAJAAYAAAADAAMAAAAJAAYAAAADAAQAAAAJAAYAAAADAAUAAAAJAAYAAAADAAYAAAAJAAcAAAADAAcAAAAIAAgAAAADAAgAAAAIAAsAAAADAAkAAAAKAAQAAAADAAoAAAAJAAYAAAAEAAAAAAAJAAYAAAAEAAEAAAAJAAYAAAAEAAIAAAAJAAYAAAAEAAMAAAAJAAYAAAAEAAQAAAAJAAYAAAAEAAUAAAAJAAYAAAAEAAYAAAAJAAcAAAAEAAcAAAAKAAgAAAAEAAgAAAAJAAsAAAAEAAkAAAALAAQAAAAEAAoAAAAGAAUAAAAFAAAAAAAJAAYAAAAFAAEAAAAJAAYAAAAFAAIAAAAJAAYAAAAFAAMAAAAJAAYAAAAFAAQAAAAJAAYAAAAFAAUAAAAJAAYAAAAFAAYAAAAJAAcAAAAFAAcAAAAKAAgAAAAFAAgAAAAFAAoAAAAFAAkAAAAIAAsAAAAFAAoAAAAKAAQAAAAGAAAAAAAJAAYAAAAGAAEAAAAJAAYAAAAGAAIAAAAJAAYAAAAGAAMAAAAJAAYAAAAGAAQAAAAJAAYAAAAGAAUAAAAJAAYAAAAGAAYAAAAJAAcAAAAGAAcAAAAKAAgAAAAGAAgAAAAJAAoAAAAGAAkAAAAJAAsAAAAGAAoAAAAKAAQAAAAHAAAAAAAGAAYAAAAHAAEAAAALAAYAAAAHAAIAAAAGAAUAAAAHAAMAAAAJAAYAAAAHAAcAAAALAAgAAAAHAAgAAAALAAoAAAAHAAkAAAALAAsAAAAHAAoAAAAKAAQAAAAIAAAAAAAJAAcAAAAIAAEAAAAJADIAAAAIAAIAAAALAAQAAAAIAAMAAAAGAAUAAAAIAAcAAAAIAAUAAAAIAAgAAAAIAAUAAAAIAAkAAAAIAAUAAAAIAAoAAAAFAAUAAAAJAAAAAAAJAAcAAAAJAAEAAAAJADIAAAAJAAIAAAAJADIAAAAJAAMAAAAKAAQAAAAJAAcAAAAJAAYAAAAJAAgAAAAJAAYAAAAJAAkAAAAJAAYAAAAJAAoAAAAJAAYAAAAKAAAAAAAJAAcAAAAKAAEAAAAJADIAAAAKAAIAAAAJADIAAAAKAAMAAAAKAAQAAAAKAAQAAAAJAAYAAAAKAAUAAAAJAAYAAAAKAAYAAAAJAAYAAAAKAAcAAAAJAAYAAAAKAAgAAAAJAAYAAAAKAAkAAAAJAAYAAAAKAAoAAAAJAAYAAAALAAAAAAAJAAcAAAALAAEAAAAJADIAAAALAAIAAAAJADIAAAALAAMAAAAKAAQAAAALAAQAAAAJAAYAAAALAAUAAAAJAAYAAAALAAYAAAAJAAYAAAALAAcAAAAJAAYAAAALAAgAAAAJAAYAAAALAAkAAAAJAAYAAAALAAoAAAAJAAYAAAAMAAAAAAAJAAcAAAAMAAEAAAAJADIAAAAMAAIAAAAJADIAAAAMAAMAAAAKAAQAAAAMAAQAAAAJAAYAAAAMAAUAAAAJAAYAAAAMAAYAAAAJAAYAAAAMAAcAAAAJAAYAAAAMAAgAAAAJAAYAAAAMAAkAAAAJAAYAAAAMAAoAAAAJAAYAAAANAAAAAAAFAAYAAAANAAEAAAAIAAUAAAANAAIAAAAIAAUAAAANAAMAAAAFAAUAAAANAAQAAAAJAAYAAAANAAUAAAAJAAYAAAANAAYAAAAJAAYAAAANAAcAAAAJAAYAAAANAAgAAAAJAAYAAAANAAkAAAAJAAYAAAANAAoAAAAJAAYAAAADAP//AAAKAAQAAAAEAP//AAAKAAQAAAAFAP//AAAKAAQAAAAGAP//AAAKAAQAAAAHAP//AAAKAAQAAAAIAP//AAAKAAQAAAAJAP//AAAKAAQAAAAKAP//AAAKAAQAAAALAP//AAAKAAQAAAAMAP//AAAKAAQAAAANAP//AAAKAAQAAAADAAsAAAAJAAcAAAAEAAsAAAAJAAcAAAAFAAsAAAAJAAcAAAAGAAsAAAAJAAcAAAAHAAsAAAAJAAcAAAAIAAsAAAAJAAcAAAAJAAsAAAAJAAcAAAAKAAsAAAAJAAcAAAALAAsAAAAJAAcAAAAMAAsAAAAJAAcAAAANAAsAAAAJAAcAAAAOAAAAAAALAAYAAAAOAAEAAAALAAYAAAAOAAIAAAALAAYAAAAOAAMAAAALAAYAAAAOAAQAAAALAAYAAAAOAAUAAAALAAYAAAAOAAYAAAALAAYAAAAOAAcAAAALAAYAAAAOAAgAAAALAAYAAAAOAAkAAAALAAYAAAAOAAoAAAALAAYAAAACAAAAAAAIAAUAAAACAAEAAAAIAAUAAAACAAIAAAAIAAUAAAACAAMAAAAIAAUAAAACAAQAAAAIAAUAAAACAAUAAAAIAAUAAAACAAYAAAAIAAcAAAACAAcAAAAJAC4AAAACAAgAAAAJAC4AAAACAAkAAAAIAAQAAAACAAoAAAAIAAUAAAACAP//AAAIAAQAAAACAAsAAAAIAAcAAAAOAAsAAAALAAcAAAAOAP//AAALAAQAAAA=")
-tile_set = SubResource("TileSet_u44n3")
-
-[node name="TileMapLayer_Ground2" type="TileMapLayer" parent="."]
-texture_filter = 1
-position = Vector2(448, 256)
-tile_map_data = PackedByteArray("AAALAAUAAQADAAMAAAAJAAgAAQAAAAAAAAAMAAcAAQAAAAMAAAA=")
-tile_set = SubResource("TileSet_u44n3")
-
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
-position = Vector2(584, 336)
-zoom = Vector2(3, 3)
-position_smoothing_enabled = true
-position_smoothing_speed = 2.5
-script = SubResource("GDScript_a1vss")
-target = NodePath("../Player")
-
-[node name="Player" parent="." instance=ExtResource("7_132ah")]
-position = Vector2(592, 336)
-
-[node name="Interactor" parent="Player" instance=ExtResource("8_x8k8t")]
-
-[node name="Box" type="StaticBody2D" parent="."]
-position = Vector2(560, 352)
-
-[node name="Sprite2D" type="Sprite2D" parent="Box"]
-texture_filter = 1
-position = Vector2(8, -8)
-texture = ExtResource("8_85wvh")
-
-[node name="Obstacle" type="CollisionShape2D" parent="Box"]
-position = Vector2(8, -6.5)
-shape = SubResource("RectangleShape2D_y58dp")
-
-[node name="InteractableStaticBody2d" parent="Box" instance=ExtResource("13_a1vss")]
-position = Vector2(8, -9)
-scale = Vector2(0.75999, 0.68)
-hint = "Suck"
-
-[node name="Robert" type="StaticBody2D" parent="."]
-position = Vector2(527, 283)
-script = ExtResource("10_oqiiw")
-
-[node name="Sprite2D" type="Sprite2D" parent="Robert"]
-texture_filter = 1
-position = Vector2(8, -8)
-texture = ExtResource("10_cgjdo")
-
-[node name="Obstacle" type="CollisionShape2D" parent="Robert"]
-position = Vector2(8, -6.5)
-shape = SubResource("RectangleShape2D_y58dp")
-
-[node name="Interactable" parent="Robert" instance=ExtResource("13_a1vss")]
-position = Vector2(8, -9)
-scale = Vector2(1.67998, 1.8)
-hint = "Talk"
-
-[node name="Speaker" type="StaticBody2D" parent="."]
-position = Vector2(512, 320)
-script = ExtResource("10_arfya")
-
-[node name="Sprite2D" type="Sprite2D" parent="Speaker"]
-texture_filter = 1
-position = Vector2(24, -16)
-texture = ExtResource("9_ndbdv")
-
-[node name="Obstacle" type="CollisionShape2D" parent="Speaker"]
-position = Vector2(23, -3.5)
-shape = SubResource("RectangleShape2D_n3tvm")
-
-[node name="Interactable" parent="Speaker" instance=ExtResource("13_a1vss")]
-position = Vector2(23, -17)
-hint = "Fuck around"
-
-[node name="Environment_Tiles" type="Node" parent="."]
-
-[connection signal="interact" from="Robert/Interactable" to="Robert" method="_on_interactable_interact"]
-[connection signal="interact" from="Speaker/Interactable" to="Speaker" method="_on_interactable_interact"]
-
-[editable path="PauseMenu"]
+[resource]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/color = Color(0.34042, 0.673778, 0.628044, 1)
+terrain_set_0/terrain_1/name = "Sand"
+terrain_set_0/terrain_1/color = Color(0.582045, 0.455994, 0.141641, 1)
+sources/6 = SubResource("TileSetAtlasSource_nd1hv")

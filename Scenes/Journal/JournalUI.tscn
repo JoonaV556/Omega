@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddyaj0nacs1mi"]
+
+[ext_resource type="Script" uid="uid://dcbfmcvgq1b5u" path="res://Scripts/Journal/journal_ui.gd" id="1_d00hy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d00hy"]
+bg_color = Color(0.666569, 0.666569, 0.666569, 1)
+
+[node name="JournalUI" type="CanvasLayer"]
+script = ExtResource("1_d00hy")
+
+[node name="Background" type="PanelContainer" parent="."]
+self_modulate = Color(1, 1, 1, 0.568627)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d00hy")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Background/MarginContainer/PanelContainer"]
+layout_mode = 2
+split_offset = 200
+
+[node name="QuestTitleContainer" type="ItemList" parent="Background/MarginContainer/PanelContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/PanelContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="QuestNoteContainer" type="VBoxContainer" parent="Background/MarginContainer/PanelContainer/HSplitContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20

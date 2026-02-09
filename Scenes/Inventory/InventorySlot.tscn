@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://bccesafq5fjcq"]
+
+[ext_resource type="Script" uid="uid://btomo1we6ihuq" path="res://Scripts/Inventory/inventory_slot.gd" id="1_bo8fl"]
+[ext_resource type="Texture2D" uid="uid://btvtnnmhh0jlu" path="res://Sprites/inventory_slot.png" id="1_mnslx"]
+[ext_resource type="Texture2D" uid="uid://c3act05ey12ko" path="res://icon.svg" id="3_mnslx"]
+
+[node name="InventorySlot" type="NinePatchRect"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("1_mnslx")
+script = ExtResource("1_bo8fl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ItemIcon" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_mnslx")
+
+[node name="Quantity" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "1"
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 2
