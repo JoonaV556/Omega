@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://dr1k855ifid25"]
 
 [ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="1_y3rce"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="2_3hle4"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="2_3hle4"]
 [ext_resource type="TileSet" uid="uid://d4ixcir5hhxph" path="res://TileSets/SuburbHouses.tres" id="2_p5egb"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="3_e2c5x"]
 [ext_resource type="Environment" uid="uid://dg3mxu1b8sstp" path="res://Levels/Environment_CloverfieldCourt.tres" id="5_3bvml"]
