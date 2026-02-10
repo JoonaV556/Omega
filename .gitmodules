@@ -1,3 +1,6 @@
 [submodule "Assets_LICENSED"]
 	path = Assets_LICENSED
 	url = https://github.com/JoonaV556/Assets_LICENSED.git
+[submodule "addons"]
+	path = addons
+	url = https://github.com/JoonaV556/addons.git
