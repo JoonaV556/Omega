@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bgo2l0c1r46i0"]
 
-[ext_resource type="Texture2D" uid="uid://birp5xiwc2cfd" path="res://Sprites/GradientRadial.png" id="1_id0xb"]
+[ext_resource type="Texture2D" uid="uid://birp5xiwc2cfd" path="res://Assets_LICENSED/Sprites/GradientRadial.png" id="1_id0xb"]
 
 [node name="PointLight2D_CharacterShadows" type="PointLight2D"]
 texture_filter = 1

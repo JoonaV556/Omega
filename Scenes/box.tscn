@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4vuyxkxsqyta"]
 
-[ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="1_xkb4e"]
+[ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="1_xkb4e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y58dp"]
 size = Vector2(12, 5)

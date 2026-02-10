@@ -1,13 +1,13 @@
 [gd_resource type="TileSet" load_steps=17 format=3 uid="uid://bn5skqw5ercp"]
 
-[ext_resource type="Texture2D" uid="uid://cmtae7t83btgw" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="1_j0wna"]
-[ext_resource type="Texture2D" uid="uid://cnbwyu6txv3q5" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/9_Shopping_Center_and_Markets_16x16.png" id="2_5jf37"]
-[ext_resource type="Texture2D" uid="uid://kw2mif06g62x" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/3_City_Props_16x16.png" id="3_1iut8"]
-[ext_resource type="Texture2D" uid="uid://ix5v3nwqik05" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/4_Generic_Buildings_16x16.png" id="4_y4pr2"]
-[ext_resource type="Texture2D" uid="uid://uoqm8fsenl1j" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/20_Subway_and_Train_Station_16x16.png" id="5_jhfre"]
-[ext_resource type="Texture2D" uid="uid://0viygictlxe6" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/10_Vehicles_16x16.png" id="6_bfcsh"]
-[ext_resource type="Texture2D" uid="uid://dgjawha4mxc4i" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/6_Garage_Sales_16x16.png" id="7_thxn8"]
-[ext_resource type="Texture2D" uid="uid://d30oalxwq8i64" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/5_Floor_Modular_Buildings_16x16.png" id="8_5jf37"]
+[ext_resource type="Texture2D" uid="uid://cmtae7t83btgw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="1_j0wna"]
+[ext_resource type="Texture2D" uid="uid://cnbwyu6txv3q5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/9_Shopping_Center_and_Markets_16x16.png" id="2_5jf37"]
+[ext_resource type="Texture2D" uid="uid://kw2mif06g62x" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/3_City_Props_16x16.png" id="3_1iut8"]
+[ext_resource type="Texture2D" uid="uid://ix5v3nwqik05" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/4_Generic_Buildings_16x16.png" id="4_y4pr2"]
+[ext_resource type="Texture2D" uid="uid://uoqm8fsenl1j" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/20_Subway_and_Train_Station_16x16.png" id="5_jhfre"]
+[ext_resource type="Texture2D" uid="uid://0viygictlxe6" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/10_Vehicles_16x16.png" id="6_bfcsh"]
+[ext_resource type="Texture2D" uid="uid://dgjawha4mxc4i" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/6_Garage_Sales_16x16.png" id="7_thxn8"]
+[ext_resource type="Texture2D" uid="uid://d30oalxwq8i64" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/5_Floor_Modular_Buildings_16x16.png" id="8_5jf37"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sra3v"]
 texture = ExtResource("1_j0wna")

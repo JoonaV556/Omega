@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dv3lks3c2q17y"]
 
-[ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="1_g184b"]
-[ext_resource type="Texture2D" uid="uid://ckkeq8es56x3u" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Clutter.png" id="2_a0t6a"]
+[ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="1_g184b"]
+[ext_resource type="Texture2D" uid="uid://ckkeq8es56x3u" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Clutter.png" id="2_a0t6a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t88pq"]
 resource_name = "terrain"

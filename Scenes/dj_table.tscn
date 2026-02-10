@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://crb6llbbpsp4n"]
 
-[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="1_8rvu7"]
+[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="1_8rvu7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3tvm"]
 size = Vector2(44, 7)

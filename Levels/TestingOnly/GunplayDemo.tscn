@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=4 uid="uid://c1dg3pmxm2b73"]
 
 [ext_resource type="TileSet" uid="uid://c4jd7mfj4gav0" path="res://TileSets/GunplayDemo.tres" id="1_tx0qg"]
-[ext_resource type="Texture2D" uid="uid://b5q4ve4wgj8bp" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Lantern_2.png" id="2_tmurq"]
+[ext_resource type="Texture2D" uid="uid://b5q4ve4wgj8bp" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Lantern_2.png" id="2_tmurq"]
 [ext_resource type="PackedScene" uid="uid://vvucrudxajby" path="res://Scenes/world_environment_(post_processing).tscn" id="2_utif4"]
 [ext_resource type="PackedScene" uid="uid://cn20curmxqi0e" path="res://Scenes/canvas_modulate_(lighting).tscn" id="3_owtkx"]
-[ext_resource type="Texture2D" uid="uid://dpwi18m31p7sh" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/19_Graveyard_16x16.png" id="3_tnpg5"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Player.tscn" id="4_p07uj"]
+[ext_resource type="Texture2D" uid="uid://dpwi18m31p7sh" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/19_Graveyard_16x16.png" id="3_tnpg5"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="4_p07uj"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="5_tmurq"]
 
 [sub_resource type="Gradient" id="Gradient_8ihud"]

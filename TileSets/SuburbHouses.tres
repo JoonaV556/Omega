@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://d4ixcir5hhxph"]
 
-[ext_resource type="Texture2D" uid="uid://cmtae7t83btgw" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="1_omctd"]
-[ext_resource type="Texture2D" uid="uid://dgjawha4mxc4i" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/6_Garage_Sales_16x16.png" id="2_xckj1"]
+[ext_resource type="Texture2D" uid="uid://cmtae7t83btgw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="1_omctd"]
+[ext_resource type="Texture2D" uid="uid://dgjawha4mxc4i" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/6_Garage_Sales_16x16.png" id="2_xckj1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4r0oe"]
 texture = ExtResource("1_omctd")

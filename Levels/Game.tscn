@@ -5,8 +5,8 @@
 [ext_resource type="Script" uid="uid://eb172fc3t1cc" path="res://Code/togglePauseMenu.gd" id="3_u44n3"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="5_dygi0"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="6_n3tvm"]
-[ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="7_d5jmm"]
-[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="8_n3tvm"]
+[ext_resource type="Texture2D" uid="uid://dtqtxkk640egw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/23_MIlitary_Base_16x16_Military_Tent_Box_Small_2.png" id="7_d5jmm"]
+[ext_resource type="Texture2D" uid="uid://5rxpnjvugl7e" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/21_Beach_16x16_DJ_Set.png" id="8_n3tvm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y58dp"]
 size = Vector2(12, 5)

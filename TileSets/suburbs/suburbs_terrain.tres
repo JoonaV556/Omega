@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bukal8fg05oom"]
 
-[ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="1_duuyb"]
-[ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="2_nd1hv"]
+[ext_resource type="Texture2D" uid="uid://bvgh7si24a70e" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Autotiles_16x16/Godot_Autotiles_16x16.png" id="1_duuyb"]
+[ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="2_nd1hv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nd1hv"]
 texture = ExtResource("1_duuyb")

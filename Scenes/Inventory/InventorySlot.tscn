@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bccesafq5fjcq"]
 
 [ext_resource type="Script" uid="uid://btomo1we6ihuq" path="res://Code/Inventory/inventory_slot.gd" id="1_bo8fl"]
-[ext_resource type="Texture2D" uid="uid://btvtnnmhh0jlu" path="res://Sprites/inventory_slot.png" id="1_mnslx"]
-[ext_resource type="Texture2D" uid="uid://c3act05ey12ko" path="res://icon.svg" id="3_mnslx"]
+[ext_resource type="Texture2D" uid="uid://btvtnnmhh0jlu" path="res://Assets_LICENSED/Sprites/inventory_slot.png" id="1_mnslx"]
+[ext_resource type="Texture2D" uid="uid://c3act05ey12ko" path="res://Assets_LICENSED/icon.svg" id="3_mnslx"]
 
 [node name="InventorySlot" type="NinePatchRect"]
 custom_minimum_size = Vector2(64, 64)
