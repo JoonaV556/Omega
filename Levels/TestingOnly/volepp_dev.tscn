@@ -1337,7 +1337,6 @@ autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("7_132ah")]
 position = Vector2(592, 336)
-speed = 100
 
 [node name="Interactor" parent="Player" instance=ExtResource("8_x8k8t")]
 

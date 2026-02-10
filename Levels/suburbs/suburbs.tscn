@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://bv6x8768wksbj"]
+[gd_scene load_steps=6 format=4 uid="uid://dvifpdpfpqg5t"]
 
 [ext_resource type="TileSet" uid="uid://bukal8fg05oom" path="res://TileSets/suburbs/suburbs_terrain.tres" id="1_6j48g"]
 [ext_resource type="TileSet" uid="uid://c2vx4agk0xfw8" path="res://TileSets/suburbs/suburbs_roads.tres" id="2_l087n"]
