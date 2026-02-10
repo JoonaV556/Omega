@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://xrb478um4m0f"]
 
-[ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Scripts/floor.gd" id="1_h8bqi"]
+[ext_resource type="Script" uid="uid://6cxc3robrc38" path="res://Code/floor.gd" id="1_h8bqi"]
 [ext_resource type="Texture2D" uid="uid://chusssai7kdnn" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Floors_16x16.png" id="2_w10v5"]
 [ext_resource type="Texture2D" uid="uid://cimtcf5dqhkjm" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Walls_16x16.png" id="3_3bdhl"]
 [ext_resource type="Texture2D" uid="uid://b50v7gv5ql3oy" path="res://Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_borders_16x16.png" id="4_elncx"]

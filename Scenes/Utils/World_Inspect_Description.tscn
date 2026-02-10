@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bgtwb6u3id0a3"]
 
-[ext_resource type="Script" uid="uid://d1kk8nfi5rfxt" path="res://Scripts/world_inspectable.gd" id="1_6rxsw"]
+[ext_resource type="Script" uid="uid://d1kk8nfi5rfxt" path="res://Code/world_inspectable.gd" id="1_6rxsw"]
 
 [node name="WorldInspectDescription" type="Node"]
 script = ExtResource("1_6rxsw")

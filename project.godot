@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-GlobalInventoryHandler="*res://Scripts/Inventory/global_inventory_handler.gd"
-GlobalJournalHandler="*res://Scripts/Journal/global_journal_handler.gd"
+GlobalInventoryHandler="*res://Code/Inventory/global_inventory_handler.gd"
+GlobalJournalHandler="*res://Code/Journal/global_journal_handler.gd"
 
 [dialogic]
 

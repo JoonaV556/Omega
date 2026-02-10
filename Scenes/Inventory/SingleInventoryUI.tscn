@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddy2076hiokhh"]
 
-[ext_resource type="Script" uid="uid://7ebl3qt5ioyu" path="res://Scripts/Inventory/single_inventory_ui.gd" id="1_lnd7p"]
+[ext_resource type="Script" uid="uid://7ebl3qt5ioyu" path="res://Code/Inventory/single_inventory_ui.gd" id="1_lnd7p"]
 [ext_resource type="PackedScene" uid="uid://bccesafq5fjcq" path="res://Scenes/Inventory/InventorySlot.tscn" id="2_irhif"]
 
 [node name="SingleInventoryUI" type="CanvasLayer"]

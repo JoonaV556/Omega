@@ -1,10 +1,10 @@
 [gd_scene load_steps=33 format=3 uid="uid://chtck7hchxyj1"]
 
-[ext_resource type="Script" uid="uid://cvq6trp7fbysb" path="res://Scripts/character_mover.gd" id="1_kyqiw"]
+[ext_resource type="Script" uid="uid://cvq6trp7fbysb" path="res://Code/Character/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://dfy67l5v7q48t" path="res://Sprites/protagonist_spritesheet.png" id="2_5ixxa"]
-[ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Scripts/character_anim_controller.gd" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Code/character_anim_controller.gd" id="3_gntrk"]
 [ext_resource type="AudioStream" uid="uid://b4w5t8biy75ik" path="res://Audio/footstep.wav" id="4_5ixxa"]
-[ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Scripts/footsteps_sfx_controller.gd" id="4_dewec"]
+[ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/footsteps_sfx_controller.gd" id="4_dewec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
 atlas = ExtResource("2_5ixxa")
