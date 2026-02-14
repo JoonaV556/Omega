@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="6_inkfx"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/close_app_debug.gd" id="6_iojkq"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="7_x4aj6"]
-[ext_resource type="Script" uid="uid://cy8k88j267u7m" path="res://Code/debug_level_renderer.gd" id="9_qql5g"]
 [ext_resource type="AudioStream" uid="uid://dxa3dj76ea0d4" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="10_rtbfv"]
+[ext_resource type="Script" uid="uid://baw62rtkrk1hw" path="res://Code/scouting_mission.gd" id="11_bsm0p"]
 
 [sub_resource type="Environment" id="Environment_p07uj"]
 
@@ -48,14 +48,15 @@ target = NodePath("../../Player")
 
 [node name="LevelGenerator" type="Node" parent="." node_paths=PackedStringArray("scene_root", "player")]
 script = ExtResource("6_00ef6")
+enable_automatic_bulk_generation = false
 scene_root = NodePath("..")
 player = NodePath("../Player")
 tiles = ExtResource("2_husrb")
 print_each_generated_cell_coord = false
-width = 50
+height = 200
+bsp_tree_iterations = 6
 groundcoords = Vector2i(1, 12)
 roadcoords = Vector2i(4, 8)
-enable_bulk_generation = true
 bulk_generate_count = 10
 
 [node name="Editor - Esc-to-close" type="Node" parent="."]
@@ -70,14 +71,16 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_vertical = 0
 
-[node name="DebugLevelRenderer" type="Node2D" parent="." node_paths=PackedStringArray("g_generator")]
-script = ExtResource("9_qql5g")
-g_generator = NodePath("../LevelGenerator")
-metadata/_custom_type_script = "uid://cy8k88j267u7m"
-
 [node name="SFX-Ambience-Jungle" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_rtbfv")
-volume_db = -10.0
+volume_db = -5.0
 autoplay = true
+
+[node name="ScoutingMission" type="Node" parent="." node_paths=PackedStringArray("level_generator", "player")]
+script = ExtResource("11_bsm0p")
+level_generator = NodePath("../LevelGenerator")
+player = NodePath("../Player")
+player_placement_pixel_offset = Vector2i(8, -2)
+metadata/_custom_type_script = "uid://baw62rtkrk1hw"
 
 [editable path="Camera"]

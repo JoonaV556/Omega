@@ -1,37 +1,42 @@
-- ensure one south entrance
+- clean yellow code alerts
 
-- ensure two exits 
-
-- place player on south entranc
-
-- make only roads navigable
-
+- make only map & roads navigable
 - make some bsp nodes / city squarez accessible to introduce space for fights & combat
+	time for zoning city parts??
 
-- generate side entrances for npc squads
+- in-level fog of war (level areas and exits are hidden until they are mapped out by player)
+	map / minimap - shows level layout 
+	level layout is hidden in game start but mapped by player by moving
 
 - add singular patrolling npcs
 
 - add patrolling npc squads
 
+- add combat
+
 - place buildings in bsp squares
-	
-- draw the grid as a tilemap
-- prevent too small square divisions
-
-
-- introduce roads as gaps between nodes 
-- draw the grid as a tilemap
-- remove edge connections to remove unwanted map entrances
-- use tunnelers to intorduce wanted entrances and exits
 
 
 
-old
------------- Milestones
-Prologue
------------- Nice To HAve
-- SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
+Major features ---------------
+- Hub / Personal home base
+	Entry to scouting missions
+- Persistent Fog of War - Progress towards the lab by navigating through unknown areas
+- Scouting mission - Navigate around the city in instanced, roguelike missions.
+	In-level fog of war - Map out unexplored areas like in Diablo
+	Mission stage progression
+		After completing a stage, player can decide to either extract and save progress, or take a chance and enter another stage.
+		Mission stages become progressively harder, but provide more rewards
+			Rewards:
+				More area progression towards the laboratory
+				something else?
+	Combat - Melee & ranged weapons ??
+	Patrolling NPC squads / with their own goals
+		Undead monsters & aliens 
+		Encounters between npc squads - Different factions might fight each other
+- Main story objectives?
+
+
 ------------ DONT FORGET 
 - Add credits for attributed asset devs 
 

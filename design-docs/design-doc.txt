@@ -20,6 +20,7 @@ Feature pool:
 	
 
 	Scouting mission - Navigate around the city in instanced, roguelike missions.
+		In-level fog of war - Map out unexplored areas like in Diablo
 		Mission stage progression
 			After completing a stage, player can decide to either extract and save progress, or take a chance and enter another stage.
 			Mission stages become progressively harder, but provide more rewards

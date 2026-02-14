@@ -1,8 +1,9 @@
 extends Node
+## Provides functions for generating and drawing procedural levels on tilemaps
 class_name LevelGenerator
 
 @export 
-var draw_on_first_update: bool = true
+var enable_automatic_bulk_generation: bool = true # if true, level is generated and drawn on first update
 @export 
 var scene_root: 	Node2D
 @export
@@ -26,8 +27,6 @@ var groundcoords: Vector2i = Vector2i(17,56)
 var roadcoords: Vector2i = Vector2i(1,7) 
 
 @export_subgroup("Debug")
-@export
-var enable_bulk_generation: bool = false
 @export_range(2, 99)
 var bulk_generate_count: int = 0
 
@@ -40,10 +39,11 @@ func _process(_delta: float) -> void:
 	if first_update:
 		first_update = false
 		g_ready_to_generate = true
-		if draw_on_first_update:
-			draw_level()
+		if enable_automatic_bulk_generation:
+			bulk_generate_and_draw()
 
-func draw_level() -> bool:
+## draws a level on a new tilemap
+func draw_level(_level: Level):
 	# create tilemap under root node
 	assert(scene_root != null, "Cannot continue, root is not set")
 	if scene_root == null:
@@ -58,39 +58,54 @@ func draw_level() -> bool:
 	if player != null:
 		player.move_to_front()
 	
-	# generate and draw level
-	if enable_bulk_generation:
-		var num_generated: int = 0
-		for i in range(bulk_generate_count):
-			# generate level
-			var _level: Array 			= _generate(self.width, self.height, self.bsp_tree_iterations)
-			var _roads: Array[Array] 	= generate_road_grid(_level)
-			var _nodes: Array[Array] 	= generate_node_grid(_level)
-			# Draw level on tilemap
-			for _y in range(-1, -(self.height-1), -1):
-				for _x in range(self.width):
-					# draw road
-					if _roads[_y][_x] == true:
-						tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, roadcoords)
-					# draw node
-					if _nodes[_y][_x] != 0:
-						tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, groundcoords)
-			num_generated += 1
-	else:
-		# Generate level 
-		var _level: Array 			= _generate(self.width, self.height, self.bsp_tree_iterations)
-		var _roads: Array[Array] 	= generate_road_grid(_level)
-		var _nodes: Array[Array] 	= generate_node_grid(_level)
+	# Draw level on tilemap
+	for _y in range(-1, -(self.height-1), -1):
+		for _x in range(self.width):
+			# draw road
+			if _level.road_grid[_y][_x] == true:
+				tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
+			# draw node
+			if _level.node_grid[_y][_x] != 0:
+				tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
+
+func bulk_generate_and_draw() -> bool:
+	# create tilemap under root node
+	assert(scene_root != null, "Cannot continue, root is not set")
+	if scene_root == null:
+		return false
+	tmap = TileMapLayer.new()
+	tmap.name = "TilemapLayer_Generated"
+	if tiles != null:
+		tmap.tile_set = tiles;
+	scene_root.add_child(tmap)
+	
+	# Move player in front of tilemap
+	if player != null:
+		player.move_to_front()
+	
+	# generate and draw levels in bulk
+	var num_generated: int = 0
+	for i in range(bulk_generate_count):
+		# generate level
+		var _level: Level = generate_level(self.width, self.height, self.bsp_tree_iterations)
 		# Draw level on tilemap
 		for _y in range(-1, -(self.height-1), -1):
 			for _x in range(self.width):
 				# draw road
-				if _roads[_y][_x] == true:
-					tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
+				if _level.road_grid[_y][_x] == true:
+					tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, roadcoords)
 				# draw node
-				if _nodes[_y][_x] != 0:
-					tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
+				if _level.node_grid[_y][_x] != 0:
+					tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, groundcoords)
+		num_generated += 1
 	return true
+
+## generates a level
+func generate_level(_width: int = 100, _height: int = 200, _bsp_divide_iterations: int = 6) ->  Level:
+	var _level = _generate(_width, _height, _bsp_divide_iterations)
+	var _roads: Array[Array] = generate_road_grid(_level)
+	var _nodes: Array[Array] = generate_node_grid(_level)
+	return Level.new(_roads, _nodes)
 
 ## Makes a level vertically traversible from south->north by cutting a way through
 func make_vertically_traversable(_level: Array[Array]):

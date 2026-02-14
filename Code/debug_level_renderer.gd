@@ -1,4 +1,4 @@
-## Provides functions for rendering level data with debugging features
+## OBSOLETE - Provides functions for rendering level data - mainly for debugging
 extends Node2D
 class_name LevelRenderer
 
