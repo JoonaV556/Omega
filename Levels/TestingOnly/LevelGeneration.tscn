@@ -36,7 +36,6 @@ script = ExtResource("5_inkfx")
 
 [node name="Player" parent="." instance=ExtResource("6_inkfx")]
 position = Vector2(8, -2)
-speed = 1500
 
 [node name="Camera" parent="." instance=ExtResource("7_x4aj6")]
 position = Vector2(44, 43)
