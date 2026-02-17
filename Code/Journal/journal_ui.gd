@@ -25,17 +25,16 @@ func load_journal(journal_to_load: Journal):
 	
 	journal = journal_to_load
 	
-	var quest_title_node
 	for quest in journal.quests:
 		quest_titles.add_item(quest.title)
 
-func _on_quest_selected(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+func _on_quest_selected(index: int, _at_position: Vector2, mouse_button_index: int) -> void:
 	if mouse_button_index != MOUSE_BUTTON_LEFT: return
 	_load_quest_notes_by_index(index, journal)
 
-func _load_quest_notes_by_index(index: int, journal: Journal):
-	if journal == null or journal.quests.size()-1 < index: return
-	var notes = journal.quests[index].notes
+func _load_quest_notes_by_index(index: int, _journal: Journal):
+	if _journal == null or _journal.quests.size()-1 < index: return
+	var notes = _journal.quests[index].notes
 	
 	_clear_quest_notes()
 	for note in notes:
@@ -62,6 +61,6 @@ func _close():
 	hide()
 	_clear()
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_released("Close Journal"):
 		_close()

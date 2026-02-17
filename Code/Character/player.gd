@@ -17,7 +17,7 @@ func update_character_physics():
 	var input_direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 	velocity = input_direction * speed
 	
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_released("Open Inventory"):
 		GlobalInventoryHandler.open_single_inventory(inventory)
 	if Input.is_action_just_released("Open Journal"):

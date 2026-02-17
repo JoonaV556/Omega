@@ -11,7 +11,7 @@ var player_placement_pixel_offset: Vector2i = Vector2i(0, 0)
 
 var started: bool = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (not started) and (level_generator.g_ready_to_generate == true):
 		started = true
 		# generate level

@@ -54,7 +54,7 @@ func clear_selected_slot():
 func set_hover_slot(slot: InventorySlot):
 	hover_slot = slot
 
-func switch_items_in_slots(slot1: InventorySlot, slot2: InventorySlot):
+func switch_items_in_slots(_slot1: InventorySlot, _slot2: InventorySlot):
 	var current_stack_in_hover_slot = hover_slot.stack
 	hover_slot.set_stack(selected_slot.stack)
 	selected_slot.set_stack(current_stack_in_hover_slot)

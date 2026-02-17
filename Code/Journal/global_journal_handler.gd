@@ -1,11 +1,11 @@
 extends Node
 
-const JournalUI = preload("res://Scenes/Journal/JournalUI.tscn")
+const JournalUIScene = preload("res://Scenes/Journal/JournalUI.tscn")
 
 var journal_ui: JournalUI
 
 func _ready():
-	journal_ui = JournalUI.instantiate()
+	journal_ui = JournalUIScene.instantiate()
 	
 	add_child(journal_ui)
 	journal_ui.hide()
