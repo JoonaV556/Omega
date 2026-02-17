@@ -48,22 +48,27 @@ func draw_level(_level: Level):
 	assert(scene_root != null, "Cannot continue, root is not set")
 	if scene_root == null:
 		return false
-	tmap = TileMapLayer.new()
+	tmap = TileMapLayerOmega.new()
 	tmap.name = "TilemapLayer_Generated"
 	if tiles != null:
-		tmap.tile_set = tiles;
+		tmap.set_tile_set(tiles);
 	scene_root.add_child(tmap)
 	
 	# Move player in front of tilemap
 	if player != null:
 		player.move_to_front()
 	
+	# wip - make area outside map non-navigable (so player cannot walk over map edges)
+	const _non_nav_padding: int = 2
+	var _padding_width: int 	= _level.get_width() + (2 * _non_nav_padding)
+	var _padding_height: int 	= _level.get_height() + (2 * _non_nav_padding)
+	var _padding_origin: Vector2i = Vector2i(-_non_nav_padding, _non_nav_padding)
+	
 	# Draw level on tilemap
-	for _y in range(-1, -(self.height-1), -1):
-		for _x in range(self.width):
+	for _y in range(-1, -(_level.get_height()-1), -1):
+		for _x in range(_level.get_width()):
 			# draw road
 			if _level.road_grid[_y][_x] == true:
-				
 				tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
 			# draw node
 			if _level.node_grid[_y][_x] != 0:

@@ -1,5 +1,8 @@
-- make only map & roads navigable
-- make some bsp nodes / city squarez accessible to introduce space for fights & combat
+make only map navigable 
+	custom tilemaplayer node
+	tilemap.fill func (origin, size, tile)
+make only roads navigable
+make some bsp nodes / city squarez accessible to introduce space for fights & combat
 	time for zoning city parts??
 
 - in-level fog of war (level areas and exits are hidden until they are mapped out by player)

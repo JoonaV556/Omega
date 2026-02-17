@@ -4,7 +4,7 @@ extends Character
 const BeachBall = preload("res://Scenes/Inventory/Items/BeachBall.tscn")
 const Shell = preload("res://Scenes/Inventory/Items/Shell.tscn")
 
-@export var speed = 400
+@export var speed = 100
 
 var inventory: Inventory
 var journal: Journal

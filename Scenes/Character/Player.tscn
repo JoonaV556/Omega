@@ -226,7 +226,6 @@ height = 14.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_kyqiw")
-speed = 100
 metadata/is_player = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character_body")]
@@ -250,7 +249,6 @@ shape = SubResource("CapsuleShape2D_jr1ro")
 
 [node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("animsprite")]
 stream = ExtResource("4_5ixxa")
-volume_db = -8.0
 pitch_scale = 1.3
 max_distance = 400.0
 attenuation = 2.0

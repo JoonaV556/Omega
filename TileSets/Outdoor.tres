@@ -10,6 +10,7 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3hle4"]
 texture = ExtResource("1_adehw")
 1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:1/0 = 0
 3:1/0 = 0
 4:1/0 = 0
@@ -332,6 +333,7 @@ texture = ExtResource("1_adehw")
 4:19/0 = 0
 5:19/0 = 0
 6:19/0 = 0
+6:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, -8, 8)
 8:19/0 = 0
 10:19/0 = 0
 13:19/0 = 0
@@ -16851,9 +16853,11 @@ texture = ExtResource("6_o7coh")
 21:56/0 = 0
 
 [resource]
+physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "GravelGrass1"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_3hle4")
 sources/1 = SubResource("TileSetAtlasSource_3bvml")
 sources/2 = SubResource("TileSetAtlasSource_ayocu")
