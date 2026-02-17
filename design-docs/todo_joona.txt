@@ -1,5 +1,3 @@
-make only roads navigable
-
 make some bsp nodes / city squarez accessible to introduce space for fights & combat
 	time for zoning city parts??
 
@@ -15,7 +13,9 @@ make some bsp nodes / city squarez accessible to introduce space for fights & co
 
 - place buildings in bsp squares
 
-
+Notes ------------------------
+- generating 1-wide roads with bsp-tree would be possible by shrinking each node from left and bottom side, 
+while ignoring nodes on map edge
 
 Major features ---------------
 - Hub / Personal home base
