@@ -1,7 +1,5 @@
-make only map navigable 
-	custom tilemaplayer node
-	tilemap.fill func (origin, size, tile)
 make only roads navigable
+
 make some bsp nodes / city squarez accessible to introduce space for fights & combat
 	time for zoning city parts??
 

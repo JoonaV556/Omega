@@ -25,6 +25,8 @@ var bsp_tree_iterations: int = 4
 var groundcoords: Vector2i = Vector2i(17,56)
 @export
 var roadcoords: Vector2i = Vector2i(1,7) 
+@export
+var outside_map_coords: Vector2i = Vector2i(0,0) 
 
 @export_subgroup("Debug")
 @export_range(2, 99)
@@ -59,10 +61,19 @@ func draw_level(_level: Level):
 		player.move_to_front()
 	
 	# wip - make area outside map non-navigable (so player cannot walk over map edges)
-	const _non_nav_padding: int = 2
+	const _non_nav_padding: int = 3
 	var _padding_width: int 	= _level.get_width() + (2 * _non_nav_padding)
-	var _padding_height: int 	= _level.get_height() + (2 * _non_nav_padding)
-	var _padding_origin: Vector2i = Vector2i(-_non_nav_padding, _non_nav_padding)
+	var _padding_height: int 	= (_level.get_height() + (2 * _non_nav_padding) - 2) # something magical happening over here but it works
+	var _padding_origin: Vector2i = Vector2i(-_non_nav_padding, _non_nav_padding - 1)
+	tmap.fill_area(
+		_padding_origin, 
+		Vector2i(
+			_padding_width, 
+			_padding_height
+		), 
+		0, 
+		outside_map_coords
+	)
 	
 	# Draw level on tilemap
 	for _y in range(-1, -(_level.get_height()-1), -1):
