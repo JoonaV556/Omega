@@ -1,7 +1,3 @@
-- clean yellow code alerts
-
-- make it dark for atmos
-
 - make only map & roads navigable
 - make some bsp nodes / city squarez accessible to introduce space for fights & combat
 	time for zoning city parts??
