@@ -1,5 +1,6 @@
-make some bsp nodes / city squarez accessible to introduce space for fights & combat
-	time for zoning city parts??
+make some bsp nodes / city squarez accessible to introduce space for fights & combat	
+	generate city squares 
+		 
 
 - in-level fog of war (level areas and exits are hidden until they are mapped out by player)
 	map / minimap - shows level layout 

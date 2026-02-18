@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://8kxgw6jg3qd"]
+[gd_scene load_steps=17 format=4 uid="uid://8kxgw6jg3qd"]
 
 [ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_6gpsk"]
 [ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="2_husrb"]
@@ -9,10 +9,26 @@
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="6_inkfx"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/close_app_debug.gd" id="6_iojkq"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="7_x4aj6"]
+[ext_resource type="Script" uid="uid://banq22eg7oydr" path="res://Code/city_square_generation_candidate.gd" id="9_inkfx"]
 [ext_resource type="AudioStream" uid="uid://dxa3dj76ea0d4" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="10_rtbfv"]
+[ext_resource type="Script" uid="uid://b7piggvimy4d4" path="res://Code/city_square.gd" id="10_x4aj6"]
 [ext_resource type="Script" uid="uid://baw62rtkrk1hw" path="res://Code/scouting_mission.gd" id="11_bsm0p"]
 
 [sub_resource type="Environment" id="Environment_p07uj"]
+
+[sub_resource type="Resource" id="Resource_7hxhj"]
+script = ExtResource("10_x4aj6")
+name = "none"
+tile_source_id = 0
+tile_atlascoords = Vector2i(0, 0)
+is_walkable = true
+metadata/_custom_type_script = "uid://b7piggvimy4d4"
+
+[sub_resource type="Resource" id="Resource_inkfx"]
+script = ExtResource("9_inkfx")
+square = SubResource("Resource_7hxhj")
+generation_weight = 1
+metadata/_custom_type_script = "uid://banq22eg7oydr"
 
 [node name="Node2D" type="Node2D"]
 
@@ -55,6 +71,7 @@ player = NodePath("../Player")
 tiles = ExtResource("2_husrb")
 print_each_generated_cell_coord = false
 height = 200
+city_squares = Array[ExtResource("9_inkfx")]([SubResource("Resource_inkfx")])
 bsp_tree_iterations = 7
 groundcoords = Vector2i(1, 12)
 roadcoords = Vector2i(4, 8)
@@ -74,7 +91,7 @@ grow_vertical = 0
 
 [node name="SFX-Ambience-Jungle" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_rtbfv")
-volume_db = -8.0
+volume_db = -15.092
 autoplay = true
 
 [node name="ScoutingMission" type="Node" parent="." node_paths=PackedStringArray("level_generator", "player")]

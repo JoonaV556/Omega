@@ -2,31 +2,31 @@ extends Node
 ## Provides functions for generating and drawing procedural levels on tilemaps
 class_name LevelGenerator
 
-@export 
+@export
 var enable_automatic_bulk_generation: bool = true # if true, level is generated and drawn on first update
-@export 
+@export
 var scene_root: 	Node2D
 @export
 var player: Node2D
-@export 
+@export
 var tiles: 	TileSet
 @export
 var print_each_generated_cell_coord: bool = true
 
-@export_range(10,9999) 
+@export_range(10,9999)
 var width: 	int = 100
-@export_range(10,9999) 
+@export_range(10,9999)
 var height: int = 100
+
+@export var city_squares: Array[CitySquareGenerationCandidate] = []
 
 @export_range(1,999)
 var bsp_tree_iterations: int = 4
 
-@export
-var groundcoords: Vector2i = Vector2i(17,56)
-@export
-var roadcoords: Vector2i = Vector2i(1,7) 
-@export
-var outside_map_coords: Vector2i = Vector2i(0,0) 
+@export_group("Tiles")
+@export var groundcoords: Vector2i = Vector2i(17,56)
+@export var roadcoords: Vector2i = Vector2i(1,7)
+@export var outside_map_coords: Vector2i = Vector2i(0,0)
 
 @export_subgroup("Debug")
 @export_range(2, 99)
@@ -66,12 +66,12 @@ func draw_level(_level: Level):
 	var _padding_height: int 	= (_level.get_height() + (2 * _non_nav_padding) - 2) # something magical happening over here but it works
 	var _padding_origin: Vector2i = Vector2i(-_non_nav_padding, _non_nav_padding - 1)
 	tmap.fill_area(
-		_padding_origin, 
+		_padding_origin,
 		Vector2i(
-			_padding_width, 
+			_padding_width,
 			_padding_height
-		), 
-		0, 
+		),
+		0,
 		outside_map_coords
 	)
 	
@@ -176,7 +176,7 @@ func _generate(_width: int, _height: int, _iterations: int, _make_vertically_tra
 	# Shrink sides of each bsp node to introduce roads in between
 	for _node: BspNode in l_tree[l_tree.size()-1]:
 		# prevent cutting from sides on map edges
-		var can_cut_left = (_node.position.x > 0) 
+		var can_cut_left = (_node.position.x > 0)
 		var can_cut_right = (_node.position.x + _node.width) < _width
 		var can_cut_up = (_node.position.y + _node.height) < _height
 		var can_cut_down = (_node.position.y > 0)
@@ -233,7 +233,7 @@ func generate_node_grid(_level_tree: Array) -> Array[Array]:
 	_row_template.resize(_level_width)
 	_row_template.fill(0)
 	_node_grid.resize(_level_height)
-	for y in range(_level_height): 
+	for y in range(_level_height):
 		_node_grid[y] = _row_template.duplicate(true)
 	# mark tiles with bsp nodes - 1, 2, 3, etc...
 	var _node_index: int = 1
