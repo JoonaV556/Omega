@@ -1,61 +1,39 @@
-[gd_scene load_steps=21 format=4 uid="uid://8kxgw6jg3qd"]
+[gd_scene load_steps=20 format=4 uid="uid://8kxgw6jg3qd"]
 
 [ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_6gpsk"]
 [ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="2_husrb"]
 [ext_resource type="PackedScene" uid="uid://vvucrudxajby" path="res://Scenes/world_environment_(post_processing).tscn" id="4_rtbfv"]
 [ext_resource type="PackedScene" uid="uid://cn20curmxqi0e" path="res://Scenes/canvas_modulate_(lighting).tscn" id="5_bsm0p"]
 [ext_resource type="Script" uid="uid://c8euirjgrywoc" path="res://Code/make_visible_on_ready.gd" id="5_inkfx"]
-[ext_resource type="Script" uid="uid://da3lcj5vk6sfi" path="res://Code/level_generator.gd" id="6_00ef6"]
+[ext_resource type="Script" uid="uid://da3lcj5vk6sfi" path="res://Code/LevelGeneration/level_generator.gd" id="6_00ef6"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="6_inkfx"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/close_app_debug.gd" id="6_iojkq"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="7_x4aj6"]
-[ext_resource type="Script" uid="uid://banq22eg7oydr" path="res://Code/city_square_generation_candidate.gd" id="9_inkfx"]
+[ext_resource type="Script" uid="uid://banq22eg7oydr" path="res://Code/LevelGeneration/city_square_generation_candidate.gd" id="9_inkfx"]
+[ext_resource type="Resource" uid="uid://cirfa2ty66alm" path="res://Resources/CityBlockTypes/pond.tres" id="10_7hxhj"]
 [ext_resource type="AudioStream" uid="uid://dxa3dj76ea0d4" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="10_rtbfv"]
-[ext_resource type="Script" uid="uid://b7piggvimy4d4" path="res://Code/city_square.gd" id="10_x4aj6"]
+[ext_resource type="Resource" uid="uid://rb7dbvs1qu11" path="res://Resources/CityBlockTypes/park_walkable.tres" id="11_0q02y"]
 [ext_resource type="Script" uid="uid://baw62rtkrk1hw" path="res://Code/scouting_mission.gd" id="11_bsm0p"]
+[ext_resource type="Resource" uid="uid://s3nbof755bm2" path="res://Resources/CityBlockTypes/residential_buildings.tres" id="12_0q02y"]
 
 [sub_resource type="Environment" id="Environment_p07uj"]
 
 [sub_resource type="Resource" id="Resource_7hxhj"]
-script = ExtResource("10_x4aj6")
-name = "pond"
-tile_source_id = 0
-tile_atlascoords = Vector2i(11, 57)
-is_walkable = false
-metadata/_custom_type_script = "uid://b7piggvimy4d4"
-
-[sub_resource type="Resource" id="Resource_inkfx"]
 script = ExtResource("9_inkfx")
-square = SubResource("Resource_7hxhj")
+block_type = ExtResource("10_7hxhj")
 generation_weight = 1
 metadata/_custom_type_script = "uid://banq22eg7oydr"
 
-[sub_resource type="Resource" id="Resource_x4aj6"]
-script = ExtResource("10_x4aj6")
-name = "park"
-tile_source_id = 0
-tile_atlascoords = Vector2i(3, 18)
-is_walkable = true
-metadata/_custom_type_script = "uid://b7piggvimy4d4"
-
-[sub_resource type="Resource" id="Resource_0q02y"]
+[sub_resource type="Resource" id="Resource_07j08"]
 script = ExtResource("9_inkfx")
-square = SubResource("Resource_x4aj6")
+block_type = ExtResource("11_0q02y")
 generation_weight = 2
 metadata/_custom_type_script = "uid://banq22eg7oydr"
 
-[sub_resource type="Resource" id="Resource_07j08"]
-script = ExtResource("10_x4aj6")
-name = "residential-building"
-tile_source_id = 0
-tile_atlascoords = Vector2i(9, 26)
-is_walkable = false
-metadata/_custom_type_script = "uid://b7piggvimy4d4"
-
-[sub_resource type="Resource" id="Resource_73qv5"]
+[sub_resource type="Resource" id="Resource_fkqrx"]
 script = ExtResource("9_inkfx")
-square = SubResource("Resource_07j08")
-generation_weight = 4
+block_type = ExtResource("12_0q02y")
+generation_weight = 3
 metadata/_custom_type_script = "uid://banq22eg7oydr"
 
 [node name="Node2D" type="Node2D"]
@@ -80,7 +58,6 @@ script = ExtResource("5_inkfx")
 
 [node name="Player" parent="." instance=ExtResource("6_inkfx")]
 position = Vector2(8, -2)
-speed = 1500
 
 [node name="Camera" parent="." instance=ExtResource("7_x4aj6")]
 position = Vector2(44, 43)
@@ -100,7 +77,7 @@ player = NodePath("../Player")
 tiles = ExtResource("2_husrb")
 print_each_generated_cell_coord = false
 height = 200
-city_squares = Array[ExtResource("9_inkfx")]([SubResource("Resource_inkfx"), SubResource("Resource_0q02y"), SubResource("Resource_73qv5")])
+city_block_candidates = Array[ExtResource("9_inkfx")]([SubResource("Resource_7hxhj"), SubResource("Resource_07j08"), SubResource("Resource_fkqrx")])
 bsp_tree_iterations = 7
 groundcoords = Vector2i(1, 12)
 roadcoords = Vector2i(4, 8)

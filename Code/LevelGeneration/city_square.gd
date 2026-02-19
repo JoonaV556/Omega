@@ -1,4 +1,4 @@
-class_name CitySquare
+class_name CityBlockType
 extends Resource
 @export var name: 				String		= "none"
 @export var tile_source_id: 	int 		= 0

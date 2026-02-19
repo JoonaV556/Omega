@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CityBlockType" load_steps=2 format=3 uid="uid://rb7dbvs1qu11"]
+
+[ext_resource type="Script" uid="uid://b7piggvimy4d4" path="res://Code/LevelGeneration/city_square.gd" id="1_nd2ah"]
+
+[resource]
+script = ExtResource("1_nd2ah")
+name = "park"
+tile_source_id = 0
+tile_atlascoords = Vector2i(3, 57)
+is_walkable = true
+metadata/_custom_type_script = "uid://b7piggvimy4d4"
