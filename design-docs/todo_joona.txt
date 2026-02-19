@@ -1,6 +1,4 @@
-make some bsp nodes / city squarez accessible to introduce space for fights & combat	
-	generate city squares 
-		 
+rename CitySquare to CityBlockType
 
 - in-level fog of war (level areas and exits are hidden until they are mapped out by player)
 	map / minimap - shows level layout 

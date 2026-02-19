@@ -11,7 +11,6 @@ var player_placement_pixel_offset: Vector2i = Vector2i(0, 0)
 @export
 var level_gen_split_iterations: int = 7
 
-
 var started: bool = false
 
 func _process(_delta: float) -> void:

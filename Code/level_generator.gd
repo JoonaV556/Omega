@@ -1,5 +1,6 @@
 extends Node
-## Provides functions for generating and drawing procedural levels on tilemaps
+## Provides functions for generating and drawing procedural levels on tilemaps [br]
+## The usual starting point for generating levels is: [method LevelGenerator.generate_level]
 class_name LevelGenerator
 
 @export
@@ -84,6 +85,14 @@ func draw_level(_level: Level):
 			# draw node
 			if _level.node_grid[_y][_x] != 0:
 				tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
+			# draw city blocks
+			if _level.city_block_type_grid[_y][_x] != 99:
+				var _block_type_index: int = _level.city_block_type_grid[_y][_x]
+				tmap.set_cell(
+					Vector2i(_x, _y), 
+					0, 
+					city_squares[_block_type_index].square.tile_atlascoords
+				)
 
 func bulk_generate_and_draw() -> bool:
 	# create tilemap under root node
@@ -119,10 +128,11 @@ func bulk_generate_and_draw() -> bool:
 
 ## generates a level
 func generate_level(_width: int = 100, _height: int = 200, _bsp_divide_iterations: int = 6) ->  Level:
-	var _level = _generate(_width, _height, _bsp_divide_iterations)
-	var _roads: Array[Array] = generate_road_grid(_level)
-	var _nodes: Array[Array] = generate_node_grid(_level)
-	return Level.new(_roads, _nodes)
+	var _level_tree: Array = _generate(_width, _height, _bsp_divide_iterations)
+	var _roads: Array[Array] = generate_road_grid(_level_tree)
+	var _nodes: Array[Array] = generate_node_grid(_level_tree)
+	var _city_squares: Array[Array] = generate_city_square_grid(_level_tree)
+	return Level.new(_roads, _nodes, _city_squares)
 
 ## Makes a level vertically traversible from south->north by cutting a way through
 func make_vertically_traversable(_level: Array[Array]):
@@ -243,3 +253,40 @@ func generate_node_grid(_level_tree: Array) -> Array[Array]:
 				_node_grid[_y][_x] = _node_index
 		_node_index += 1
 	return _node_grid
+
+## returns an untyped 2-dimensional array sized according to given level
+## if _fill value is given, each tile in the grid is set to it by default, otherwise null
+func generate_empty_grid(_level_tree: Array[Array], _fill = null) -> Array[Array]:
+	var _grid: Array[Array] = []
+	var _level_height = _level_tree[0][0].height # _level_tree[0][0] is the first/root node in the bsp tree
+	var _level_width = _level_tree[0][0].width
+	var _row_template = []
+	_grid.resize(_level_height)
+	_row_template.resize(_level_width)
+	if _fill != null:
+		_row_template.fill(_fill)
+	for _y in range(_level_height):
+		_grid[_y] = _row_template.duplicate(true) # we need deep duplicates so we wont get just a pile of references to the original template array
+	return _grid
+
+## Selects a random area type for each empty square between city roads.
+## returns an Array[Array[int]], where the int represents the CitySquare type in the levelgenerators City Squares -array
+func generate_city_square_grid(_level_tree: Array[Array]) -> Array[Array]:
+	var _rnd_gen = RandomNumberGenerator.new()
+	var _square_grid = generate_empty_grid(_level_tree, 99) # filled with 99 - 99 represents no square in tile
+	
+	# get generation weights from squares defined in inspector
+	var _square_weights = PackedFloat32Array()
+	_square_weights.resize(city_squares.size())
+	for i in range(city_squares.size()):
+		_square_weights[i] = city_squares[i].generation_weight
+	
+	# generate the grid
+	for _nd: BspNode in _level_tree[-1]:
+		# assign a random square type for the node 
+		var _city_square_index: int = _rnd_gen.rand_weighted(_square_weights)
+		for _y in range(_nd.position.y, (_nd.position.y + _nd.height)):
+			for _x in range(_nd.position.x, (_nd.position.x + _nd.width)):
+				_square_grid[_y][_x] = _city_square_index
+		
+	return _square_grid
