@@ -15,9 +15,9 @@ camera = NodePath("../Camera")
 init_level = ExtResource("2_bl2xt")
 metadata/_custom_type_script = "uid://c5i5wqpa1r5ea"
 
-[node name="Editor-Only Systems" type="Node" parent="."]
+[node name="Editor-Only Features" type="Node" parent="."]
 
-[node name="Close Game with ESC" type="Node" parent="Editor-Only Systems"]
+[node name="Close Game with ESC" type="Node" parent="Editor-Only Features"]
 script = ExtResource("1_h1khe")
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 

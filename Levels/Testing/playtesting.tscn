@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bno31bc8tu2qx"]
+
+[ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_bak3x"]
+[ext_resource type="PackedScene" uid="uid://c1fbbvhp5r7yx" path="res://Levels/other/Hub.tscn" id="2_j42co"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="3_ygr7x"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="4_syfjw"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="5_syfjw"]
+
+[node name="Playtesting" type="Node2D"]
+script = ExtResource("1_bak3x")
+metadata/_custom_type_script = "uid://cp7e62ucpyya6"
+
+[node name="Hub" parent="." instance=ExtResource("2_j42co")]
+
+[node name="Player" parent="." instance=ExtResource("3_ygr7x")]
+y_sort_enabled = true
+position = Vector2(18, -40)
+
+[node name="Camera" parent="." instance=ExtResource("4_syfjw")]
+position = Vector2(18, -40)
+
+[node name="Zoom" parent="Camera" index="0"]
+min_zoom = Vector2(2, 2)
+
+[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+target = NodePath("../../Player")
+
+[node name="close app debug" type="Node" parent="."]
+script = ExtResource("5_syfjw")
+
+[editable path="Camera"]

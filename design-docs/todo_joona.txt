@@ -5,7 +5,7 @@ game flow
 	
 	go on missions 
 		advance stages
-	make progress towards lab
+	make progress towards lab                                                                          
 
 scouting mission music
 
@@ -29,6 +29,7 @@ add patrolling npc squads
 
 
 Notes ------------------------
+- reworking road gen to 1-wide might be a requirement to make manipulating roads easier (creating highways etc.)
 - generating 1-wide roads with bsp-tree would be possible by shrinking each node from left and bottom side, 
 while ignoring nodes on map edge
 
