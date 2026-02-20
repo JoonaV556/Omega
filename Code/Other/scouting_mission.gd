@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 	if (not started) and (level_generator.g_ready_to_generate == true):
 		started = true
 		# generate level
-		var _level: Level = level_generator.generate_level(100, 200, level_gen_split_iterations)
+		var _level: ProceduralLevelData = level_generator.generate_level(100, 200, level_gen_split_iterations)
 		# draw level
 		level_generator.draw_level(_level)
 		print_debug("Generated level with size: "+str(_level.road_grid[0].size())+"x"+str(_level.road_grid.size())+" tiles.")

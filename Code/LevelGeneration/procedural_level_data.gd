@@ -1,6 +1,6 @@
 # Structure for storing level data for usage outside
 extends RefCounted
-class_name Level
+class_name ProceduralLevelData
 var road_grid: Array[Array]
 var node_grid: Array[Array]
 var city_block_type_grid: Array[Array]

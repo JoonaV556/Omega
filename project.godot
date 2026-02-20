@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="omega"
-run/main_scene="uid://3bg5gml2jkxg"
+run/main_scene="uid://bbalwsn885ju1"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://Assets_LICENSED/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://other/default_bus_layout.tres"
 
 [autoload]
 

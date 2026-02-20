@@ -46,7 +46,7 @@ func _process(_delta: float) -> void:
 			bulk_generate_and_draw()
 
 ## draws a level on a new tilemap
-func draw_level(_level: Level):
+func draw_level(_level: ProceduralLevelData):
 	# create tilemap under root node
 	assert(scene_root != null, "Cannot continue, root is not set")
 	if scene_root == null:
@@ -113,7 +113,7 @@ func bulk_generate_and_draw() -> bool:
 	var num_generated: int = 0
 	for i in range(bulk_generate_count):
 		# generate level
-		var _level: Level = generate_level(self.width, self.height, self.bsp_tree_iterations)
+		var _level: ProceduralLevelData = generate_level(self.width, self.height, self.bsp_tree_iterations)
 		# Draw level on tilemap
 		for _y in range(-1, -(self.height-1), -1):
 			for _x in range(self.width):
@@ -127,12 +127,12 @@ func bulk_generate_and_draw() -> bool:
 	return true
 
 ## generates a level
-func generate_level(_width: int = 100, _height: int = 200, _bsp_divide_iterations: int = 6) ->  Level:
+func generate_level(_width: int = 100, _height: int = 200, _bsp_divide_iterations: int = 6) ->  ProceduralLevelData:
 	var _level_tree: Array = _generate(_width, _height, _bsp_divide_iterations)
 	var _roads: Array[Array] = generate_road_grid(_level_tree)
 	var _nodes: Array[Array] = generate_node_grid(_level_tree)
 	var _city_block_types: Array[Array] = generate_city_square_grid(_level_tree)
-	return Level.new(_roads, _nodes, _city_block_types)
+	return ProceduralLevelData.new(_roads, _nodes, _city_block_types)
 
 ## Makes a level vertically traversible from south->north by cutting a way through
 func make_vertically_traversable(_level: Array[Array]):

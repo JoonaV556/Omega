@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1fbbvhp5r7yx"]
+
+[ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_73rxq"]
+
+[node name="Hub" type="Node2D"]
+script = ExtResource("1_73rxq")
+metadata/_custom_type_script = "uid://cp7e62ucpyya6"

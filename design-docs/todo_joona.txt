@@ -1,6 +1,8 @@
 game flow 
-	Hub / Personal home base
+	Hub/Home-Base level
 		entry to scouting missions
+		hub music / main theme
+	
 	go on missions 
 		advance stages
 	make progress towards lab
