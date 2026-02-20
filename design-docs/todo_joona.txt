@@ -1,24 +1,37 @@
-rename CitySquare to CityBlockType
+game flow 
+	Hub / Personal home base
+		entry to scouting missions
+	go on missions 
+		advance stages
+	make progress towards lab
 
-- in-level fog of war (level areas and exits are hidden until they are mapped out by player)
+scouting mission music
+
+Time of day - system
+	night
+		gets dark
+		crickets sounds
+		
+	day 
+		becomes bright
+
+in-level fog of war (level areas and exits are hidden until they are mapped out by player)
 	map / minimap - shows level layout 
 	level layout is hidden in game start but mapped by player by moving
 
-- add singular patrolling npcs
+add some weapons and combat
 
-- add patrolling npc squads
+add singular patrolling npcs
 
-- add combat
+add patrolling npc squads
 
-- place buildings in bsp squares
 
 Notes ------------------------
 - generating 1-wide roads with bsp-tree would be possible by shrinking each node from left and bottom side, 
 while ignoring nodes on map edge
 
 Major features ---------------
-- Hub / Personal home base
-	Entry to scouting missions
+
 - Persistent Fog of War - Progress towards the lab by navigating through unknown areas
 - Scouting mission - Navigate around the city in instanced, roguelike missions.
 	In-level fog of war - Map out unexplored areas like in Diablo
@@ -32,7 +45,12 @@ Major features ---------------
 	Patrolling NPC squads / with their own goals
 		Undead monsters & aliens 
 		Encounters between npc squads - Different factions might fight each other
-- Time of day - system
+- Omega comms network
+	npcs and squads post messages
+	private channels for factions?
+	news companies post updates to inform citizens
+	creepy stuff?
+	government propaganda??
 - Main story objectives?
 
 
