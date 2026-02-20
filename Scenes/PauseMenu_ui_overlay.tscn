@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://boadhvwpk0i80"]
 
-[ext_resource type="Script" uid="uid://dxksyrnos4oyn" path="res://Code/loadMainMenu.gd" id="1_etnfi"]
-[ext_resource type="Script" uid="uid://vu0ipam1e220" path="res://Code/quit.gd" id="1_nov15"]
+[ext_resource type="Script" uid="uid://dxksyrnos4oyn" path="res://Code/Other/loadMainMenu.gd" id="1_etnfi"]
+[ext_resource type="Script" uid="uid://vu0ipam1e220" path="res://Code/Other/quit.gd" id="1_nov15"]
 
 [node name="PauseMenu" type="CanvasLayer"]
 

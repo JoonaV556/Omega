@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://bbalwsn885ju1"]
+[gd_scene load_steps=5 format=3 uid="uid://bbalwsn885ju1"]
+
+[ext_resource type="Script" uid="uid://c5i5wqpa1r5ea" path="res://Code/game_manager.gd" id="1_1q67n"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="1_a22an"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="1_h1khe"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="2_vbwdf"]
 
 [node name="Main" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_1q67n")
+metadata/_custom_type_script = "uid://c5i5wqpa1r5ea"
+
+[node name="Editor-Only Systems" type="Node" parent="."]
+
+[node name="Close Game with ESC" type="Node" parent="Editor-Only Systems"]
+script = ExtResource("1_h1khe")
+metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
+
+[node name="Player" parent="." instance=ExtResource("1_a22an")]
+
+[node name="Camera" parent="." instance=ExtResource("2_vbwdf")]
+
+[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+target = NodePath("../../Player")
+
+[node name="Levels" type="Node2D" parent="."]
+
+[editable path="Camera"]

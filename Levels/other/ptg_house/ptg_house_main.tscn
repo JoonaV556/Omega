@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://o1cenfub505i"]
 
-[ext_resource type="PackedScene" uid="uid://dt1hvceqesi0n" path="res://Levels/ptg_house/ptg_house_floor2.tscn" id="1_63005"]
+[ext_resource type="PackedScene" uid="uid://dt1hvceqesi0n" path="res://Levels/other/ptg_house/ptg_house_floor2.tscn" id="1_63005"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="2_80i4i"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="3_l2nqf"]
 [ext_resource type="PackedScene" uid="uid://bwsd80t2eestl" path="res://Scenes/Utils/FloorSwitchTrigger.tscn" id="4_ok3gh"]
-[ext_resource type="PackedScene" uid="uid://xrb478um4m0f" path="res://Levels/ptg_house/pth_house_floor1.tscn" id="5_unogl"]
+[ext_resource type="PackedScene" uid="uid://xrb478um4m0f" path="res://Levels/other/ptg_house/pth_house_floor1.tscn" id="5_unogl"]
 
 [node name="Node2D" type="Node2D"]
 

@@ -17,7 +17,6 @@ Feature pool:
 		City entry
 
 	Persistent Fog of War - Progress through the city by navigating through unknown areas
-	
 
 	Scouting mission - Navigate around the city in instanced, roguelike missions.
 		In-level fog of war - Map out unexplored areas like in Diablo
@@ -59,6 +58,11 @@ Feature pool:
 
 	Progression towards lab / the deeper you go, more difficult challenges you face
 
+	Immersive gameplay style
+		mimimal amount of menus and ui clutter
+		ideally game should start right away without a tutorial or any kind of main menu
+			tutorial / guides should be integrated into actual gameplay
+			main menu can be creatively hidden behind some gameplay mechanic like the hub level in phasmophobia
 
 
 

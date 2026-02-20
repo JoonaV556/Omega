@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwsd80t2eestl"]
 
-[ext_resource type="Script" uid="uid://cm6kyfr8mo6mk" path="res://Code/floor_switch_trigger.gd" id="1_rxg2o"]
+[ext_resource type="Script" uid="uid://cm6kyfr8mo6mk" path="res://Code/Other/floor_switch_trigger.gd" id="1_rxg2o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_moc5j"]
 size = Vector2(16, 16)
