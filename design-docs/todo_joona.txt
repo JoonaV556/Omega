@@ -2,6 +2,7 @@ game flow
 	Hub/Home-Base level
 		entry to scouting missions
 		hub music / main theme
+		jungle ambience sfx
 	
 	go on missions 
 		advance stages
