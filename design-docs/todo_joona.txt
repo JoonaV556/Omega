@@ -1,14 +1,29 @@
-game flow 
-	Hub/Home-Base level
-		entry to scouting missions
-		hub music / main theme
-		jungle ambience sfx
-	
-	go on missions 
-		advance stages
-	make progress towards lab                                                                          
+plan game flow specs
 
-scouting mission music
+- Game Flow
+	Hub/Home-Base level
+		Scouting Mission Map Board - Entry to scouting missions
+			Island map in the background
+			Exploration grid with map cells
+				player can select cells
+				player can start exploring selected cells
+					if 
+						cell is unexplored 
+						cell is next to eplored one
+				already explored cells highlighted
+
+	Scouting mission 
+		player enters the map from already known entry point (the side touching an explored cell)
+			if more than one mapped cell touches the unmapped one, player can choose from which side to enter
+		when player reaches an extraction point, he can choose whether to
+			1. save progress and rewards, and return back to base
+			2. Continue forwards to next cell
+
+	Mapping / Fog of war during scouting missions
+		Minimap - shows level layout
+		Level layout is hidden when entering new cell
+		Area around player is gradually uncovered in minimap
+
 
 Time of day - system
 	night
@@ -18,16 +33,9 @@ Time of day - system
 	day 
 		becomes bright
 
-in-level fog of war (level areas and exits are hidden until they are mapped out by player)
-	map / minimap - shows level layout 
-	level layout is hidden in game start but mapped by player by moving
+
 
 add some weapons and combat
-
-add singular patrolling npcs
-
-add patrolling npc squads
-
 
 Notes ------------------------
 - reworking road gen to 1-wide might be a requirement to make manipulating roads easier (creating highways etc.)
@@ -36,7 +44,12 @@ while ignoring nodes on map edge
 
 Major features ---------------
 
+- City levels continue outside level edges to make it look "endless" 
+
+- Standardize camera zooming across resolutions so player cannot zoom out too far out
+
 - Persistent Fog of War - Progress towards the lab by navigating through unknown areas
+
 - Scouting mission - Navigate around the city in instanced, roguelike missions.
 	In-level fog of war - Map out unexplored areas like in Diablo
 	Mission stage progression
@@ -49,13 +62,16 @@ Major features ---------------
 	Patrolling NPC squads / with their own goals
 		Undead monsters & aliens 
 		Encounters between npc squads - Different factions might fight each other
+
 - Omega comms network
 	npcs and squads post messages
 	private channels for factions?
 	news companies post updates to inform citizens
+	Player can find hidden treasures in map cells by obtaining secret signals and messages?
 	creepy stuff?
 	government propaganda??
-- Main story objectives?
+
+- Main story
 
 
 ------------ DONT FORGET 
