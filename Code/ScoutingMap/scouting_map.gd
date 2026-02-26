@@ -11,7 +11,13 @@ var map_grid: Array[Array]
 var selected_cell: Vector2i = Vector2i(0, 0)
 
 func _ready() -> void:
+	# prepare grid
 	init_map_grid(20, 20)
+	# mark one cell as completed so we have somewhere to start exploring from
+	mark_cell_complete(Vector2i(int(grid_width_override/2), 0))
+
+func mark_cell_complete(_coords: Vector2i):
+	get_cell_on_map(_coords).completed = true
 
 func get_cell_on_map(_coords: Vector2i) -> ScoutingMapCell:
 	return map_grid[_coords.y][_coords.x]

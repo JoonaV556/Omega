@@ -1,5 +1,5 @@
 scouting map
-	write classes
+	mark one cell as completed on game start
 	implement in-game interactions
 
 - Game Flow
@@ -34,8 +34,6 @@ Time of day - system
 		
 	day 
 		becomes bright
-
-
 
 add some weapons and combat
 
