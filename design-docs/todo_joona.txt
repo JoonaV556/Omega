@@ -1,4 +1,6 @@
-plan game flow specs
+scouting map
+	write classes
+	implement in-game interactions
 
 - Game Flow
 	Hub/Home-Base level
@@ -9,7 +11,7 @@ plan game flow specs
 				player can start exploring selected cells
 					if 
 						cell is unexplored 
-						cell is next to eplored one
+						cell is next to eplored onesss
 				already explored cells highlighted
 
 	Scouting mission 
@@ -72,6 +74,8 @@ Major features ---------------
 	government propaganda??
 
 - Main story
+
+- Saving system
 
 
 ------------ DONT FORGET 
