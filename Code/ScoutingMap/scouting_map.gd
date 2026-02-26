@@ -7,20 +7,30 @@ extends Node
 @export var grid_width_override: 	int = 20
 @export var grid_height_override: 	int = 20
 
+signal map_ready
+
 var map_grid: Array[Array]
 var selected_cell: Vector2i = Vector2i(0, 0)
+var first_update_ran: bool = false
+
+enum CellEntrySide {North, South, West, East}
 
 func _ready() -> void:
 	# prepare grid
 	init_map_grid(20, 20)
 	# mark one cell as completed so we have somewhere to start exploring from
+	@warning_ignore("integer_division")
 	mark_cell_complete(Vector2i(int(grid_width_override/2), 0))
+	map_ready.emit()
 
 func mark_cell_complete(_coords: Vector2i):
 	get_cell_on_map(_coords).completed = true
 
 func get_cell_on_map(_coords: Vector2i) -> ScoutingMapCell:
 	return map_grid[_coords.y][_coords.x]
+
+func get_map_grid_size() -> Vector2i:
+	return Vector2i(map_grid[0].size(), map_grid.size())
 
 func init_map_grid(_width: int, _height: int):
 	var _grid: Array[Array] = []
@@ -46,7 +56,35 @@ func select_cell(_cell_x: int, _cell_y: int) -> bool:
 	selected_cell = Vector2i(_cell_x, _cell_y)
 	return true
 
-func enter_selected_cell() -> bool:
+func get_enterable_sides(_coords: Vector2i) -> Array[CellEntrySide]:
+	var _sides: Array[CellEntrySide] = []
+	if not is_inside_map_bounds(_coords.x, _coords.y):
+		return _sides
+	# check if has completed cells touching
+	# check left
+	if (_coords.x > 0):
+		var _cell_on_left: ScoutingMapCell = get_cell_on_map(Vector2i(_coords.x-1, _coords.y))
+		if _cell_on_left.completed == true:
+			_sides.append(CellEntrySide.West)
+	# check right
+	if (_coords.x < (map_grid[0].size()-1)):
+		var _cell_on_right: ScoutingMapCell = get_cell_on_map(Vector2i(_coords.x+1, _coords.y))
+		if _cell_on_right.completed == true:
+			_sides.append(CellEntrySide.East)
+	# check up
+	if (_coords.y < (map_grid.size()-1)):
+		var _cell_on_up: ScoutingMapCell = get_cell_on_map(Vector2i(_coords.x, _coords.y + 1))
+		if _cell_on_up.completed == true:
+			_sides.append(CellEntrySide.North)
+	# check down
+	if (_coords.y > 0):
+		var _cell_on_down: ScoutingMapCell = get_cell_on_map(Vector2i(_coords.x, _coords.y - 1))
+		if _cell_on_down.completed == true:
+			_sides.append(CellEntrySide.South)
+	return _sides
+
+## attempts to begin a scouting mission on the currently selected cell
+func enter_selected_cell(_entry_side: CellEntrySide) -> bool:
 	if get_cell_on_map(selected_cell) == null:
 		push_error("no cell selected!")
 		return false
@@ -54,6 +92,9 @@ func enter_selected_cell() -> bool:
 		push_error("cannot explore already explored cells!")
 		return false
 	if not can_explore(selected_cell):
+		return false
+	if not get_enterable_sides(selected_cell).has(_entry_side):
+		push_error("cell cannot be entered from that side!")
 		return false
 	return true
 

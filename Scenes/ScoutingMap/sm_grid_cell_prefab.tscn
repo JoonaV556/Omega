@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://i1m8fkymyi48"]
+
+[node name="SM_GridCell_prefab" type="ColorRect"]
+custom_minimum_size = Vector2(40, 40)
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 41.0
+color = Color(0.973801, 0, 0.507349, 1)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+border_color = Color(1, 1, 1, 1)
+editor_only = false

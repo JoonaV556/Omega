@@ -1,18 +1,24 @@
 scouting map
-	mark one cell as completed on game start
 	implement in-game interactions
+		pull up with m key press
+		generate map grid, matching SM map size (width & height)
+			use vertical and horizontal containers instead of grid container
+		display cell borders lightly
+		highlight completed cells 
+		highlight enterable cells
+		implement cell selection
+			select cell with mouse click
+			highlight selected cell 
+		implement entering selected cell
+			enter cell button
+				gray when selected cell is not enterable
+				highlighted when selected cell is enterable
+			implement selecting enter side (only allow selection if more than one possible enter side)
+	implement interacting with scouting map through the hub level map Board
+		visually highlight board
+		implement interaction
 
-- Game Flow
-	Hub/Home-Base level
-		Scouting Mission Map Board - Entry to scouting missions
-			Island map in the background
-			Exploration grid with map cells
-				player can select cells
-				player can start exploring selected cells
-					if 
-						cell is unexplored 
-						cell is next to eplored onesss
-				already explored cells highlighted
+
 
 	Scouting mission 
 		player enters the map from already known entry point (the side touching an explored cell)
@@ -62,6 +68,9 @@ Major features ---------------
 	Patrolling NPC squads / with their own goals
 		Undead monsters & aliens 
 		Encounters between npc squads - Different factions might fight each other
+
+- Personal contacts (old-school PDA device, phone would be boring)
+	- story characters can communicate with player
 
 - Omega comms network
 	npcs and squads post messages
