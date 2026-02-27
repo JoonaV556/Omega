@@ -6,11 +6,13 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = 41.0
 offset_bottom = 41.0
-color = Color(0.973801, 0, 0.507349, 1)
+color = Color(0.75, 0.60275, 0.465, 0.266667)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-border_color = Color(1, 1, 1, 1)
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 39.0
+offset_bottom = 39.0
+border_color = Color(1, 1, 1, 0.498039)
 editor_only = false

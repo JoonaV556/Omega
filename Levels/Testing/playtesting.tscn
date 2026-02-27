@@ -31,17 +31,18 @@ target = NodePath("../../Player")
 [node name="close app debug" type="Node" parent="."]
 script = ExtResource("5_syfjw")
 
-[node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("grid_container", "scouting_map")]
+[node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("scouting_map", "map_root_control")]
 script = ExtResource("6_d8mm3")
-grid_container = NodePath("CanvasLayer/GridContainer")
 scouting_map = NodePath("../ScoutingMap")
 map_cell_prefab = ExtResource("7_n0s11")
+map_root_control = NodePath("CanvasLayer/MapRoot")
 metadata/_custom_type_script = "uid://y5yngojo5i56"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ScoutingMapUI"]
 
-[node name="GridContainer" type="GridContainer" parent="ScoutingMapUI/CanvasLayer"]
+[node name="MapRoot" type="Control" parent="ScoutingMapUI/CanvasLayer"]
 layout_direction = 2
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -53,12 +54,11 @@ offset_right = 480.0
 offset_bottom = 270.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 20
 
 [node name="ScoutingMap" type="Node" parent="."]
 script = ExtResource("6_5ghbk")
-grid_width_override = 10
-grid_height_override = 10
+grid_width_override = 5
+grid_height_override = 5
 metadata/_custom_type_script = "uid://bklweqc4ei73p"
 
 [connection signal="map_ready" from="ScoutingMap" to="ScoutingMapUI" method="generate_ui"]

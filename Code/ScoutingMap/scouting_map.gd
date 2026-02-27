@@ -17,7 +17,7 @@ enum CellEntrySide {North, South, West, East}
 
 func _ready() -> void:
 	# prepare grid
-	init_map_grid(20, 20)
+	init_map_grid(grid_width_override, grid_height_override)
 	# mark one cell as completed so we have somewhere to start exploring from
 	@warning_ignore("integer_division")
 	mark_cell_complete(Vector2i(int(grid_width_override/2), 0))
@@ -42,6 +42,7 @@ func init_map_grid(_width: int, _height: int):
 			_new_row[x] = ScoutingMapCell.new()
 		_grid[i] = _new_row
 	self.map_grid = _grid
+	print_debug("initialized scouting map with size: "+str(_width)+", "+str(_height))
 
 func select_cell(_cell_x: int, _cell_y: int) -> bool:
 	if (_cell_x < 0) or (_cell_x >= map_grid[0].size()):

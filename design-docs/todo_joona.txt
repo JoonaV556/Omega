@@ -1,8 +1,5 @@
 scouting map
 	implement in-game interactions
-		pull up with m key press
-		generate map grid, matching SM map size (width & height)
-			use vertical and horizontal containers instead of grid container
 		display cell borders lightly
 		highlight completed cells 
 		highlight enterable cells
@@ -14,7 +11,11 @@ scouting map
 				gray when selected cell is not enterable
 				highlighted when selected cell is enterable
 			implement selecting enter side (only allow selection if more than one possible enter side)
+		make into reusable prefabs in any level 
+		add to main level
 	implement interacting with scouting map through the hub level map Board
+		decide on scouting map size on alpha version 
+		center map ui on screen based on size
 		visually highlight board
 		implement interaction
 
