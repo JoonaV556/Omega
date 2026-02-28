@@ -1,8 +1,5 @@
 scouting map
 	implement in-game interactions
-		display cell borders lightly
-		highlight completed cells 
-		highlight enterable cells
 		implement cell selection
 			select cell with mouse click
 			highlight selected cell 

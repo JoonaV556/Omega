@@ -20,7 +20,9 @@ func _ready() -> void:
 	init_map_grid(grid_width_override, grid_height_override)
 	# mark one cell as completed so we have somewhere to start exploring from
 	@warning_ignore("integer_division")
-	mark_cell_complete(Vector2i(int(grid_width_override/2), 0))
+	var _mark_complete_coords = Vector2i(int(grid_width_override/2), 0)
+	mark_cell_complete(_mark_complete_coords)
+	print_debug("Marked cell at "+str(_mark_complete_coords)+" complete")
 	map_ready.emit()
 
 func mark_cell_complete(_coords: Vector2i):
@@ -136,7 +138,3 @@ func can_explore(_coords: Vector2i = Vector2i(0, 0)) -> bool:
 		if _cell_on_down.completed == true:
 			return true
 	return false
-
-## Holds relevant data about individual map cells 
-class ScoutingMapCell:
-	var completed: bool = false
