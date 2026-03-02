@@ -1,21 +1,37 @@
+## GUI manager script for the scouting map
 class_name ScoutingMapUI
 extends Node
 
 @export var scouting_map: ScoutingMap
 @export var map_cell_prefab: PackedScene
 @export var map_root_control: Control
+@export var select_entry_side_hint:RichTextLabel
 @export var map_begin_btn:Button
+@export var cell_entry_side_btn_n:Button
+@export var cell_entry_side_btn_s:Button
+@export var cell_entry_side_btn_w:Button
+@export var cell_entry_side_btn_e:Button
 @export var map_cell_pixel_separation: int = 1
 @export var map_cell_completed_color: Color = Color.FOREST_GREEN
 @export var map_cell_can_explore_color: Color = Color.FOREST_GREEN
 @export var map_cell_border_unselected_color:Color = Color(1.0,1.0,1.0, 0.3)
 @export var map_cell_border_selected_color:Color = Color(1.0,1.0,1.0, 0.7)
+@export var entry_side_hint_color_inactive:Color = Color(1.0,1.0,1.0, 0.3)
+@export var entry_side_hint_color_active:Color = Color(1.0,1.0,1.0, 1.0)
 
 var selected_cell_gui: ScoutingMapCellUI
+
+enum CellEntrySide {North=0, South=1, West=2, East=3}
+var desired_entry_side:CellEntrySide
 
 func _ready() -> void:
 	map_root_control.set_visible(false)
 	map_begin_btn.disabled = true
+	cell_entry_side_btn_n.disabled = true
+	cell_entry_side_btn_s.disabled = true
+	cell_entry_side_btn_w.disabled = true
+	cell_entry_side_btn_e.disabled = true
+	select_entry_side_hint.add_theme_color_override("default_color",entry_side_hint_color_inactive)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_released("ToggleScoutingMap"):
@@ -27,7 +43,7 @@ func _process(_delta: float) -> void:
 func generate_ui():
 	var _map_size: Vector2i = scouting_map.get_map_grid_size()
 	
-	# create and fill map ui grid with map cells
+	# create and fill map ui grid wi th map cells
 	var _map_vbox:VBoxContainer = VBoxContainer.new()
 	_map_vbox.name = "Map VBox (generated)"
 	map_root_control.add_child(_map_vbox)
@@ -67,10 +83,51 @@ func on_gui_cell_clicked(_cell_ui: ScoutingMapCellUI):
 		# activate begin button
 		if scouting_map.can_explore(selected_cell_gui.coords):
 			map_begin_btn.disabled = false
+			# update entry side selection buttons
+			select_entry_side_hint.add_theme_color_override("default_color",entry_side_hint_color_active)
+			var _entry_sides = scouting_map.get_enterable_sides(scouting_map.selected_cell)
+			if _entry_sides.has(ScoutingMap.CellEntrySide.North):
+				cell_entry_side_btn_n.disabled = false
+			else:
+				cell_entry_side_btn_n.disabled = true
+				
+			if _entry_sides.has(ScoutingMap.CellEntrySide.South):
+				cell_entry_side_btn_s.disabled = false
+			else:
+				cell_entry_side_btn_s.disabled = true
+				
+			if _entry_sides.has(ScoutingMap.CellEntrySide.West):
+				cell_entry_side_btn_w.disabled = false
+			else:
+				cell_entry_side_btn_w.disabled = true
+				
+			if _entry_sides.has(ScoutingMap.CellEntrySide.East):
+				cell_entry_side_btn_e.disabled = false	
+			else:
+				cell_entry_side_btn_e.disabled = true
 		else:
+			select_entry_side_hint.add_theme_color_override("default_color",entry_side_hint_color_inactive)
 			map_begin_btn.disabled = true
+			# update entry side selection buttons
+			cell_entry_side_btn_n.disabled = true
+			cell_entry_side_btn_s.disabled = true
+			cell_entry_side_btn_w.disabled = true
+			cell_entry_side_btn_e.disabled = true
+
+func on_entry_side_btn_pressed(_side:String):
+	match _side:
+		"n":
+			desired_entry_side = CellEntrySide.North
+		"s":
+			desired_entry_side = CellEntrySide.South
+		"e":
+			desired_entry_side = CellEntrySide.East
+		"w":
+			desired_entry_side = CellEntrySide.West
 
 func on_begin_btn_pressed():
+	var _e_sides = scouting_map.get_enterable_sides(scouting_map.selected_cell)
+	# todo implement entering from desired side
 	scouting_map.enter_selected_cell(
 		scouting_map.get_enterable_sides(scouting_map.selected_cell)[0]
 	)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bno31bc8tu2qx"]
+[gd_scene load_steps=11 format=3 uid="uid://bno31bc8tu2qx"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_bak3x"]
 [ext_resource type="PackedScene" uid="uid://c1fbbvhp5r7yx" path="res://Levels/other/Hub.tscn" id="2_j42co"]
@@ -8,6 +8,11 @@
 [ext_resource type="Script" uid="uid://bklweqc4ei73p" path="res://Code/ScoutingMap/scouting_map.gd" id="6_5ghbk"]
 [ext_resource type="Script" uid="uid://y5yngojo5i56" path="res://Code/ScoutingMap/scouting_map_ui.gd" id="6_d8mm3"]
 [ext_resource type="PackedScene" uid="uid://i1m8fkymyi48" path="res://Scenes/ScoutingMap/sm_grid_cell_prefab.tscn" id="7_n0s11"]
+[ext_resource type="Texture2D" uid="uid://cx8s0dgtmonev" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="8_5kqqd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mq6v"]
+atlas = ExtResource("8_5kqqd")
+region = Rect2(48, 16, 16, 16)
 
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_bak3x")
@@ -31,12 +36,17 @@ target = NodePath("../../Player")
 [node name="close app debug" type="Node" parent="."]
 script = ExtResource("5_syfjw")
 
-[node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("scouting_map", "map_root_control", "map_begin_btn")]
+[node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("scouting_map", "map_root_control", "select_entry_side_hint", "map_begin_btn", "cell_entry_side_btn_n", "cell_entry_side_btn_s", "cell_entry_side_btn_w", "cell_entry_side_btn_e")]
 script = ExtResource("6_d8mm3")
 scouting_map = NodePath("../ScoutingMap")
 map_cell_prefab = ExtResource("7_n0s11")
 map_root_control = NodePath("CanvasLayer/MapRoot")
+select_entry_side_hint = NodePath("CanvasLayer/MapRoot/RichTextLabel")
 map_begin_btn = NodePath("CanvasLayer/MapRoot/Button-begin")
+cell_entry_side_btn_n = NodePath("CanvasLayer/MapRoot/Button-n")
+cell_entry_side_btn_s = NodePath("CanvasLayer/MapRoot/Button-s")
+cell_entry_side_btn_w = NodePath("CanvasLayer/MapRoot/Button-w")
+cell_entry_side_btn_e = NodePath("CanvasLayer/MapRoot/Button-e")
 map_cell_completed_color = Color(0.24, 1, 0.24, 0.490196)
 map_cell_can_explore_color = Color(0.621934, 1, 0.599473, 0.298039)
 map_cell_border_unselected_color = Color(1, 1, 1, 0.219608)
@@ -63,10 +73,58 @@ grow_vertical = 2
 [node name="Button-begin" type="Button" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
 layout_mode = 0
 offset_left = 370.0
+offset_top = 161.0
 offset_right = 560.0
-offset_bottom = 31.0
+offset_bottom = 192.0
 disabled = true
 text = "Begin Scouting Mission "
+
+[node name="Button-n" type="Button" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 68.0
+offset_right = 474.0
+offset_bottom = 92.0
+disabled = true
+icon = SubResource("AtlasTexture_6mq6v")
+
+[node name="Button-s" type="Button" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 144.0
+offset_right = 498.0
+offset_bottom = 168.0
+rotation = -3.14159
+disabled = true
+icon = SubResource("AtlasTexture_6mq6v")
+
+[node name="Button-w" type="Button" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 118.0
+offset_right = 447.0
+offset_bottom = 142.0
+rotation = -1.57079
+disabled = true
+icon = SubResource("AtlasTexture_6mq6v")
+
+[node name="Button-e" type="Button" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
+layout_mode = 0
+offset_left = 502.0
+offset_top = 94.0
+offset_right = 526.0
+offset_bottom = 118.0
+rotation = 1.57079
+disabled = true
+icon = SubResource("AtlasTexture_6mq6v")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 20.0
+offset_right = 523.0
+offset_bottom = 53.0
+text = "Select entry side:"
 
 [node name="ScoutingMap" type="Node" parent="."]
 script = ExtResource("6_5ghbk")
@@ -75,6 +133,10 @@ grid_height_override = 5
 metadata/_custom_type_script = "uid://bklweqc4ei73p"
 
 [connection signal="pressed" from="ScoutingMapUI/CanvasLayer/MapRoot/Button-begin" to="ScoutingMapUI" method="on_begin_btn_pressed"]
+[connection signal="pressed" from="ScoutingMapUI/CanvasLayer/MapRoot/Button-n" to="ScoutingMapUI" method="on_entry_side_btn_pressed" binds= ["n"]]
+[connection signal="pressed" from="ScoutingMapUI/CanvasLayer/MapRoot/Button-s" to="ScoutingMapUI" method="on_entry_side_btn_pressed" binds= ["s"]]
+[connection signal="pressed" from="ScoutingMapUI/CanvasLayer/MapRoot/Button-w" to="ScoutingMapUI" method="on_entry_side_btn_pressed" binds= ["w"]]
+[connection signal="pressed" from="ScoutingMapUI/CanvasLayer/MapRoot/Button-e" to="ScoutingMapUI" method="on_entry_side_btn_pressed" binds= ["e"]]
 [connection signal="map_ready" from="ScoutingMap" to="ScoutingMapUI" method="generate_ui"]
 
 [editable path="Camera"]

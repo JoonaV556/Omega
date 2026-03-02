@@ -13,7 +13,7 @@ var map_grid: Array[Array]
 var selected_cell: Vector2i = Vector2i(0, 0)
 var first_update_ran: bool = false
 
-enum CellEntrySide {North, South, West, East}
+enum CellEntrySide {North=0, South=1, West=2, East=3}
 
 func _ready() -> void:
 	# prepare grid

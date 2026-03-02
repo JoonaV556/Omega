@@ -2,6 +2,8 @@ scouting map
 	implement in-game interactions
 		implement entering selected cell
 			implement selecting enter side (only allow selection if more than one possible enter side)
+				use correct side if entry button is used
+				show desired entry side with text label
 		make into reusable prefabs in any level 
 		add to main level
 	implement interacting with scouting map through the hub level map Board
