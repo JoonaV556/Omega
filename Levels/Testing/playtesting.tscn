@@ -38,6 +38,8 @@ map_cell_prefab = ExtResource("7_n0s11")
 map_root_control = NodePath("CanvasLayer/MapRoot")
 map_cell_completed_color = Color(0.24, 1, 0.24, 0.490196)
 map_cell_can_explore_color = Color(0.621934, 1, 0.599473, 0.298039)
+map_cell_border_unselected_color = Color(1, 1, 1, 0.219608)
+map_cell_border_selected_color = Color(1, 1, 1, 1)
 metadata/_custom_type_script = "uid://y5yngojo5i56"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ScoutingMapUI"]

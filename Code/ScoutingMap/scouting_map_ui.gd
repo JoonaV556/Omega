@@ -7,6 +7,10 @@ extends Node
 @export var map_cell_pixel_separation: int = 1
 @export var map_cell_completed_color: Color = Color.FOREST_GREEN
 @export var map_cell_can_explore_color: Color = Color.FOREST_GREEN
+@export var map_cell_border_unselected_color:Color = Color(1.0,1.0,1.0, 0.3)
+@export var map_cell_border_selected_color:Color = Color(1.0,1.0,1.0, 0.7)
+
+var selected_cell_gui: ScoutingMapCellUI
 
 func _ready() -> void:
 	map_root_control.set_visible(false)
@@ -38,10 +42,28 @@ func generate_ui():
 		# fill row with cells
 		for x in range(_map_size.x):
 			var _cell_ui_node = map_cell_prefab.instantiate()
-			_cell_ui_node.name = "Map Cell (generated)" 
+			var _cell_coord = Vector2i(x, i)
+			_cell_ui_node.name = str("Map Cell "+str(_cell_coord)) 
 			# highlight the cell with color if needed
 			update_cell_color(_cell_ui_node, Vector2i(x, i))
+			set_cell_border_color(_cell_ui_node, map_cell_border_unselected_color)
 			_map_hbox.add_child(_cell_ui_node)
+			_cell_ui_node.on_clicked.connect(self.on_gui_cell_clicked)
+			_cell_ui_node.coords = Vector2i(x, i)
+
+func on_gui_cell_clicked(_cell_ui: ScoutingMapCellUI):
+	if scouting_map.select_cell(_cell_ui.coords):
+		# un-highlight old selection
+		if selected_cell_gui != null:
+			set_cell_border_color(selected_cell_gui, map_cell_border_unselected_color)
+		# highlight new selection
+		selected_cell_gui = _cell_ui
+		set_cell_border_color(selected_cell_gui, map_cell_border_selected_color)
+		print_debug("selected map cell "+str(_cell_ui.name)+"!")
+		
+func set_cell_border_color(_cell_ui:ScoutingMapCellUI, _color:Color):
+	var _border:ReferenceRect = _cell_ui.get_child(0)
+	_border.border_color = _color
 
 func update_cell_color(_cell_ui: ColorRect, _map_coords: Vector2i):
 	var _cell_data: ScoutingMapCell = scouting_map.get_cell_on_map(_map_coords)

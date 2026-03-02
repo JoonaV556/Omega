@@ -46,17 +46,17 @@ func init_map_grid(_width: int, _height: int):
 	self.map_grid = _grid
 	print_debug("initialized scouting map with size: "+str(_width)+", "+str(_height))
 
-func select_cell(_cell_x: int, _cell_y: int) -> bool:
-	if (_cell_x < 0) or (_cell_x >= map_grid[0].size()):
+func select_cell(_cell:Vector2i) -> bool:
+	if (_cell.x < 0) or (_cell.x >= map_grid[0].size()):
 		push_error("selection is outside map grid bounds!")
 		return false
-	if (_cell_y < 0) or (_cell_y >= map_grid.size()):
+	if (_cell.y < 0) or (_cell.y >= map_grid.size()):
 		push_error("selection is outside map grid bounds!")
 		return false
-	if map_grid[_cell_y][_cell_x] == null:
+	if map_grid[_cell.y][_cell.x] == null:
 		push_error("no cell in grid coordinates!")
 		return false 
-	selected_cell = Vector2i(_cell_x, _cell_y)
+	selected_cell = Vector2i(_cell.x, _cell.y)
 	return true
 
 func get_enterable_sides(_coords: Vector2i) -> Array[CellEntrySide]:

@@ -1,8 +1,5 @@
 scouting map
 	implement in-game interactions
-		implement cell selection
-			select cell with mouse click
-			highlight selected cell 
 		implement entering selected cell
 			enter cell button
 				gray when selected cell is not enterable
