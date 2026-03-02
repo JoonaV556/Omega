@@ -1,9 +1,6 @@
 scouting map
 	implement in-game interactions
 		implement entering selected cell
-			enter cell button
-				gray when selected cell is not enterable
-				highlighted when selected cell is enterable
 			implement selecting enter side (only allow selection if more than one possible enter side)
 		make into reusable prefabs in any level 
 		add to main level

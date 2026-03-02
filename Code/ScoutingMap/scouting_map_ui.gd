@@ -4,6 +4,7 @@ extends Node
 @export var scouting_map: ScoutingMap
 @export var map_cell_prefab: PackedScene
 @export var map_root_control: Control
+@export var map_begin_btn:Button
 @export var map_cell_pixel_separation: int = 1
 @export var map_cell_completed_color: Color = Color.FOREST_GREEN
 @export var map_cell_can_explore_color: Color = Color.FOREST_GREEN
@@ -14,6 +15,7 @@ var selected_cell_gui: ScoutingMapCellUI
 
 func _ready() -> void:
 	map_root_control.set_visible(false)
+	map_begin_btn.disabled = true
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_released("ToggleScoutingMap"):
@@ -56,11 +58,23 @@ func on_gui_cell_clicked(_cell_ui: ScoutingMapCellUI):
 		# un-highlight old selection
 		if selected_cell_gui != null:
 			set_cell_border_color(selected_cell_gui, map_cell_border_unselected_color)
+			
 		# highlight new selection
 		selected_cell_gui = _cell_ui
 		set_cell_border_color(selected_cell_gui, map_cell_border_selected_color)
 		print_debug("selected map cell "+str(_cell_ui.name)+"!")
 		
+		# activate begin button
+		if scouting_map.can_explore(selected_cell_gui.coords):
+			map_begin_btn.disabled = false
+		else:
+			map_begin_btn.disabled = true
+
+func on_begin_btn_pressed():
+	scouting_map.enter_selected_cell(
+		scouting_map.get_enterable_sides(scouting_map.selected_cell)[0]
+	)
+
 func set_cell_border_color(_cell_ui:ScoutingMapCellUI, _color:Color):
 	var _border:ReferenceRect = _cell_ui.get_child(0)
 	_border.border_color = _color

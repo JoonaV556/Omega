@@ -31,11 +31,12 @@ target = NodePath("../../Player")
 [node name="close app debug" type="Node" parent="."]
 script = ExtResource("5_syfjw")
 
-[node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("scouting_map", "map_root_control")]
+[node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("scouting_map", "map_root_control", "map_begin_btn")]
 script = ExtResource("6_d8mm3")
 scouting_map = NodePath("../ScoutingMap")
 map_cell_prefab = ExtResource("7_n0s11")
 map_root_control = NodePath("CanvasLayer/MapRoot")
+map_begin_btn = NodePath("CanvasLayer/MapRoot/Button-begin")
 map_cell_completed_color = Color(0.24, 1, 0.24, 0.490196)
 map_cell_can_explore_color = Color(0.621934, 1, 0.599473, 0.298039)
 map_cell_border_unselected_color = Color(1, 1, 1, 0.219608)
@@ -59,12 +60,21 @@ offset_bottom = 270.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Button-begin" type="Button" parent="ScoutingMapUI/CanvasLayer/MapRoot"]
+layout_mode = 0
+offset_left = 370.0
+offset_right = 560.0
+offset_bottom = 31.0
+disabled = true
+text = "Begin Scouting Mission "
+
 [node name="ScoutingMap" type="Node" parent="."]
 script = ExtResource("6_5ghbk")
 grid_width_override = 5
 grid_height_override = 5
 metadata/_custom_type_script = "uid://bklweqc4ei73p"
 
+[connection signal="pressed" from="ScoutingMapUI/CanvasLayer/MapRoot/Button-begin" to="ScoutingMapUI" method="on_begin_btn_pressed"]
 [connection signal="map_ready" from="ScoutingMap" to="ScoutingMapUI" method="generate_ui"]
 
 [editable path="Camera"]
