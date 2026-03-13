@@ -58,10 +58,12 @@ metadata/_custom_type_script = "uid://tw8inqj742no"
 color = Color(0, 0, 0, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(89, -87)
 scale = Vector2(9.21875, 9.21875)
 color = Color(1, 0.67, 0.45, 1)
 energy = 0.88
+range_item_cull_mask = 3
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 2
@@ -73,4 +75,6 @@ position = Vector2(122, -233)
 scale = Vector2(2.46875, 2.46875)
 color = Color(1, 0.927677, 0.883246, 1)
 energy = 0.77
+range_item_cull_mask = 3
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_cc21f")

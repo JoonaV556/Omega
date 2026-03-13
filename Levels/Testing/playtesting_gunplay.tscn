@@ -1,30 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://bno31bc8tu2qx"]
+[gd_scene load_steps=11 format=3 uid="uid://d03wefl0pokln"]
 
-[ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_bak3x"]
-[ext_resource type="PackedScene" uid="uid://c1fbbvhp5r7yx" path="res://Levels/other/Hub.tscn" id="2_j42co"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="3_ygr7x"]
-[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="4_syfjw"]
-[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="5_syfjw"]
-[ext_resource type="Script" uid="uid://bklweqc4ei73p" path="res://Code/ScoutingMap/scouting_map.gd" id="6_5ghbk"]
-[ext_resource type="Script" uid="uid://y5yngojo5i56" path="res://Code/ScoutingMap/scouting_map_ui.gd" id="6_d8mm3"]
-[ext_resource type="PackedScene" uid="uid://i1m8fkymyi48" path="res://Scenes/ScoutingMap/sm_grid_cell_prefab.tscn" id="7_n0s11"]
-[ext_resource type="Texture2D" uid="uid://cx8s0dgtmonev" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="8_5kqqd"]
+[ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
+[ext_resource type="PackedScene" uid="uid://c1fbbvhp5r7yx" path="res://Levels/other/Hub.tscn" id="2_bte8c"]
+[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="3_qa2yd"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="4_i6rg2"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="5_p4dev"]
+[ext_resource type="Script" uid="uid://y5yngojo5i56" path="res://Code/ScoutingMap/scouting_map_ui.gd" id="6_ehwqh"]
+[ext_resource type="PackedScene" uid="uid://i1m8fkymyi48" path="res://Scenes/ScoutingMap/sm_grid_cell_prefab.tscn" id="7_sqtd4"]
+[ext_resource type="Texture2D" uid="uid://cx8s0dgtmonev" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="8_3qcxn"]
+[ext_resource type="Script" uid="uid://bklweqc4ei73p" path="res://Code/ScoutingMap/scouting_map.gd" id="9_yacir"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mq6v"]
-atlas = ExtResource("8_5kqqd")
+atlas = ExtResource("8_3qcxn")
 region = Rect2(48, 16, 16, 16)
 
 [node name="Playtesting" type="Node2D"]
-script = ExtResource("1_bak3x")
+script = ExtResource("1_ax5ch")
 metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 
-[node name="Hub" parent="." instance=ExtResource("2_j42co")]
+[node name="Hub" parent="." instance=ExtResource("2_bte8c")]
 
-[node name="Player" parent="." instance=ExtResource("3_ygr7x")]
+[node name="Player" parent="." instance=ExtResource("3_qa2yd")]
 y_sort_enabled = true
 position = Vector2(18, -40)
 
-[node name="Camera" parent="." instance=ExtResource("4_syfjw")]
+[node name="Camera" parent="." instance=ExtResource("4_i6rg2")]
 position = Vector2(18, -40)
 
 [node name="Zoom" parent="Camera" index="0"]
@@ -34,12 +34,12 @@ min_zoom = Vector2(2, 2)
 target = NodePath("../../Player")
 
 [node name="close app debug" type="Node" parent="."]
-script = ExtResource("5_syfjw")
+script = ExtResource("5_p4dev")
 
 [node name="ScoutingMapUI" type="Node" parent="." node_paths=PackedStringArray("scouting_map", "map_root_control", "select_entry_side_hint", "map_begin_btn", "cell_entry_side_btn_n", "cell_entry_side_btn_s", "cell_entry_side_btn_w", "cell_entry_side_btn_e")]
-script = ExtResource("6_d8mm3")
+script = ExtResource("6_ehwqh")
 scouting_map = NodePath("../ScoutingMap")
-map_cell_prefab = ExtResource("7_n0s11")
+map_cell_prefab = ExtResource("7_sqtd4")
 map_root_control = NodePath("CanvasLayer/MapRoot")
 select_entry_side_hint = NodePath("CanvasLayer/MapRoot/RichTextLabel")
 map_begin_btn = NodePath("CanvasLayer/MapRoot/Button-begin")
@@ -127,7 +127,7 @@ offset_bottom = 53.0
 text = "Select entry side:"
 
 [node name="ScoutingMap" type="Node" parent="."]
-script = ExtResource("6_5ghbk")
+script = ExtResource("9_yacir")
 grid_width_override = 5
 grid_height_override = 5
 metadata/_custom_type_script = "uid://bklweqc4ei73p"

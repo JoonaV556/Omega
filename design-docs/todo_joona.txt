@@ -1,41 +1,20 @@
-scouting map
-	implement in-game interactions
-		implement entering selected cell
-			implement selecting enter side (only allow selection if more than one possible enter side)
-				use correct side if entry button is used
-				show desired entry side with text label
-		make into reusable prefabs in any level 
-		add to main level
-	implement interacting with scouting map through the hub level map Board
-		decide on scouting map size on alpha version 
-		center map ui on screen based on size
-		visually highlight board
-		implement interaction
 
 
 
-	Scouting mission 
-		player enters the map from already known entry point (the side touching an explored cell)
-			if more than one mapped cell touches the unmapped one, player can choose from which side to enter
-		when player reaches an extraction point, he can choose whether to
-			1. save progress and rewards, and return back to base
-			2. Continue forwards to next cell
-
-	Mapping / Fog of war during scouting missions
-		Minimap - shows level layout
-		Level layout is hidden when entering new cell
-		Area around player is gradually uncovered in minimap
 
 
-Time of day - system
-	night
-		gets dark
-		crickets sounds
-		
-	day 
-		becomes bright
 
-add some weapons and combat
+
+
+
+
+
+
+
+
+
+
+
 
 Notes ------------------------
 - reworking road gen to 1-wide might be a requirement to make manipulating roads easier (creating highways etc.)
