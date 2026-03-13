@@ -1,11 +1,11 @@
 [gd_resource type="TileSet" load_steps=13 format=3 uid="uid://chog3iytdynhs"]
 
-[ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_adehw"]
-[ext_resource type="Texture2D" uid="uid://d2ur7756dtv8b" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="2_4jtqo"]
-[ext_resource type="Texture2D" uid="uid://b7jmbwi3bb047" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/21_Beach_16x16.png" id="3_mnosv"]
-[ext_resource type="Texture2D" uid="uid://cmhuckt0f4602" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="4_4jtqo"]
-[ext_resource type="Texture2D" uid="uid://t83bqoowpguc" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/2_City_Terrains_16x16.png" id="5_mnosv"]
-[ext_resource type="Texture2D" uid="uid://cmtae7t83btgw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="6_o7coh"]
+[ext_resource type="Texture2D" uid="uid://cjq5yfrfcuvy5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_adehw"]
+[ext_resource type="Texture2D" uid="uid://1nwj5q68uovw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="2_4jtqo"]
+[ext_resource type="Texture2D" uid="uid://cg5ue5olbxceo" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/21_Beach_16x16.png" id="3_mnosv"]
+[ext_resource type="Texture2D" uid="uid://cidljx36e2bxw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="4_4jtqo"]
+[ext_resource type="Texture2D" uid="uid://cbyt6eauudgne" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/2_City_Terrains_16x16.png" id="5_mnosv"]
+[ext_resource type="Texture2D" uid="uid://di5dgtcj85f21" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="6_o7coh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3hle4"]
 texture = ExtResource("1_adehw")
