@@ -58,7 +58,6 @@ metadata/_custom_type_script = "uid://tw8inqj742no"
 color = Color(0, 0, 0, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
 position = Vector2(89, -87)
 scale = Vector2(9.21875, 9.21875)
 color = Color(1, 0.67, 0.45, 1)

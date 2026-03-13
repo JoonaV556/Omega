@@ -15,7 +15,6 @@
 
 
 
-
 Notes ------------------------
 - reworking road gen to 1-wide might be a requirement to make manipulating roads easier (creating highways etc.)
 - generating 1-wide roads with bsp-tree would be possible by shrinking each node from left and bottom side, 
