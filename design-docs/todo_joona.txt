@@ -1,5 +1,54 @@
 git push --recurse-submodules=on-demand
 
+Beach night environment
+	wave sounds near beach
+		positional looping ambient sfx prefab node
+	city sounds
+		global ambient sfx prefab node
+	
+Begin game with baseball bat 
+
+Breakable boxes on beach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

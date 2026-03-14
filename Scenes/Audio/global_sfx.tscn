@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2otr7axossyc"]
+
+[ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="1_ua4jq"]
+
+[node name="Global SFX" type="AudioStreamPlayer"]
+stream = ExtResource("1_ua4jq")
+autoplay = true
