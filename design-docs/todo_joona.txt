@@ -1,15 +1,25 @@
 git push --recurse-submodules=on-demand
 
-Beach night environment
-	wave sounds near beach
-		positional looping ambient sfx prefab node
-	city sounds
-		global ambient sfx prefab node
+------------ Combat
+Killhouse maze level
+	red clay pot targets
+Shooting targets in the maze 
+	pistol 
+		7 rounds
+		1 sec reload
+		bullet flying is visible
+		cast flashes on ground 
+		sfx
+			shot
+			reload
+	show ammo ammo to player
+Shoot all targets in short time w counter
+	time counter
+		timer starts when player starts moving
+			horn sound on start
+		timer stops when player reaches exit and all tiles are killed 
+	restart with r key
 	
-Begin game with baseball bat 
-
-Breakable boxes on beach
-
 
 
 
