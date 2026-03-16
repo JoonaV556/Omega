@@ -1,5 +1,18 @@
 git push --recurse-submodules=on-demand
 
+bullets disappear when they hit something
+
+bullets destroy clay pots
+
+pistol 
+	12 rounds
+	2 sec reload
+	bullet flying is visible
+	cast flashes on ground 
+	sfx
+		shot
+		reload
+
 ------------ Combat
 Killhouse maze level
 	red clay pot targets
