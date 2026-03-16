@@ -234,6 +234,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_kyqiw")
 metadata/is_player = false
 
