@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bklweqc4ei73p" path="res://Code/ScoutingMap/scouting_map.gd" id="6_5ghbk"]
 [ext_resource type="Script" uid="uid://y5yngojo5i56" path="res://Code/ScoutingMap/scouting_map_ui.gd" id="6_d8mm3"]
 [ext_resource type="PackedScene" uid="uid://i1m8fkymyi48" path="res://Scenes/ScoutingMap/sm_grid_cell_prefab.tscn" id="7_n0s11"]
-[ext_resource type="Texture2D" uid="uid://cx8s0dgtmonev" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="8_5kqqd"]
+[ext_resource type="Texture2D" uid="uid://c5ppqtii77ih6" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="8_5kqqd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mq6v"]
 atlas = ExtResource("8_5kqqd")

@@ -17,6 +17,7 @@ signal on_dry_fire
 
 @export var magazine_size:int = 12
 @export var bullets_start:int = 12
+## velocity in pixels per second. 16px ~= 1 meter
 @export var bullets_velocity:float = 0.1
 var bullets_in_chamber:int
 
