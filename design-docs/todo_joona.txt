@@ -1,14 +1,11 @@
 git push --recurse-submodules=on-demand
 
-timer 
-	horn sound on start
-	horn sound on end
+restart feature
+	fix - timer starts running if player moves while killhouse is complete (standing at exit)
 
 ------------ Combat sample
 X Killhouse maze level
-	red clay pot targets
-		clay pots make sound when breaking 
-		pots break into pieces
+	x red clay pot targets
 		
 Shooting targets in the maze 
 	pistol 
@@ -26,17 +23,30 @@ Shoot all targets in short time w counter
 		timer starts when player starts moving
 			horn sound on start
 		timer stops when player reaches exit and all tiles are killed 
-	restart with r key
+	restart with space key
 
 restart feature
-	 text helper on end
+	 text helper on killhouse end 
+
+show ammo left
+
+better aiming cursor
 
 long reach camera
 
 track high score
 	save high score to disk
+	show high score ui
 
-
+SFX / VFX
+	timer 
+		horn sound on start
+		horn sound on end
+	pots
+		clay pots make sound when breaking 
+		pots break into pieces
+	
+	highscore reached sound
 
 
 

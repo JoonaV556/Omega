@@ -14,9 +14,12 @@ func _process(delta: float) -> void:
 func start_timer():
 	if running: 
 		return
-	time_seconds = 0.0
+	reset()
 	running = true
 	started.emit()
+
+func reset():
+	time_seconds = 0.0
 
 func stop_timer():
 	if !running:

@@ -72,7 +72,6 @@ tile_map_data = PackedByteArray("AAD0//P/AAATADkAAAD0//T/AAATADkAAAD0//X/AQAAAAE
 tile_set = ExtResource("5_tnmjx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="SFX Waves" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("target")]
@@ -252,10 +251,11 @@ position = Vector2(40, -1208)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="UI Manager" type="Node" parent="UI" node_paths=PackedStringArray("timer_label", "kills_label", "timer", "manager")]
+[node name="UI Manager" type="Node" parent="UI" node_paths=PackedStringArray("timer_label", "kills_label", "restart_hint_label", "timer", "manager")]
 script = ExtResource("16_3qcxn")
 timer_label = NodePath("../Root/VBoxContainer/text timer")
 kills_label = NodePath("../Root/VBoxContainer/text kills")
+restart_hint_label = NodePath("../Root/text restart hint")
 timer = NodePath("../../Systems/Killhouse Timer")
 manager = NodePath("../../Systems/KillhouseManager")
 
@@ -306,10 +306,37 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="text restart hint" type="RichTextLabel" parent="UI/Root"]
+custom_minimum_size = Vector2(500, 80)
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -375.0
+offset_top = 152.0
+offset_right = 375.0
+offset_bottom = 295.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 56
+text = "Press Spacebar to reset"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="UI/Root/text restart hint"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Systems" type="Node" parent="."]
 
-[node name="KillhouseManager" type="Node" parent="Systems" node_paths=PackedStringArray("targets_parent")]
+[node name="KillhouseManager" type="Node" parent="Systems" node_paths=PackedStringArray("player", "targets_parent")]
 script = ExtResource("14_yacir")
+player = NodePath("../../Player")
 targets_parent = NodePath("../../Pots")
 metadata/_custom_type_script = "uid://cu1ki6wcafv6i"
 
@@ -317,15 +344,15 @@ metadata/_custom_type_script = "uid://cu1ki6wcafv6i"
 script = ExtResource("14_ehwqh")
 metadata/_custom_type_script = "uid://cvogya6ol4m1q"
 
-[node name="Character Movement Detector" type="Node" parent="Systems/Killhouse Timer" node_paths=PackedStringArray("character")]
-script = ExtResource("15_sqtd4")
-character = NodePath("../../../Player")
-metadata/_custom_type_script = "uid://b5qteiikgyam3"
-
 [node name="Red-Pot Manager" type="Node" parent="Systems"]
 
 [node name="close app debug" type="Node" parent="Systems"]
 script = ExtResource("5_p4dev")
+
+[node name="Character Movement Detector" type="Node" parent="Systems" node_paths=PackedStringArray("character")]
+script = ExtResource("15_sqtd4")
+character = NodePath("../../Player")
+metadata/_custom_type_script = "uid://b5qteiikgyam3"
 
 [node name="End Trigger" type="Area2D" parent="."]
 position = Vector2(-49, -1386)
@@ -335,8 +362,12 @@ collision_mask = 2
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_3qcxn")
 
+[connection signal="killhouse_completed" from="Systems/KillhouseManager" to="UI/UI Manager" method="on_completed"]
 [connection signal="killhouse_completed" from="Systems/KillhouseManager" to="Systems/Killhouse Timer" method="stop_timer"]
-[connection signal="started_moving" from="Systems/Killhouse Timer/Character Movement Detector" to="Systems/Killhouse Timer" method="start_timer"]
+[connection signal="killhouse_started" from="Systems/KillhouseManager" to="Systems/Killhouse Timer" method="start_timer"]
+[connection signal="on_reset" from="Systems/KillhouseManager" to="UI/UI Manager" method="on_restart"]
+[connection signal="on_reset" from="Systems/KillhouseManager" to="Systems/Killhouse Timer" method="reset"]
+[connection signal="started_moving" from="Systems/Character Movement Detector" to="Systems/KillhouseManager" method="start_round"]
 [connection signal="body_entered" from="End Trigger" to="Systems/KillhouseManager" method="on_player_reached_exit"]
 
 [editable path="Camera"]

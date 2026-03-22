@@ -27,8 +27,11 @@ script = ExtResource("3_p0jro")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_vur8c")
-start_health = 10.0
+start_health = 9.0
+max_health = 9.0
 metadata/_custom_type_script = "uid://d106ew175y1va"
 
 [connection signal="on_depleted" from="Health" to="Sprite2D" method="hide"]
 [connection signal="on_depleted" from="Health" to="CollisionShape2D" method="safe_disable"]
+[connection signal="on_revived" from="Health" to="Sprite2D" method="show"]
+[connection signal="on_revived" from="Health" to="CollisionShape2D" method="safe_enable"]

@@ -30,11 +30,12 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 func on_body_entered(other_node: Node):
 	print("bullet hit something")
-	print("hit"+other_node.name)
+	print("hit "+other_node.name)
 	# deal damage to the object if possible
 	var _damageable := other_node as StaticDamageable
 	if _damageable:
 		_damageable.health.damage(self.damage)
+		print("damaged "+other_node.name)
 	
 	# destroy self
 	self.on_hit_something.emit()
