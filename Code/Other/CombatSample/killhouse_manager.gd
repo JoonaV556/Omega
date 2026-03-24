@@ -63,8 +63,3 @@ func on_player_reached_exit(player: Node2D):
 
 func on_target_killed():
 	targets_killed += 1
-
-#var _projectile := _projectile_node as Projectile
-	#if not _projectile:
-		#return
-	#_projectile.global_position = self.global_position
