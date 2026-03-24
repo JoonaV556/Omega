@@ -1,8 +1,5 @@
 git push --recurse-submodules=on-demand
 
-restart feature
-	fix - timer starts running if player moves while killhouse is complete (standing at exit)
-
 ------------ Combat sample
 X Killhouse maze level
 	x red clay pot targets
@@ -30,8 +27,6 @@ restart feature
 
 show ammo left
 
-better aiming cursor
-
 long reach camera
 
 track high score
@@ -49,6 +44,8 @@ SFX / VFX
 	highscore reached sound
 
 fix ui not centered
+
+Add key bindings helper
 
 
 
