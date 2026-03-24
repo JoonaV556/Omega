@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfua0tg35785p"]
+
+[ext_resource type="Script" uid="uid://b0cendvnfrse8" path="res://Code/Other/CombatSample/aim_cursor.gd" id="1_1dsme"]
+[ext_resource type="Texture2D" uid="uid://ylx58i17ui56" path="res://Assets_LICENSED/Sprites/aim_cursor_atlas.png" id="2_jvt2i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5dh3"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(0, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ib0k"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(7, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u466b"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(14, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckb4e"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(21, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqw75"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(28, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psdpw"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(35, 0, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhhu7"]
+atlas = ExtResource("2_jvt2i")
+region = Rect2(42, 0, 7, 7)
+
+[node name="Aim Cursor" type="Node"]
+script = ExtResource("1_1dsme")
+cursor_options = Array[Texture2D]([SubResource("AtlasTexture_i5dh3"), SubResource("AtlasTexture_7ib0k"), SubResource("AtlasTexture_u466b"), SubResource("AtlasTexture_ckb4e"), SubResource("AtlasTexture_aqw75"), SubResource("AtlasTexture_psdpw"), SubResource("AtlasTexture_qhhu7")])
+cursor_scale = 5.0
+cursor_texture_index = 6
+metadata/_custom_type_script = "uid://b0cendvnfrse8"

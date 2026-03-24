@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=20 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -17,39 +17,10 @@
 [ext_resource type="Script" uid="uid://cu1ki6wcafv6i" path="res://Code/Other/CombatSample/killhouse_manager.gd" id="14_yacir"]
 [ext_resource type="Script" uid="uid://b5qteiikgyam3" path="res://Code/Other/CombatSample/player_movement_detector.gd" id="15_sqtd4"]
 [ext_resource type="Script" uid="uid://bt7t32e25xr82" path="res://Code/Other/CombatSample/killhouse_ui_manager.gd" id="16_3qcxn"]
-[ext_resource type="Script" uid="uid://b0cendvnfrse8" path="res://Code/Other/CombatSample/aim_cursor.gd" id="18_amfbg"]
-[ext_resource type="Texture2D" uid="uid://ylx58i17ui56" path="res://Assets_LICENSED/Sprites/aim_cursor_atlas.png" id="19_pmknx"]
+[ext_resource type="PackedScene" uid="uid://cfua0tg35785p" path="res://Scenes/Other/aim_cursor.tscn" id="17_amfbg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qcxn"]
 size = Vector2(32, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i5dh3"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(0, 0, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ib0k"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(7, 0, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u466b"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(14, 0, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ckb4e"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(21, 0, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aqw75"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(28, 0, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_psdpw"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(35, 0, 7, 7)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qhhu7"]
-atlas = ExtResource("19_pmknx")
-region = Rect2(42, 0, 7, 7)
 
 [node name="Playtesting" type="Node2D"]
 script = ExtResource("1_ax5ch")
@@ -394,12 +365,7 @@ metadata/_custom_type_script = "uid://cvogya6ol4m1q"
 [node name="close app debug" type="Node" parent="CanvasLayer/Systems"]
 script = ExtResource("5_p4dev")
 
-[node name="Aim Cursor" type="Node" parent="CanvasLayer/Systems"]
-script = ExtResource("18_amfbg")
-cursor_options = Array[Texture2D]([SubResource("AtlasTexture_i5dh3"), SubResource("AtlasTexture_7ib0k"), SubResource("AtlasTexture_u466b"), SubResource("AtlasTexture_ckb4e"), SubResource("AtlasTexture_aqw75"), SubResource("AtlasTexture_psdpw"), SubResource("AtlasTexture_qhhu7")])
-cursor_scale = 5.0
-cursor_texture_index = 6
-metadata/_custom_type_script = "uid://b0cendvnfrse8"
+[node name="Aim Cursor" parent="CanvasLayer/Systems" instance=ExtResource("17_amfbg")]
 
 [node name="Character Movement Detector" type="Node" parent="CanvasLayer/Systems" node_paths=PackedStringArray("character")]
 script = ExtResource("15_sqtd4")
