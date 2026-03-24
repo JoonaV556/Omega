@@ -47,17 +47,19 @@ func reset():
 	round_ongoing = false
 	
 	on_reset.emit()
+	print_debug("round reset")
 
 func start_round():
 	if round_ongoing:
 		return
 	round_ongoing = true
 	killhouse_started.emit()
+	print_debug("round started")
 
 func on_player_reached_exit(player: Node2D):
 	if targets_killed == kills_required:
 		killhouse_completed.emit()
-		round_ongoing = false
+		print_debug("round ended")
 
 func on_target_killed():
 	targets_killed += 1

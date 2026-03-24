@@ -48,6 +48,7 @@ SFX / VFX
 	
 	highscore reached sound
 
+fix ui not centered
 
 
 
