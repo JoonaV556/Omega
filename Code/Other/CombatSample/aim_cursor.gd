@@ -52,10 +52,6 @@ func _ready() -> void:
 	set_cursor_color(cursor_color)
 
 func _process(_delta: float) -> void:
-	# move cursor in a ciruclar area around player
-	#aim_cursor_sprite.global_position = aim_cursor_sprite.get_global_mouse_position()
-	#update_cursor_world_poition()
-	
 	if OS.has_feature("editor"):
 		if Input.is_action_just_pressed("NextAimReticle"):
 			next_cursor_sprite()
@@ -64,27 +60,17 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("DecreaseReticleSize"):
 			set_cursor_scale(cursor_scale - scale_step)
 	
+	# move cursor in a ciruclar area around player
 	var cursor_world_pos = player.global_position + cursor_world_offset
 	aim_cursor_sprite.global_position = aim_cursor_sprite.get_viewport().get_canvas_transform() * cursor_world_pos
 
 func _input(event: InputEvent) -> void:
-	### move cursor in a ciruclar area around player
+	# update cursor world offset
 	var mouse_delta = Vector2.ZERO
 	if event is InputEventMouseMotion:
 		mouse_delta = event.relative
 		var new_offset: Vector2 = cursor_world_offset + (mouse_delta * cursor_sensitivity_multiplier)
 		cursor_world_offset = new_offset.limit_length(cursor_max_distance_from_player)
-
-#func update_cursor_world_poition():
-	## cursor_world_po = new_pos.limit_length(cursor_max_distance_from_player)
-	##var new_pos: Vector2 = aim_cursor_sprite.get_global_mouse_position() - player.global_position
-	#cursor_world_offset = Vector2(aim_cursor_sprite.get_global_mouse_position() - player.global_position).limit_length(cursor_max_distance_from_player)
-	#var new_pos: Vector2 = get_viewport().get_mouse_position() - player.get_global_transform_with_canvas().get_origin()
-	#var limited = new_pos.limit_length(cursor_max_distance_from_player)
-	#aim_cursor_sprite.global_position = player.get_global_transform_with_canvas().get_origin() + limited
-
-# cursor pos in game space
-# set 
 
 func set_cursor_scale(new_scale:float):
 	cursor_scale = clampf(new_scale, scale_min, scale_max)

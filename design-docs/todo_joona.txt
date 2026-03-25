@@ -1,5 +1,9 @@
 git push --recurse-submodules=on-demand
 
+add custom start offset
+fix cursor zoomed move speed issue
+aim where aim cursor is
+
 Long reach camera
 	camera look where aim reticle is 
 	camera look between player and aim reticle?
