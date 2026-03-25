@@ -42,7 +42,7 @@ var camera_ref: Camera2D
 
 func _ready() -> void:
 	# hide system cursor
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# create aim cursor 
 	aim_cursor_sprite = Sprite2D.new()
 	aim_cursor_sprite.name = "Aim Cursor Sprite"

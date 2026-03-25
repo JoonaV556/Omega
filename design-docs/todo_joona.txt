@@ -1,8 +1,5 @@
 git push --recurse-submodules=on-demand
 
-build test
-	test mouse box issue
-
 Long reach camera
 	camera look where aim reticle is 
 	camera look between player and aim reticle?
