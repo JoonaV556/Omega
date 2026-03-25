@@ -27,10 +27,11 @@ const scale_min: float = 0.01
 const scale_max: float = 100.0
 const scale_step: float = 0.1
 
-## start pos relative to player
-const cursor_start_position: Vector2 = Vector2(0.0, 0.0)
+## start offset relative to player
+const cursor_start_world_offset: Vector2 = Vector2(0.0, 0.0)
 ## cursor position relative to player
 var cursor_world_offset: Vector2 = Vector2(0, 0)
+var cursor_world_pos: Vector2
 
 var aim_cursor_sprite: Sprite2D
 
@@ -50,6 +51,10 @@ func _ready() -> void:
 	set_cursor_scale(cursor_scale)
 	set_cursor_sprite(cursor_texture_index)
 	set_cursor_color(cursor_color)
+	
+	# place cursor in start position
+	cursor_world_pos = player.global_position + cursor_start_world_offset
+	aim_cursor_sprite.global_position = aim_cursor_sprite.get_viewport().get_canvas_transform() * cursor_world_pos
 
 func _process(_delta: float) -> void:
 	if OS.has_feature("editor"):
@@ -61,7 +66,7 @@ func _process(_delta: float) -> void:
 			set_cursor_scale(cursor_scale - scale_step)
 	
 	# move cursor in a ciruclar area around player
-	var cursor_world_pos = player.global_position + cursor_world_offset
+	cursor_world_pos = player.global_position + cursor_world_offset
 	aim_cursor_sprite.global_position = aim_cursor_sprite.get_viewport().get_canvas_transform() * cursor_world_pos
 
 func _input(event: InputEvent) -> void:

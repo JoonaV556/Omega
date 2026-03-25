@@ -360,6 +360,7 @@ cursor_sprite_options = Array[Texture2D]([ExtResource("18_aqw75"), ExtResource("
 cursor_scale = 2.5
 player = NodePath("../../Player/Aim")
 cursor_max_distance_from_player = 240.0
+cursor_sensitivity_multiplier = 0.5
 cursor_custom_parent = NodePath("../../CanvasLayer - cursor/Node2D")
 cursor_material = ExtResource("26_qhhu7")
 
