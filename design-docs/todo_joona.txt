@@ -1,9 +1,5 @@
 git push --recurse-submodules=on-demand
 
-Long reach camera
-	camera look where aim reticle is 
-	camera look between player and aim reticle?
-
 ------------ Combat sample
 Killhouse maze level
 	Shoot red clay pots in a timed instance
@@ -20,19 +16,14 @@ Feature backlog
 				reload
 		show ammo ammo to player
 
-	Shoot all targets in short time w counter
-		time counter
-			timer starts when player starts moving
-				horn sound on start
-			timer stops when player reaches exit and all tiles are killed 
-		restart with space key
-
 	show ammo left
 
 	track high score
 		save high score to disk
 		show high score ui
-
+	
+	gun shot blowback kicks player in opposite direction
+	
 	SFX / VFX
 		timer 
 			horn sound on start
@@ -48,6 +39,7 @@ Feature backlog
 	fix ui not centered
 
 	Add key bindings helper
+	
 
 
 

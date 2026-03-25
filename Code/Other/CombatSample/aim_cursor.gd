@@ -25,6 +25,15 @@ extends Node
 
 ## Optional. If provided, the the helper nodes position is set to follow the actual world position of the aim cursor. Useful for pivoting stuff where the cursor is in "world"
 @export var cursor_world_pos_helper: Node2D
+## Optional. Useful for making a camera follow the aiming cursor 
+@export var cursor_camera_follow_helper: Node2D
+
+@export var camera_helper_placement_mode: CamHelperMode = CamHelperMode.FOLLOW_CURSOR
+
+## 0.0 is follow player. 0.5 true middle point. 1.0 is cursor. 
+@export_range(0.0, 1.0) var middle_point_alpha: float = 0.5
+
+enum CamHelperMode {FOLLOW_CURSOR, FOLLOW_MIDDLE_POINT}
 
 const scale_min: float = 0.01
 const scale_max: float = 100.0
@@ -71,16 +80,30 @@ func _process(_delta: float) -> void:
 			set_cursor_scale(cursor_scale + scale_step)
 		if Input.is_action_just_pressed("DecreaseReticleSize"):
 			set_cursor_scale(cursor_scale - scale_step)
-		# release cursor 
+		# toggle cursor lock
 		if Input.is_action_just_pressed("ReleaseCursor"):
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			else:
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	# move cursor in a ciruclar area around player
 	cursor_world_pos = player.global_position + cursor_world_offset
 	aim_cursor_sprite.global_position = aim_cursor_sprite.get_viewport().get_canvas_transform() * cursor_world_pos
 	
-	# update helper pivot position 
-	cursor_world_pos_helper.global_position = cursor_world_pos
+	# update helper positions
+	if cursor_world_pos_helper:
+		cursor_world_pos_helper.global_position = cursor_world_pos
+	if cursor_camera_follow_helper:
+		match camera_helper_placement_mode:
+			CamHelperMode.FOLLOW_CURSOR:
+				cursor_camera_follow_helper.global_position = cursor_world_pos
+			CamHelperMode.FOLLOW_MIDDLE_POINT:
+				var direction: Vector2 = Vector2(cursor_world_pos - player.global_position)
+				var halfway_point: Vector2 = direction.limit_length(
+						(middle_point_alpha * player.global_position.distance_to(cursor_world_pos))
+					)
+				cursor_camera_follow_helper.global_position = player.global_position + halfway_point
 
 func _input(event: InputEvent) -> void:
 	# update cursor world offset

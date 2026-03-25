@@ -7,4 +7,4 @@ func _process(_delta: float) -> void:
 		return
 	if camera == null:
 		return
-	camera.position = target.position
+	camera.global_position = target.global_position

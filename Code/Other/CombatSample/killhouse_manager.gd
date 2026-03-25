@@ -34,8 +34,6 @@ func _process(_delta: float) -> void:
 		reset()
 
 func reset():
-	print("shit")
-	
 	# move player back to beginning
 	player.global_position = player_start_pos
 	
