@@ -35,6 +35,8 @@ var cursor_world_pos: Vector2
 
 var aim_cursor_sprite: Sprite2D
 
+var camera_ref: Camera2D
+
 func _ready() -> void:
 	# hide system cursor
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
@@ -55,6 +57,8 @@ func _ready() -> void:
 	# place cursor in start position
 	cursor_world_pos = player.global_position + cursor_start_world_offset
 	aim_cursor_sprite.global_position = aim_cursor_sprite.get_viewport().get_canvas_transform() * cursor_world_pos
+	
+	camera_ref = get_viewport().get_camera_2d()
 
 func _process(_delta: float) -> void:
 	if OS.has_feature("editor"):
@@ -78,6 +82,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_delta = event.relative
 		var new_offset: Vector2 = cursor_world_offset + (mouse_delta * cursor_sensitivity_multiplier)
+		if camera_ref:
+			new_offset = cursor_world_offset + ((mouse_delta * cursor_sensitivity_multiplier) / camera_ref.zoom.x) # make sure cursor moves at same speed at all camera zoom levels
+		else:
+			new_offset = cursor_world_offset + (mouse_delta * cursor_sensitivity_multiplier)
 		cursor_world_offset = new_offset.limit_length(cursor_max_distance_from_player)
 
 func set_cursor_scale(new_scale:float):
