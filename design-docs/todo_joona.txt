@@ -1,51 +1,53 @@
 git push --recurse-submodules=on-demand
 
+Long reach camera
+	camera look where aim reticle is 
+	camera look between player and aim reticle?
+
 ------------ Combat sample
-X Killhouse maze level
-	x red clay pot targets
-		
-Shooting targets in the maze 
-	pistol 
-		7 rounds
-		1 sec reload
-		bullet flying is visible
-		cast flashes on ground 
-		sfx
-			shot
-			reload
-	show ammo ammo to player
+Killhouse maze level
+	Shoot red clay pots in a timed instance
 
-Shoot all targets in short time w counter
-	time counter
-		timer starts when player starts moving
+Feature backlog
+	Shooting targets in the maze 
+		pistol 
+			7 rounds
+			1 sec reload
+			bullet flying is visible
+			cast flashes on ground 
+			sfx
+				shot
+				reload
+		show ammo ammo to player
+
+	Shoot all targets in short time w counter
+		time counter
+			timer starts when player starts moving
+				horn sound on start
+			timer stops when player reaches exit and all tiles are killed 
+		restart with space key
+
+	show ammo left
+
+	track high score
+		save high score to disk
+		show high score ui
+
+	SFX / VFX
+		timer 
 			horn sound on start
-		timer stops when player reaches exit and all tiles are killed 
-	restart with space key
+			horn sound on end
+		pots
+			clay pots make sound when breaking 
+			pots break into pieces
+		
+		highscore reached sound
 
-restart feature
-	 text helper on killhouse end 
+	solve issue with bullets when firing close to a wall
 
-show ammo left
+	fix ui not centered
 
-long reach camera
-
-track high score
-	save high score to disk
-	show high score ui
-
-SFX / VFX
-	timer 
-		horn sound on start
-		horn sound on end
-	pots
-		clay pots make sound when breaking 
-		pots break into pieces
-	
-	highscore reached sound
-
-fix ui not centered
-
-Add key bindings helper
+	Add key bindings helper
 
 
 
