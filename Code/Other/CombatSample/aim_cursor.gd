@@ -23,6 +23,9 @@ extends Node
 ## optional
 @export var cursor_material: Material
 
+## Optional. If provided, the the helper nodes position is set to follow the actual world position of the aim cursor. Useful for pivoting stuff where the cursor is in "world"
+@export var cursor_world_pos_helper: Node2D
+
 const scale_min: float = 0.01
 const scale_max: float = 100.0
 const scale_step: float = 0.1
@@ -75,6 +78,9 @@ func _process(_delta: float) -> void:
 	# move cursor in a ciruclar area around player
 	cursor_world_pos = player.global_position + cursor_world_offset
 	aim_cursor_sprite.global_position = aim_cursor_sprite.get_viewport().get_canvas_transform() * cursor_world_pos
+	
+	# update helper pivot position 
+	cursor_world_pos_helper.global_position = cursor_world_pos
 
 func _input(event: InputEvent) -> void:
 	# update cursor world offset

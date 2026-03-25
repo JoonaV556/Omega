@@ -21,7 +21,3 @@ func _process(_delta: float) -> void:
 			light.set_visible(true)
 			on_toggled_on.emit()
 			on_toggled.emit()
-	
-	# point where player is looking
-	var mouse_pos = get_global_mouse_position()
-	self.look_at(mouse_pos)

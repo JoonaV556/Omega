@@ -47,13 +47,10 @@ target = NodePath("../../Player")
 y_sort_enabled = true
 position = Vector2(-158, 0)
 
-[node name="Flashlight" parent="Player" instance=ExtResource("3_3hv70")]
-position = Vector2(0, -15)
-rotation = -1.57079
-
-[node name="Aim" type="Node2D" parent="Player"]
+[node name="Aim" type="Node2D" parent="Player" node_paths=PackedStringArray("lookat_target_override")]
 position = Vector2(0, -17)
 script = ExtResource("5_i6rg2")
+lookat_target_override = NodePath("../../Systems/Aim Cursor/helper pivot")
 metadata/_custom_type_script = "uid://bx3c36aytlncp"
 
 [node name="Gun" type="Node2D" parent="Player/Aim"]
@@ -69,6 +66,9 @@ offset_top = -1.0
 offset_right = 6.0
 offset_bottom = 1.0
 color = Color(0.201527, 0.201527, 0.201527, 1)
+
+[node name="Flashlight" parent="Player/Aim" instance=ExtResource("3_3hv70")]
+position = Vector2(0, 2)
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 z_index = -10
@@ -355,7 +355,7 @@ grow_vertical = 2
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="Aim Cursor" parent="Systems" node_paths=PackedStringArray("player", "cursor_custom_parent") instance=ExtResource("17_amfbg")]
+[node name="Aim Cursor" parent="Systems" node_paths=PackedStringArray("player", "cursor_custom_parent", "cursor_world_pos_helper") instance=ExtResource("17_amfbg")]
 cursor_sprite_options = Array[Texture2D]([ExtResource("18_aqw75"), ExtResource("19_psdpw"), ExtResource("20_qhhu7"), ExtResource("21_h8flf"), ExtResource("22_i14fs"), ExtResource("23_01btr"), ExtResource("24_nw61l")])
 cursor_scale = 2.5
 player = NodePath("../../Player/Aim")
@@ -363,6 +363,9 @@ cursor_max_distance_from_player = 240.0
 cursor_sensitivity_multiplier = 0.5
 cursor_custom_parent = NodePath("../../CanvasLayer - cursor/Node2D")
 cursor_material = ExtResource("26_qhhu7")
+cursor_world_pos_helper = NodePath("helper pivot")
+
+[node name="helper pivot" type="Node2D" parent="Systems/Aim Cursor"]
 
 [node name="Killhouse Manager" type="Node" parent="Systems" node_paths=PackedStringArray("player", "targets_parent")]
 script = ExtResource("14_yacir")
