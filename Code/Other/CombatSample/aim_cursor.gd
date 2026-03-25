@@ -64,6 +64,9 @@ func _process(_delta: float) -> void:
 			set_cursor_scale(cursor_scale + scale_step)
 		if Input.is_action_just_pressed("DecreaseReticleSize"):
 			set_cursor_scale(cursor_scale - scale_step)
+		# release cursor 
+		if Input.is_action_just_pressed("ReleaseCursor"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	# move cursor in a ciruclar area around player
 	cursor_world_pos = player.global_position + cursor_world_offset
