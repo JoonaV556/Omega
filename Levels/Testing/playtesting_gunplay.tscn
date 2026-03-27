@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=29 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bltomijuxf21s" path="res://Assets_LICENSED/Sprites/aim_cursors/ac6.tres" id="23_01btr"]
 [ext_resource type="Texture2D" uid="uid://cni24lstjl7n0" path="res://Assets_LICENSED/Sprites/aim_cursors/ac7.tres" id="24_nw61l"]
 [ext_resource type="Material" uid="uid://b6ygtbqd0dwlh" path="res://Resources/canvas_item_material-unshaded.tres" id="26_qhhu7"]
+[ext_resource type="Script" uid="uid://cbwla7jfnbj03" path="res://Code/Other/CombatSample/score_tracker.gd" id="27_qhhu7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qcxn"]
 size = Vector2(32, 18)
@@ -273,11 +274,12 @@ shape = SubResource("RectangleShape2D_3qcxn")
 
 [node name="Layer - UI" type="CanvasLayer" parent="."]
 
-[node name="UI Manager" type="Node" parent="Layer - UI" node_paths=PackedStringArray("timer_label", "kills_label", "restart_hint_label", "timer", "manager")]
+[node name="UI Manager" type="Node" parent="Layer - UI" node_paths=PackedStringArray("timer_label", "kills_label", "restart_hint_label", "hi_score_label", "timer", "manager")]
 script = ExtResource("16_3qcxn")
 timer_label = NodePath("../Root/VBoxContainer/text timer")
 kills_label = NodePath("../Root/VBoxContainer/text kills")
 restart_hint_label = NodePath("../Root/text restart hint")
+hi_score_label = NodePath("../Root/VBoxContainer2/num hi-score")
 timer = NodePath("../../Systems/Killhouse Timer")
 manager = NodePath("../../Systems/Killhouse Manager")
 
@@ -320,6 +322,49 @@ text = "0/0"
 fit_content = true
 
 [node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer/text kills"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Layer - UI/Root"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -193.0
+offset_bottom = 160.0
+grow_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="header hi score" type="RichTextLabel" parent="Layer - UI/Root/VBoxContainer2"]
+layout_direction = 2
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 31
+text = "Hi-Score:"
+fit_content = true
+
+[node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer2/header hi score"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="num hi-score" type="RichTextLabel" parent="Layer - UI/Root/VBoxContainer2"]
+custom_minimum_size = Vector2(193.215, 80)
+layout_direction = 2
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 56
+text = "00.00s"
+fit_content = true
+
+[node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer2/num hi-score"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -390,12 +435,17 @@ script = ExtResource("15_sqtd4")
 character = NodePath("../../Player")
 metadata/_custom_type_script = "uid://b5qteiikgyam3"
 
+[node name="Score Tracker" type="Node" parent="Systems"]
+script = ExtResource("27_qhhu7")
+
 [connection signal="body_entered" from="End Trigger" to="Systems/Killhouse Manager" method="on_player_reached_exit"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Layer - UI/UI Manager" method="on_completed"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="stop_timer"]
 [connection signal="killhouse_started" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="start_timer"]
 [connection signal="on_reset" from="Systems/Killhouse Manager" to="Layer - UI/UI Manager" method="on_restart"]
 [connection signal="on_reset" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="reset"]
+[connection signal="stopped" from="Systems/Killhouse Timer" to="Systems/Score Tracker" method="on_timer_stopped"]
 [connection signal="started_moving" from="Systems/Character Movement Detector" to="Systems/Killhouse Manager" method="start_round"]
+[connection signal="on_hi_score_updated" from="Systems/Score Tracker" to="Layer - UI/UI Manager" method="on_score_updated"]
 
 [editable path="Camera"]

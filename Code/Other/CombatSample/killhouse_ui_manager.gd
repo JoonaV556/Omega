@@ -3,6 +3,7 @@ extends Node
 @export var timer_label: RichTextLabel
 @export var kills_label: RichTextLabel
 @export var restart_hint_label: RichTextLabel
+@export var hi_score_label: RichTextLabel
 
 @export var timer: KillhouseTimer
 @export var manager: KillhouseManager
@@ -19,3 +20,6 @@ func on_restart():
 
 func on_completed():
 	restart_hint_label.show()
+
+func on_score_updated(new_score: float):
+	hi_score_label.text = str("%.2f" % new_score+"s")

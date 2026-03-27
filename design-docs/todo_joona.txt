@@ -1,5 +1,26 @@
 git push --recurse-submodules=on-demand
 
+track high score
+		save high score to disk
+		show high score ui
+
+timer
+ 	on stop - signal passed time
+
+score tracker
+	hi-score
+	ready -> load hi-score from disk
+	timer stops -> update hi-score
+		save to disk
+		signal - new hi-score
+	func - get hi-score
+
+ui
+	ready -> get hi score
+	score tracker - connect new hi score signal
+	
+
+
 ------------ Combat sample
 Killhouse maze level
 	Shoot red clay pots in a timed instance
