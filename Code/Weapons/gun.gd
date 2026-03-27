@@ -1,13 +1,6 @@
 class_name Gun
 extends Node2D
-#pistol 
-	#12 rounds
-	#2 sec reload
-	#bullet flying is visible
-	#cast flashes on ground 
-	#sfx
-		#shot
-		#reload
+
 signal on_shot_fired
 signal on_reload_start
 signal on_reload_complete
@@ -19,6 +12,7 @@ signal on_dry_fire
 @export var bullets_start:int = 12
 ## velocity in pixels per second. 16px ~= 1 meter
 @export var bullets_velocity:float = 0.1
+
 var bullets_in_chamber:int
 
 func _ready() -> void:

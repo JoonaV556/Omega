@@ -54,7 +54,7 @@ func start_round():
 	killhouse_started.emit()
 	print_debug("round started")
 
-func on_player_reached_exit(player: Node2D):
+func on_player_reached_exit(_player: Node2D):
 	if targets_killed == kills_required:
 		killhouse_completed.emit()
 		print_debug("round ended")

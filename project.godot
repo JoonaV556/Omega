@@ -26,6 +26,11 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 GlobalInventoryHandler="*res://Code/Inventory/global_inventory_handler.gd"
 GlobalJournalHandler="*res://Code/Journal/global_journal_handler.gd"
 
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
+
 [dialogic]
 
 directories/dch_directory={

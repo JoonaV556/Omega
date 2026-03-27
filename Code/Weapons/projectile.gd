@@ -2,6 +2,8 @@ class_name Projectile
 extends RigidBody2D
 
 @export var damage: 	float = 10
+@export var debug_draw_hit_circle: bool = false
+
 var pending_velocity: 	Vector2
 var fired:				bool = false
 var velocity_set:		bool = false
@@ -30,6 +32,14 @@ func on_body_entered(other_node: Node):
 	var _damageable := other_node as StaticDamageable
 	if _damageable:
 		_damageable.health.damage(self.damage)
+	
+	# debug - draw circle where the bullet hit something
+	if debug_draw_hit_circle:
+		var circle_parent: DebugCircle =  DebugCircle.new()
+		circle_parent.name = "debugcircle"
+		get_tree().current_scene.add_child(circle_parent)
+		circle_parent.global_position = self.global_position
+		print("queued circle")
 	
 	# destroy self
 	self.on_hit_something.emit()

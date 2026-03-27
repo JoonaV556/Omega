@@ -1,31 +1,13 @@
 git push --recurse-submodules=on-demand
 
-track high score
-		save high score to disk
-		show high score ui
-
-timer
- 	on stop - signal passed time
-
-score tracker
-	hi-score
-	ready -> load hi-score from disk
-	timer stops -> update hi-score
-		save to disk
-		signal - new hi-score
-	func - get hi-score
-
-ui
-	ready -> get hi score
-	score tracker - connect new hi score signal
+solve issue with bullets when firing close to a wall
 	
-
 
 ------------ Combat sample
 Killhouse maze level
 	Shoot red clay pots in a timed instance
 
-Feature backlog
+Feature backlogss
 	Shooting targets in the maze 
 		pistol 
 			7 rounds
@@ -38,10 +20,6 @@ Feature backlog
 		show ammo ammo to player
 
 	show ammo left
-
-	track high score
-		save high score to disk
-		show high score ui
 	
 	gun shot blowback kicks player in opposite direction
 	
@@ -54,8 +32,6 @@ Feature backlog
 			pots break into pieces
 		
 		highscore reached sound
-
-	solve issue with bullets when firing close to a wall
 
 	fix ui not centered
 
