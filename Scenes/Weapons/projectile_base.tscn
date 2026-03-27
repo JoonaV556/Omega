@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://5xpgyduth2iw"]
 
-[ext_resource type="Script" uid="uid://x3dkxwevg80p" path="res://Code/Weapons/projectile.gd" id="1_duvps"]
+[ext_resource type="Script" uid="uid://x3dkxwevg80p" path="res://Code/Weapons/rb_projectile.gd" id="1_duvps"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i6rg2"]
 radius = 1.0

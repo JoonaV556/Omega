@@ -14,7 +14,7 @@ func _ready() -> void:
 	health = start_health
 	is_dead = false
 
-func damage(amount: float):
+func deal_damage(amount: float):
 	if (health - amount) <= 0.0:
 		is_dead = true
 		health = 0

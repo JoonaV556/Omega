@@ -1,4 +1,5 @@
-class_name Projectile
+## obsolete implementation of gun bullets, utilizing rigidbody physics
+class_name RBProjectile
 extends RigidBody2D
 
 @export var damage: 	float = 10
@@ -31,7 +32,7 @@ func on_body_entered(other_node: Node):
 	# deal damage to the object if possible
 	var _damageable := other_node as StaticDamageable
 	if _damageable:
-		_damageable.health.damage(self.damage)
+		_damageable.health.deal_damage(self.damage)
 	
 	# debug - draw circle where the bullet hit something
 	if debug_draw_hit_circle:

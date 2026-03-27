@@ -6,7 +6,7 @@ signal on_reload_start
 signal on_reload_complete
 signal on_dry_fire
 
-@export var projetile_prefab: PackedScene
+@export var bullet_prefab: PackedScene
 
 @export var magazine_size:int = 12
 @export var bullets_start:int = 12
@@ -31,14 +31,14 @@ func fire():
 		return
 	
 	# spawn projectile
-	var _projectile_node = projetile_prefab.instantiate()
-	get_tree().current_scene.add_child(_projectile_node)
+	var _bullet_node = bullet_prefab.instantiate()
+	get_tree().current_scene.add_child(_bullet_node)
 	# fire projectile
-	var _projectile := _projectile_node as Projectile
-	if not _projectile:
+	var _bullet := _bullet_node as Bullet
+	if not _bullet:
 		return
-	_projectile.global_position = self.global_position
-	_projectile.fire(self.global_transform.x.normalized(), self.bullets_velocity)
+	_bullet.global_position = self.global_position
+	_bullet.fire(self.global_transform.x.normalized(), self.bullets_velocity)
 	
 	bullets_in_chamber -= 1
 	on_shot_fired.emit()

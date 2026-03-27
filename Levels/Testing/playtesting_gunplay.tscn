@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://bx3c36aytlncp" path="res://Code/Weapons/aim.gd" id="5_i6rg2"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="5_p4dev"]
 [ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="5_tnmjx"]
-[ext_resource type="PackedScene" uid="uid://5xpgyduth2iw" path="res://Scenes/Weapons/projectile_base.tscn" id="6_i6rg2"]
 [ext_resource type="AudioStream" uid="uid://dibten28irn3m" path="res://Assets_LICENSED/Audio/waves.wav" id="7_gidd7"]
 [ext_resource type="Script" uid="uid://dc0bw2pscp16p" path="res://Code/Other/follow_position.gd" id="8_25fb6"]
 [ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="9_ax5ch"]
@@ -26,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bltomijuxf21s" path="res://Assets_LICENSED/Sprites/aim_cursors/ac6.tres" id="23_01btr"]
 [ext_resource type="Texture2D" uid="uid://cni24lstjl7n0" path="res://Assets_LICENSED/Sprites/aim_cursors/ac7.tres" id="24_nw61l"]
 [ext_resource type="Material" uid="uid://b6ygtbqd0dwlh" path="res://Resources/canvas_item_material-unshaded.tres" id="26_qhhu7"]
+[ext_resource type="PackedScene" uid="uid://ci6iqv5rj4ovj" path="res://Scenes/Weapons/bullet.tscn" id="27_h8flf"]
 [ext_resource type="Script" uid="uid://cbwla7jfnbj03" path="res://Code/Other/CombatSample/score_tracker.gd" id="27_qhhu7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qcxn"]
@@ -58,8 +58,8 @@ metadata/_custom_type_script = "uid://bx3c36aytlncp"
 [node name="Gun" type="Node2D" parent="Player/Aim"]
 position = Vector2(9, 0)
 script = ExtResource("4_bte8c")
-projetile_prefab = ExtResource("6_i6rg2")
-bullets_velocity = 6096.0
+bullet_prefab = ExtResource("27_h8flf")
+bullets_velocity = 1524.0
 metadata/_custom_type_script = "uid://cl0j8tdkrd3pf"
 
 [node name="gun visual" type="ColorRect" parent="Player/Aim/Gun"]
@@ -83,7 +83,6 @@ tile_map_data = PackedByteArray("AAD0//P/AAATADkAAAD0//T/AAATADkAAAD0//X/AQAAAAE
 tile_set = ExtResource("5_tnmjx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="SFX Waves" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("target")]

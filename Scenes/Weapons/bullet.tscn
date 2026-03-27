@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci6iqv5rj4ovj"]
+
+[ext_resource type="Script" uid="uid://bwfor4jklcwt" path="res://Code/Weapons/bullet.gd" id="1_k27yh"]
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_k27yh")
+raycast_mask = 1
+metadata/_custom_type_script = "uid://bwfor4jklcwt"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(2, 2)
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0

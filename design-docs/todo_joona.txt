@@ -1,8 +1,5 @@
 git push --recurse-submodules=on-demand
 
-solve issue with bullets when firing close to a wall
-	
-
 ------------ Combat sample
 Killhouse maze level
 	Shoot red clay pots in a timed instance
