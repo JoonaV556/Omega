@@ -1,6 +1,16 @@
-git push --recurse-submodules=on-demand
-
 fix bullet wall issue
+
+	make killhouse walls 2-high
+		lower part blocks player
+
+
+
+
+
+
+
+
+
 
 ------------ Combat sample
 Killhouse maze level

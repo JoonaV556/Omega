@@ -13,6 +13,7 @@ region = Rect2(352, 384, 16, 16)
 radius = 6.20632
 
 [node name="Red Pot (Destoryable)" type="StaticBody2D" node_paths=PackedStringArray("health")]
+collision_layer = 5
 script = ExtResource("1_unrgx")
 health = NodePath("Health")
 metadata/_custom_type_script = "uid://dom2xb14w1al6"
