@@ -1,10 +1,12 @@
 git push --recurse-submodules=on-demand
 
+fix bullet wall issue
+
 ------------ Combat sample
 Killhouse maze level
 	Shoot red clay pots in a timed instance
 
-Feature backlogss
+Feature backlog
 	Shooting targets in the maze 
 		pistol 
 			7 rounds
@@ -15,8 +17,6 @@ Feature backlogss
 				shot
 				reload
 		show ammo ammo to player
-
-	show ammo left
 	
 	gun shot blowback kicks player in opposite direction
 	
@@ -29,8 +29,6 @@ Feature backlogss
 			pots break into pieces
 		
 		highscore reached sound
-
-	fix ui not centered
 
 	Add key bindings helper
 	

@@ -5,6 +5,7 @@ signal on_shot_fired
 signal on_reload_start
 signal on_reload_complete
 signal on_dry_fire
+signal on_ammo_updated(ammo, max_ammo)
 
 @export var bullet_prefab: PackedScene
 
@@ -17,6 +18,7 @@ var bullets_in_chamber:int
 
 func _ready() -> void:
 	bullets_in_chamber = bullets_start
+	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
 func _process(delta: float) -> void:
 	# fire if fire key is pressed
@@ -42,6 +44,8 @@ func fire():
 	
 	bullets_in_chamber -= 1
 	on_shot_fired.emit()
+	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
 func reload():
 	bullets_in_chamber = magazine_size
+	on_ammo_updated.emit(bullets_in_chamber, magazine_size)

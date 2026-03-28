@@ -4,6 +4,7 @@ extends Node
 @export var kills_label: RichTextLabel
 @export var restart_hint_label: RichTextLabel
 @export var hi_score_label: RichTextLabel
+@export var ammo_label: RichTextLabel
 
 @export var timer: KillhouseTimer
 @export var manager: KillhouseManager
@@ -23,3 +24,6 @@ func on_completed():
 
 func on_score_updated(new_score: float):
 	hi_score_label.text = str("%.2f" % new_score+"s")
+
+func on_ammo_updated(ammo: int, max_ammo: int):
+	ammo_label.text = str(str(ammo)+" /"+str(max_ammo))

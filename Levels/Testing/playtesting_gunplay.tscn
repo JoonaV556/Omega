@@ -274,12 +274,13 @@ shape = SubResource("RectangleShape2D_3qcxn")
 
 [node name="Layer - UI" type="CanvasLayer" parent="."]
 
-[node name="UI Manager" type="Node" parent="Layer - UI" node_paths=PackedStringArray("timer_label", "kills_label", "restart_hint_label", "hi_score_label", "timer", "manager")]
+[node name="UI Manager" type="Node" parent="Layer - UI" node_paths=PackedStringArray("timer_label", "kills_label", "restart_hint_label", "hi_score_label", "ammo_label", "timer", "manager")]
 script = ExtResource("16_3qcxn")
 timer_label = NodePath("../Root/VBoxContainer/text timer")
 kills_label = NodePath("../Root/VBoxContainer/text kills")
 restart_hint_label = NodePath("../Root/text restart hint")
 hi_score_label = NodePath("../Root/VBoxContainer2/num hi-score")
+ammo_label = NodePath("../Root/VBoxContainer/num ammo")
 timer = NodePath("../../Systems/Killhouse Timer")
 manager = NodePath("../../Systems/Killhouse Manager")
 
@@ -322,6 +323,42 @@ text = "0/0"
 fit_content = true
 
 [node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer/text kills"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hdr ammo" type="RichTextLabel" parent="Layer - UI/Root/VBoxContainer"]
+custom_minimum_size = Vector2(193.215, 80)
+layout_direction = 2
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 36
+text = "Ammo"
+fit_content = true
+vertical_alignment = 2
+
+[node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer/hdr ammo"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="num ammo" type="RichTextLabel" parent="Layer - UI/Root/VBoxContainer"]
+custom_minimum_size = Vector2(193.215, 80)
+layout_direction = 2
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 56
+text = "1/1"
+fit_content = true
+horizontal_alignment = 2
+
+[node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer/num ammo"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -438,6 +475,7 @@ metadata/_custom_type_script = "uid://b5qteiikgyam3"
 [node name="Score Tracker" type="Node" parent="Systems"]
 script = ExtResource("27_qhhu7")
 
+[connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="body_entered" from="End Trigger" to="Systems/Killhouse Manager" method="on_player_reached_exit"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Layer - UI/UI Manager" method="on_completed"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="stop_timer"]
