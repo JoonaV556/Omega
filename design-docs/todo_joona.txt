@@ -1,5 +1,5 @@
-
-fix bullet wall issue
+gun shot blowback kicks player in opposite direction
+	try implementing knockback with rigidbody
 
 ------------ Combat sample
 Killhouse maze level

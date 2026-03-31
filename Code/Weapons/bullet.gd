@@ -9,6 +9,7 @@ var velocity: float
 ## pixels
 var cast_ahead_distance: float = 3.0
 var debug_draw_circle = false
+@export var draw_debug_circle_override = false
 
 # velocity in pixels per second. 16px ~= 1 meter
 func fire(_fly_direction:Vector2, _velocity, _debug_draw_circle: bool = false) -> void:
@@ -37,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		# if no obstacles, can_update ahead
 		self.global_position = next_pos
 	else:
-		if debug_draw_circle:
+		if debug_draw_circle or draw_debug_circle_override:
 			var circle = DebugCircle.new(2.0)
 			get_tree().current_scene.add_child(circle)
 			circle.global_position = result["position"]

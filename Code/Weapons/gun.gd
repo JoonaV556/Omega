@@ -1,11 +1,12 @@
 class_name Gun
 extends Node2D
 
-signal on_shot_fired
+signal on_shot_fired(fire_dir)
 signal on_reload_start
 signal on_reload_complete
 signal on_dry_fire
 signal on_ammo_updated(ammo, max_ammo)
+
 
 @export var bullet_prefab: PackedScene
 
@@ -13,6 +14,7 @@ signal on_ammo_updated(ammo, max_ammo)
 @export var bullets_start:int = 12
 ## velocity in pixels per second. 16px ~= 1 meter
 @export var bullets_velocity:float = 0.1
+@export var bullet_spawn_pivot: Node2D
 
 var bullets_in_chamber:int
 
@@ -39,11 +41,14 @@ func fire():
 	var _bullet := _bullet_node as Bullet
 	if not _bullet:
 		return
-	_bullet.global_position = self.global_position
+	if bullet_spawn_pivot:
+		_bullet.global_position = bullet_spawn_pivot.global_position
+	else:
+		_bullet.global_position = self.global_position
 	_bullet.fire(self.global_transform.x.normalized(), self.bullets_velocity)
 	
 	bullets_in_chamber -= 1
-	on_shot_fired.emit()
+	on_shot_fired.emit(self.global_transform.x.normalized())
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
 func reload():

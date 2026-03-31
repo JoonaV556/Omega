@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=30 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -10,6 +10,7 @@
 [ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="5_tnmjx"]
 [ext_resource type="AudioStream" uid="uid://dibten28irn3m" path="res://Assets_LICENSED/Audio/waves.wav" id="7_gidd7"]
 [ext_resource type="Script" uid="uid://dc0bw2pscp16p" path="res://Code/Other/follow_position.gd" id="8_25fb6"]
+[ext_resource type="Script" uid="uid://cnortdvgcov2t" path="res://Code/Other/CombatSample/gunfire_knockback.gd" id="8_h8flf"]
 [ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="9_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://cjvrkqflacggl" path="res://Scenes/Other/red_pot_(destoryable).tscn" id="13_p4dev"]
 [ext_resource type="Script" uid="uid://cvogya6ol4m1q" path="res://Code/Other/CombatSample/killhouse_timer.gd" id="14_ehwqh"]
@@ -48,6 +49,7 @@ target = NodePath("../../Systems/Aim Cursor/Helper Pivot - CameraFollowPivot")
 [node name="Player" parent="." instance=ExtResource("3_qa2yd")]
 y_sort_enabled = true
 position = Vector2(-90, 124)
+additional_impulses_decay_per_tick = 0.3
 
 [node name="Aim" type="Node2D" parent="Player" node_paths=PackedStringArray("lookat_target_override")]
 position = Vector2(0, -17)
@@ -55,11 +57,12 @@ script = ExtResource("5_i6rg2")
 lookat_target_override = NodePath("../../Systems/Aim Cursor/Helper Pivot - CursorWorldPos")
 metadata/_custom_type_script = "uid://bx3c36aytlncp"
 
-[node name="Gun" type="Node2D" parent="Player/Aim"]
+[node name="Gun" type="Node2D" parent="Player/Aim" node_paths=PackedStringArray("bullet_spawn_pivot")]
 position = Vector2(9, 0)
 script = ExtResource("4_bte8c")
 bullet_prefab = ExtResource("27_h8flf")
 bullets_velocity = 1524.0
+bullet_spawn_pivot = NodePath("Bullet spawn pivot")
 metadata/_custom_type_script = "uid://cl0j8tdkrd3pf"
 
 [node name="gun visual" type="ColorRect" parent="Player/Aim/Gun"]
@@ -68,6 +71,14 @@ offset_top = -1.0
 offset_right = 6.0
 offset_bottom = 1.0
 color = Color(0.201527, 0.201527, 0.201527, 1)
+
+[node name="Bullet spawn pivot" type="Node2D" parent="Player/Aim/Gun"]
+position = Vector2(6, 0)
+
+[node name="GunfireKnockback" type="Node" parent="Player/Aim/Gun" node_paths=PackedStringArray("target")]
+script = ExtResource("8_h8flf")
+target = NodePath("../../..")
+metadata/_custom_type_script = "uid://cnortdvgcov2t"
 
 [node name="Flashlight" parent="Player/Aim" instance=ExtResource("3_3hv70")]
 position = Vector2(0, 2)
@@ -437,6 +448,7 @@ metadata/_custom_type_script = "uid://b5qteiikgyam3"
 script = ExtResource("27_qhhu7")
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
+[connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/GunfireKnockback" method="deal_knockback"]
 [connection signal="body_entered" from="End Trigger" to="Systems/Killhouse Manager" method="on_player_reached_exit"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Layer - UI/UI Manager" method="on_completed"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="stop_timer"]
