@@ -1,15 +1,7 @@
+make killhouse walls 2-high
+	set collisions
+
 fix bullet wall issue
-
-	make killhouse walls 2-high
-		lower part blocks player
-
-
-
-
-
-
-
-
 
 
 ------------ Combat sample
