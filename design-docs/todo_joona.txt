@@ -1,8 +1,5 @@
-make killhouse walls 2-high
-	set collisions
 
 fix bullet wall issue
-
 
 ------------ Combat sample
 Killhouse maze level
