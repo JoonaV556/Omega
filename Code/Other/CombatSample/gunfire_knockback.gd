@@ -9,4 +9,3 @@ var pending = false
 
 func deal_knockback(fire_dir: Vector2):
     target.add_impulse(Vector2(fire_dir*-1).normalized() * knockback_force)
-    print_debug("dealt knockback")

@@ -1,5 +1,4 @@
-gun shot blowback kicks player in opposite direction
-	try implementing knockback with rigidbody
+Shooting casts flashes in environment
 
 ------------ Combat sample
 Killhouse maze level
@@ -11,12 +10,10 @@ Feature backlog
 			7 rounds
 			1 sec reload
 			bullet flying is visible
-			cast flashes on ground 
 			sfx
 				shot
 				reload
-		show ammo ammo to player
-	
+
 	gun shot blowback kicks player in opposite direction
 	
 	SFX / VFX
