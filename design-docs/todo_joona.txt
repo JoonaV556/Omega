@@ -1,4 +1,16 @@
-Shooting casts flashes in environment
+Gun reload takes some time
+
+Make guns more fun
+	Full auto mode (the default mode temoporarily)
+		31 round mag
+	Bullets leave holes at impact points
+		holes disappear after some time
+	SFX
+		fire shot (change pitch a little bit every shot)
+		reload
+		cocking the slide 
+		Bullet impact sound at impact point
+		shell casing falls on floor
 
 ------------ Combat sample
 Killhouse maze level
@@ -13,8 +25,6 @@ Feature backlog
 			sfx
 				shot
 				reload
-
-	gun shot blowback kicks player in opposite direction
 	
 	SFX / VFX
 		timer 

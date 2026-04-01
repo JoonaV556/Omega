@@ -222,7 +222,7 @@ polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
 radius = 2.0
-height = 14.0
+height = 10.0
 
 [sub_resource type="Gradient" id="Gradient_tnmjx"]
 offsets = PackedFloat32Array(0, 0.712281)

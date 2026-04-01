@@ -75,7 +75,7 @@ metadata/_custom_type_script = "uid://bx3c36aytlncp"
 position = Vector2(9, 0)
 script = ExtResource("4_bte8c")
 bullet_prefab = ExtResource("27_h8flf")
-bullets_velocity = 1524.0
+bullets_velocity = 6080.0
 bullet_spawn_pivot = NodePath("Bullet spawn pivot")
 metadata/_custom_type_script = "uid://cl0j8tdkrd3pf"
 
@@ -118,6 +118,7 @@ tile_map_data = PackedByteArray("AAD4/wUAAQAGAAQAAAD4/wYAAQAGAAQAAAD4/wcAAQAGAAQ
 tile_set = ExtResource("5_tnmjx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="SFX Waves" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("target")]
@@ -436,6 +437,7 @@ grow_vertical = 2
 
 [node name="Aim Cursor" parent="Systems" node_paths=PackedStringArray("player", "cursor_custom_parent", "cursor_world_pos_helper", "cursor_camera_follow_helper") instance=ExtResource("17_amfbg")]
 cursor_sprite_options = Array[Texture2D]([ExtResource("18_aqw75"), ExtResource("19_psdpw"), ExtResource("20_qhhu7"), ExtResource("21_h8flf"), ExtResource("22_i14fs"), ExtResource("23_01btr"), ExtResource("24_nw61l")])
+cursor_scale = 7.0
 player = NodePath("../../Player/Aim")
 cursor_max_distance_from_player = 480.0
 cursor_sensitivity_multiplier = 0.5
