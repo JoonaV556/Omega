@@ -16,18 +16,46 @@ signal on_ammo_updated(ammo, max_ammo)
 @export var bullet_spawn_pivot: Node2D
 ## seconds
 @export var reload_duration: float = 1.0
+## rounds per minute. changing at runtime not yet supported
+@export var rpm: int = 600
+@export var start_firemode: FireMode = FireMode.SEMI
 
 var bullets_in_chamber:int
+
 var reloading = false
 
+var current_fire_mode: FireMode = FireMode.SEMI
+
+var time_between_shots: float
+
+var secs_since_last_shot: float = 99999.0
+
+enum FireMode {SEMI, FULL, BURST}
+
 func _ready() -> void:
+	time_between_shots = 1.0/float(rpm/60.0)
+	current_fire_mode = start_firemode
 	bullets_in_chamber = bullets_start
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
 func _process(delta: float) -> void:
-	# fire if fire key is pressed
-	if Input.is_action_just_pressed("Fire"):
-		fire()
+	secs_since_last_shot = clampf(secs_since_last_shot+delta, 0.0, 99999.0)
+	
+	# fire gun 
+	match current_fire_mode:
+		FireMode.SEMI:
+			if secs_since_last_shot < time_between_shots:
+				return
+			if Input.is_action_just_pressed("Fire"):
+				fire()
+		FireMode.FULL:
+			if secs_since_last_shot < time_between_shots:
+				return
+			if Input.is_action_pressed("Fire"):
+				fire()
+		FireMode.BURST:
+			push_warning("burst not implemented")
+
 	if Input.is_action_just_pressed("Reload"):
 		reload()
 
@@ -52,6 +80,7 @@ func fire():
 	_bullet.fire(self.global_transform.x.normalized(), self.bullets_velocity)
 	
 	bullets_in_chamber -= 1
+	secs_since_last_shot = 0.0
 	on_shot_fired.emit(self.global_transform.x.normalized())
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
