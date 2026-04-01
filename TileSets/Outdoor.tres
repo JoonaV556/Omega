@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://chog3iytdynhs"]
+[gd_resource type="TileSet" load_steps=14 format=3 uid="uid://chog3iytdynhs"]
 
 [ext_resource type="Texture2D" uid="uid://cjq5yfrfcuvy5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_adehw"]
 [ext_resource type="Texture2D" uid="uid://1nwj5q68uovw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="2_4jtqo"]
@@ -1292,6 +1292,9 @@ texture = ExtResource("1_adehw")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 12:55/0 = 0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o7coh"]
+polygon = PackedVector2Array(-8, -3, -2, -8, 2, -8, 8, -2, 8, 8, -8, 8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3bvml"]
 texture = ExtResource("2_4jtqo")
 1:0/0 = 0
@@ -1472,6 +1475,7 @@ texture = ExtResource("2_4jtqo")
 6:3/0 = 0
 6:3/0/terrain_set = 0
 6:3/0/terrain = 0
+6:3/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_o7coh")
 6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3, -3, -8, 3, -8, 8, -3, 8, 8, -8, 8)
 6:3/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:3/0/terrains_peering_bit/bottom_side = 0
@@ -16970,6 +16974,7 @@ texture = ExtResource("6_o7coh")
 21:56/0 = 0
 
 [resource]
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 4
 physics_layer_1/collision_mask = 4

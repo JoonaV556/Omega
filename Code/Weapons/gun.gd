@@ -7,7 +7,6 @@ signal on_reload_complete
 signal on_dry_fire
 signal on_ammo_updated(ammo, max_ammo)
 
-
 @export var bullet_prefab: PackedScene
 
 @export var magazine_size:int = 12
@@ -15,8 +14,11 @@ signal on_ammo_updated(ammo, max_ammo)
 ## velocity in pixels per second. 16px ~= 1 meter
 @export var bullets_velocity:float = 0.1
 @export var bullet_spawn_pivot: Node2D
+## seconds
+@export var reload_duration: float = 1.0
 
 var bullets_in_chamber:int
+var reloading = false
 
 func _ready() -> void:
 	bullets_in_chamber = bullets_start
@@ -30,6 +32,8 @@ func _process(delta: float) -> void:
 		reload()
 
 func fire():
+	if reloading:
+		return
 	if bullets_in_chamber <= 0:
 		on_dry_fire.emit()
 		return
@@ -52,5 +56,8 @@ func fire():
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
 func reload():
+	reloading = true
+	await get_tree().create_timer(reload_duration).timeout
 	bullets_in_chamber = magazine_size
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
+	reloading = false

@@ -11,6 +11,7 @@ Make guns more fun
 		cocking the slide 
 		Bullet impact sound at impact point
 		shell casing falls on floor
+	Implement gun accuracy (the less accuracy, the more bullets spread out)
 
 ------------ Combat sample
 Killhouse maze level
