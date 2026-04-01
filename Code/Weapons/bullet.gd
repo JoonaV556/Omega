@@ -3,6 +3,8 @@ extends Node2D
 
 @export var damage: float = 10
 @export_flags_2d_physics var raycast_mask
+@export var enable_bullet_holes: bool = true
+@export var bullet_hole_prefab: PackedScene
 
 var can_update: bool = false
 var velocity: float
@@ -46,6 +48,14 @@ func _physics_process(delta: float) -> void:
 		var _damageable := result["collider"] as StaticDamageable
 		if _damageable:
 			_damageable.health.deal_damage(self.damage)
+		
+		# spawn bullet hole
+		if (bullet_hole_prefab and !_damageable):
+			var hole_node = bullet_hole_prefab.instantiate()
+			self.get_tree().current_scene.add_child(hole_node)
+			var hole := hole_node as BulletHole
+			if hole:
+				hole.global_position = result["position"]
 
 		# destroy self
 		self.global_position = result["position"]

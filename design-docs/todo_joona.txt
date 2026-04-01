@@ -1,15 +1,13 @@
 Make guns more fun
-	Full auto mode (the default mode temporarily)
-		31 round mag
-	Bullets leave holes at impact points
-		holes disappear after some time
 	SFX
 		fire shot (change pitch a little bit every shot)
 		reload
 		cocking the slide 
 		Bullet impact sound at impact point
 		shell casing falls on floor
+		a pot breaks into pieces
 	Implement gun accuracy (the less accuracy, the more bullets spread out)
+	impement variance in bullet hole positions when firing at a wall above player
 
 ------------ Combat sample
 Killhouse maze level
