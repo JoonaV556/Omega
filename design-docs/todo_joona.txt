@@ -1,11 +1,19 @@
 Make guns more fun
 	SFX
-		fire shot (change pitch a little bit every shot)
-		reload
-		cocking the slide 
-		Bullet impact sound at impact point
-		shell casing falls on floor
-		a pot breaks into pieces
+		download
+			x fire shot (change pitch a little bit every shot)
+			x dry fire
+			x reload
+			x cocking the slide 
+			x Bullet impact sound at impact point
+			x shell casing falls on floor
+			x a pot breaks into pieces
+		edits
+			trim
+			mono
+			make better
+		import
+		setup sounds
 	Implement gun accuracy (the less accuracy, the more bullets spread out)
 	impement variance in bullet hole positions when firing at a wall above player
 

@@ -121,6 +121,7 @@ tile_map_data = PackedByteArray("AAD4/wUAAQAGAAQAAAD4/wYAAQAGAAQAAAD4/wcAAQAGAAQ
 tile_set = ExtResource("5_tnmjx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="SFX Waves" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("target")]
