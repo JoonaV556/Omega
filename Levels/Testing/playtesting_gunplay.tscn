@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=36 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -12,7 +12,9 @@
 [ext_resource type="Script" uid="uid://dc0bw2pscp16p" path="res://Code/Other/follow_position.gd" id="8_25fb6"]
 [ext_resource type="Script" uid="uid://cnortdvgcov2t" path="res://Code/Other/CombatSample/gunfire_knockback.gd" id="8_h8flf"]
 [ext_resource type="Script" uid="uid://ua4yjaod24ne" path="res://Code/Other/CombatSample/muzzle_flash_controller.gd" id="8_i14fs"]
+[ext_resource type="AudioStream" uid="uid://biowb6w275ky1" path="res://Assets_LICENSED/Audio/sfx/pistol_shot.wav" id="9_01btr"]
 [ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="9_ax5ch"]
+[ext_resource type="Script" uid="uid://de83fwio3m7j6" path="res://Code/Other/CombatSample/audio_stream_player_2d_extra.gd" id="10_nw61l"]
 [ext_resource type="PackedScene" uid="uid://cjvrkqflacggl" path="res://Scenes/Other/red_pot_(destoryable).tscn" id="13_p4dev"]
 [ext_resource type="Script" uid="uid://cvogya6ol4m1q" path="res://Code/Other/CombatSample/killhouse_timer.gd" id="14_ehwqh"]
 [ext_resource type="Script" uid="uid://cu1ki6wcafv6i" path="res://Code/Other/CombatSample/killhouse_manager.gd" id="14_yacir"]
@@ -106,6 +108,13 @@ texture = SubResource("GradientTexture2D_i14fs")
 script = ExtResource("8_i14fs")
 light_energy_curve = SubResource("Curve_i14fs")
 rand_offset_range = 1.0
+
+[node name="sfx" type="Node2D" parent="Player/Aim/Gun"]
+
+[node name="sfx-shot" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx"]
+stream = ExtResource("9_01btr")
+script = ExtResource("10_nw61l")
+rand_pitch_delta_override = 0.07
 
 [node name="Flashlight" parent="Player/Aim" instance=ExtResource("3_3hv70")]
 position = Vector2(0, 2)
@@ -479,6 +488,7 @@ script = ExtResource("27_qhhu7")
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Gunfire Knockback" method="deal_knockback"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Muzzleflash Light" method="flash"]
+[connection signal="on_shot_fired_e" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-shot" method="play_at_rand_pitch"]
 [connection signal="body_entered" from="End Trigger" to="Systems/Killhouse Manager" method="on_player_reached_exit"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Layer - UI/UI Manager" method="on_completed"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="stop_timer"]

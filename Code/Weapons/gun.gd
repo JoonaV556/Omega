@@ -2,6 +2,7 @@ class_name Gun
 extends Node2D
 
 signal on_shot_fired(fire_dir)
+signal on_shot_fired_e
 signal on_reload_start
 signal on_reload_complete
 signal on_dry_fire
@@ -82,6 +83,7 @@ func fire():
 	bullets_in_chamber -= 1
 	secs_since_last_shot = 0.0
 	on_shot_fired.emit(self.global_transform.x.normalized())
+	on_shot_fired_e.emit()
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 
 func reload():
