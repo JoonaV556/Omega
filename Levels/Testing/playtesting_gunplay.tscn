@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=38 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -16,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="9_ax5ch"]
 [ext_resource type="Script" uid="uid://de83fwio3m7j6" path="res://Code/Other/CombatSample/audio_stream_player_2d_extra.gd" id="10_nw61l"]
 [ext_resource type="AudioStream" uid="uid://b6rxl8etf5gnn" path="res://Assets_LICENSED/Audio/sfx/pistol_dry_fire.wav" id="11_jqak5"]
+[ext_resource type="AudioStream" uid="uid://cohmfs3m3mdok" path="res://Assets_LICENSED/Audio/sfx/pistol_reload.wav" id="12_tnwlc"]
 [ext_resource type="PackedScene" uid="uid://cjvrkqflacggl" path="res://Scenes/Other/red_pot_(destoryable).tscn" id="13_p4dev"]
 [ext_resource type="Script" uid="uid://cvogya6ol4m1q" path="res://Code/Other/CombatSample/killhouse_timer.gd" id="14_ehwqh"]
 [ext_resource type="Script" uid="uid://cu1ki6wcafv6i" path="res://Code/Other/CombatSample/killhouse_manager.gd" id="14_yacir"]
@@ -119,6 +120,10 @@ rand_pitch_delta_override = 0.07
 
 [node name="sfx-dry fire" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx"]
 stream = ExtResource("11_jqak5")
+
+[node name="sfx-reload" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx"]
+stream = ExtResource("12_tnwlc")
+max_distance = 500.0
 
 [node name="Flashlight" parent="Player/Aim" instance=ExtResource("3_3hv70")]
 position = Vector2(0, 2)
@@ -491,6 +496,7 @@ script = ExtResource("27_qhhu7")
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
+[connection signal="on_reload_start" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-reload" method="play"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Gunfire Knockback" method="deal_knockback"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Muzzleflash Light" method="flash"]
 [connection signal="on_shot_fired_e" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-shot" method="play_at_rand_pitch"]

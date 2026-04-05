@@ -61,7 +61,7 @@ func _process(delta: float) -> void:
 		FireMode.BURST:
 			push_warning("burst not implemented")
 
-	if Input.is_action_just_pressed("Reload"):
+	if Input.is_action_just_pressed("Reload") and !reloading:
 		reload()
 
 func fire():
@@ -91,7 +91,9 @@ func fire():
 
 func reload():
 	reloading = true
+	on_reload_start.emit()
 	await get_tree().create_timer(reload_duration).timeout
 	bullets_in_chamber = magazine_size
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
 	reloading = false
+	on_reload_complete.emit()
