@@ -9,9 +9,12 @@ Make guns more fun
 		setup sounds
 			x fire shot (change pitch a little bit every shot)
 			x dry fire
-			reload
-			cocking the slide 
+			x reload
 			Bullet impact sound at impact point
+				x global signal bus singleton
+				x bullet triggers global signal
+				bullet sfx spawner listens to global signal
+				sfx spawner spawns sound
 			shell casing falls on floor
 			a pot breaks into pieces
 	Implement gun accuracy (the less accuracy, the more bullets spread out)

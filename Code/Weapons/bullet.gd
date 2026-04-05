@@ -49,6 +49,8 @@ func _physics_process(delta: float) -> void:
 		if _damageable:
 			_damageable.health.deal_damage(self.damage)
 		
+		GlobalEventBus.on_bullet_landed.emit(result["position"])
+
 		# spawn bullet hole
 		if (bullet_hole_prefab and !_damageable):
 			var hole_node = bullet_hole_prefab.instantiate()

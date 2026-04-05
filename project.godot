@@ -25,6 +25,7 @@ buses/default_bus_layout="res://other/default_bus_layout.tres"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 GlobalInventoryHandler="*res://Code/Inventory/global_inventory_handler.gd"
 GlobalJournalHandler="*res://Code/Journal/global_journal_handler.gd"
+GlobalEventBus="*res://Code/Other/CombatSample/global_event_bus.gd"
 
 [debug]
 

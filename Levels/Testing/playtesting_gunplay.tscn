@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=40 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -22,8 +22,10 @@
 [ext_resource type="Script" uid="uid://cu1ki6wcafv6i" path="res://Code/Other/CombatSample/killhouse_manager.gd" id="14_yacir"]
 [ext_resource type="Script" uid="uid://b5qteiikgyam3" path="res://Code/Other/CombatSample/player_movement_detector.gd" id="15_sqtd4"]
 [ext_resource type="Script" uid="uid://bt7t32e25xr82" path="res://Code/Other/CombatSample/killhouse_ui_manager.gd" id="16_3qcxn"]
+[ext_resource type="Script" uid="uid://blye06ve7saf5" path="res://Code/Other/CombatSample/sfx_spawner.gd" id="17_27q72"]
 [ext_resource type="PackedScene" uid="uid://cfua0tg35785p" path="res://Scenes/Other/aim_cursor.tscn" id="17_amfbg"]
 [ext_resource type="Texture2D" uid="uid://we23vdg0v3uo" path="res://Assets_LICENSED/Sprites/aim_cursors/ac1.tres" id="18_aqw75"]
+[ext_resource type="AudioStream" uid="uid://o14rshyllifc" path="res://Assets_LICENSED/Audio/sfx/bullet_impact_general.wav" id="18_hfq37"]
 [ext_resource type="Texture2D" uid="uid://c77woyap1xwnc" path="res://Assets_LICENSED/Sprites/aim_cursors/ac2.tres" id="19_psdpw"]
 [ext_resource type="Texture2D" uid="uid://ke1rid8g4l5n" path="res://Assets_LICENSED/Sprites/aim_cursors/ac3.tres" id="20_qhhu7"]
 [ext_resource type="Texture2D" uid="uid://drqhi3cktlkju" path="res://Assets_LICENSED/Sprites/aim_cursors/ac4.tres" id="21_h8flf"]
@@ -153,6 +155,12 @@ attenuation = 2.82841
 script = ExtResource("8_25fb6")
 target = NodePath("../Player")
 follow_x = false
+
+[node name="SfxSpawner - bullet impacts" type="Node2D" parent="."]
+script = ExtResource("17_27q72")
+stream = ExtResource("18_hfq37")
+audio_max_distance = 160.0
+metadata/_custom_type_script = "uid://blye06ve7saf5"
 
 [node name="SFX City" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_ax5ch")
