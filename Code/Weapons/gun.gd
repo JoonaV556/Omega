@@ -42,6 +42,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	secs_since_last_shot = clampf(secs_since_last_shot+delta, 0.0, 99999.0)
 	
+	if Input.is_action_just_pressed("Fire"): 
+		if bullets_in_chamber <= 0:
+			on_dry_fire.emit()
+
 	# fire gun 
 	match current_fire_mode:
 		FireMode.SEMI:
@@ -64,9 +68,8 @@ func fire():
 	if reloading:
 		return
 	if bullets_in_chamber <= 0:
-		on_dry_fire.emit()
 		return
-	
+
 	# spawn projectile
 	var _bullet_node = bullet_prefab.instantiate()
 	get_tree().current_scene.add_child(_bullet_node)
