@@ -20,7 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dvcr14cgsk327" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_2.wav" id="11_pbhqi"]
 [ext_resource type="AudioStream" uid="uid://c1n7snvo4o7tk" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_3.wav" id="12_fuo14"]
 [ext_resource type="AudioStream" uid="uid://cohmfs3m3mdok" path="res://Assets_LICENSED/Audio/sfx/pistol_reload.wav" id="12_tnwlc"]
-[ext_resource type="PackedScene" uid="uid://cjvrkqflacggl" path="res://Scenes/Other/red_pot_(destoryable).tscn" id="13_p4dev"]
+[ext_resource type="PackedScene" uid="uid://bvwwe0s53fxxu" path="res://Scenes/Other/red_pot_(destoryable).tscn" id="13_p4dev"]
 [ext_resource type="Script" uid="uid://cvogya6ol4m1q" path="res://Code/Other/CombatSample/killhouse_timer.gd" id="14_ehwqh"]
 [ext_resource type="Script" uid="uid://cu1ki6wcafv6i" path="res://Code/Other/CombatSample/killhouse_manager.gd" id="14_yacir"]
 [ext_resource type="Script" uid="uid://b5qteiikgyam3" path="res://Code/Other/CombatSample/player_movement_detector.gd" id="15_sqtd4"]
