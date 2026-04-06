@@ -15,10 +15,22 @@ Make guns more fun
 				x bullet triggers global signal
 				x bullet sfx spawner listens to global signal
 				x sfx spawner spawns sound
-			shell casing falls on floor
+			xshell casing falls on floor
+				x global events scene proxy
+				x abstract sfx spawner
+				x bul impact spawner 
+				xshell casing spawner
+	
 			a pot breaks into pieces
 	Implement gun accuracy (the less accuracy, the more bullets spread out)
-	impement variance in bullet hole positions when firing at a wall above player
+
+Plan scouting mission / combat sample features
+	enemy squads from atleast 2 different factions
+	enemy squads have their own goals
+	enemy squads may battle each other
+	enemies attack player upon sighting 
+	stealth system
+	introductory story dialogue / objectives
 
 ------------ Combat sample
 Killhouse maze level
@@ -46,15 +58,6 @@ Feature backlog
 
 	Add key bindings helper
 	
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://d03wefl0pokln"]
+[gd_scene load_steps=44 format=4 uid="uid://d03wefl0pokln"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_ax5ch"]
 [ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="3_3hv70"]
@@ -15,7 +15,10 @@
 [ext_resource type="AudioStream" uid="uid://biowb6w275ky1" path="res://Assets_LICENSED/Audio/sfx/pistol_shot.wav" id="9_01btr"]
 [ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="9_ax5ch"]
 [ext_resource type="Script" uid="uid://de83fwio3m7j6" path="res://Code/Other/CombatSample/audio_stream_player_2d_extra.gd" id="10_nw61l"]
+[ext_resource type="AudioStream" uid="uid://co4vg1ojus6fc" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_1.wav" id="10_okixe"]
 [ext_resource type="AudioStream" uid="uid://b6rxl8etf5gnn" path="res://Assets_LICENSED/Audio/sfx/pistol_dry_fire.wav" id="11_jqak5"]
+[ext_resource type="AudioStream" uid="uid://dvcr14cgsk327" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_2.wav" id="11_pbhqi"]
+[ext_resource type="AudioStream" uid="uid://c1n7snvo4o7tk" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_3.wav" id="12_fuo14"]
 [ext_resource type="AudioStream" uid="uid://cohmfs3m3mdok" path="res://Assets_LICENSED/Audio/sfx/pistol_reload.wav" id="12_tnwlc"]
 [ext_resource type="PackedScene" uid="uid://cjvrkqflacggl" path="res://Scenes/Other/red_pot_(destoryable).tscn" id="13_p4dev"]
 [ext_resource type="Script" uid="uid://cvogya6ol4m1q" path="res://Code/Other/CombatSample/killhouse_timer.gd" id="14_ehwqh"]
@@ -35,6 +38,7 @@
 [ext_resource type="Material" uid="uid://b6ygtbqd0dwlh" path="res://Resources/canvas_item_material-unshaded.tres" id="26_qhhu7"]
 [ext_resource type="PackedScene" uid="uid://ci6iqv5rj4ovj" path="res://Scenes/Weapons/bullet.tscn" id="27_h8flf"]
 [ext_resource type="Script" uid="uid://cbwla7jfnbj03" path="res://Code/Other/CombatSample/score_tracker.gd" id="27_qhhu7"]
+[ext_resource type="Script" uid="uid://bwicvodln2dkh" path="res://Code/Other/CombatSample/global_events_scene_proxy.gd" id="36_hfq37"]
 
 [sub_resource type="Gradient" id="Gradient_h8flf"]
 offsets = PackedFloat32Array(0, 0.440129, 0.495146, 0.653722)
@@ -115,6 +119,29 @@ rand_offset_range = 1.0
 
 [node name="sfx" type="Node2D" parent="Player/Aim/Gun"]
 
+[node name="SfxSpawner - bullet shell dropping" type="Node2D" parent="Player/Aim/Gun/sfx" node_paths=PackedStringArray("override_sources")]
+position = Vector2(81, -107)
+script = ExtResource("17_27q72")
+stream = ExtResource("10_okixe")
+audio_max_distance = 160.0
+override_sources = [NodePath("AudioStreamPlayer2D casings1"), NodePath("AudioStreamPlayer2D casings2"), NodePath("AudioStreamPlayer2D casings3")]
+metadata/_custom_type_script = "uid://blye06ve7saf5"
+
+[node name="AudioStreamPlayer2D casings1" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping"]
+stream = ExtResource("10_okixe")
+pitch_scale = 1.15
+max_distance = 160.0
+
+[node name="AudioStreamPlayer2D casings2" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping"]
+stream = ExtResource("11_pbhqi")
+pitch_scale = 1.15
+max_distance = 160.0
+
+[node name="AudioStreamPlayer2D casings3" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping"]
+stream = ExtResource("12_fuo14")
+pitch_scale = 1.15
+max_distance = 160.0
+
 [node name="sfx-shot" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx"]
 stream = ExtResource("9_01btr")
 script = ExtResource("10_nw61l")
@@ -141,7 +168,6 @@ tile_map_data = PackedByteArray("AAD4/wUAAQAGAAQAAAD4/wYAAQAGAAQAAAD4/wcAAQAGAAQ
 tile_set = ExtResource("5_tnmjx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="SFX Waves" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("target")]
@@ -502,12 +528,17 @@ metadata/_custom_type_script = "uid://b5qteiikgyam3"
 [node name="Score Tracker" type="Node" parent="Systems"]
 script = ExtResource("27_qhhu7")
 
+[node name="GESceneProxy" type="Node" parent="Systems"]
+script = ExtResource("36_hfq37")
+metadata/_custom_type_script = "uid://bwicvodln2dkh"
+
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
 [connection signal="on_reload_start" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-reload" method="play"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Gunfire Knockback" method="deal_knockback"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Muzzleflash Light" method="flash"]
 [connection signal="on_shot_fired_e" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-shot" method="play_at_rand_pitch"]
+[connection signal="on_shot_fired_e" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping" method="play" binds= [0.5]]
 [connection signal="body_entered" from="End Trigger" to="Systems/Killhouse Manager" method="on_player_reached_exit"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Layer - UI/UI Manager" method="on_completed"]
 [connection signal="killhouse_completed" from="Systems/Killhouse Manager" to="Systems/Killhouse Timer" method="stop_timer"]
@@ -517,5 +548,6 @@ script = ExtResource("27_qhhu7")
 [connection signal="stopped" from="Systems/Killhouse Timer" to="Systems/Score Tracker" method="on_timer_stopped"]
 [connection signal="started_moving" from="Systems/Character Movement Detector" to="Systems/Killhouse Manager" method="start_round"]
 [connection signal="on_hi_score_updated" from="Systems/Score Tracker" to="Layer - UI/UI Manager" method="on_score_updated"]
+[connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
 
 [editable path="Camera"]
