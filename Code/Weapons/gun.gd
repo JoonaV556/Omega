@@ -15,6 +15,11 @@ signal on_ammo_updated(ammo, max_ammo)
 ## velocity in pixels per second. 16px ~= 1 meter
 @export var bullets_velocity:float = 0.1
 @export var bullet_spawn_pivot: Node2D
+## degrees
+@export var max_bullet_spread_angle: float = 5.0
+## seconds
+@export var recoil_cooldown_duration: float = 1.0
+@export var recoil_alpha_increase_per_shot: float = 0.07
 ## seconds
 @export var reload_duration: float = 1.0
 ## rounds per minute. changing at runtime not yet supported
@@ -31,6 +36,10 @@ var time_between_shots: float
 
 var secs_since_last_shot: float = 99999.0
 
+var bullet_spread_alpha: float = 0.0
+
+var rng: RandomNumberGenerator
+
 enum FireMode {SEMI, FULL, BURST}
 
 func _ready() -> void:
@@ -38,10 +47,15 @@ func _ready() -> void:
 	current_fire_mode = start_firemode
 	bullets_in_chamber = bullets_start
 	on_ammo_updated.emit(bullets_in_chamber, magazine_size)
+	rng = RandomNumberGenerator.new()
 
 func _process(delta: float) -> void:
 	secs_since_last_shot = clampf(secs_since_last_shot+delta, 0.0, 99999.0)
-	
+
+	# reset bullet spread / recoil
+	if secs_since_last_shot > recoil_cooldown_duration:
+		bullet_spread_alpha = 0.0
+		
 	if Input.is_action_just_pressed("Fire"): 
 		if bullets_in_chamber <= 0:
 			on_dry_fire.emit()
@@ -81,7 +95,24 @@ func fire():
 		_bullet.global_position = bullet_spawn_pivot.global_position
 	else:
 		_bullet.global_position = self.global_position
-	_bullet.fire(self.global_transform.x.normalized(), self.bullets_velocity)
+
+	# increase spread on consecutive shots
+	if secs_since_last_shot < recoil_cooldown_duration:
+		bullet_spread_alpha = clampf(bullet_spread_alpha + recoil_alpha_increase_per_shot, 0.0, 1.0)
+	
+	# calculate bullet spread
+	var rand_bool: bool = randi() % 2 == 0 # negative or positive angle
+	var actual_spread_alpha: float = rng.randf_range(0.0, bullet_spread_alpha) # TODO - maybe cache some random spreads in array instead of generating them on each shot at runtime
+	var spread_angle_degs: float
+	if rand_bool:
+		spread_angle_degs = deg_to_rad(max_bullet_spread_angle * actual_spread_alpha)
+	else:
+		spread_angle_degs = deg_to_rad(-max_bullet_spread_angle * actual_spread_alpha)
+	var fire_dir: Vector2 = self.global_transform.x.normalized().rotated(spread_angle_degs)
+
+	# fire the bullet
+	_bullet.fire(fire_dir, self.bullets_velocity)
+
 	
 	bullets_in_chamber -= 1
 	secs_since_last_shot = 0.0

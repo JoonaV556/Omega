@@ -89,6 +89,7 @@ magazine_size = 31
 bullets_start = 31
 bullets_velocity = 6080.0
 bullet_spawn_pivot = NodePath("Bullet spawn pivot")
+recoil_cooldown_duration = 0.7
 start_firemode = 1
 metadata/_custom_type_script = "uid://cl0j8tdkrd3pf"
 

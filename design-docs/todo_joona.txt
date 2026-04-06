@@ -20,9 +20,12 @@ Make guns more fun
 				x abstract sfx spawner
 				x bul impact spawner 
 				xshell casing spawner
-	
-			a pot breaks into pieces
-	Implement gun accuracy (the less accuracy, the more bullets spread out)
+			x a pot breaks into pieces
+
+	x Implement gun accuracy (the less accuracy, the more bullets spread out)
+		x firing each consecutive bullet increases spread
+		x first shot always 100% accurate
+		x if character waits enough between shots, they are 100% accurate
 
 Plan scouting mission / combat sample features
 	enemy squads from atleast 2 different factions
