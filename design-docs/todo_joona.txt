@@ -2,6 +2,9 @@
 First npc 
 X    make npc not move with player input
 
+level - add accessible property nav_tilemaplayer
+movetotask - get nav map from current level
+
     stands around for a second, then walks to a random accessible point
         ordered list of tasks
             after one task is completed, next one starts

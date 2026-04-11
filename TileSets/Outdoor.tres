@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=14 format=3 uid="uid://chog3iytdynhs"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://chog3iytdynhs"]
 
 [ext_resource type="Texture2D" uid="uid://cjq5yfrfcuvy5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_adehw"]
 [ext_resource type="Texture2D" uid="uid://1nwj5q68uovw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="2_4jtqo"]
@@ -11797,6 +11797,12 @@ texture = ExtResource("4_4jtqo")
 0:63/size_in_atlas = Vector2i(4, 4)
 0:63/0 = 0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o7coh"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o7coh"]
 texture = ExtResource("5_mnosv")
 0:0/0 = 0
@@ -15417,7 +15423,10 @@ texture = ExtResource("5_mnosv")
 3:94/0 = 0
 4:94/0 = 0
 5:94/0 = 0
+6:94/next_alternative_id = 2
 6:94/0 = 0
+6:94/1 = 1
+6:94/1/navigation_layer_0/polygon = SubResource("NavigationPolygon_o7coh")
 7:94/0 = 0
 8:94/0 = 0
 9:94/0 = 0
@@ -16992,6 +17001,7 @@ terrain_set_0/terrain_2/name = "hedge low"
 terrain_set_0/terrain_2/color = Color(0.08, 0.171, 0.5, 1)
 terrain_set_0/terrain_3/name = "trg"
 terrain_set_0/terrain_3/color = Color(0, 1, 0.95, 1)
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_3hle4")
 sources/1 = SubResource("TileSetAtlasSource_3bvml")
 sources/2 = SubResource("TileSetAtlasSource_ayocu")
