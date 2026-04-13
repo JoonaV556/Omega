@@ -1,18 +1,27 @@
 
-First npc 
-X    make npc not move with player input
+next?
 
-level - add accessible property nav_tilemaplayer
-movetotask - get nav map from current level
 
-    stands around for a second, then walks to a random accessible point
-        ordered list of tasks
-            after one task is completed, next one starts
-            after all tasks are completed, the list loops back to beginning
-        task 
-            wait task
-            move-to task
-        npc brain - behavior agent
-            always has one in-progress task
-            changes between tasks etc
+
+
+
+
+-------------------completed-------------------------
+xFirst npc 
+X    make npc not move with player inputx
+
+x level - add accessible property nav_tilemaplayer
+x movetotask - get nav map from current level 
+
+x    stands around for a second, then walks to a random accessible point
+x        task 
+x            wait task
+x            move-to task
+x        npc brain - behavior agent
+x            always has one in-progress task
+x            changes between tasks etc
+x            ordered list of tasks
+x                after one task is completed, next one starts
+x                after all tasks are completed, the list loops back to beginning
+            
         

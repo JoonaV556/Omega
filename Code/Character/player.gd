@@ -4,7 +4,6 @@ extends Character
 const BeachBall = preload("res://Scenes/Inventory/Items/BeachBall.tscn")
 const Shell = preload("res://Scenes/Inventory/Items/Shell.tscn")
 
-@export var speed = 100
 @export_range(0.0,1.0) var additional_impulses_decay_per_tick: float = 0.95
 
 var additional_impulses: Vector2 = Vector2.ZERO
@@ -18,7 +17,7 @@ func _ready():
 
 func update_character_physics():
 	var input_direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
-	velocity = Vector2(input_direction*speed) + additional_impulses
+	velocity = Vector2(input_direction*self.move_speed) + additional_impulses
 	# decay impulses
 	additional_impulses = additional_impulses*(1.0-additional_impulses_decay_per_tick)
 

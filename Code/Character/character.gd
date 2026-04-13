@@ -1,6 +1,9 @@
 class_name Character
 extends CharacterBody2D
 
+## pixels per second
+@export var move_speed: float = 100 
+
 func update_character_physics():
 	pass # To be overridden in child classes
 
