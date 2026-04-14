@@ -29,16 +29,16 @@ func start():
 	NavigationServer2D.map_changed.connect(self.on_map_update)
 
 func on_map_update(rid):
-	map_ready = true
 	if dest_set:
 		return
 	if rid != nav_map.get_navigation_map():
 		return
+	
 	set_destination()
 	
 func set_destination():
 	destination_pos = NavigationServer2D.map_get_random_point(nav_map.get_navigation_map(), 1, false)
-	# print("random target point: "+str(destination_pos))
+	print("random target point: "+str(destination_pos))
 
 	# get nav agent 
 	var npc := self.get_parent().get_parent() as NpcCharacter
@@ -55,6 +55,7 @@ func set_destination():
 	self_nav_a.target_position = destination_pos	
 	
 	dest_set = true
+	map_ready = true
 
 func _physics_process(delta: float) -> void:
 	if self.completed:
@@ -66,7 +67,7 @@ func _physics_process(delta: float) -> void:
 	if self_nav_a.is_target_reached():
 		self_npc.move_dir = Vector2.ZERO
 		self.completed = true
-		# print("move-to task complete")
+		print("move-to task complete")
 		return
 
 	var next_path_pos: Vector2 = self_nav_a.get_next_path_position()
