@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://chog3iytdynhs"]
+[gd_resource type="TileSet" format=3 uid="uid://chog3iytdynhs"]
 
 [ext_resource type="Texture2D" uid="uid://cjq5yfrfcuvy5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_adehw"]
 [ext_resource type="Texture2D" uid="uid://1nwj5q68uovw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="2_4jtqo"]
