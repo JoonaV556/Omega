@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://dh6x7ls8rn1j6"]
+[gd_scene load_steps=79 format=4 uid="uid://d0pxlsy7xg4ur"]
 
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_us3ef"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="2_m82jt"]
@@ -20,7 +20,7 @@
 [ext_resource type="TileSet" uid="uid://chog3iytdynhs" path="res://TileSets/Outdoor.tres" id="18_v1c87"]
 [ext_resource type="Texture2D" uid="uid://dsxej67iip8ga" path="res://Assets_LICENSED/Sprites/protagonist_spritesheet.png" id="19_6tp4r"]
 [ext_resource type="AudioStream" uid="uid://dibten28irn3m" path="res://Assets_LICENSED/Audio/waves.wav" id="19_ygd45"]
-[ext_resource type="Script" uid="uid://dc0bw2pscp16p" path="res://Code/Other/follow_position.gd" id="20_k56rq"]
+[ext_resource type="Script" path="res://Code/Other/follow_position.gd" id="20_k56rq"]
 [ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Code/Other/character_anim_controller.gd" id="20_mv5dp"]
 [ext_resource type="AudioStream" uid="uid://o14rshyllifc" path="res://Assets_LICENSED/Audio/sfx/bullet_impact_general.wav" id="21_ogwjk"]
 [ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="21_rn12q"]
@@ -36,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://cnn1ohyo6oyht" path="res://Assets_LICENSED/Sprites/aim_cursors/ac5.tres" id="30_m4fn1"]
 [ext_resource type="Texture2D" uid="uid://bltomijuxf21s" path="res://Assets_LICENSED/Sprites/aim_cursors/ac6.tres" id="31_pylpe"]
 [ext_resource type="Texture2D" uid="uid://cni24lstjl7n0" path="res://Assets_LICENSED/Sprites/aim_cursors/ac7.tres" id="32_p1eo8"]
-[ext_resource type="Material" uid="uid://b6ygtbqd0dwlh" path="res://Resources/canvas_item_material-unshaded.tres" id="33_84sd7"]
+[ext_resource type="Material" path="res://Resources/canvas_item_material-unshaded.tres" id="33_84sd7"]
 [ext_resource type="Script" uid="uid://cu1ki6wcafv6i" path="res://Code/Other/CombatSample/killhouse_manager.gd" id="34_8esvx"]
 [ext_resource type="Script" uid="uid://cvogya6ol4m1q" path="res://Code/Other/CombatSample/killhouse_timer.gd" id="35_iouyd"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="36_5v5nn"]
@@ -425,7 +425,7 @@ metadata/_custom_type_script = "uid://blye06ve7saf5"
 
 [node name="SFX City" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_4xg6e")
-volume_db = -24.0
+volume_db = -15.0
 autoplay = true
 
 [node name="Pots" type="Node" parent="."]
