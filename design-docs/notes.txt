@@ -1,0 +1,53 @@
+
+Level-gen ------------------------
+- reworking road gen to 1-wide might be a requirement to make manipulating roads easier (creating highways etc.)
+- generating 1-wide roads with bsp-tree would be possible by shrinking each node from left and bottom side, 
+while ignoring nodes on map edge
+
+Major features ---------------
+
+- City levels continue outside level edges to make it look "endless" 
+
+- Standardize camera zooming across resolutions so player cannot zoom out too far out
+
+- Persistent Fog of War - Progress towards the lab by navigating through unknown areas
+
+- Scouting mission - Navigate around the city in instanced, roguelike missions.
+	In-level fog of war - Map out unexplored areas like in Diablo
+	Mission stage progression
+		After completing a stage, player can decide to either extract and save progress, or take a chance and enter another stage.
+		Mission stages become progressively harder, but provide more rewards
+			Rewards:
+				More area progression towards the laboratory
+				something else?
+	Combat - Melee & ranged weapons ??
+	Patrolling NPC squads / with their own goals
+		Undead monsters & aliens 
+		Encounters between npc squads - Different factions might fight each other
+
+- Personal contacts (old-school PDA device, phone would be boring)
+	- story characters can communicate with player
+
+- Omega comms network
+	npcs and squads post messages
+	private channels for factions?
+	news companies post updates to inform citizens
+	Player can find hidden treasures in map cells by obtaining secret signals and messages?
+	creepy stuff?
+	government propaganda??
+
+- Main story
+
+- Saving system
+
+
+------------ DONT FORGET 
+- Add credits for attributed asset devs 
+
+old
+------------ Milestones
+Prologue
+------------ Nice To HAve
+- SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
+------------ DONT FORGET 
+- Add credits for attributed asset devs 

@@ -1,0 +1,63 @@
+Blue = PTG / main protagonist
+
+Scouting mission sample - abstract features
+    - Time of day system
+        Night features:
+            The city gets much more dangerous (more monsters etc) but playing stealthy is much easier
+            During nightime, some secret & guarded places become accessible 
+            More XP like in dying light?
+    - Single-level tropical island environment
+        animated waves 
+    - Hand written journal describes the initial objective "Find a way towards the laboratory (traverse north)" 
+    - Player can pickup initial weapons from a corpse of slaughtered police officer
+        Police baton
+        Revolver 
+    - Blue can utilize stealth to sneak around and distract enemies. (Tossing around metal cans, rocks etc.)
+        small rocks create less noise
+        metal cans create more noise
+    - Panicking civilians running around and fleeing from aggressive zombies
+    - Random police units engaging and combatting zombies
+    - Some form of introductory dialogue and other dialogue? 
+    - If player dies, start all over again (roguelite element)
+    - Personal PDA and Omega comms network 
+        (can be used to drip in some lore, make the world feel more lively, and distribute some cool news, alerts etc.)
+    - Strategic objectives
+    - The ALIVE factor
+
+
+
+
+
+
+
+
+
+
+
+
+wishlist
+    - Game starts in player home neighbourhood 
+    - Small groups of zombies hunting panicking citizens 
+    - In the beginning, a close friend of Blue's imitates the sounds of a cute girl screaming and being attacked, Luring Blue to come outside to look for him. 
+    - Ice cream truck girl - crazy violent tomboy, luring zombies inside of an ice cream shop where she works at, bashing their head in with a baseball bat.
+        Through dialogue, accepts to become a transport driver for the group.
+    - Police sirens and random bursts of gunfire echo in the streets
+    
+    - 
+
+
+
+	enemy squads from atleast 2 different factions
+	enemy squads have their own goals
+	enemy squads may battle each other
+	enemies attack player upon sighting 
+	stealth system
+	introductory story dialogue / objectives
+
+wild crazy ideas
+    how to incentivize player to push forward? 
+        OCN - comms updates and messages about chaos up in northern parts of the island
+        OCN - reports of giga monsters 
+        OCN - Periodic reports of civilian casualties and neighbourhoods under attack 
+            some civilians may be close to Blue
+            number of total civ deaths is tracked and compared to total island occupants
