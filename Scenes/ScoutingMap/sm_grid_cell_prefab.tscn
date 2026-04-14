@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://i1m8fkymyi48"]
+
+[ext_resource type="Script" uid="uid://by8wtp6aw6j0d" path="res://Code/ScoutingMap/scouting_map_cell_ui.gd" id="1_avg2s"]
+
+[node name="SM_GridCell_prefab" type="ColorRect"]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 1, 1, 0.0784314)
+script = ExtResource("1_avg2s")
+metadata/_custom_type_script = "uid://by8wtp6aw6j0d"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+border_color = Color(1, 1, 1, 0.572549)
+editor_only = false

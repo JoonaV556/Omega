@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckgg0oy0u46ue"]
+
+[ext_resource type="AudioStream" uid="uid://dibten28irn3m" path="res://Assets_LICENSED/Audio/waves.wav" id="1_1bctq"]
+
+[node name="Positional SFX" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_1bctq")
+volume_db = 3.0
+autoplay = true
+max_distance = 480.0
+attenuation = 2.82841

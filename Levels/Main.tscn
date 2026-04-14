@@ -25,6 +25,9 @@ metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="Camera" parent="." instance=ExtResource("2_vbwdf")]
 
+[node name="Zoom" parent="Camera" index="0"]
+min_zoom = Vector2(1.5, 1.5)
+
 [node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
 target = NodePath("../../Player")
 

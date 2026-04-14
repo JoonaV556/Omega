@@ -1,101 +1,31 @@
-game flow 
-	Hub/Home-Base level
-		entry to scouting missions
-		hub music / main theme
-	
-	go on missions 
-		advance stages
-	make progress towards lab                                                                          
+merge
+godot 4.6
+lambai master push
+new branch
 
-scouting mission music
+keybinds helper & test builds of sample scenes
+send to poope
 
-Time of day - system
-	night
-		gets dark
-		crickets sounds
-		
-	day 
-		becomes bright
-
-in-level fog of war (level areas and exits are hidden until they are mapped out by player)
-	map / minimap - shows level layout 
-	level layout is hidden in game start but mapped by player by moving
-
-add some weapons and combat
-
-add singular patrolling npcs
-
-add patrolling npc squads
-
-
-Notes ------------------------
-- reworking road gen to 1-wide might be a requirement to make manipulating roads easier (creating highways etc.)
-- generating 1-wide roads with bsp-tree would be possible by shrinking each node from left and bottom side, 
-while ignoring nodes on map edge
-
-Major features ---------------
-
-- Persistent Fog of War - Progress towards the lab by navigating through unknown areas
-- Scouting mission - Navigate around the city in instanced, roguelike missions.
-	In-level fog of war - Map out unexplored areas like in Diablo
-	Mission stage progression
-		After completing a stage, player can decide to either extract and save progress, or take a chance and enter another stage.
-		Mission stages become progressively harder, but provide more rewards
-			Rewards:
-				More area progression towards the laboratory
-				something else?
-	Combat - Melee & ranged weapons ??
-	Patrolling NPC squads / with their own goals
-		Undead monsters & aliens 
-		Encounters between npc squads - Different factions might fight each other
-- Omega comms network
-	npcs and squads post messages
-	private channels for factions?
-	news companies post updates to inform citizens
-	creepy stuff?
-	government propaganda??
-- Main story objectives?
-
-
------------- DONT FORGET 
-- Add credits for attributed asset devs 
+next?
 
 
 
+-------------------completed-------------------------
+xFirst npc 
+X    make npc not move with player inputx
 
+x level - add accessible property nav_tilemaplayer
+x movetotask - get nav map from current level 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-old
------------- Milestones
-Prologue
------------- Nice To HAve
-- SFX volume level scales with camera zoom (world sounds are quieter when zoomed out)
------------- DONT FORGET 
-- Add credits for attributed asset devs 
+x    stands around for a second, then walks to a random accessible point
+x        task 
+x            wait task
+x            move-to task
+x        npc brain - behavior agent
+x            always has one in-progress task
+x            changes between tasks etc
+x            ordered list of tasks
+x                after one task is completed, next one starts
+x                after all tasks are completed, the list loops back to beginning
+            
+        

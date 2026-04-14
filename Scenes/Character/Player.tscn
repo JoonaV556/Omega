@@ -1,9 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://chtck7hchxyj1"]
+[gd_scene load_steps=35 format=3 uid="uid://chtck7hchxyj1"]
 
 [ext_resource type="Script" uid="uid://cvq6trp7fbysb" path="res://Code/Character/player.gd" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://dfy67l5v7q48t" path="res://Assets_LICENSED/Sprites/protagonist_spritesheet.png" id="2_5ixxa"]
+[ext_resource type="Texture2D" uid="uid://dsxej67iip8ga" path="res://Assets_LICENSED/Sprites/protagonist_spritesheet.png" id="2_5ixxa"]
 [ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Code/Other/character_anim_controller.gd" id="3_gntrk"]
-[ext_resource type="AudioStream" uid="uid://b4w5t8biy75ik" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_5ixxa"]
+[ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_5ixxa"]
 [ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="4_dewec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
@@ -222,9 +222,19 @@ polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
 radius = 2.0
-height = 14.0
+height = 10.0
+
+[sub_resource type="Gradient" id="Gradient_tnmjx"]
+offsets = PackedFloat32Array(0, 0.712281)
+colors = PackedColorArray(0.691357, 0.691357, 0.691357, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l2atl"]
+gradient = SubResource("Gradient_tnmjx")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_kyqiw")
 metadata/is_player = false
 
@@ -255,5 +265,12 @@ attenuation = 2.0
 script = ExtResource("4_dewec")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
+
+[node name="Player Highlight" type="PointLight2D" parent="."]
+position = Vector2(0, -15)
+energy = 0.25
+range_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_l2atl")
+texture_scale = 0.85
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
