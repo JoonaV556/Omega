@@ -1,6 +1,6 @@
 Blue = PTG / main protagonist
 
-Scouting mission sample - abstract features
+Scouting mission sample - abstract features - INDIVIDUAL
     - Time of day system
         Night features:
             The city gets much more dangerous (more monsters etc) but playing stealthy is much easier
@@ -23,6 +23,41 @@ Scouting mission sample - abstract features
         (can be used to drip in some lore, make the world feel more lively, and distribute some cool news, alerts etc.)
     - Strategic objectives
     - The ALIVE factor
+
+Scouting mission sample - abstract features - COMBINED into complete level
+    - Time of day system
+        Night features:
+            The city gets much more dangerous (more monsters etc) but playing stealthy is much easier
+            During nightime, some secret & guarded places become accessible 
+            More XP like in dying light?
+    - Single-level tropical island environment
+        animated waves 
+    - Hand written journal describes the initial objective "Find a way towards the laboratory (traverse north)" 
+    - Player can pickup initial weapons from a corpse of slaughtered police officer
+        Police baton
+        Revolver 
+    - Blue can utilize stealth to sneak around and distract enemies. (Tossing around metal cans, rocks etc.)
+        small rocks create less noise
+        metal cans create more noise
+    - Panicking civilians running around and fleeing from aggressive zombies
+    - Random police units engaging and combatting zombies
+    - Some form of introductory dialogue and other dialogue? 
+    - If player dies, start all over again (roguelite element)
+    - Personal PDA and Omega comms network 
+        (can be used to drip in some lore, make the world feel more lively, and distribute some cool news, alerts etc.)
+    - Strategic objectives
+    - The ALIVE factor
+
+
+
+
+
+
+
+
+
+
+
 
 
 

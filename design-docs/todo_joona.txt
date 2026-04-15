@@ -1,12 +1,50 @@
-merge
-godot 4.6
-lambai master push
-new branch
 
-keybinds helper & test builds of sample scenes
-send to poope
+- Panicking civilians running around and fleeing from aggressive zombies
+x    passive civilian walking around 
+x        walk to random point 
+x        wait for a few seconds
+    zombie walking around
+        walks around 
+        observes for civs
+        if spots a civ, starts hunting it
+    panicking civ
+        if spots a zombie chasing it, starts running away in panic
 
-next?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

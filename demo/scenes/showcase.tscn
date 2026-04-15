@@ -1,7 +1,7 @@
-[gd_scene load_steps=0 format=3 uid="uid://b3ae14mc2ty3y"]
+[gd_scene format=3 uid="uid://cc1uu14hp0tts"]
 
-[ext_resource type="Script" uid="uid://qpj1dk7ugnja" path="res://demo/scenes/showcase.gd" id="1_l12ql"]
-[ext_resource type="Theme" uid="uid://boqtjf88xcpu4" path="res://demo/assets/ui.theme" id="2_3d7dj"]
+[ext_resource type="Script" path="res://demo/scenes/showcase.gd" id="1_l12ql"]
+[ext_resource type="Theme" path="res://demo/assets/ui.theme" id="2_3d7dj"]
 [ext_resource type="FontFile" uid="uid://d25vkmce7mhlt" path="res://demo/assets/fonts/knewave_regular.ttf" id="3_7vli5"]
 [ext_resource type="FontFile" uid="uid://n231m6uqsq6x" path="res://demo/assets/fonts/junction_bold.otf" id="4_7ubu6"]
 [ext_resource type="Texture2D" uid="uid://dc1wu244fnetf" path="res://demo/assets/arrow_left.png" id="5_bvrtp"]
@@ -246,7 +246,6 @@ fit_content = true
 [node name="CodePopup" type="PopupPanel" parent="UI Layer/Control" unique_id=542471976]
 unique_name_in_owner = true
 oversampling_override = 1.0
-position = Vector2i(0, 60)
 size = Vector2i(1024, 708)
 visible = true
 
