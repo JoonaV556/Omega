@@ -1,0 +1,16 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://clkw3jdwf7u1f"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_rnojf"]
+var/has_target/name = &"has_target"
+var/has_target/type = 1
+var/has_target/value = false
+var/has_target/hint = 0
+var/has_target/hint_string = ""
+var/target_pos/name = &"target_pos"
+var/target_pos/type = 5
+var/target_pos/value = Vector2(0, 0)
+var/target_pos/hint = 0
+var/target_pos/hint_string = ""
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_rnojf")

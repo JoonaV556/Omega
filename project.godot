@@ -215,6 +215,10 @@ ReleaseCursor={
 [layer_names]
 
 2d_render/layer_2="Characters"
+2d_physics/layer_1="MapCollision"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="BulletObstacle"
+2d_physics/layer_4="VisualObservable"
 
 [limbo_ai]
 

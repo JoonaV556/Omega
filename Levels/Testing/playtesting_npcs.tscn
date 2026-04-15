@@ -45,6 +45,7 @@
 [ext_resource type="Script" uid="uid://bwicvodln2dkh" path="res://Code/Other/CombatSample/global_events_scene_proxy.gd" id="39_as8nj"]
 [ext_resource type="Script" uid="uid://d3hmhjuee4ivu" path="res://Code/Other/NPCSample/npc_character.gd" id="40_m82jt"]
 [ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="45_6tp4r"]
+[ext_resource type="BehaviorTree" uid="uid://clkw3jdwf7u1f" path="res://Code/AI/behavior_tree_monster.tres" id="46_mv5dp"]
 
 [sub_resource type="Gradient" id="Gradient_h8flf"]
 offsets = PackedFloat32Array(0, 0.440129, 0.495146, 0.653722)
@@ -297,6 +298,8 @@ blackboard_plan = SubResource("BlackboardPlan_kpeoe")
 root_task = SubResource("BTSequence_n7o12")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_mv5dp"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_rn12q"]
 
 [node name="Playtesting - NPCs wow" type="Node2D" unique_id=369415381 node_paths=PackedStringArray("nav_tilemap")]
 script = ExtResource("1_us3ef")
@@ -786,21 +789,21 @@ script = ExtResource("38_hcapf")
 script = ExtResource("39_as8nj")
 metadata/_custom_type_script = "uid://bwicvodln2dkh"
 
-[node name="NPC" type="CharacterBody2D" parent="." unique_id=465946546 node_paths=PackedStringArray("nav_agent")]
+[node name="NPC - Walkaround" type="CharacterBody2D" parent="." unique_id=465946546 node_paths=PackedStringArray("nav_agent")]
 position = Vector2(236, 99)
 script = ExtResource("40_m82jt")
 nav_agent = NodePath("NavigationAgent2D")
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPC" unique_id=503671921]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPC - Walkaround" unique_id=503671921]
 path_postprocessing = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC" unique_id=83686948]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC - Walkaround" unique_id=83686948]
 position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jr1ro")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC" unique_id=2045617802 node_paths=PackedStringArray("character_body")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC - Walkaround" unique_id=2045617802 node_paths=PackedStringArray("character_body")]
 light_mask = 2
 texture_filter = 1
 position = Vector2(0, -16)
@@ -809,12 +812,12 @@ animation = &"IdleBreathing_Down"
 script = ExtResource("20_mv5dp")
 character_body = NodePath("..")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="NPC/AnimatedSprite2D" unique_id=81785360]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="NPC - Walkaround/AnimatedSprite2D" unique_id=81785360]
 show_behind_parent = true
 position = Vector2(0, 13)
 occluder = SubResource("OccluderPolygon2D_kyqiw")
 
-[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="NPC" unique_id=922888435 node_paths=PackedStringArray("animsprite")]
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="NPC - Walkaround" unique_id=922888435 node_paths=PackedStringArray("animsprite")]
 stream = ExtResource("21_rn12q")
 pitch_scale = 1.3
 max_distance = 400.0
@@ -823,9 +826,50 @@ script = ExtResource("22_n7o12")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
 
-[node name="BTPlayer" type="BTPlayer" parent="NPC" unique_id=485399417]
+[node name="BTPlayer" type="BTPlayer" parent="NPC - Walkaround" unique_id=485399417]
 behavior_tree = SubResource("BehaviorTree_6tp4r")
 blackboard_plan = SubResource("BlackboardPlan_mv5dp")
+
+[node name="NPC - Monster" type="CharacterBody2D" parent="." unique_id=1150956022 node_paths=PackedStringArray("nav_agent")]
+position = Vector2(239, -33)
+script = ExtResource("40_m82jt")
+nav_agent = NodePath("NavigationAgent2D")
+metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPC - Monster" unique_id=948030041]
+path_postprocessing = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC - Monster" unique_id=473881645]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jr1ro")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC - Monster" unique_id=534290933 node_paths=PackedStringArray("character_body")]
+light_mask = 2
+texture_filter = 1
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_rpqav")
+animation = &"IdleBreathing_Down"
+script = ExtResource("20_mv5dp")
+character_body = NodePath("..")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="NPC - Monster/AnimatedSprite2D" unique_id=1542904396]
+show_behind_parent = true
+position = Vector2(0, 13)
+occluder = SubResource("OccluderPolygon2D_kyqiw")
+
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="NPC - Monster" unique_id=571774999 node_paths=PackedStringArray("animsprite")]
+stream = ExtResource("21_rn12q")
+pitch_scale = 1.3
+max_distance = 400.0
+attenuation = 2.0
+script = ExtResource("22_n7o12")
+animsprite = NodePath("../AnimatedSprite2D")
+footstep_frames = Array[int]([1, 3])
+
+[node name="BTPlayer" type="BTPlayer" parent="NPC - Monster" unique_id=1408178310]
+behavior_tree = ExtResource("46_mv5dp")
+blackboard_plan = SubResource("BlackboardPlan_rn12q")
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
@@ -844,6 +888,7 @@ blackboard_plan = SubResource("BlackboardPlan_mv5dp")
 [connection signal="started_moving" from="Systems/Character Movement Detector" to="Systems/Killhouse Manager" method="start_round"]
 [connection signal="on_hi_score_updated" from="Systems/Score Tracker" to="Layer - UI/UI Manager" method="on_score_updated"]
 [connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
-[connection signal="frame_changed" from="NPC/AnimatedSprite2D" to="NPC/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="frame_changed" from="NPC - Walkaround/AnimatedSprite2D" to="NPC - Walkaround/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="frame_changed" from="NPC - Monster/AnimatedSprite2D" to="NPC - Monster/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 
 [editable path="Camera"]

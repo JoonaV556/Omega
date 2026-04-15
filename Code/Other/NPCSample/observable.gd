@@ -1,0 +1,2 @@
+class_name Observable
+extends Node2D

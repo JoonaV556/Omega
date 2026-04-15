@@ -11,16 +11,19 @@ x        wait for a few seconds
     impl
 x        small showscase environment
         
-        bb
-            bool - sees target?
-            vector2 - target post
+x        bb
+x            bool - sees target?
+x            vector2 - target post
         
-        LOS collisions on level tiles
+x        LOS collisions on level tiles
 
         observer - tracks observables in specific radius around it
+            
+            
             VisualObserver
 
         observable - can be tracked by observer
+            
             visualObservable
     
     panicking civ
