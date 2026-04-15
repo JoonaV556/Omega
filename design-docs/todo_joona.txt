@@ -7,6 +7,22 @@ x        wait for a few seconds
         walks around 
         observes for civs
         if spots a civ, starts hunting it
+
+    impl
+x        small showscase environment
+        
+        bb
+            bool - sees target?
+            vector2 - target post
+        
+        LOS collisions on level tiles
+
+        observer - tracks observables in specific radius around it
+            VisualObserver
+
+        observable - can be tracked by observer
+            visualObservable
+    
     panicking civ
         if spots a zombie chasing it, starts running away in panic
 
