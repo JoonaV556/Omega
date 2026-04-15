@@ -315,7 +315,7 @@ target = NodePath("../../Systems/Aim Cursor/Helper Pivot - CameraFollowPivot")
 
 [node name="Player" parent="." unique_id=299647049 instance=ExtResource("3_tf4n2")]
 y_sort_enabled = true
-position = Vector2(-90, 124)
+position = Vector2(284, 82)
 additional_impulses_decay_per_tick = 0.3
 
 [node name="Aim" type="Node2D" parent="Player" unique_id=2033362716 node_paths=PackedStringArray("lookat_target_override")]
@@ -842,5 +842,6 @@ blackboard_plan = SubResource("BlackboardPlan_mv5dp")
 [connection signal="started_moving" from="Systems/Character Movement Detector" to="Systems/Killhouse Manager" method="start_round"]
 [connection signal="on_hi_score_updated" from="Systems/Score Tracker" to="Layer - UI/UI Manager" method="on_score_updated"]
 [connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
+[connection signal="frame_changed" from="NPC/AnimatedSprite2D" to="NPC/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 
 [editable path="Camera"]
