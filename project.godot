@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="omega"
 config/version="0.1"
-run/main_scene="uid://bbalwsn885ju1"
+run/main_scene="uid://xi7n0k01blu7"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Assets_LICENSED/icon.svg"
 
@@ -219,6 +219,7 @@ ReleaseCursor={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="BulletObstacle"
 2d_physics/layer_4="VisualObservable"
+2d_physics/layer_5="VisualSightObstacle"
 
 [limbo_ai]
 

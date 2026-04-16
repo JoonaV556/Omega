@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci6iqv5rj4ovj"]
+[gd_scene format=3 uid="uid://ci6iqv5rj4ovj"]
 
 [ext_resource type="Script" uid="uid://bwfor4jklcwt" path="res://Code/Weapons/bullet.gd" id="1_k27yh"]
 [ext_resource type="PackedScene" uid="uid://bhvhych8lho2x" path="res://Scenes/Weapons/bullet_hole.tscn" id="2_14wxs"]
 
-[node name="Bullet" type="Node2D"]
+[node name="Bullet" type="Node2D" unique_id=2128258725]
 script = ExtResource("1_k27yh")
 raycast_mask = 4
 bullet_hole_prefab = ExtResource("2_14wxs")
 metadata/_custom_type_script = "uid://bwfor4jklcwt"
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1100871164]
 custom_minimum_size = Vector2(2, 2)
 offset_left = -1.0
 offset_top = -1.0

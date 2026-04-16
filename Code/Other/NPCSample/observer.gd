@@ -8,46 +8,51 @@ extends Node2D
 var detected: Dictionary[Observable, float] = { }
 
 func _physics_process(delta: float) -> void:
-    # try detect new observables
-    var candidates = get_detection_candidates()
+	self._pre_physics_process()
 
-    for candy: Observable in candidates:
-        if can_detect(candy):
-            detect(candy)
+	# try detect new observables
+	var candidates = get_detection_candidates()
 
-    # handle already remembered observables
-    update_detected(delta)
+	for candy: Observable in candidates:
+		if can_detect(candy):
+			detect(candy)
+
+	# handle already remembered observables
+	update_detected(delta)
+
+func _pre_physics_process():
+	pass
 
 func update_detected(delta: float):
-    var to_forget: Array[Observable]
+	var to_forget: Array[Observable]
 
-    for _observable: Observable in detected:
-        # forget old observables if they havent been detected for some time
-        if detected[_observable] > forget_seconds:
-            to_forget.append(_observable)
-            continue
+	for _observable: Observable in detected:
+		# forget old observables if they havent been detected for some time
+		if detected[_observable] > forget_seconds:
+			to_forget.append(_observable)
+			continue
 
-        # update time passed since the observable has been detected
-        if can_detect(_observable):
-            detected[_observable] = 0.0
-        else:
-            detected[_observable] += delta
+		# update time passed since the observable has been detected
+		if can_detect(_observable):
+			detected[_observable] = 0.0
+		else:
+			detected[_observable] += delta
 
-    for _obs in to_forget:
-        undetect(_obs)
+	for _obs in to_forget:
+		undetect(_obs)
 
 func detect(observable: Observable):
-    if detected.has(observable):
-        return
-    detected[observable] = 0.0
+	if detected.has(observable):
+		return
+	detected[observable] = 0.0
 
 func undetect(observable: Observable):
-    detected.erase(observable)
+	detected.erase(observable)
 
 ## Override in inheriting classes
 func get_detection_candidates() -> Array[Observable]:
-    return []
+	return []
 
 ## Override in inheriting classes
 func can_detect(observable: Observable) -> bool:
-    return false
+	return false

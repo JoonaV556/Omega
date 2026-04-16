@@ -7,6 +7,7 @@ x        wait for a few seconds
         walks around 
         observes for civs
         if spots a civ, starts hunting it
+        zombie forgets target civ if it goes too far away or hides behind a wall
 
     impl
 x        small showscase environment
@@ -17,14 +18,13 @@ x            vector2 - target post
         
 x        LOS collisions on level tiles
 
-        observer - tracks observables in specific radius around it
+x        observer - tracks observables in specific radius around it
             
-            
-            VisualObserver
+x            VisualObserver
 
-        observable - can be tracked by observer
+ x       observable - can be tracked by observer
             
-            visualObservable
+ x           visualObservable
     
     panicking civ
         if spots a zombie chasing it, starts running away in panic
