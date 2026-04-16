@@ -412,7 +412,7 @@ position = Vector2(0, 2)
 [node name="VisualObserver" type="Node2D" parent="Player" unique_id=818530677]
 script = ExtResource("47_rn12q")
 sight_raycast_layers = 8
-sight_blocking_layers = 16
+sight_blocking_layers = 21
 metadata/_custom_type_script = "uid://b8guhrmputmil"
 
 [node name="TileMap-ground" type="TileMapLayer" parent="." unique_id=854333918]
@@ -883,7 +883,7 @@ behavior_tree = ExtResource("46_mv5dp")
 blackboard_plan = SubResource("BlackboardPlan_rn12q")
 
 [node name="d" type="StaticBody2D" parent="." unique_id=1696595539]
-position = Vector2(464, 192)
+position = Vector2(251, 220)
 collision_layer = 8
 collision_mask = 8
 
@@ -895,6 +895,54 @@ scale = Vector2(0.16, 0.16)
 texture = ExtResource("48_n7o12")
 
 [node name="VisualObservable" type="Node2D" parent="d" unique_id=736795859]
+script = ExtResource("49_h6aif")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="d2" type="StaticBody2D" parent="." unique_id=1017704318]
+position = Vector2(333, 222)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="d2" unique_id=1391970260]
+shape = SubResource("CircleShape2D_mv5dp")
+
+[node name="Sprite2D" type="Sprite2D" parent="d2" unique_id=1428422247]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("48_n7o12")
+
+[node name="VisualObservable" type="Node2D" parent="d2" unique_id=1226586287]
+script = ExtResource("49_h6aif")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="d3" type="StaticBody2D" parent="." unique_id=892987958]
+position = Vector2(161, 79)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="d3" unique_id=410550687]
+shape = SubResource("CircleShape2D_mv5dp")
+
+[node name="Sprite2D" type="Sprite2D" parent="d3" unique_id=1491923204]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("48_n7o12")
+
+[node name="VisualObservable" type="Node2D" parent="d3" unique_id=1169145837]
+script = ExtResource("49_h6aif")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="d4" type="StaticBody2D" parent="." unique_id=217812345]
+position = Vector2(237, 141)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="d4" unique_id=1415093716]
+shape = SubResource("CircleShape2D_mv5dp")
+
+[node name="Sprite2D" type="Sprite2D" parent="d4" unique_id=431069950]
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("48_n7o12")
+
+[node name="VisualObservable" type="Node2D" parent="d4" unique_id=1750853226]
 script = ExtResource("49_h6aif")
 metadata/_custom_type_script = "uid://y3t00ak6bxgy"
 
