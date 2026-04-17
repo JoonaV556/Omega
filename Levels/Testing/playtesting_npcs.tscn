@@ -303,6 +303,8 @@ root_task = SubResource("BTSequence_n7o12")
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_mv5dp"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rn12q"]
+binding/has_target = NodePath("../TargetSelector:_has_target")
+binding/target_pos = NodePath("../TargetSelector:target_pos")
 
 [node name="Playtesting - NPCs wow" type="Node2D" unique_id=369415381 node_paths=PackedStringArray("nav_tilemap")]
 script = ExtResource("1_us3ef")

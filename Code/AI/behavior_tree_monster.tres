@@ -1,6 +1,7 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://clkw3jdwf7u1f"]
 
 [ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="1_1k3s3"]
+[ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="2_w0jwp"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rnojf"]
 var/has_target/name = &"has_target"
@@ -13,16 +14,37 @@ var/target_pos/type = 5
 var/target_pos/value = Vector2(0, 0)
 var/target_pos/hint = 0
 var/target_pos/hint_string = ""
+binding/has_target = NodePath("NPC - Zombie/TargetSelector:_has_target")
+binding/target_pos = NodePath("NPC - Zombie/TargetSelector:target_pos")
+
+[sub_resource type="BBVariant" id="BBVariant_1k3s3"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_w0jwp"]
+variable = &"has_target"
+value = SubResource("BBVariant_1k3s3")
 
 [sub_resource type="BTAction" id="BTAction_w0jwp"]
-script = ExtResource("1_1k3s3")
-
-[sub_resource type="BTRandomWait" id="BTRandomWait_1k3s3"]
-max_duration = 5.0
+script = ExtResource("2_w0jwp")
+target_position_var = &"target_pos"
 
 [sub_resource type="BTSequence" id="BTSequence_0l546"]
-children = [SubResource("BTAction_w0jwp"), SubResource("BTRandomWait_1k3s3")]
+children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_w0jwp")]
+
+[sub_resource type="BTAction" id="BTAction_whsuq"]
+script = ExtResource("1_1k3s3")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_lckeq"]
+max_duration = 4.0
+
+[sub_resource type="BTSequence" id="BTSequence_hfi88"]
+children = [SubResource("BTAction_whsuq"), SubResource("BTRandomWait_lckeq")]
+
+[sub_resource type="BTSequence" id="BTSequence_1skwy"]
+children = [SubResource("BTSequence_0l546"), SubResource("BTSequence_hfi88")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_rnojf")
-root_task = SubResource("BTSequence_0l546")
+root_task = SubResource("BTSequence_1skwy")
