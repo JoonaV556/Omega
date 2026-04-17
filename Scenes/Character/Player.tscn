@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://chtck7hchxyj1"]
+[gd_scene format=3 uid="uid://chtck7hchxyj1"]
 
 [ext_resource type="Script" uid="uid://cvq6trp7fbysb" path="res://Code/Character/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://dsxej67iip8ga" path="res://Assets_LICENSED/Sprites/protagonist_spritesheet.png" id="2_5ixxa"]
@@ -233,12 +233,12 @@ gradient = SubResource("Gradient_tnmjx")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=700090210]
 collision_layer = 2
 script = ExtResource("1_kyqiw")
 metadata/is_player = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("character_body")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1173599209 node_paths=PackedStringArray("character_body")]
 light_mask = 2
 texture_filter = 1
 position = Vector2(0, -16)
@@ -247,17 +247,17 @@ animation = &"IdleBreathing_Down"
 script = ExtResource("3_gntrk")
 character_body = NodePath("..")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=1408089494]
 show_behind_parent = true
 position = Vector2(0, 13)
 occluder = SubResource("OccluderPolygon2D_kyqiw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=846737930]
 position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jr1ro")
 
-[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." node_paths=PackedStringArray("animsprite")]
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." unique_id=374118140 node_paths=PackedStringArray("animsprite")]
 stream = ExtResource("4_5ixxa")
 pitch_scale = 1.3
 max_distance = 400.0
@@ -266,7 +266,7 @@ script = ExtResource("4_dewec")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
 
-[node name="Player Highlight" type="PointLight2D" parent="."]
+[node name="Player Highlight" type="PointLight2D" parent="." unique_id=415678725]
 position = Vector2(0, -15)
 energy = 0.25
 range_item_cull_mask = 3

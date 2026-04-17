@@ -47,7 +47,7 @@
 [ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="45_6tp4r"]
 [ext_resource type="BehaviorTree" uid="uid://clkw3jdwf7u1f" path="res://Code/AI/behavior_tree_monster.tres" id="46_mv5dp"]
 [ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="47_rn12q"]
-[ext_resource type="Texture2D" uid="uid://j1mr6c2hhuf5" path="res://Assets_LICENSED/icon.svg" id="48_n7o12"]
+[ext_resource type="Script" uid="uid://ckr1intpkx13u" path="res://Code/Other/NPCSample/target_selector.gd" id="48_io7yj"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="49_h6aif"]
 
 [sub_resource type="Gradient" id="Gradient_h8flf"]
@@ -304,8 +304,6 @@ root_task = SubResource("BTSequence_n7o12")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rn12q"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mv5dp"]
-
 [node name="Playtesting - NPCs wow" type="Node2D" unique_id=369415381 node_paths=PackedStringArray("nav_tilemap")]
 script = ExtResource("1_us3ef")
 nav_tilemap = NodePath("TileMap-nav")
@@ -313,7 +311,7 @@ metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 
 [node name="Camera" parent="." unique_id=684571637 instance=ExtResource("2_m82jt")]
 position = Vector2(-89, 109)
-position_smoothing_speed = 8.0
+position_smoothing_speed = 16.0
 
 [node name="Zoom" parent="Camera" index="0"]
 min_zoom = Vector2(2, 2)
@@ -324,6 +322,7 @@ target = NodePath("../../Systems/Aim Cursor/Helper Pivot - CameraFollowPivot")
 [node name="Player" parent="." unique_id=299647049 instance=ExtResource("3_tf4n2")]
 y_sort_enabled = true
 position = Vector2(416, 33)
+collision_layer = 10
 additional_impulses_decay_per_tick = 0.3
 
 [node name="Aim" type="Node2D" parent="Player" unique_id=2033362716 node_paths=PackedStringArray("lookat_target_override")]
@@ -409,11 +408,9 @@ max_distance = 500.0
 [node name="Flashlight" parent="Player/Aim" unique_id=320632796 instance=ExtResource("17_5u4i5")]
 position = Vector2(0, 2)
 
-[node name="VisualObserver" type="Node2D" parent="Player" unique_id=818530677]
-script = ExtResource("47_rn12q")
-sight_raycast_layers = 8
-sight_blocking_layers = 21
-metadata/_custom_type_script = "uid://b8guhrmputmil"
+[node name="VisualObservable" type="Node2D" parent="Player" unique_id=218402585]
+script = ExtResource("49_h6aif")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
 
 [node name="TileMap-ground" type="TileMapLayer" parent="." unique_id=854333918]
 z_index = -10
@@ -801,7 +798,7 @@ script = ExtResource("39_as8nj")
 metadata/_custom_type_script = "uid://bwicvodln2dkh"
 
 [node name="NPC - Walkaround" type="CharacterBody2D" parent="." unique_id=465946546 node_paths=PackedStringArray("nav_agent")]
-position = Vector2(236, 99)
+position = Vector2(-174, -221)
 script = ExtResource("40_m82jt")
 nav_agent = NodePath("NavigationAgent2D")
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
@@ -839,23 +836,24 @@ footstep_frames = Array[int]([1, 3])
 
 [node name="BTPlayer" type="BTPlayer" parent="NPC - Walkaround" unique_id=485399417]
 behavior_tree = SubResource("BehaviorTree_6tp4r")
+active = false
 blackboard_plan = SubResource("BlackboardPlan_mv5dp")
 
-[node name="NPC - Monster" type="CharacterBody2D" parent="." unique_id=1150956022 node_paths=PackedStringArray("nav_agent")]
-position = Vector2(238, 4)
+[node name="NPC - Zombie" type="CharacterBody2D" parent="." unique_id=1150956022 node_paths=PackedStringArray("nav_agent")]
+position = Vector2(473, 127)
 script = ExtResource("40_m82jt")
 nav_agent = NodePath("NavigationAgent2D")
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPC - Monster" unique_id=948030041]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPC - Zombie" unique_id=948030041]
 path_postprocessing = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC - Monster" unique_id=473881645]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC - Zombie" unique_id=473881645]
 position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jr1ro")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC - Monster" unique_id=534290933 node_paths=PackedStringArray("character_body")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC - Zombie" unique_id=534290933 node_paths=PackedStringArray("character_body")]
 light_mask = 2
 texture_filter = 1
 position = Vector2(0, -16)
@@ -864,12 +862,12 @@ animation = &"IdleBreathing_Down"
 script = ExtResource("20_mv5dp")
 character_body = NodePath("..")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="NPC - Monster/AnimatedSprite2D" unique_id=1542904396]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="NPC - Zombie/AnimatedSprite2D" unique_id=1542904396]
 show_behind_parent = true
 position = Vector2(0, 13)
 occluder = SubResource("OccluderPolygon2D_kyqiw")
 
-[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="NPC - Monster" unique_id=571774999 node_paths=PackedStringArray("animsprite")]
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="NPC - Zombie" unique_id=571774999 node_paths=PackedStringArray("animsprite")]
 stream = ExtResource("21_rn12q")
 pitch_scale = 1.3
 max_distance = 400.0
@@ -878,73 +876,21 @@ script = ExtResource("22_n7o12")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
 
-[node name="BTPlayer" type="BTPlayer" parent="NPC - Monster" unique_id=1408178310]
+[node name="BTPlayer" type="BTPlayer" parent="NPC - Zombie" unique_id=1408178310]
 behavior_tree = ExtResource("46_mv5dp")
 blackboard_plan = SubResource("BlackboardPlan_rn12q")
 
-[node name="d" type="StaticBody2D" parent="." unique_id=1696595539]
-position = Vector2(251, 220)
-collision_layer = 8
-collision_mask = 8
+[node name="TargetSelector" type="Node" parent="NPC - Zombie" unique_id=1760452547 node_paths=PackedStringArray("observer")]
+script = ExtResource("48_io7yj")
+observer = NodePath("../VisualObserver")
+metadata/_custom_type_script = "uid://ckr1intpkx13u"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="d" unique_id=596997801]
-shape = SubResource("CircleShape2D_mv5dp")
-
-[node name="Sprite2D" type="Sprite2D" parent="d" unique_id=1731924586]
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("48_n7o12")
-
-[node name="VisualObservable" type="Node2D" parent="d" unique_id=736795859]
-script = ExtResource("49_h6aif")
-metadata/_custom_type_script = "uid://y3t00ak6bxgy"
-
-[node name="d2" type="StaticBody2D" parent="." unique_id=1017704318]
-position = Vector2(333, 222)
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="d2" unique_id=1391970260]
-shape = SubResource("CircleShape2D_mv5dp")
-
-[node name="Sprite2D" type="Sprite2D" parent="d2" unique_id=1428422247]
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("48_n7o12")
-
-[node name="VisualObservable" type="Node2D" parent="d2" unique_id=1226586287]
-script = ExtResource("49_h6aif")
-metadata/_custom_type_script = "uid://y3t00ak6bxgy"
-
-[node name="d3" type="StaticBody2D" parent="." unique_id=892987958]
-position = Vector2(161, 79)
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="d3" unique_id=410550687]
-shape = SubResource("CircleShape2D_mv5dp")
-
-[node name="Sprite2D" type="Sprite2D" parent="d3" unique_id=1491923204]
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("48_n7o12")
-
-[node name="VisualObservable" type="Node2D" parent="d3" unique_id=1169145837]
-script = ExtResource("49_h6aif")
-metadata/_custom_type_script = "uid://y3t00ak6bxgy"
-
-[node name="d4" type="StaticBody2D" parent="." unique_id=217812345]
-position = Vector2(237, 141)
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="d4" unique_id=1415093716]
-shape = SubResource("CircleShape2D_mv5dp")
-
-[node name="Sprite2D" type="Sprite2D" parent="d4" unique_id=431069950]
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("48_n7o12")
-
-[node name="VisualObservable" type="Node2D" parent="d4" unique_id=1750853226]
-script = ExtResource("49_h6aif")
-metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+[node name="VisualObserver" type="Node2D" parent="NPC - Zombie" unique_id=818530677]
+script = ExtResource("47_rn12q")
+sight_raycast_layers = 8
+sight_blocking_layers = 21
+forget_seconds = 3.0
+metadata/_custom_type_script = "uid://b8guhrmputmil"
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
@@ -964,6 +910,6 @@ metadata/_custom_type_script = "uid://y3t00ak6bxgy"
 [connection signal="on_hi_score_updated" from="Systems/Score Tracker" to="Layer - UI/UI Manager" method="on_score_updated"]
 [connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
 [connection signal="frame_changed" from="NPC - Walkaround/AnimatedSprite2D" to="NPC - Walkaround/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
-[connection signal="frame_changed" from="NPC - Monster/AnimatedSprite2D" to="NPC - Monster/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="frame_changed" from="NPC - Zombie/AnimatedSprite2D" to="NPC - Zombie/AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 
 [editable path="Camera"]

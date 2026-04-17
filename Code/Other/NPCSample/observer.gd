@@ -3,6 +3,10 @@ extends Node2D
 
 @export var forget_seconds: float = 4.0
 
+## args: dict of detected observables
+signal on_detected_updated(detected)
+signal on_undetected(observable)
+
 ## currently detected observables [br]
 ## structure: [Observable, TimePassedSinceLastObserved]
 var detected: Dictionary[Observable, float] = { }
@@ -45,9 +49,12 @@ func detect(observable: Observable):
 	if detected.has(observable):
 		return
 	detected[observable] = 0.0
+	on_detected_updated.emit(detected)
 
 func undetect(observable: Observable):
 	detected.erase(observable)
+	on_detected_updated.emit(detected)
+	on_undetected.emit(observable)
 
 ## Override in inheriting classes
 func get_detection_candidates() -> Array[Observable]:

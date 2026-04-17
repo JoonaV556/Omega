@@ -4,10 +4,33 @@ x    passive civilian walking around
 x        walk to random point 
 x        wait for a few seconds
     zombie walking around
-        walks around 
-        observes for civs
+x        walks around 
+x        observes for civs
         if spots a civ, starts hunting it
-        zombie forgets target civ if it goes too far away or hides behind a wall
+            observer - on detected updated signal 
+                emitted when
+                    det added
+                    det removed
+            target selector node (for aggressive mobs)
+                reads observers detected list and targets one of them with rules
+            pursue task - pursues selected target
+x        zombie forgets target civ if it goes too far away or hides behind a wall
+    panicking civ
+        if spots a zombie chasing it, starts running away in panic
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------completed-------------------------
 
     impl
 x        small showscase environment
@@ -25,49 +48,8 @@ x            VisualObserver
  x       observable - can be tracked by observer
             
  x           visualObservable
-    
-    panicking civ
-        if spots a zombie chasing it, starts running away in panic
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--------------------completed-------------------------
 xFirst npc 
 X    make npc not move with player inputx
 

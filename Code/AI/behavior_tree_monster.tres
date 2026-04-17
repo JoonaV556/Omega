@@ -1,5 +1,7 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://clkw3jdwf7u1f"]
 
+[ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="1_1k3s3"]
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rnojf"]
 var/has_target/name = &"has_target"
 var/has_target/type = 1
@@ -12,5 +14,15 @@ var/target_pos/value = Vector2(0, 0)
 var/target_pos/hint = 0
 var/target_pos/hint_string = ""
 
+[sub_resource type="BTAction" id="BTAction_w0jwp"]
+script = ExtResource("1_1k3s3")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_1k3s3"]
+max_duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_0l546"]
+children = [SubResource("BTAction_w0jwp"), SubResource("BTRandomWait_1k3s3")]
+
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_rnojf")
+root_task = SubResource("BTSequence_0l546")

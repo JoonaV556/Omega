@@ -1,20 +1,10 @@
 class_name VisualObserver
 extends Observer
 
-# each frame:
-#   get observables in radius
-#       if no obstacles between observer and observable
-#           detect observable
-#
+# TODO:
+# 	Optimize
+# 		update detected less frequently (maybe not necessary 60 times per sec)
 
-# # raycast from new position to last position
-# 	var vector: Vector2 = prev_pos + ((next_pos-prev_pos)*cast_ahead_distance)
-# 	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-# 	var query = PhysicsRayQueryParameters2D.create(prev_pos, vector, raycast_mask)
-# 	query.collide_with_areas = true
-# 	query.collide_with_bodies = true
-# 	query.hit_from_inside = true
-# 	var result: Dictionary = space_state.intersect_ray(query)
 
 ## layers which block sight raycasts
 @export_flags_2d_physics var sight_raycast_layers
