@@ -6,6 +6,7 @@ extends BTAction
 @export var target_position_var := &"pos"
 
 var npc: NpcCharacter
+var nav_a: NavigationAgent2D
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
@@ -22,6 +23,13 @@ func _enter() -> void:
 	if not _npc:
 		push_error("cant find npc root node")
 	npc = _npc
+	
+	# get nav agent
+	nav_a = npc.nav_agent
+
+	# set target pos 
+	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO)
+	nav_a.target_position = target_pos
 
 # Called each time this task is exited.
 func _exit() -> void:
@@ -36,7 +44,14 @@ func _tick(delta: float) -> Status:
 
 	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO)
 
-	npc.move_dir = Vector2(target_pos - npc.global_position)
+	# set target pos
+	nav_a.target_position = target_pos
+
+	# get path
+	var next_pos = nav_a.get_next_path_position()
+
+	# move npc
+	npc.move_dir = Vector2(next_pos - npc.global_position)
 	
 	return RUNNING
 

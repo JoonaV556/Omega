@@ -29,8 +29,8 @@ distance_max = 200.0
 script = ExtResource("3_orhnl")
 
 [sub_resource type="BBNode" id="BBNode_6d0yy"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_wsspf"]
 await_completion = 5.0
@@ -41,16 +41,16 @@ animation_name = &"attack_1"
 children = [SubResource("BTCondition_m15aa"), SubResource("BTAction_oc76s"), SubResource("BTPlayAnimation_wsspf")]
 
 [sub_resource type="BTCooldown" id="BTCooldown_3tvjt"]
-children = [SubResource("BTSequence_e0f8v")]
 duration = 5.0
+children = [SubResource("BTSequence_e0f8v")]
 
 [sub_resource type="BTCondition" id="BTCondition_x0uu7"]
 script = ExtResource("2_08b67")
 distance_max = 200.0
 
 [sub_resource type="BBNode" id="BBNode_icf24"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_iiei3"]
 animation_player = SubResource("BBNode_icf24")
@@ -65,8 +65,8 @@ range_max = 800.0
 script = ExtResource("5_5o1gy")
 
 [sub_resource type="BBNode" id="BBNode_ayt56"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_l1tdg"]
 animation_player = SubResource("BBNode_ayt56")
@@ -84,8 +84,8 @@ distance_min = 200.0
 distance_max = 10000.0
 
 [sub_resource type="BBNode" id="BBNode_rpwld"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_dug2k"]
 animation_player = SubResource("BBNode_rpwld")
@@ -95,8 +95,8 @@ animation_name = &"walk"
 script = ExtResource("6_rpn40")
 
 [sub_resource type="BBNode" id="BBNode_aw5jj"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_3aihc"]
 animation_player = SubResource("BBNode_aw5jj")

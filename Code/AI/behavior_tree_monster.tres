@@ -26,25 +26,37 @@ resource_name = "true"
 variable = &"has_target"
 value = SubResource("BBVariant_1k3s3")
 
-[sub_resource type="BTAction" id="BTAction_w0jwp"]
+[sub_resource type="BTAction" id="BTAction_0l546"]
 script = ExtResource("2_w0jwp")
 target_position_var = &"target_pos"
 
-[sub_resource type="BTSequence" id="BTSequence_0l546"]
-children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_w0jwp")]
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_whsuq"]
+children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546")]
 
-[sub_resource type="BTAction" id="BTAction_whsuq"]
+[sub_resource type="BBVariant" id="BBVariant_lckeq"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_hfi88"]
+variable = &"has_target"
+value = SubResource("BBVariant_lckeq")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_w0jwp"]
+
+[sub_resource type="BTAction" id="BTAction_w0jwp"]
 script = ExtResource("1_1k3s3")
 
-[sub_resource type="BTRandomWait" id="BTRandomWait_lckeq"]
-max_duration = 4.0
+[sub_resource type="BTRandomWait" id="BTRandomWait_0l546"]
+min_duration = 2.0
+max_duration = 3.0
 
-[sub_resource type="BTSequence" id="BTSequence_hfi88"]
-children = [SubResource("BTAction_whsuq"), SubResource("BTRandomWait_lckeq")]
+[sub_resource type="BTSequence" id="BTSequence_w0jwp"]
+children = [SubResource("BTCheckVar_hfi88"), SubResource("BTRandomWait_w0jwp"), SubResource("BTAction_w0jwp"), SubResource("BTRandomWait_0l546")]
 
-[sub_resource type="BTSequence" id="BTSequence_1skwy"]
-children = [SubResource("BTSequence_0l546"), SubResource("BTSequence_hfi88")]
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_w0jwp"]
+children = [SubResource("BTDynamicSequence_whsuq"), SubResource("BTSequence_w0jwp")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_rnojf")
-root_task = SubResource("BTSequence_1skwy")
+root_task = SubResource("BTDynamicSelector_w0jwp")

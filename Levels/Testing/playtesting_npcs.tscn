@@ -303,8 +303,8 @@ root_task = SubResource("BTSequence_n7o12")
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_mv5dp"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rn12q"]
-binding/has_target = NodePath("../TargetSelector:_has_target")
-binding/target_pos = NodePath("../TargetSelector:target_pos")
+binding/has_target = NodePath("../TargetSelector")
+binding/target_pos = NodePath("../TargetSelector")
 
 [node name="Playtesting - NPCs wow" type="Node2D" unique_id=369415381 node_paths=PackedStringArray("nav_tilemap")]
 script = ExtResource("1_us3ef")
@@ -842,13 +842,31 @@ active = false
 blackboard_plan = SubResource("BlackboardPlan_mv5dp")
 
 [node name="NPC - Zombie" type="CharacterBody2D" parent="." unique_id=1150956022 node_paths=PackedStringArray("nav_agent")]
-position = Vector2(473, 127)
+position = Vector2(246, 72)
 script = ExtResource("40_m82jt")
 nav_agent = NodePath("NavigationAgent2D")
+move_speed = 50.0
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
+
+[node name="BTPlayer" type="BTPlayer" parent="NPC - Zombie" unique_id=1408178310]
+behavior_tree = ExtResource("46_mv5dp")
+blackboard_plan = SubResource("BlackboardPlan_rn12q")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPC - Zombie" unique_id=948030041]
 path_postprocessing = 1
+
+[node name="TargetSelector" type="Node" parent="NPC - Zombie" unique_id=1760452547 node_paths=PackedStringArray("observer")]
+script = ExtResource("48_io7yj")
+observer = NodePath("../VisualObserver")
+metadata/_custom_type_script = "uid://ckr1intpkx13u"
+
+[node name="VisualObserver" type="Node2D" parent="NPC - Zombie" unique_id=818530677]
+script = ExtResource("47_rn12q")
+sight_raycast_layers = 8
+sight_blocking_layers = 21
+sight_distance = 160.0
+forget_seconds = 3.0
+metadata/_custom_type_script = "uid://b8guhrmputmil"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC - Zombie" unique_id=473881645]
 position = Vector2(0, -1)
@@ -877,22 +895,6 @@ attenuation = 2.0
 script = ExtResource("22_n7o12")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
-
-[node name="BTPlayer" type="BTPlayer" parent="NPC - Zombie" unique_id=1408178310]
-behavior_tree = ExtResource("46_mv5dp")
-blackboard_plan = SubResource("BlackboardPlan_rn12q")
-
-[node name="TargetSelector" type="Node" parent="NPC - Zombie" unique_id=1760452547 node_paths=PackedStringArray("observer")]
-script = ExtResource("48_io7yj")
-observer = NodePath("../VisualObserver")
-metadata/_custom_type_script = "uid://ckr1intpkx13u"
-
-[node name="VisualObserver" type="Node2D" parent="NPC - Zombie" unique_id=818530677]
-script = ExtResource("47_rn12q")
-sight_raycast_layers = 8
-sight_blocking_layers = 21
-forget_seconds = 3.0
-metadata/_custom_type_script = "uid://b8guhrmputmil"
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]

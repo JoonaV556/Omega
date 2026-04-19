@@ -6,14 +6,15 @@ x        wait for a few seconds
     zombie walking around
 x        walks around 
 x        observes for civs
-        if spots a civ, starts hunting it
+x        if spots a civ, starts hunting it
             x observer - on detected updated signal 
                 x emitted when
                     x det added
                     x det removed
             x target selector node (for aggressive mobs)
                 x reads observers detected list and targets one of them with rules
-            pursue task - pursues selected target
+x            pursue task - pursues selected target
+            pursue - pathfind to target
 x        zombie forgets target civ if it goes too far away or hides behind a wall
     panicking civ
         if spots a zombie chasing it, starts running away in panic
