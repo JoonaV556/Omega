@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dbry0tf860fil"]
+
+[ext_resource type="Script" uid="uid://cqj6vkdnxkfam" path="res://Code/Other/NPCSample/singleton_game_data.gd" id="1_e2wq1"]
+[ext_resource type="Resource" uid="uid://bhjkugwq16f3q" path="res://Resources/faction_relations.tres" id="2_3k6ff"]
+
+[node name="GameData" type="Node" unique_id=244181234]
+script = ExtResource("1_e2wq1")
+faction_relations = ExtResource("2_3k6ff")
+metadata/_custom_type_script = "uid://cqj6vkdnxkfam"

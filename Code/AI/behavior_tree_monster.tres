@@ -36,7 +36,7 @@ children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546")]
 [sub_resource type="BBVariant" id="BBVariant_lckeq"]
 type = 1
 saved_value = false
-resource_name = "false"
+resource_name = "<null>"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_hfi88"]
 variable = &"has_target"

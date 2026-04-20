@@ -49,6 +49,10 @@
 [ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="47_rn12q"]
 [ext_resource type="Script" uid="uid://ckr1intpkx13u" path="res://Code/Other/NPCSample/target_selector.gd" id="48_io7yj"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="49_h6aif"]
+[ext_resource type="Script" uid="uid://c4vf6so6uki07" path="res://Code/test/test_factions.gd" id="50_io7yj"]
+[ext_resource type="Resource" uid="uid://bp85lch2ommbd" path="res://Resources/faction_player.tres" id="51_743js"]
+[ext_resource type="Resource" uid="uid://dp040qhvw2iw6" path="res://Resources/faction_zombies.tres" id="52_3p08e"]
+[ext_resource type="Resource" uid="uid://cmnn54hp2e2ri" path="res://Resources/faction_civilians.tres" id="53_5u4i5"]
 
 [sub_resource type="Gradient" id="Gradient_h8flf"]
 offsets = PackedFloat32Array(0, 0.440129, 0.495146, 0.653722)
@@ -303,8 +307,8 @@ root_task = SubResource("BTSequence_n7o12")
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_mv5dp"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rn12q"]
-binding/has_target = NodePath("../TargetSelector")
-binding/target_pos = NodePath("../TargetSelector")
+binding/has_target = NodePath("../TargetSelector:_has_target")
+binding/target_pos = NodePath("../TargetSelector:target_pos")
 
 [node name="Playtesting - NPCs wow" type="Node2D" unique_id=369415381 node_paths=PackedStringArray("nav_tilemap")]
 script = ExtResource("1_us3ef")
@@ -591,7 +595,6 @@ shape = SubResource("RectangleShape2D_3qcxn")
 [node name="Node2D" type="Node2D" parent="CanvasLayer - cursor" unique_id=327736373]
 
 [node name="Layer - UI" type="CanvasLayer" parent="." unique_id=972063955]
-visible = false
 
 [node name="UI Manager" type="Node" parent="Layer - UI" unique_id=843592449 node_paths=PackedStringArray("timer_label", "kills_label", "restart_hint_label", "hi_score_label", "ammo_label", "timer", "manager")]
 script = ExtResource("24_qnev0")
@@ -895,6 +898,16 @@ attenuation = 2.0
 script = ExtResource("22_n7o12")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
+
+[node name="test - faction system" type="Node" parent="." unique_id=257212810]
+editor_description = "asdasdsa"
+script = ExtResource("50_io7yj")
+fac_1 = ExtResource("51_743js")
+fac_2 = ExtResource("52_3p08e")
+fac_3 = ExtResource("52_3p08e")
+fac_4 = ExtResource("52_3p08e")
+fac_5 = ExtResource("53_5u4i5")
+fac_6 = ExtResource("51_743js")
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
