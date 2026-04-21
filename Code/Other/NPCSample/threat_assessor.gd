@@ -1,4 +1,4 @@
-## Determines if owner is in threat based on factions of currently detected observables
+## Determines if owner is in threat, based on factions of currently detected observables
 ## [br] useful for civilian AI etc.
 class_name ThreatAssessor
 extends Node
@@ -27,7 +27,7 @@ func on_detected_updated(detected: Array[Observable]):
 	
 	for obs in detected:
 		# get obs identity
-		var obs_fac_idx = obs.get_parent().get_meta("faction_index")
+		var obs_fac_idx: int = obs.get_parent().get_meta("faction_index")
 
 		# if hostile - set threat
 		var relation = FactionRelations.instance.get_relation_idx(slf_fac_idx, obs_fac_idx)
@@ -41,4 +41,3 @@ func on_detected_updated(detected: Array[Observable]):
 			threatened = false
 			threat_source = null
 			threat_source_pos = Vector2.ZERO
-			break
