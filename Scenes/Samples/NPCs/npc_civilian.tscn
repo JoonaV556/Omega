@@ -229,21 +229,59 @@ animations = [{
 polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_kpeoe"]
+var/threatened/name = &"threatened"
+var/threatened/type = 1
+var/threatened/value = false
+var/threatened/hint = 0
+var/threatened/hint_string = ""
+var/threat_src_position/name = &"threat_src_position"
+var/threat_src_position/type = 5
+var/threat_src_position/value = Vector2(0, 0)
+var/threat_src_position/hint = 0
+var/threat_src_position/hint_string = ""
+binding/threatened = NodePath("ThreatAssessor:threatened")
+binding/threat_src_position = NodePath("ThreatAssessor:threat_source_pos")
 
-[sub_resource type="BTRandomWait" id="BTRandomWait_mv5dp"]
-min_duration = 2.0
-max_duration = 5.0
+[sub_resource type="BBVariant" id="BBVariant_0w4ix"]
+type = 1
+saved_value = true
+resource_name = "true"
 
-[sub_resource type="BTAction" id="BTAction_rn12q"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_uf81k"]
+variable = &"threatened"
+value = SubResource("BBVariant_0w4ix")
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_lx65v"]
+children = [SubResource("BTCheckVar_uf81k")]
+
+[sub_resource type="BBVariant" id="BBVariant_lx65v"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_o5wju"]
+variable = &"threatened"
+value = SubResource("BBVariant_lx65v")
+
+[sub_resource type="BTWait" id="BTWait_uf81k"]
+duration = 2.0
+
+[sub_resource type="BTAction" id="BTAction_o5wju"]
 script = ExtResource("6_o5wju")
 navigation_layers = 1
 
-[sub_resource type="BTSequence" id="BTSequence_n7o12"]
-children = [SubResource("BTRandomWait_mv5dp"), SubResource("BTAction_rn12q")]
+[sub_resource type="BTRandomWait" id="BTRandomWait_uufxn"]
+max_duration = 3.0
+
+[sub_resource type="BTSequence" id="BTSequence_lx65v"]
+children = [SubResource("BTCheckVar_o5wju"), SubResource("BTWait_uf81k"), SubResource("BTAction_o5wju"), SubResource("BTRandomWait_uufxn")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_0w4ix"]
+children = [SubResource("BTDynamicSequence_lx65v"), SubResource("BTSequence_lx65v")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_6tp4r"]
 blackboard_plan = SubResource("BlackboardPlan_kpeoe")
-root_task = SubResource("BTSequence_n7o12")
+root_task = SubResource("BTDynamicSelector_0w4ix")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_uufxn"]
 
@@ -255,6 +293,7 @@ metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
 metadata/faction_index = 1
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1751163711]
+unique_name_in_owner = true
 path_postprocessing = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=806398687]

@@ -42,10 +42,6 @@
 [ext_resource type="PackedScene" uid="uid://cdnvt0k6rltfc" path="res://Scenes/Samples/NPCs/npc_civilian.tscn" id="41_mv5dp"]
 [ext_resource type="PackedScene" uid="uid://wkjwybb0nhse" path="res://Scenes/Samples/NPCs/npc_zombie.tscn" id="47_ywobr"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="49_h6aif"]
-[ext_resource type="Script" uid="uid://c4vf6so6uki07" path="res://Code/test/test_factions.gd" id="50_io7yj"]
-[ext_resource type="Resource" uid="uid://bp85lch2ommbd" path="res://Resources/faction_player.tres" id="51_743js"]
-[ext_resource type="Resource" uid="uid://dp040qhvw2iw6" path="res://Resources/faction_zombies.tres" id="52_3p08e"]
-[ext_resource type="Resource" uid="uid://cmnn54hp2e2ri" path="res://Resources/faction_civilians.tres" id="53_5u4i5"]
 
 [sub_resource type="Gradient" id="Gradient_h8flf"]
 offsets = PackedFloat32Array(0, 0.440129, 0.495146, 0.653722)
@@ -562,17 +558,6 @@ position = Vector2(224, 78)
 [node name="NPC - Zombie" parent="." unique_id=244960246 instance=ExtResource("47_ywobr")]
 position = Vector2(442, 135)
 collision_layer = 9
-
-[node name="test - faction system" type="Node" parent="." unique_id=257212810]
-editor_description = "asdasdsa"
-script = ExtResource("50_io7yj")
-fac_1 = ExtResource("51_743js")
-fac_2 = ExtResource("52_3p08e")
-fac_3 = ExtResource("52_3p08e")
-fac_4 = ExtResource("52_3p08e")
-fac_5 = ExtResource("53_5u4i5")
-fac_6 = ExtResource("51_743js")
-enabled = false
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]

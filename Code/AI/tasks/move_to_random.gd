@@ -21,10 +21,6 @@ func _setup() -> void:
 		return
 	nav_map_rid = level.nav_tilemap.get_navigation_map()
 
-# Called when the task is entered.
-func _enter() -> void:
-	pass
-
 # Called when the task is exited.
 func _exit() -> void:
 	# stop npc movement
