@@ -5,12 +5,11 @@ extends Observer
 # 	Optimize
 # 		update detected less frequently (maybe not necessary 60 times per sec)
 
-
 ## layers which block sight raycasts
 @export_flags_2d_physics var sight_raycast_layers
 @export_flags_2d_physics var sight_blocking_layers
 
-@export var sight_distance: float = 5.0*16.0
+@export var sight_distance: float = 10*16.0
 
 var shape_query: PhysicsShapeQueryParameters2D
 var ray_query: PhysicsRayQueryParameters2D
@@ -27,6 +26,14 @@ func _ready() -> void:
 		sight_blocking_layers
 		)
 
+	# ignore self in phys queries
+	var co := get_parent() as CollisionObject2D
+	if co:
+		ray_query.exclude = [co.get_rid()]
+		shape_query.exclude = [co.get_rid()]
+	else:
+		push_error("failed excluding self from queries")
+	
 func get_detection_candidates() -> Array[Observable]:
 	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 	

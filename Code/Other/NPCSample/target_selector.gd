@@ -14,12 +14,12 @@ func _ready() -> void:
 	observer.on_undetected.connect(_on_undetected)
 
 ## selects new target
-func on_target_candidates_updated(candidates: Dictionary):
+func on_target_candidates_updated(candidates: Array[Observable]):
 	if target:
 		return
 	if candidates.size() > 0:
-		if candidates.keys()[0] != null:
-			select(candidates.keys()[0])	
+		if candidates[0] != null:
+			select(candidates[0])	
 
 func select(_target: Node2D):
 	target = _target

@@ -12,7 +12,16 @@ extends Resource
 # b
 # c
 
+static var instance: FactionRelations
+
 const relation_default: float = 1.0
+
+func _init() -> void:
+    if !instance:
+        instance = self
+
+func get_faction_idx(identity: FactionIdentity):
+    return factions.find(identity.faction)
 
 ## returns the relation number of faction_a relative to faction_b
 func get_relation(faction_a: Faction, faction_b: Faction) -> float:
@@ -23,4 +32,13 @@ func get_relation(faction_a: Faction, faction_b: Faction) -> float:
         push_error("cant find one or the other supplied factions. Probably not defined in factions resource")
         return -9.0
 
-    return relations[(factions.size()*idx_a)+idx_b]
+    return get_relation_idx(idx_a, idx_b)
+
+func get_relation_idx(faction_idx_a, faction_idx_b) -> float:
+    if (faction_idx_a < 0) or (faction_idx_b < 0):
+        push_error("invalid faction index")
+        return -9.0
+    if (faction_idx_a >= factions.size()) or (faction_idx_b >= factions.size()):
+        push_error("invalid faction index")
+        return -9.0    
+    return relations[(factions.size()*faction_idx_a)+faction_idx_b]

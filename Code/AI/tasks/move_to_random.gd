@@ -1,7 +1,7 @@
 @tool
 extends BTAction
 
-@export_flags_2d_navigation var navigation_layers = 1
+@export_flags_2d_navigation var navigation_layers
 
 var nav_map_rid
 var destination_found: bool = false
@@ -15,7 +15,8 @@ func _generate_name() -> String:
 
 # Called to initialize the task.
 func _setup() -> void:
-	var level := scene_root as Level
+	
+	var level := scene_root.get_tree().current_scene as Level
 	if not level:
 		return
 	nav_map_rid = level.nav_tilemap.get_navigation_map()

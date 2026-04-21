@@ -46,6 +46,7 @@ value = SubResource("BBVariant_lckeq")
 
 [sub_resource type="BTAction" id="BTAction_w0jwp"]
 script = ExtResource("1_1k3s3")
+navigation_layers = 1
 
 [sub_resource type="BTRandomWait" id="BTRandomWait_0l546"]
 min_duration = 2.0
