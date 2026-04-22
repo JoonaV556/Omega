@@ -39,6 +39,7 @@
 [ext_resource type="Script" uid="uid://b5qteiikgyam3" path="res://Code/Other/CombatSample/player_movement_detector.gd" id="37_tnt6y"]
 [ext_resource type="Script" uid="uid://cbwla7jfnbj03" path="res://Code/Other/CombatSample/score_tracker.gd" id="38_hcapf"]
 [ext_resource type="Script" uid="uid://bwicvodln2dkh" path="res://Code/Other/CombatSample/global_events_scene_proxy.gd" id="39_as8nj"]
+[ext_resource type="Script" uid="uid://d2fou4sxovpk4" path="res://Code/toggle_fullscreen_debug.gd" id="41_5pla0"]
 [ext_resource type="PackedScene" uid="uid://cdnvt0k6rltfc" path="res://Scenes/Samples/NPCs/npc_civilian.tscn" id="41_mv5dp"]
 [ext_resource type="PackedScene" uid="uid://wkjwybb0nhse" path="res://Scenes/Samples/NPCs/npc_zombie.tscn" id="47_ywobr"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="49_h6aif"]
@@ -551,6 +552,9 @@ script = ExtResource("38_hcapf")
 [node name="GESceneProxy" type="Node" parent="Systems" unique_id=873036272]
 script = ExtResource("39_as8nj")
 metadata/_custom_type_script = "uid://bwicvodln2dkh"
+
+[node name="Toggle fullscreen debug" type="Node" parent="Systems" unique_id=1855275091]
+script = ExtResource("41_5pla0")
 
 [node name="NPC - Civilian" parent="." unique_id=1076049476 instance=ExtResource("41_mv5dp")]
 position = Vector2(240, 3)
