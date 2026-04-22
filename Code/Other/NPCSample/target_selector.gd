@@ -9,9 +9,12 @@ var target: Node2D
 @export var _has_target: bool = false
 @export var target_pos: Vector2
 
+var self_faction: int
+
 func _ready() -> void:
 	observer.on_detected_updated.connect(on_target_candidates_updated)
 	observer.on_undetected.connect(_on_undetected)
+	self_faction = get_parent().get_meta("faction_index")
 
 ## selects new target
 func on_target_candidates_updated(candidates: Array[Observable]):
@@ -21,9 +24,15 @@ func on_target_candidates_updated(candidates: Array[Observable]):
 		if candidates[0] != null:
 			select(candidates[0])	
 
-func select(_target: Node2D):
+func select(_target: Node2D) -> bool:
+	# prevent targetting non-hostile faction members
+	var target_faction = _target.get_parent().get_meta("faction_index")
+	if not FactionRelations.instance.is_hostile(self_faction, target_faction):
+		return false
+
 	target = _target
 	_has_target = true
+	return true
 
 func _on_undetected(obs: Observable):
 	# forget target if it was undetected

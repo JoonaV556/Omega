@@ -14,12 +14,15 @@ func _ready():
 	# get self identity
 	slf_fac_idx = get_parent().get_meta("faction_index")
 
+func _process(delta):
+	if threat_source:
+		threat_source_pos = threat_source.global_position
+
 ## connect with signal
 func on_detected_updated(detected: Array[Observable]):
 	if (detected.size() == 0) and threatened:
 		threatened = false
 		threat_source = null
-		threat_source_pos = Vector2.ZERO
 		return
 	
 	if threat_source and detected.has(threat_source):
@@ -35,9 +38,7 @@ func on_detected_updated(detected: Array[Observable]):
 		if relation < 0:
 			threatened = true
 			threat_source = obs
-			threat_source_pos = obs.global_position
 			break
 		else:
 			threatened = false
 			threat_source = null
-			threat_source_pos = Vector2.ZERO

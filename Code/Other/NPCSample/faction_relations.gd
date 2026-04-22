@@ -42,3 +42,6 @@ func get_relation_idx(faction_idx_a, faction_idx_b) -> float:
         push_error("invalid faction index")
         return -9.0    
     return relations[(factions.size()*faction_idx_a)+faction_idx_b]
+
+func is_hostile(idx_a: int, idx_b:int) -> bool:
+    return (get_relation_idx(idx_a, idx_b) < 0.0)

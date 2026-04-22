@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_uf81k"]
 [ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="5_lx65v"]
 [ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="6_o5wju"]
+[ext_resource type="Script" uid="uid://u45gj365i1wj" path="res://Code/AI/tasks/flee.gd" id="6_uf81k"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="7_0w4ix"]
 [ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="8_uf81k"]
 [ext_resource type="Script" uid="uid://jxsp0p432gbe" path="res://Code/Other/NPCSample/threat_assessor.gd" id="11_o5wju"]
@@ -251,8 +252,14 @@ resource_name = "true"
 variable = &"threatened"
 value = SubResource("BBVariant_0w4ix")
 
+[sub_resource type="BTAction" id="BTAction_lx65v"]
+script = ExtResource("6_uf81k")
+threat_source_pos_var = &"threat_src_position"
+is_threatened_var = &"threatened"
+max_ticks_per_second = 30
+
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_lx65v"]
-children = [SubResource("BTCheckVar_uf81k")]
+children = [SubResource("BTCheckVar_uf81k"), SubResource("BTAction_lx65v")]
 
 [sub_resource type="BBVariant" id="BBVariant_lx65v"]
 type = 1
@@ -284,6 +291,8 @@ blackboard_plan = SubResource("BlackboardPlan_kpeoe")
 root_task = SubResource("BTDynamicSelector_0w4ix")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_uufxn"]
+binding/threatened = NodePath("../ThreatAssessor:threatened")
+binding/threat_src_position = NodePath("../ThreatAssessor:threat_source_pos")
 
 [node name="NPC - Civilian" type="CharacterBody2D" unique_id=1076049476 node_paths=PackedStringArray("nav_agent")]
 collision_layer = 9
@@ -324,10 +333,6 @@ script = ExtResource("5_lx65v")
 animsprite = NodePath("../AnimatedSprite2D")
 footstep_frames = Array[int]([1, 3])
 
-[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1829973664]
-behavior_tree = SubResource("BehaviorTree_6tp4r")
-blackboard_plan = SubResource("BlackboardPlan_uufxn")
-
 [node name="VisualObservable" type="Node2D" parent="." unique_id=462705733]
 script = ExtResource("7_0w4ix")
 metadata/_custom_type_script = "uid://y3t00ak6bxgy"
@@ -341,6 +346,10 @@ metadata/_custom_type_script = "uid://b8guhrmputmil"
 [node name="ThreatAssessor" type="Node" parent="." unique_id=385291137]
 script = ExtResource("11_o5wju")
 metadata/_custom_type_script = "uid://jxsp0p432gbe"
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1829973664]
+behavior_tree = SubResource("BehaviorTree_6tp4r")
+blackboard_plan = SubResource("BlackboardPlan_uufxn")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_detected_updated" from="VisualObserver" to="ThreatAssessor" method="on_detected_updated"]

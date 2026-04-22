@@ -79,7 +79,7 @@ y_sort_enabled = true
 position = Vector2(416, 33)
 collision_layer = 10
 additional_impulses_decay_per_tick = 0.3
-metadata/faction_index = 0
+metadata/faction_index = 2
 
 [node name="Aim" type="Node2D" parent="Player" unique_id=2033362716 node_paths=PackedStringArray("lookat_target_override")]
 position = Vector2(0, -17)
@@ -553,11 +553,29 @@ script = ExtResource("39_as8nj")
 metadata/_custom_type_script = "uid://bwicvodln2dkh"
 
 [node name="NPC - Civilian" parent="." unique_id=1076049476 instance=ExtResource("41_mv5dp")]
-position = Vector2(224, 78)
+position = Vector2(240, 3)
+move_speed = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="NPC - Civilian" unique_id=345997147]
+offset_left = 4.0000005
+offset_top = -35.000004
+offset_right = 44.0
+offset_bottom = 4.999996
+scale = Vector2(-0.23473275, -0.23473275)
+color = Color(0.10500011, 0.9, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="NPC - Zombie" parent="." unique_id=244960246 instance=ExtResource("47_ywobr")]
-position = Vector2(442, 135)
+position = Vector2(343, 236)
 collision_layer = 9
+
+[node name="ColorRect" type="ColorRect" parent="NPC - Zombie" unique_id=179782820]
+offset_left = 4.0000005
+offset_top = -35.000004
+offset_right = 44.0
+offset_bottom = 4.999996
+scale = Vector2(-0.23473275, -0.23473275)
+color = Color(0.79, 0, 0, 1)
 
 [connection signal="on_ammo_updated" from="Player/Aim/Gun" to="Layer - UI/UI Manager" method="on_ammo_updated"]
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]

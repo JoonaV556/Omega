@@ -5,8 +5,8 @@ extends BTAction
 
 @export var target_position_var := &"pos"
 
-var npc: NpcCharacter
-var nav_a: NavigationAgent2D
+var npc: 	NpcCharacter
+var nav_a: 	NavigationAgent2D
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:

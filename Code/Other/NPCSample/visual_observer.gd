@@ -59,6 +59,9 @@ func get_detection_candidates() -> Array[Observable]:
 	return to_return
 
 func can_detect(observable: Observable) -> bool:
+	if !observable.enabled:
+		return false
+
 	# Cant see if observable is too far away
 	var distance_between: float = self.global_position.distance_to(observable.global_position)
 	if distance_between > sight_distance:
