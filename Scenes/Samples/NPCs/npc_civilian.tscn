@@ -254,8 +254,10 @@ value = SubResource("BBVariant_0w4ix")
 
 [sub_resource type="BTAction" id="BTAction_lx65v"]
 script = ExtResource("6_uf81k")
+threat_angle_recalculate_treshold = 40.0
 threat_source_pos_var = &"threat_src_position"
 is_threatened_var = &"threatened"
+reverse_from_dead_end_distance = null
 max_ticks_per_second = 30
 
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_lx65v"]
