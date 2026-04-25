@@ -5,7 +5,8 @@
 
 [node name="Bullet" type="Node2D" unique_id=2128258725]
 script = ExtResource("1_k27yh")
-raycast_mask = 4
+damage = 25.0
+raycast_mask = 5
 bullet_hole_prefab = ExtResource("2_14wxs")
 metadata/_custom_type_script = "uid://bwfor4jklcwt"
 

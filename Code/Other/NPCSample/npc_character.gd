@@ -9,4 +9,8 @@ func _ready():
     super._ready()
 
 func update_character_physics():
-    velocity = Vector2(move_dir.normalized()*self.current_move_speed)
+    if movement_enabled:
+        velocity = Vector2(move_dir.normalized()*self.current_move_speed)
+
+func _on_movement_disabled():
+    velocity = Vector2.ZERO

@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="7_0w4ix"]
 [ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="8_uf81k"]
 [ext_resource type="Script" uid="uid://jxsp0p432gbe" path="res://Code/Other/NPCSample/threat_assessor.gd" id="11_o5wju"]
+[ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="11_uufxn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
 radius = 2.0
@@ -353,5 +354,9 @@ metadata/_custom_type_script = "uid://jxsp0p432gbe"
 behavior_tree = SubResource("BehaviorTree_6tp4r")
 blackboard_plan = SubResource("BlackboardPlan_uufxn")
 
+[node name="Health" type="Node" parent="." unique_id=742712219]
+script = ExtResource("11_uufxn")
+
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_detected_updated" from="VisualObserver" to="ThreatAssessor" method="on_detected_updated"]
+[connection signal="on_depleted" from="Health" to="." method="disable_movement"]

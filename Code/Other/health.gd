@@ -19,6 +19,8 @@ func deal_damage(amount: float):
 		is_dead = true
 		health = 0
 		on_depleted.emit()
+	else:
+		health -= amount
 
 func revive():
 	is_dead = false

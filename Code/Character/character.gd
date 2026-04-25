@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var walk_speed: 	float = 100 
 @export var sprint_speed: 	float = 200
 
+var movement_enabled = true
+
 var current_move_speed
 
 var sprinting = false
@@ -26,3 +28,17 @@ func set_sprinting(val: bool):
 	else:
 		sprinting = false
 		current_move_speed = walk_speed
+
+func enable_movement():
+	movement_enabled = true
+	_on_movement_enabled()
+
+func disable_movement():
+	movement_enabled = false
+	_on_movement_disabled()
+
+func _on_movement_disabled():
+	pass
+
+func _on_movement_enabled():
+	pass

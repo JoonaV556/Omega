@@ -2,6 +2,7 @@ class_name Bullet
 extends Node2D
 
 @export var damage: float = 10
+## phys layers the bullet will hit and try to damage
 @export_flags_2d_physics var raycast_mask
 @export var enable_bullet_holes: bool = true
 @export var bullet_hole_prefab: PackedScene
@@ -44,15 +45,23 @@ func _physics_process(delta: float) -> void:
 			var circle = DebugCircle.new(2.0)
 			get_tree().current_scene.add_child(circle)
 			circle.global_position = result["position"]
+
 		# try to deal damage
-		var _damageable := result["collider"] as StaticDamageable
-		if _damageable:
-			_damageable.health.deal_damage(self.damage)
+		# var _damageable := result["collider"] as StaticDamageable
+		# if _damageable:
+		# 	_damageable.health.deal_damage(self.damage)
+		var dealt_dmg = false
+		var hit_node := result["collider"] as Node # TODO FIX MAKE BETTER
+		for child in hit_node.get_children():
+			if child is Health:
+				child.deal_damage(self.damage)
+				dealt_dmg = true
+				break
 		
 		GlobalEventBus.on_bullet_landed.emit(result["position"])
 
-		# spawn bullet hole
-		if (bullet_hole_prefab and !_damageable):
+		# spawn bullet hole, but not on npcs 
+		if (bullet_hole_prefab and !dealt_dmg):
 			var hole_node = bullet_hole_prefab.instantiate()
 			self.get_tree().current_scene.add_child(hole_node)
 			var hole := hole_node as BulletHole
