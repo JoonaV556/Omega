@@ -11,13 +11,14 @@ var additional_impulses: Vector2 = Vector2.ZERO
 var inventory: Inventory
 var journal: Journal
 
-func _ready():
+func _ready() -> void:
+	super._ready()
 	inventory = Inventory.new()
 	journal = Journal.new()
 
 func update_character_physics():
 	var input_direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
-	velocity = Vector2(input_direction*self.move_speed) + additional_impulses
+	velocity = Vector2(input_direction*self.current_move_speed) + additional_impulses
 	# decay impulses
 	additional_impulses = additional_impulses*(1.0-additional_impulses_decay_per_tick)
 

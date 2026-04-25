@@ -256,7 +256,6 @@ value = SubResource("BBVariant_0w4ix")
 script = ExtResource("6_uf81k")
 threat_source_pos_var = &"threat_src_position"
 is_threatened_var = &"threatened"
-reverse_from_dead_end_distance = null
 max_ticks_per_second = 30
 
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_lx65v"]
@@ -299,6 +298,8 @@ binding/threat_src_position = NodePath("../ThreatAssessor:threat_source_pos")
 collision_layer = 9
 script = ExtResource("1_leq47")
 nav_agent = NodePath("NavigationAgent2D")
+walk_speed = 70.0
+sprint_speed = 150.0
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
 metadata/faction_index = 1
 

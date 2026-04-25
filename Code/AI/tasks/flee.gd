@@ -57,6 +57,7 @@ func _adjusted_enter() -> void:
 	var level := scene_root.get_tree().current_scene as Level
 	nav_map_rid = level.nav_tilemap.get_navigation_map()
 	first_flee_set = false
+	npc.set_sprinting(true)
 
 
 func ideal_flee_position() -> Vector2:
@@ -69,6 +70,7 @@ func get_away_direction() -> Vector2:
 # Called each time this task is exited.
 func _exit() -> void:
 	npc.move_dir = Vector2.ZERO
+	npc.set_sprinting(false)
 
 
 # Called each time this task is ticked (aka executed).
