@@ -23,8 +23,6 @@ func set_sprinting(val: bool):
 	if val:
 		sprinting = true
 		current_move_speed = sprint_speed
-		print("sprint begin")
 	else:
 		sprinting = false
 		current_move_speed = walk_speed
-		print("spring end")

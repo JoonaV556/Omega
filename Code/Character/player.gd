@@ -16,6 +16,12 @@ func _ready() -> void:
 	inventory = Inventory.new()
 	journal = Journal.new()
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("Sprint"):
+		set_sprinting(true)
+	if Input.is_action_just_released("Sprint"):
+		set_sprinting(false)
+
 func update_character_physics():
 	var input_direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 	velocity = Vector2(input_direction*self.current_move_speed) + additional_impulses
