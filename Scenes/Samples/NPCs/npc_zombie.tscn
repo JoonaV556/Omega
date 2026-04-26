@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="8_vdr8c"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="9_3va5g"]
 [ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="10_3hlnd"]
+[ext_resource type="Script" uid="uid://bt6mrfd7od1vh" path="res://Code/Other/status_effect_receiver.gd" id="11_l4wyx"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ggr5f"]
 binding/has_target = NodePath("../TargetSelector:_has_target")
@@ -296,6 +297,11 @@ metadata/_custom_type_script = "uid://y3t00ak6bxgy"
 unique_name_in_owner = true
 script = ExtResource("10_3hlnd")
 metadata/_custom_type_script = "uid://d106ew175y1va"
+
+[node name="StatusEffectReceiver" type="Node" parent="." unique_id=110490418]
+unique_name_in_owner = true
+script = ExtResource("11_l4wyx")
+metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_depleted" from="Health" to="." method="disable_movement"]

@@ -4,6 +4,7 @@ extends Node2D
 @export var damage: float = 10
 ## phys layers the bullet will hit and try to damage
 @export_flags_2d_physics var raycast_mask
+
 @export var enable_bullet_holes: bool = true
 @export var bullet_hole_prefab: PackedScene
 
@@ -46,15 +47,21 @@ func _physics_process(delta: float) -> void:
 			get_tree().current_scene.add_child(circle)
 			circle.global_position = result["position"]
 
-		# try to deal damage to the entity
 		var dealt_dmg = false
 		var hit_node := result["collider"] as Node
-		## scene unique nodes, read more @https://docs.godotengine.org/en/stable/tutorials/scripting/scene_unique_nodes.html
-		var health := hit_node.get_node_or_null("%Health") as Health
+
+		# try to damage the target
+		var health := hit_node.get_node_or_null("%Health") as Health # scene unique nodes, read more @https://docs.godotengine.org/en/stable/tutorials/scripting/scene_unique_nodes.html
 		if health:
 			health.deal_damage(self.damage)
 			dealt_dmg = true
-		
+
+		# impair target movement
+		var _sfr := hit_node.get_node_or_null("%StatusEffectReceiver") as StatusEffectReceiver
+		if dealt_dmg and _sfr:
+			var ef: StatusEffect = SEImpairMovement.new(1.0)
+			_sfr.apply_effect(ef)
+
 		GlobalEventBus.on_bullet_landed.emit(result["position"])
 
 		# spawn bullet hole, but not on npcs 

@@ -17,17 +17,20 @@ func _ready() -> void:
 	journal = Journal.new()
 
 func _process(delta: float) -> void:
+	# update sprint
 	if Input.is_action_just_pressed("Sprint"):
 		set_sprinting(true)
 	if Input.is_action_just_released("Sprint"):
 		set_sprinting(false)
 
 func update_character_physics():
+	# update velocity 
 	var input_direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 	var move_velocity = Vector2.ZERO
 	if movement_enabled:
 		move_velocity = Vector2(input_direction*self.current_move_speed)
 	velocity = move_velocity + additional_impulses
+
 	# decay impulses
 	additional_impulses = additional_impulses*(1.0-additional_impulses_decay_per_tick)
 

@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var walk_speed: 	float = 100 
 @export var sprint_speed: 	float = 200
 
+## IF MODIFIED, REMEMBER TO RETURN BACK TO NORMAL 
+var move_speed_multiplier: float = 1.0
+
 var movement_enabled = true
 
 var current_move_speed
@@ -19,6 +22,7 @@ func update_character_physics():
 
 func _physics_process(_delta):
 	update_character_physics()
+	self.velocity *= move_speed_multiplier
 	move_and_slide()
 
 func set_sprinting(val: bool):
