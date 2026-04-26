@@ -54,7 +54,6 @@ func _physics_process(delta: float) -> void:
 		if health:
 			health.deal_damage(self.damage)
 			dealt_dmg = true
-			print("bullet delt damage")
 		
 		GlobalEventBus.on_bullet_landed.emit(result["position"])
 
