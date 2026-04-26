@@ -317,15 +317,15 @@ shape = SubResource("CapsuleShape2D_jr1ro")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2012959769 node_paths=PackedStringArray("character_body")]
 light_mask = 2
 texture_filter = 1
-position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_rpqav")
 animation = &"IdleBreathing_Down"
+offset = Vector2(0, -16)
 script = ExtResource("3_0w4ix")
 character_body = NodePath("..")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=99778508]
 show_behind_parent = true
-position = Vector2(0, 13)
+position = Vector2(0, -2)
 occluder = SubResource("OccluderPolygon2D_kyqiw")
 
 [node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1486800297 node_paths=PackedStringArray("animsprite")]
@@ -367,3 +367,5 @@ metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_detected_updated" from="VisualObserver" to="ThreatAssessor" method="on_detected_updated"]
 [connection signal="on_depleted" from="Health" to="." method="disable_movement"]
+[connection signal="on_depleted" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]
+[connection signal="on_depleted" from="Health" to="BTPlayer" method="set_active" binds= [false]]
