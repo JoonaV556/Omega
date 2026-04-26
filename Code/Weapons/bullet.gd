@@ -46,17 +46,15 @@ func _physics_process(delta: float) -> void:
 			get_tree().current_scene.add_child(circle)
 			circle.global_position = result["position"]
 
-		# try to deal damage
-		# var _damageable := result["collider"] as StaticDamageable
-		# if _damageable:
-		# 	_damageable.health.deal_damage(self.damage)
+		# try to deal damage to the entity
 		var dealt_dmg = false
-		var hit_node := result["collider"] as Node # TODO FIX MAKE BETTER
-		for child in hit_node.get_children():
-			if child is Health:
-				child.deal_damage(self.damage)
-				dealt_dmg = true
-				break
+		var hit_node := result["collider"] as Node
+		## scene unique nodes, read more @https://docs.godotengine.org/en/stable/tutorials/scripting/scene_unique_nodes.html
+		var health := hit_node.get_node_or_null("%Health") as Health
+		if health:
+			health.deal_damage(self.damage)
+			dealt_dmg = true
+			print("bullet delt damage")
 		
 		GlobalEventBus.on_bullet_landed.emit(result["position"])
 

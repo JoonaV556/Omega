@@ -353,4 +353,3 @@ color = Color(0.79, 0, 0, 1)
 [connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
 
 [editable path="Camera"]
-[editable path="NPC - Zombie"]

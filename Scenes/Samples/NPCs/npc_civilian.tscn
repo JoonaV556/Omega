@@ -355,6 +355,7 @@ behavior_tree = SubResource("BehaviorTree_6tp4r")
 blackboard_plan = SubResource("BlackboardPlan_uufxn")
 
 [node name="Health" type="Node" parent="." unique_id=742712219]
+unique_name_in_owner = true
 script = ExtResource("11_uufxn")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]

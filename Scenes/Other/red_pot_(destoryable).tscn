@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dom2xb14w1al6" path="res://Code/Other/static_damageable.gd" id="1_unrgx"]
 [ext_resource type="Texture2D" uid="uid://1nwj5q68uovw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="2_p0jro"]
 [ext_resource type="Script" uid="uid://diprv0tx450an" path="res://Scenes/Other/collision_shape_extended.gd" id="3_p0jro"]
-[ext_resource type="Script" path="res://Code/Other/health.gd" id="3_vur8c"]
+[ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="3_vur8c"]
 [ext_resource type="AudioStream" uid="uid://c1nl44b5l8cj3" path="res://Assets_LICENSED/Audio/sfx/pot_shatter.wav" id="5_vur8c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sqtd4"]
@@ -28,6 +28,7 @@ shape = SubResource("CircleShape2D_3qcxn")
 script = ExtResource("3_p0jro")
 
 [node name="Health" type="Node" parent="." unique_id=344359383]
+unique_name_in_owner = true
 script = ExtResource("3_vur8c")
 start_health = 9.0
 max_health = 9.0

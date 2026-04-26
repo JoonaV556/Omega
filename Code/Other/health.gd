@@ -15,6 +15,8 @@ func _ready() -> void:
 	is_dead = false
 
 func deal_damage(amount: float):
+	if is_dead:
+		return
 	if (health - amount) <= 0.0:
 		is_dead = true
 		health = 0
