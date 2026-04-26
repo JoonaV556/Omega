@@ -306,4 +306,5 @@ metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_depleted" from="Health" to="." method="disable_movement"]
 [connection signal="on_depleted" from="Health" to="BTPlayer" method="set_active" binds= [false]]
+[connection signal="on_depleted" from="Health" to="CollisionShape2D" method="set_disabled" flags=3 binds= [true]]
 [connection signal="on_depleted" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]

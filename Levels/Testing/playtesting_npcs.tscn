@@ -53,6 +53,14 @@ fill_from = Vector2(0.5, 0.5)
 _data = [Vector2(0, 1), 0.0, -12.925, 0, 0, Vector2(0.235, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_us3ef"]
+binding/has_target = NodePath("../TargetSelector:_has_target")
+binding/target_pos = NodePath("../TargetSelector:target_pos")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_m82jt"]
+binding/has_target = NodePath("../TargetSelector:_has_target")
+binding/target_pos = NodePath("../TargetSelector:target_pos")
+
 [node name="Playtesting - asd" type="Node2D" unique_id=369415381 node_paths=PackedStringArray("nav_tilemap")]
 script = ExtResource("1_us3ef")
 nav_tilemap = NodePath("TileMap-nav")
@@ -343,6 +351,36 @@ offset_bottom = 4.999996
 scale = Vector2(-0.23473275, -0.23473275)
 color = Color(0.79, 0, 0, 1)
 
+[node name="NPC - Zombie2" parent="." unique_id=1193485881 instance=ExtResource("47_ywobr")]
+position = Vector2(35, 725)
+
+[node name="BTPlayer" parent="NPC - Zombie2" index="0" unique_id=574415064]
+active = false
+blackboard_plan = SubResource("BlackboardPlan_us3ef")
+
+[node name="ColorRect" type="ColorRect" parent="NPC - Zombie2" unique_id=462643501]
+offset_left = 4.0000005
+offset_top = -35.000004
+offset_right = 44.0
+offset_bottom = 4.999996
+scale = Vector2(-0.23473275, -0.23473275)
+color = Color(0.79, 0, 0, 1)
+
+[node name="NPC - Zombie3" parent="." unique_id=1841968558 instance=ExtResource("47_ywobr")]
+position = Vector2(35, 750)
+
+[node name="BTPlayer" parent="NPC - Zombie3" index="0" unique_id=574415064]
+active = false
+blackboard_plan = SubResource("BlackboardPlan_m82jt")
+
+[node name="ColorRect" type="ColorRect" parent="NPC - Zombie3" unique_id=1064027227]
+offset_left = 4.0000005
+offset_top = -35.000004
+offset_right = 44.0
+offset_bottom = 4.999996
+scale = Vector2(-0.23473275, -0.23473275)
+color = Color(0.79, 0, 0, 1)
+
 [connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
 [connection signal="on_reload_start" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-reload" method="play"]
 [connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Gunfire Knockback" method="deal_knockback"]
@@ -352,3 +390,5 @@ color = Color(0.79, 0, 0, 1)
 [connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
 
 [editable path="Camera"]
+[editable path="NPC - Zombie2"]
+[editable path="NPC - Zombie3"]
