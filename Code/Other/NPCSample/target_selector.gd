@@ -11,6 +11,8 @@ var target: Node2D
 
 var self_faction: int
 
+var trg_health: Health
+
 func _ready() -> void:
 	observer.on_detected_updated.connect(on_target_candidates_updated)
 	observer.on_undetected.connect(_on_undetected)
@@ -30,6 +32,13 @@ func select(_target: Node2D) -> bool:
 	if not FactionRelations.instance.is_hostile(self_faction, target_faction):
 		return false
 
+	# prevent targetting dead
+	var hp := _target.get_node_or_null("%Health") as Health
+	if hp:
+		if hp.is_dead:
+			return false
+		trg_health = hp
+
 	target = _target
 	_has_target = true
 	return true
@@ -48,6 +57,12 @@ func _process(delta: float) -> void:
 		target_pos = Vector2.ZERO
 	else:
 		target_pos = target.global_position
+		if trg_health:
+			# forget dead target
+			if trg_health.is_dead:
+				target = null
+				_has_target = false
+				trg_health = null
 
 func try_reselect():
 	if observer.detected.size() > 0:
