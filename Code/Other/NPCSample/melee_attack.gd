@@ -49,7 +49,7 @@ func attack_in_direction(target_pos: Vector2) -> bool:
 	shape_query.shape_rid = shape_rid
 	
 	# attack in direction of target
-	var attack_pos: Vector2 = self.global_position.direction_to(target_pos) * attack_range
+	var attack_pos: Vector2 = self.global_position + (self.global_position.direction_to(target_pos) * attack_range)
 	shape_query.transform.origin = attack_pos # spawn point
 
 	# Execute physics queries here...
@@ -79,8 +79,6 @@ func attack_in_direction(target_pos: Vector2) -> bool:
 		# fire event for sfx. etc.
 		if dealt_dmg:
 			GlobalEventBus.on_melee_attack.emit(hit_collider.global_position)
-
-	print("damaged "+str(damaged)+ " objects in attack area")
 
 	# Release the shape when done with physics queries.
 	PhysicsServer2D.free_rid(shape_rid)

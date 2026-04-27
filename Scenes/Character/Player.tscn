@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Code/Other/character_anim_controller.gd" id="3_gntrk"]
 [ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_5ixxa"]
 [ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="4_dewec"]
+[ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="6_1tkam"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
 atlas = ExtResource("2_5ixxa")
@@ -272,5 +273,10 @@ energy = 0.25
 range_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_l2atl")
 texture_scale = 0.85
+
+[node name="Health" type="Node" parent="." unique_id=959681762]
+unique_name_in_owner = true
+script = ExtResource("6_1tkam")
+metadata/_custom_type_script = "uid://d106ew175y1va"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]

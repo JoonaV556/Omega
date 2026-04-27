@@ -307,7 +307,7 @@ metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
 [node name="MeleeAttack" type="Node2D" parent="." unique_id=1067725449]
 unique_name_in_owner = true
 script = ExtResource("12_k1h0i")
-attack_layers = 32
+attack_layers = 34
 metadata/_custom_type_script = "uid://bedac8fd5wj6p"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]

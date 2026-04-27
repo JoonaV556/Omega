@@ -4,6 +4,8 @@ extends BTAction
 ## continuously moves npc towards a specific position 
 
 @export var target_position_var := &"pos"
+## pixels
+@export var close_enough_distance: float = 16.0
 
 var npc: 	NpcCharacter
 var nav_a: 	NavigationAgent2D
@@ -49,9 +51,12 @@ func _tick(delta: float) -> Status:
 
 	# get path
 	var next_pos = nav_a.get_next_path_position()
-
-	# move npc
-	npc.move_dir = Vector2(next_pos - npc.global_position)
+	
+	if (npc.global_position.distance_to(target_pos)) <= close_enough_distance:
+		npc.move_dir = Vector2.ZERO
+	else:
+		# move npc
+		npc.move_dir = Vector2(next_pos - npc.global_position)
 	
 	return RUNNING
 

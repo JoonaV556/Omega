@@ -81,7 +81,7 @@ y_sort_enabled = true
 position = Vector2(-103, 775)
 collision_layer = 10
 additional_impulses_decay_per_tick = 0.3
-metadata/faction_index = 2
+metadata/faction_index = 1
 
 [node name="Aim" type="Node2D" parent="Player" unique_id=2033362716 node_paths=PackedStringArray("lookat_target_override")]
 position = Vector2(0, -17)

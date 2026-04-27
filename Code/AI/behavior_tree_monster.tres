@@ -19,6 +19,9 @@ var/target_pos/hint_string = ""
 binding/has_target = NodePath("NPC - Zombie/TargetSelector:_has_target")
 binding/target_pos = NodePath("NPC - Zombie/TargetSelector:target_pos")
 
+[sub_resource type="BTComment" id="BTComment_lckeq"]
+custom_name = "Pursue a target if one is seen"
+
 [sub_resource type="BBVariant" id="BBVariant_1k3s3"]
 type = 1
 saved_value = true
@@ -32,6 +35,9 @@ value = SubResource("BBVariant_1k3s3")
 script = ExtResource("2_w0jwp")
 target_position_var = &"target_pos"
 
+[sub_resource type="BTSequence" id="BTSequence_whsuq"]
+children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546")]
+
 [sub_resource type="BTAction" id="BTAction_hfi88"]
 script = ExtResource("2_whsuq")
 target_pos_var = &"target_pos"
@@ -43,8 +49,18 @@ custom_name = "We are in range to attack - > Attack"
 script = ExtResource("3_lckeq")
 target_pos_var = &"target_pos"
 
+[sub_resource type="BTSequence" id="BTSequence_lckeq"]
+children = [SubResource("BTAction_hfi88"), SubResource("BTComment_whsuq"), SubResource("BTAction_1skwy")]
+
+[sub_resource type="BTParallel" id="BTParallel_hfi88"]
+repeat = true
+children = [SubResource("BTSequence_whsuq"), SubResource("BTSequence_lckeq")]
+
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_whsuq"]
-children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546"), SubResource("BTAction_hfi88"), SubResource("BTComment_whsuq"), SubResource("BTAction_1skwy")]
+children = [SubResource("BTParallel_hfi88")]
+
+[sub_resource type="BTComment" id="BTComment_hfi88"]
+custom_name = "No target -> Wander around randomly"
 
 [sub_resource type="BBVariant" id="BBVariant_lckeq"]
 type = 1
@@ -69,7 +85,7 @@ max_duration = 3.0
 children = [SubResource("BTCheckVar_hfi88"), SubResource("BTRandomWait_w0jwp"), SubResource("BTAction_w0jwp"), SubResource("BTRandomWait_0l546")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_w0jwp"]
-children = [SubResource("BTDynamicSequence_whsuq"), SubResource("BTSequence_w0jwp")]
+children = [SubResource("BTComment_lckeq"), SubResource("BTDynamicSequence_whsuq"), SubResource("BTComment_hfi88"), SubResource("BTSequence_w0jwp")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_rnojf")
