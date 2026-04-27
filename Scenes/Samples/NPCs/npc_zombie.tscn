@@ -235,7 +235,7 @@ animations = [{
 polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
 
 [node name="NPC - Zombie" type="CharacterBody2D" unique_id=244960246 node_paths=PackedStringArray("nav_agent")]
-collision_layer = 13
+collision_layer = 12
 script = ExtResource("1_0whmt")
 nav_agent = NodePath("NavigationAgent2D")
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
