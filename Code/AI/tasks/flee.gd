@@ -9,9 +9,11 @@ extends BTAdjustableAction
 
 @export var threat_source_pos_var: 	StringName = &"pos"
 @export var is_threatened_var: 		StringName = &"is_threatened"
-@export_flags_2d_navigation var nav_blocking_layers = (1 << 1 - 1) # tick layer 1 by default
+@export_flags_2d_navigation var nav_blocking_layers = (1 << 1 - 1) # tick layer 1 by default. see @https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html#collision-layers-and-masks
 @export var reverse_from_dead_end_distance: float = 5.0
 
+# The following ticks layers 1, 3 and 4
+# (1 << 1 - 1) | (1 << 3 - 1) | (1 << 4 - 1)
 
 ## Our own nav agent
 var nav_a: 			NavigationAgent2D
@@ -57,6 +59,8 @@ func _adjusted_enter() -> void:
 	var level := scene_root.get_tree().current_scene as Level
 	nav_map_rid = level.nav_tilemap.get_navigation_map()
 	first_flee_set = false
+
+	# start sprinting
 	npc.set_sprinting(true)
 
 
@@ -70,6 +74,8 @@ func get_away_direction() -> Vector2:
 # Called each time this task is exited.
 func _exit() -> void:
 	npc.move_dir = Vector2.ZERO
+
+	# stop sprinting once in safety
 	npc.set_sprinting(false)
 
 

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="1_1k3s3"]
 [ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="2_w0jwp"]
+[ext_resource type="Script" uid="uid://dgmwnfrar2ny1" path="res://Code/AI/tasks/task_within_distance.gd" id="2_whsuq"]
+[ext_resource type="Script" uid="uid://j4rc8hgpbtqg" path="res://Code/AI/tasks/task_melee_attack.gd" id="3_lckeq"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_rnojf"]
 var/has_target/name = &"has_target"
@@ -30,8 +32,19 @@ value = SubResource("BBVariant_1k3s3")
 script = ExtResource("2_w0jwp")
 target_position_var = &"target_pos"
 
+[sub_resource type="BTAction" id="BTAction_hfi88"]
+script = ExtResource("2_whsuq")
+target_pos_var = &"target_pos"
+
+[sub_resource type="BTComment" id="BTComment_whsuq"]
+custom_name = "We are in range to attack - > Attack"
+
+[sub_resource type="BTAction" id="BTAction_1skwy"]
+script = ExtResource("3_lckeq")
+target_pos_var = &"target_pos"
+
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_whsuq"]
-children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546")]
+children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546"), SubResource("BTAction_hfi88"), SubResource("BTComment_whsuq"), SubResource("BTAction_1skwy")]
 
 [sub_resource type="BBVariant" id="BBVariant_lckeq"]
 type = 1

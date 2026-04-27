@@ -297,7 +297,7 @@ binding/threatened = NodePath("../ThreatAssessor:threatened")
 binding/threat_src_position = NodePath("../ThreatAssessor:threat_source_pos")
 
 [node name="NPC - Civilian" type="CharacterBody2D" unique_id=1076049476 node_paths=PackedStringArray("nav_agent")]
-collision_layer = 12
+collision_layer = 40
 script = ExtResource("1_leq47")
 nav_agent = NodePath("NavigationAgent2D")
 walk_speed = 70.0

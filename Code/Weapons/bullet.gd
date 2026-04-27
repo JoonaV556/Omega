@@ -62,6 +62,7 @@ func _physics_process(delta: float) -> void:
 			var ef: StatusEffect = SEImpairMovement.new(1.0)
 			_sfr.apply_effect(ef)
 
+		# fire event for sfx etc.
 		GlobalEventBus.on_bullet_landed.emit(result["position"])
 
 		# spawn bullet hole, but not on npcs 

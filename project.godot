@@ -231,6 +231,7 @@ Sprint={
 2d_physics/layer_3="BulletObstacle"
 2d_physics/layer_4="VisualObservable"
 2d_physics/layer_5="VisualSightObstacle"
+2d_physics/layer_6="NPC"
 
 [limbo_ai]
 

@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="9_3va5g"]
 [ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="10_3hlnd"]
 [ext_resource type="Script" uid="uid://bt6mrfd7od1vh" path="res://Code/Other/status_effect_receiver.gd" id="11_l4wyx"]
+[ext_resource type="Script" uid="uid://bedac8fd5wj6p" path="res://Code/Other/NPCSample/melee_attack.gd" id="12_k1h0i"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ggr5f"]
 binding/has_target = NodePath("../TargetSelector:_has_target")
@@ -235,7 +236,7 @@ animations = [{
 polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
 
 [node name="NPC - Zombie" type="CharacterBody2D" unique_id=244960246 node_paths=PackedStringArray("nav_agent")]
-collision_layer = 12
+collision_layer = 40
 script = ExtResource("1_0whmt")
 nav_agent = NodePath("NavigationAgent2D")
 metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
@@ -302,6 +303,12 @@ metadata/_custom_type_script = "uid://d106ew175y1va"
 unique_name_in_owner = true
 script = ExtResource("11_l4wyx")
 metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
+
+[node name="MeleeAttack" type="Node2D" parent="." unique_id=1067725449]
+unique_name_in_owner = true
+script = ExtResource("12_k1h0i")
+attack_layers = 32
+metadata/_custom_type_script = "uid://bedac8fd5wj6p"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_depleted" from="Health" to="." method="disable_movement"]

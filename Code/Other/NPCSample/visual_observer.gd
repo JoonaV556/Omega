@@ -13,12 +13,14 @@ extends Observer
 
 var shape_query: PhysicsShapeQueryParameters2D
 var ray_query: PhysicsRayQueryParameters2D
+var space_state: PhysicsDirectSpaceState2D
 
 func _ready() -> void:
 	# preconfig physics queries
 	shape_query = PhysicsShapeQueryParameters2D.new()
 	shape_query.collision_mask = sight_raycast_layers	
 	shape_query.collide_with_bodies = true
+
 	# sight ray query
 	ray_query = PhysicsRayQueryParameters2D.create(
 		self.global_position, 
@@ -33,10 +35,10 @@ func _ready() -> void:
 		shape_query.exclude = [co.get_rid()]
 	else:
 		push_error("failed excluding self from queries")
+
+	space_state = get_world_2d().direct_space_state
 	
 func get_detection_candidates() -> Array[Observable]:
-	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-	
 	# create circle shape for the query 
 	var shape_rid = PhysicsServer2D.circle_shape_create()
 	var radius = sight_distance
