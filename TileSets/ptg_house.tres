@@ -1,11 +1,11 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://rve4n2uuor20"]
+[gd_resource type="TileSet" format=3 uid="uid://rve4n2uuor20"]
 
-[ext_resource type="Texture2D" uid="uid://d2feyogpuw6mv" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Room_Builder_16x16.png" id="1_1aw5q"]
-[ext_resource type="Texture2D" uid="uid://hps0cxkwmwef" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/4_Bedroom_Black_Shadow_16x16.png" id="2_k8c8l"]
-[ext_resource type="Texture2D" uid="uid://cojg46k244qec" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="3_kif5d"]
-[ext_resource type="Texture2D" uid="uid://2u8nl7vfg0cj" path="res://Assets_LICENSED/Sprites/Modern_Office_Revamped_v1.2/Modern_Office_Black_Shadow.png" id="4_oe7ej"]
-[ext_resource type="Texture2D" uid="uid://cua5o4ywq6wq8" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Baseboards_16x16.png" id="5_3dl5k"]
-[ext_resource type="Texture2D" uid="uid://c0apnoq8rrctt" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Floor_Shadows_16x16.png" id="6_hbkyr"]
+[ext_resource type="Texture2D" uid="uid://dtxm7rcydxkfb" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Room_Builder_16x16.png" id="1_1aw5q"]
+[ext_resource type="Texture2D" uid="uid://itwubfa0r1ur" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/4_Bedroom_Black_Shadow_16x16.png" id="2_k8c8l"]
+[ext_resource type="Texture2D" uid="uid://curm8xmurbj2p" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/1_Generic_Black_Shadow_16x16.png" id="3_kif5d"]
+[ext_resource type="Texture2D" uid="uid://efs5vct5cps" path="res://Assets_LICENSED/Sprites/Modern_Office_Revamped_v1.2/Modern_Office_Black_Shadow.png" id="4_oe7ej"]
+[ext_resource type="Texture2D" uid="uid://d0trn5taxux56" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Baseboards_16x16.png" id="5_3dl5k"]
+[ext_resource type="Texture2D" uid="uid://dxc5em28piixc" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Room_Builder_subfiles/Room_Builder_Floor_Shadows_16x16.png" id="6_hbkyr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e1qxx"]
 texture = ExtResource("1_1aw5q")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://0vlhe8cv0lhn"]
+[gd_scene format=3 uid="uid://0vlhe8cv0lhn"]
 
 [ext_resource type="PackedScene" uid="uid://dt1hvceqesi0n" path="res://Levels/other/ptg_house/ptg_house_floor2.tscn" id="1_lhp4n"]
 [ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="2_r2w8w"]
@@ -13,45 +13,45 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3b3l7"]
 radius = 7.07107
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=1543909638]
 
-[node name="Envrionment" type="Node2D" parent="."]
+[node name="Envrionment" type="Node2D" parent="." unique_id=1328810476]
 
-[node name="PtgHouseFloor2" parent="Envrionment" instance=ExtResource("1_lhp4n")]
+[node name="PtgHouseFloor2" parent="Envrionment" unique_id=1288776343 instance=ExtResource("1_lhp4n")]
 
-[node name="Player" parent="Envrionment/PtgHouseFloor2" instance=ExtResource("2_r2w8w")]
+[node name="Player" parent="Envrionment/PtgHouseFloor2" unique_id=547446399 instance=ExtResource("2_r2w8w")]
 
-[node name="Interactor" parent="Envrionment/PtgHouseFloor2/Player" instance=ExtResource("3_r2w8w")]
+[node name="Interactor" parent="Envrionment/PtgHouseFloor2/Player" unique_id=276556992 instance=ExtResource("3_r2w8w")]
 
 [node name="CollisionShape2D" parent="Envrionment/PtgHouseFloor2/Player/Interactor" index="0"]
 shape = SubResource("CircleShape2D_3b3l7")
 
-[node name="FloorSwitchTrigger" parent="Envrionment/PtgHouseFloor2" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("3_3b3l7")]
+[node name="FloorSwitchTrigger" parent="Envrionment/PtgHouseFloor2" unique_id=1285613454 node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("3_3b3l7")]
 position = Vector2(-72, 32)
 scale = Vector2(1, 2.04)
 floor_to_activate = NodePath("../../PthHouseFloor1")
 floors_to_deactivate = [NodePath("..")]
 
-[node name="PthHouseFloor1" parent="Envrionment" instance=ExtResource("4_mkbd1")]
+[node name="PthHouseFloor1" parent="Envrionment" unique_id=1537089602 instance=ExtResource("4_mkbd1")]
 visible = false
 position = Vector2(-33, 6)
 
-[node name="FloorSwitchTrigger" parent="Envrionment/PthHouseFloor1" node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("3_3b3l7")]
+[node name="FloorSwitchTrigger" parent="Envrionment/PthHouseFloor1" unique_id=236791731 node_paths=PackedStringArray("floor_to_activate", "floors_to_deactivate") instance=ExtResource("3_3b3l7")]
 position = Vector2(-72, 20)
 scale = Vector2(0.760001, 1.4)
 floor_to_activate = NodePath("../../PtgHouseFloor2")
 floors_to_deactivate = [NodePath("..")]
 
-[node name="Camera" parent="." instance=ExtResource("5_fi5y3")]
+[node name="Camera" parent="." unique_id=1641747195 instance=ExtResource("5_fi5y3")]
 
-[node name="Box" parent="." instance=ExtResource("7_3b3l7")]
+[node name="Box" parent="." unique_id=204649643 instance=ExtResource("7_3b3l7")]
 y_sort_enabled = true
 position = Vector2(67, 33)
 
-[node name="Interactable" parent="Box" instance=ExtResource("8_mkbd1")]
+[node name="Interactable" parent="Box" unique_id=1098636119 instance=ExtResource("8_mkbd1")]
 position = Vector2(8, -8)
 
-[node name="WorldInspectDescription" parent="Box" instance=ExtResource("9_fi5y3")]
+[node name="WorldInspectDescription" parent="Box" unique_id=1872536383 instance=ExtResource("9_fi5y3")]
 
 [connection signal="interact" from="Box/Interactable" to="Box/WorldInspectDescription" method="_on_interactable_interact"]
 
