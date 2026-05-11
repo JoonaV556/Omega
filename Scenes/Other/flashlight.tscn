@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Code/Other/flashlight.gd" id="1_4qkam"]
 [ext_resource type="Texture2D" uid="uid://ce56t1seawo76" path="res://Assets_LICENSED/Sprites/light_gradients/radial_gradient_flashlight_2_64x64.png" id="2_x6aq6"]
 [ext_resource type="AudioStream" uid="uid://cbmnauv5g6p3y" path="res://Assets_LICENSED/Audio/flashlight-click-tuned.wav" id="3_55n3b"]
+[ext_resource type="Script" uid="uid://cd13odcyjma7w" path="res://Code/test/debug_show_in_game.gd" id="4_x6aq6"]
 
 [node name="Flashlight" type="Node2D" unique_id=1010354855 node_paths=PackedStringArray("light")]
 script = ExtResource("1_4qkam")
@@ -18,5 +19,10 @@ texture = ExtResource("2_x6aq6")
 
 [node name="SFX Toggled" type="AudioStreamPlayer2D" parent="." unique_id=1247745357]
 stream = ExtResource("3_55n3b")
+
+[node name="DBGShowInGame" type="Node" parent="." unique_id=257105252 node_paths=PackedStringArray("target")]
+script = ExtResource("4_x6aq6")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cd13odcyjma7w"
 
 [connection signal="on_toggled" from="." to="SFX Toggled" method="play"]
