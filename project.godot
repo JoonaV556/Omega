@@ -42,17 +42,19 @@ gdscript/warnings/unused_signal=0
 directories/dch_directory={
 "dinkum": "res://Dialogue/Characters/dinkum.dch",
 "donut": "res://Dialogue/Characters/donut.dch",
+"narrator": "res://Dialogue/Characters/narrator.dch",
 "ptg": "res://Dialogue/Characters/ptg.dch",
 "robert": "res://Dialogue/Characters/robert.dch"
 }
 directories/dtl_directory={
 "donuts_test": "res://Dialogue/Timelines/donuts_test.dtl",
-"robert_test_timeline": "res://Dialogue/Timelines/robert_test_timeline.dtl"
+"robert_test_timeline": "res://Dialogue/Timelines/robert_test_timeline.dtl",
+"timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl"
 }
 variables={}
 glossary/default_case_sensitive=true
-layout/style_list=["res://Dialogue/myStyle3.tres"]
-layout/default_style="res://Dialogue/myStyle3.tres"
+layout/style_list=["res://Dialogue/myStyle3.tres", "res://Dialogue/dialogic-style_no_portrait.tres", "res://Dialogue/style_cutscene-centered-text.tres"]
+layout/default_style="res://Dialogue/dialogic-style_no_portrait.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -84,6 +86,10 @@ window/vsync/vsync_mode=0
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+
+[gui]
+
+theme/custom_font="uid://b7oqoud6rsq4t"
 
 [input]
 
