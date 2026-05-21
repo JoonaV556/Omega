@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FactionRelations" format=3 uid="uid://bhjkugwq16f3q"]
+
+[ext_resource type="Script" uid="uid://bfm6xra65n2y3" path="res://Code/Other/NPCSample/faction_relations.gd" id="1_gux0a"]
+[ext_resource type="Script" uid="uid://crqrohwixkws5" path="res://Code/Other/NPCSample/faction.gd" id="1_ihofs"]
+[ext_resource type="Resource" uid="uid://bp85lch2ommbd" path="res://Resources/faction_player.tres" id="2_bacl5"]
+[ext_resource type="Resource" uid="uid://cmnn54hp2e2ri" path="res://Resources/faction_civilians.tres" id="3_4m4ao"]
+[ext_resource type="Resource" uid="uid://dp040qhvw2iw6" path="res://Resources/faction_zombies.tres" id="4_413lb"]
+
+[resource]
+script = ExtResource("1_gux0a")
+factions = Array[ExtResource("1_ihofs")]([ExtResource("2_bacl5"), ExtResource("3_4m4ao"), ExtResource("4_413lb")])
+relations = Array[float]([1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0, 1.0])
+metadata/_custom_type_script = "uid://bfm6xra65n2y3"

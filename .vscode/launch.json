@@ -10,6 +10,7 @@
             "type": "godot",
             "request": "launch",
             "project": "${workspaceFolder}",
+            "scene": "main",
             "debug_collisions": false,
             "debug_paths": false,
             "debug_navigation": false,

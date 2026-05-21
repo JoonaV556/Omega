@@ -1,16 +1,100 @@
-merge
-godot 4.6
-lambai master push
-new branch
 
-keybinds helper & test builds of sample scenes
-send to poope
+- Panicking civilians running around and fleeing from aggressive zombies
+x    passive civilian walking around 
+x        walk to random point 
+x        wait for a few seconds
+    zombie walking around
+x        walks around 
+x        observes for civs
+x        if spots a civ, starts hunting it
+            x observer - on detected updated signal 
+                x emitted when
+                    x det added
+                    x det removed
+            x target selector node (for aggressive mobs)
+                x reads observers detected list and targets one of them with rules
+x            pursue task - pursues selected target
+x           pursue - pathfind to target
+x        zombie forgets target civ if it goes too far away or hides behind a wall
+    
+    panicking civ
+        if spots a zombie chasing it, starts running away in panic
 
-next?
+            x faction system
+
+                x faction resource
+                    x name 
+
+               x faction relations resource
+                    x10x10 matrix
+                    x float relation -1 to 1
+                    x all factions initialized with max relations
+                    x factions list (10 empty slots) - index corresponds to matrix slot
+
+                        a b c d e            
+                    a   1
+                    b
+                    c
+                    d
+                    e
+
+                x game data autoload singleton
+                    x faction relations property
+
+                x test
+                    
+            visual observe on civ  
+
+            threath-assessor
+                assesses if civ is in threat by looking through the factions of detected targets
+                if hostile faction -> in_threat = true
+                threat_source_pos - vector2     
+
+            civ BT
+                in_threat
+                threat_source_pos
+
+                if in_threat
+                    flee from threat_source_pos
+                else
+                    wander around
+            
+            flee task
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 -------------------completed-------------------------
+
+    impl
+x        small showscase environment
+        
+x        bb
+x            bool - sees target?
+x            vector2 - target post
+        
+x        LOS collisions on level tiles
+
+x        observer - tracks observables in specific radius around it
+            
+x            VisualObserver
+
+ x       observable - can be tracked by observer
+            
+ x           visualObservable
+
+
 xFirst npc 
 X    make npc not move with player inputx
 

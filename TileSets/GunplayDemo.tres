@@ -1,10 +1,10 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://c4jd7mfj4gav0"]
+[gd_resource type="TileSet" format=3 uid="uid://c4jd7mfj4gav0"]
 
-[ext_resource type="Texture2D" uid="uid://bpx51jfl4a6r1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_if778"]
-[ext_resource type="Texture2D" uid="uid://cmhuckt0f4602" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="2_hrlwv"]
-[ext_resource type="Texture2D" uid="uid://b7jmbwi3bb047" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/21_Beach_16x16.png" id="3_hrlwv"]
-[ext_resource type="Texture2D" uid="uid://dpwi18m31p7sh" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/19_Graveyard_16x16.png" id="4_ulq13"]
-[ext_resource type="Texture2D" uid="uid://d2ur7756dtv8b" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="5_g2sqy"]
+[ext_resource type="Texture2D" uid="uid://cjq5yfrfcuvy5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="1_if778"]
+[ext_resource type="Texture2D" uid="uid://cidljx36e2bxw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="2_hrlwv"]
+[ext_resource type="Texture2D" uid="uid://cg5ue5olbxceo" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/21_Beach_16x16.png" id="3_hrlwv"]
+[ext_resource type="Texture2D" uid="uid://b0ihtwrhvkcck" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/19_Graveyard_16x16.png" id="4_ulq13"]
+[ext_resource type="Texture2D" uid="uid://1nwj5q68uovw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/17_Garden_16x16.png" id="5_g2sqy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_owtkx"]
 texture = ExtResource("1_if778")

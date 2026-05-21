@@ -18,7 +18,7 @@ func start():
     else:
         var rng = RandomNumberGenerator.new()
         duration = rng.randf_range(duration_min, duration_max)
-    # print("waiting for: "+str(duration)+" seconds")
+    print("waiting for: "+str(duration)+" seconds")
         
     await get_tree().create_timer(duration).timeout
-    self.completed = true
+    complete()

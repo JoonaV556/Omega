@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfxj285eefk5n"]
+[gd_scene format=3 uid="uid://dfxj285eefk5n"]
 
-[ext_resource type="Script" uid="uid://cpygedgktv24" path="res://Code/Other/flashlight.gd" id="1_4qkam"]
+[ext_resource type="Script" path="res://Code/Other/flashlight.gd" id="1_4qkam"]
 [ext_resource type="Texture2D" uid="uid://ce56t1seawo76" path="res://Assets_LICENSED/Sprites/light_gradients/radial_gradient_flashlight_2_64x64.png" id="2_x6aq6"]
 [ext_resource type="AudioStream" uid="uid://cbmnauv5g6p3y" path="res://Assets_LICENSED/Audio/flashlight-click-tuned.wav" id="3_55n3b"]
+[ext_resource type="Script" uid="uid://cd13odcyjma7w" path="res://Code/test/debug_show_in_game.gd" id="4_x6aq6"]
 
-[node name="Flashlight" type="Node2D" node_paths=PackedStringArray("light")]
+[node name="Flashlight" type="Node2D" unique_id=1010354855 node_paths=PackedStringArray("light")]
 script = ExtResource("1_4qkam")
 light = NodePath("Flashlight Ray")
 
-[node name="Flashlight Ray" type="PointLight2D" parent="."]
+[node name="Flashlight Ray" type="PointLight2D" parent="." unique_id=1080695338]
 position = Vector2(12, -4.26326e-14)
 rotation = -1.5708
 scale = Vector2(6.86676, 8.115)
@@ -16,7 +17,12 @@ energy = 1.47
 range_item_cull_mask = 3
 texture = ExtResource("2_x6aq6")
 
-[node name="SFX Toggled" type="AudioStreamPlayer2D" parent="."]
+[node name="SFX Toggled" type="AudioStreamPlayer2D" parent="." unique_id=1247745357]
 stream = ExtResource("3_55n3b")
+
+[node name="DBGShowInGame" type="Node" parent="." unique_id=257105252 node_paths=PackedStringArray("target")]
+script = ExtResource("4_x6aq6")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cd13odcyjma7w"
 
 [connection signal="on_toggled" from="." to="SFX Toggled" method="play"]

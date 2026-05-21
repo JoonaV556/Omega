@@ -14,8 +14,8 @@ var/speed/hint = 1
 var/speed/hint_string = "10,1000,10"
 
 [sub_resource type="BBNode" id="BBNode_20ku0"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_57u80"]
 animation_player = SubResource("BBNode_20ku0")
@@ -45,8 +45,8 @@ distance_max = 200.0
 script = ExtResource("5_thvy5")
 
 [sub_resource type="BBNode" id="BBNode_ilr2h"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_mrsu3"]
 animation_player = SubResource("BBNode_ilr2h")
@@ -56,8 +56,8 @@ animation_name = &"attack_1"
 children = [SubResource("BTAction_124bm"), SubResource("BTCondition_n25o8"), SubResource("BTAction_1hfgr"), SubResource("BTPlayAnimation_mrsu3")]
 
 [sub_resource type="BBNode" id="BBNode_fq0jf"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_rsejo"]
 animation_player = SubResource("BBNode_fq0jf")

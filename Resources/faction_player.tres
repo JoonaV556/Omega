@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Faction" format=3 uid="uid://bp85lch2ommbd"]
+
+[ext_resource type="Script" uid="uid://crqrohwixkws5" path="res://Code/Other/NPCSample/faction.gd" id="1_d0lgd"]
+
+[resource]
+script = ExtResource("1_d0lgd")
+name = "Player"
+metadata/_custom_type_script = "uid://crqrohwixkws5"

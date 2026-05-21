@@ -13,8 +13,8 @@ var/flank_speed/hint = 1
 var/flank_speed/hint_string = "10,1000,10"
 
 [sub_resource type="BBNode" id="BBNode_wu06u"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_dubaq"]
 animation_player = SubResource("BBNode_wu06u")
@@ -24,8 +24,8 @@ animation_name = &"idle"
 duration = 5.0
 
 [sub_resource type="BBNode" id="BBNode_mgehh"]
-resource_name = "AnimationPlayer"
 saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_0fqno"]
 animation_player = SubResource("BBNode_mgehh")

@@ -87,6 +87,9 @@ func fire():
 	# spawn projectile
 	var _bullet_node = bullet_prefab.instantiate()
 	get_tree().current_scene.add_child(_bullet_node)
+	get_tree().current_scene.move_child(_bullet_node, -1)
+	
+	
 	# fire projectile
 	var _bullet := _bullet_node as Bullet
 	if not _bullet:

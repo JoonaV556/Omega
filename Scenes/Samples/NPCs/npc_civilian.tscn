@@ -1,0 +1,372 @@
+[gd_scene format=3 uid="uid://cdnvt0k6rltfc"]
+
+[ext_resource type="Script" uid="uid://d3hmhjuee4ivu" path="res://Code/Other/NPCSample/npc_character.gd" id="1_leq47"]
+[ext_resource type="Texture2D" uid="uid://dsxej67iip8ga" path="res://Assets_LICENSED/Sprites/protagonist_spritesheet.png" id="2_rowpu"]
+[ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Code/Other/character_anim_controller.gd" id="3_0w4ix"]
+[ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_uf81k"]
+[ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="5_lx65v"]
+[ext_resource type="Script" uid="uid://b35o32sakpauk" path="res://Code/AI/tasks/move_to_random.gd" id="6_o5wju"]
+[ext_resource type="Script" uid="uid://u45gj365i1wj" path="res://Code/AI/tasks/flee.gd" id="6_uf81k"]
+[ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="7_0w4ix"]
+[ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="8_uf81k"]
+[ext_resource type="Script" uid="uid://jxsp0p432gbe" path="res://Code/Other/NPCSample/threat_assessor.gd" id="11_o5wju"]
+[ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="11_uufxn"]
+[ext_resource type="Script" uid="uid://bt6mrfd7od1vh" path="res://Code/Other/status_effect_receiver.gd" id="12_uufxn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
+radius = 2.0
+height = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ee3"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhhdu"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(0, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(16, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoq75"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksbbd"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(16, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(16, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3h8g"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e7my"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arntx"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lslt6"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(80, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulo2v"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(48, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iu4k"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(64, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0x7a"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(80, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v66d"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(32, 96, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x63xi"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(48, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2e8t"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(64, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qidb7"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(80, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70hv0"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(32, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8flut"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(48, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7x0b"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(64, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utwlt"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(80, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kih0c"]
+atlas = ExtResource("2_rowpu")
+region = Rect2(32, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpqav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn08x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ee3")
+}],
+"loop": true,
+"name": &"IdleBreathing_Down",
+"speed": 0.8
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhhdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_megsn")
+}],
+"loop": true,
+"name": &"IdleBreathing_Left",
+"speed": 0.8
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoq75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}],
+"loop": true,
+"name": &"IdleBreathing_Right",
+"speed": 0.8
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miouo")
+}],
+"loop": true,
+"name": &"IdleBreathing_Up",
+"speed": 0.8
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3h8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e7my")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arntx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lslt6")
+}],
+"loop": true,
+"name": &"Walk_Down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulo2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1iu4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0x7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v66d")
+}],
+"loop": true,
+"name": &"Walk_Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x63xi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2e8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qidb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70hv0")
+}],
+"loop": true,
+"name": &"Walk_Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8flut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7x0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utwlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kih0c")
+}],
+"loop": true,
+"name": &"Walk_Up",
+"speed": 5.0
+}]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kyqiw"]
+polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_kpeoe"]
+var/threatened/name = &"threatened"
+var/threatened/type = 1
+var/threatened/value = false
+var/threatened/hint = 0
+var/threatened/hint_string = ""
+var/threat_src_position/name = &"threat_src_position"
+var/threat_src_position/type = 5
+var/threat_src_position/value = Vector2(0, 0)
+var/threat_src_position/hint = 0
+var/threat_src_position/hint_string = ""
+binding/threatened = NodePath("ThreatAssessor:threatened")
+binding/threat_src_position = NodePath("ThreatAssessor:threat_source_pos")
+
+[sub_resource type="BBVariant" id="BBVariant_0w4ix"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_uf81k"]
+variable = &"threatened"
+value = SubResource("BBVariant_0w4ix")
+
+[sub_resource type="BTAction" id="BTAction_lx65v"]
+script = ExtResource("6_uf81k")
+threat_source_pos_var = &"threat_src_position"
+is_threatened_var = &"threatened"
+max_ticks_per_second = 30
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_lx65v"]
+children = [SubResource("BTCheckVar_uf81k"), SubResource("BTAction_lx65v")]
+
+[sub_resource type="BBVariant" id="BBVariant_lx65v"]
+type = 1
+saved_value = false
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_o5wju"]
+variable = &"threatened"
+value = SubResource("BBVariant_lx65v")
+
+[sub_resource type="BTWait" id="BTWait_uf81k"]
+duration = 2.0
+
+[sub_resource type="BTAction" id="BTAction_o5wju"]
+script = ExtResource("6_o5wju")
+navigation_layers = 1
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_uufxn"]
+max_duration = 3.0
+
+[sub_resource type="BTSequence" id="BTSequence_lx65v"]
+children = [SubResource("BTCheckVar_o5wju"), SubResource("BTWait_uf81k"), SubResource("BTAction_o5wju"), SubResource("BTRandomWait_uufxn")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_0w4ix"]
+children = [SubResource("BTDynamicSequence_lx65v"), SubResource("BTSequence_lx65v")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_6tp4r"]
+blackboard_plan = SubResource("BlackboardPlan_kpeoe")
+root_task = SubResource("BTDynamicSelector_0w4ix")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_uufxn"]
+binding/threatened = NodePath("../ThreatAssessor:threatened")
+binding/threat_src_position = NodePath("../ThreatAssessor:threat_source_pos")
+
+[node name="NPC - Civilian" type="CharacterBody2D" unique_id=1076049476 node_paths=PackedStringArray("nav_agent")]
+collision_layer = 40
+script = ExtResource("1_leq47")
+nav_agent = NodePath("NavigationAgent2D")
+walk_speed = 70.0
+sprint_speed = 120.0
+metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
+metadata/faction_index = 1
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1751163711]
+unique_name_in_owner = true
+path_postprocessing = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=806398687]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jr1ro")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2012959769 node_paths=PackedStringArray("character_body")]
+light_mask = 2
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_rpqav")
+animation = &"IdleBreathing_Down"
+offset = Vector2(0, -16)
+script = ExtResource("3_0w4ix")
+character_body = NodePath("..")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=99778508]
+show_behind_parent = true
+position = Vector2(0, -2)
+occluder = SubResource("OccluderPolygon2D_kyqiw")
+
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1486800297 node_paths=PackedStringArray("animsprite")]
+stream = ExtResource("4_uf81k")
+pitch_scale = 1.3
+max_distance = 400.0
+attenuation = 2.0
+script = ExtResource("5_lx65v")
+animsprite = NodePath("../AnimatedSprite2D")
+footstep_frames = Array[int]([1, 3])
+
+[node name="VisualObservable" type="Node2D" parent="." unique_id=462705733]
+script = ExtResource("7_0w4ix")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="VisualObserver" type="Node2D" parent="." unique_id=1617785506]
+script = ExtResource("8_uf81k")
+sight_raycast_layers = 8
+sight_blocking_layers = 20
+metadata/_custom_type_script = "uid://b8guhrmputmil"
+
+[node name="ThreatAssessor" type="Node" parent="." unique_id=385291137]
+script = ExtResource("11_o5wju")
+metadata/_custom_type_script = "uid://jxsp0p432gbe"
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1829973664]
+behavior_tree = SubResource("BehaviorTree_6tp4r")
+blackboard_plan = SubResource("BlackboardPlan_uufxn")
+
+[node name="Health" type="Node" parent="." unique_id=742712219]
+unique_name_in_owner = true
+script = ExtResource("11_uufxn")
+
+[node name="StatusEffectReceiver" type="Node" parent="." unique_id=1442701695]
+unique_name_in_owner = true
+script = ExtResource("12_uufxn")
+metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="on_detected_updated" from="VisualObserver" to="ThreatAssessor" method="on_detected_updated"]
+[connection signal="on_depleted" from="Health" to="." method="disable_movement"]
+[connection signal="on_depleted" from="Health" to="CollisionShape2D" method="set_disabled" flags=3 binds= [true]]
+[connection signal="on_depleted" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]
+[connection signal="on_depleted" from="Health" to="BTPlayer" method="set_active" binds= [false]]

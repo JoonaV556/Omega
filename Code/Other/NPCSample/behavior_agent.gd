@@ -20,18 +20,20 @@ func _ready():
 
 	begin_task(tasks[current_task_indx])
 
-func _process(delta):
-	if current_task.completed:
-		# print("task complete")
+func _on_complete():
+	current_task.on_complete.disconnect(_on_complete)
+	print("task complete")
 		
-		if (current_task_indx + 1) >= tasks.size():
-			current_task_indx = 0
-			# print("all tasks completed. looping back to first task")
-		else:
-			current_task_indx += 1
+	if (current_task_indx + 1) >= tasks.size():
+		current_task_indx = 0
+		print("all tasks completed. looping back to first task")
+	else:
+		current_task_indx += 1
 
-		begin_task(tasks[current_task_indx])
+	print(tasks[current_task_indx])
+	begin_task(tasks[current_task_indx])
 
 func begin_task(task):
 	current_task = task
+	current_task.on_complete.connect(_on_complete)
 	current_task.start()

@@ -1,8 +1,8 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://csbha1udiq4ih"]
+[gd_resource type="TileSet" format=3 uid="uid://csbha1udiq4ih"]
 
-[ext_resource type="Texture2D" uid="uid://lw627hme7bny" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="1_rkqj6"]
-[ext_resource type="Texture2D" uid="uid://dsedqv3p38kdt" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/14_Basement_Black_Shadow_16x16.png" id="2_7cgx4"]
-[ext_resource type="Texture2D" uid="uid://cmhuckt0f4602" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="3_wvwgo"]
+[ext_resource type="Texture2D" uid="uid://cicgfa2cdg5ph" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/12_Kitchen_Black_Shadow_16x16.png" id="1_rkqj6"]
+[ext_resource type="Texture2D" uid="uid://bpdcqw5die58o" path="res://Assets_LICENSED/Sprites/modern_interiors/1_Interiors/Theme_Sorter_Black_Shadow/14_Basement_Black_Shadow_16x16.png" id="2_7cgx4"]
+[ext_resource type="Texture2D" uid="uid://cidljx36e2bxw" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_16x16.png" id="3_wvwgo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_axn5c"]
 texture = ExtResource("1_rkqj6")
