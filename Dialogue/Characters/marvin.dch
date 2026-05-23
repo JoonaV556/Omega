@@ -6,13 +6,13 @@
 &"custom_info": {
 "sound_mood_default": "",
 "sound_moods": {},
-"style": "s_no-portrait_no-nametag"
+"style": "s_no-portrait_light-green"
 },
 &"default_portrait": "",
-&"description": "fuck",
-&"display_name": "narrator",
+&"description": "holy moly",
+&"display_name": "Marvin",
 &"mirror": false,
-&"nicknames": ["narc"],
+&"nicknames": ["Marv"],
 &"offset": Vector2(0, 0),
 &"portraits": {},
 &"scale": 1.0

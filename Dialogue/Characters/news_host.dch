@@ -2,17 +2,17 @@
 "@path": "res://addons/dialogic/Resources/character.gd",
 "@subpath": NodePath(""),
 &"_translation_id": "",
-&"color": Color(1, 1, 1, 1),
+&"color": Color(0, 0, 0, 1),
 &"custom_info": {
 "sound_mood_default": "",
 "sound_moods": {},
-"style": "s_no-portrait_no-nametag"
+"style": "s_no-portrait_blue"
 },
 &"default_portrait": "",
-&"description": "fuck",
-&"display_name": "narrator",
+&"description": "",
+&"display_name": "News Host",
 &"mirror": false,
-&"nicknames": ["narc"],
+&"nicknames": [""],
 &"offset": Vector2(0, 0),
 &"portraits": {},
 &"scale": 1.0

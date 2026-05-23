@@ -6,13 +6,13 @@
 &"custom_info": {
 "sound_mood_default": "",
 "sound_moods": {},
-"style": "s_no-portrait_no-nametag"
+"style": "s_no-portrait_blue2"
 },
 &"default_portrait": "",
-&"description": "fuck",
-&"display_name": "narrator",
+&"description": "",
+&"display_name": "Blue",
 &"mirror": false,
-&"nicknames": ["narc"],
+&"nicknames": [""],
 &"offset": Vector2(0, 0),
 &"portraits": {},
 &"scale": 1.0

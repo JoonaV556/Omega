@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="DialogicStyle" format=3 uid="uid://c1q7bavbemmss"]
+
+[ext_resource type="PackedScene" uid="uid://cqpb3ie51rwl5" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_Default/default_layout_base.tscn" id="1_k4myg"]
+[ext_resource type="Script" uid="uid://d227pc5uafqoe" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_nondm"]
+[ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="2_k4myg"]
+[ext_resource type="PackedScene" uid="uid://cy1y14inwkplb" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Portraits/vn_portrait_layer.tscn" id="3_rhwq5"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="4_n1jc5"]
+[ext_resource type="PackedScene" uid="uid://bquja8jyk8kbr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.tscn" id="5_43qh5"]
+[ext_resource type="PackedScene" uid="uid://dsbwnp5hegnu3" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Glossary/glossary_popup_layer.tscn" id="6_541x5"]
+[ext_resource type="PackedScene" uid="uid://dhk6j6eb6e3q" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Choices/vn_choice_layer.tscn" id="7_i3no7"]
+[ext_resource type="PackedScene" uid="uid://cvgf4c6gg0tsy" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn" id="8_dl8ik"]
+[ext_resource type="PackedScene" uid="uid://lx24i8fl6uo" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_History/history_layer.tscn" id="9_eneas"]
+[ext_resource type="Script" uid="uid://dbfcgocy5urab" path="res://addons/dialogic/Resources/dialogic_style.gd" id="10_egsij"]
+
+[sub_resource type="Resource" id="Resource_kxwkl"]
+script = ExtResource("1_nondm")
+scene = ExtResource("1_k4myg")
+
+[sub_resource type="Resource" id="Resource_bwaf4"]
+script = ExtResource("1_nondm")
+scene = ExtResource("2_k4myg")
+
+[sub_resource type="Resource" id="Resource_yhl2f"]
+script = ExtResource("1_nondm")
+scene = ExtResource("3_rhwq5")
+
+[sub_resource type="Resource" id="Resource_s5t2e"]
+script = ExtResource("1_nondm")
+scene = ExtResource("4_n1jc5")
+
+[sub_resource type="Resource" id="Resource_657yj"]
+script = ExtResource("1_nondm")
+scene = ExtResource("5_43qh5")
+overrides = {
+"box_margin_bottom": "100.0",
+"box_panel": "\"vn_textbox_default_panel.tres\"",
+"box_size": "Vector2(900, 150)"
+}
+
+[sub_resource type="Resource" id="Resource_fo57x"]
+script = ExtResource("1_nondm")
+scene = ExtResource("6_541x5")
+
+[sub_resource type="Resource" id="Resource_34b0x"]
+script = ExtResource("1_nondm")
+scene = ExtResource("7_i3no7")
+
+[sub_resource type="Resource" id="Resource_hcm1h"]
+script = ExtResource("1_nondm")
+scene = ExtResource("8_dl8ik")
+
+[sub_resource type="Resource" id="Resource_fout3"]
+script = ExtResource("1_nondm")
+scene = ExtResource("9_eneas")
+
+[resource]
+script = ExtResource("10_egsij")
+name = "s_no-portrait"
+layer_list = Array[String](["10", "11", "12", "14", "15", "16", "17", "13"])
+layer_info = {
+"": SubResource("Resource_kxwkl"),
+"10": SubResource("Resource_bwaf4"),
+"11": SubResource("Resource_yhl2f"),
+"12": SubResource("Resource_s5t2e"),
+"13": SubResource("Resource_657yj"),
+"14": SubResource("Resource_fo57x"),
+"15": SubResource("Resource_34b0x"),
+"16": SubResource("Resource_hcm1h"),
+"17": SubResource("Resource_fout3")
+}
+metadata/_latest_layer = "13"
