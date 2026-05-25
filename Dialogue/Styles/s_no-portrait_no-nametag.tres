@@ -26,6 +26,19 @@ scene = ExtResource("3_w80ch")
 script = ExtResource("1_2uk6a")
 scene = ExtResource("4_ce1dn")
 
+[sub_resource type="Resource" id="Resource_62iro"]
+script = ExtResource("1_2uk6a")
+scene = ExtResource("9_20epp")
+overrides = {
+"box_margin_bottom": "100.0",
+"box_panel": "\"vn_textbox_default_panel.tres\"",
+"box_size": "Vector2(900, 150)",
+"name_label_box_modulate": "Color(0, 0, 0, 0)",
+"name_label_box_use_global_color": "false",
+"name_label_custom_color": "Color(1, 1, 1, 0)",
+"name_label_use_global_color": "false"
+}
+
 [sub_resource type="Resource" id="Resource_1kvhu"]
 script = ExtResource("1_2uk6a")
 scene = ExtResource("5_c64vj")
@@ -41,19 +54,6 @@ scene = ExtResource("7_1324p")
 [sub_resource type="Resource" id="Resource_x56cq"]
 script = ExtResource("1_2uk6a")
 scene = ExtResource("8_wj0qy")
-
-[sub_resource type="Resource" id="Resource_62iro"]
-script = ExtResource("1_2uk6a")
-scene = ExtResource("9_20epp")
-overrides = {
-"box_margin_bottom": "100.0",
-"box_panel": "\"vn_textbox_default_panel.tres\"",
-"box_size": "Vector2(900, 150)",
-"name_label_box_modulate": "Color(0, 0, 0, 0)",
-"name_label_box_use_global_color": "false",
-"name_label_custom_color": "Color(1, 1, 1, 0)",
-"name_label_use_global_color": "false"
-}
 
 [resource]
 script = ExtResource("10_rpi6d")
