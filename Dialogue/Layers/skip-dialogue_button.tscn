@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cpj2x4mfaw4b7"]
+
+[ext_resource type="Script" uid="uid://moremxrmfasf" path="res://addons/dialogic/Resources/dialogic_layout_layer.gd" id="1_3gv2g"]
+[ext_resource type="Script" uid="uid://crv1g4wteg1vf" path="res://Code/Other/skip_dialogue.gd" id="2_yli7u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0cnn0"]
+font_color = Color(0.76156104, 0.76156086, 0.761561, 1)
+
+[node name="DialogicLayoutLayer" type="Node" unique_id=1188685059]
+script = ExtResource("1_3gv2g")
+metadata/_custom_type_script = "uid://moremxrmfasf"
+
+[node name="Anchor" type="Control" parent="." unique_id=1540586293]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Anchor" unique_id=1667941954]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -26.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_yli7u")
+
+[node name="Label" type="Label" parent="Anchor/Button" unique_id=987252142]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.5
+offset_top = -9.5
+offset_right = 19.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Skip"
+label_settings = SubResource("LabelSettings_0cnn0")
+
+[connection signal="pressed" from="Anchor/Button" to="Anchor/Button" method="skip"]

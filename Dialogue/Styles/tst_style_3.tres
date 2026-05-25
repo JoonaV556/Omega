@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="DialogicStyle" format=3 uid="uid://bdwv4pv02alcg"]
+
+[ext_resource type="PackedScene" uid="uid://cx4l14k7svdci" path="res://Dialogue/LayoutScenes/CustomTstStyle3/custom_tst_style_3.tscn" id="1_lebjr"]
+[ext_resource type="Script" uid="uid://d227pc5uafqoe" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_pvoo4"]
+[ext_resource type="Script" uid="uid://d1qlsx0hwj2og" path="res://Dialogue/LayoutScenes/CustomTstStyle3/default_layout_base.gd" id="2_iw0mu"]
+[ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="2_lebjr"]
+[ext_resource type="PackedScene" uid="uid://cy1y14inwkplb" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Portraits/vn_portrait_layer.tscn" id="3_iw0mu"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="4_vyem0"]
+[ext_resource type="PackedScene" uid="uid://bquja8jyk8kbr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.tscn" id="5_kiihs"]
+[ext_resource type="PackedScene" uid="uid://dsbwnp5hegnu3" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Glossary/glossary_popup_layer.tscn" id="6_xslk3"]
+[ext_resource type="PackedScene" uid="uid://dhk6j6eb6e3q" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Choices/vn_choice_layer.tscn" id="7_qoqsw"]
+[ext_resource type="PackedScene" uid="uid://cvgf4c6gg0tsy" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn" id="8_fmf1c"]
+[ext_resource type="PackedScene" uid="uid://lx24i8fl6uo" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_History/history_layer.tscn" id="9_6oq3g"]
+[ext_resource type="Script" uid="uid://dbfcgocy5urab" path="res://addons/dialogic/Resources/dialogic_style.gd" id="10_hyecm"]
+
+[sub_resource type="PackedScene" id="PackedScene_vyem0"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [],
+"names": PackedStringArray("DefaultLayoutBase", "CanvasLayer", "script"),
+"node_count": 1,
+"node_ids": PackedInt32Array(0),
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0),
+"variants": [ExtResource("2_iw0mu")],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_we8p2"]
+script = ExtResource("1_pvoo4")
+scene = SubResource("PackedScene_vyem0")
+
+[sub_resource type="Resource" id="Resource_28sbu"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("2_lebjr")
+
+[sub_resource type="Resource" id="Resource_hliul"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("3_iw0mu")
+
+[sub_resource type="Resource" id="Resource_fn58a"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("4_vyem0")
+
+[sub_resource type="Resource" id="Resource_4wkki"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("5_kiihs")
+
+[sub_resource type="Resource" id="Resource_788d2"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("6_xslk3")
+
+[sub_resource type="Resource" id="Resource_eiw2d"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("7_qoqsw")
+
+[sub_resource type="Resource" id="Resource_cxej6"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("8_fmf1c")
+
+[sub_resource type="Resource" id="Resource_x0bpa"]
+script = ExtResource("1_pvoo4")
+scene = ExtResource("9_6oq3g")
+
+[resource]
+script = ExtResource("10_hyecm")
+name = "tst_style_3"
+layer_list = Array[String](["10", "11", "12", "13", "14", "15", "16", "17"])
+layer_info = {
+"": SubResource("Resource_we8p2"),
+"10": SubResource("Resource_28sbu"),
+"11": SubResource("Resource_hliul"),
+"12": SubResource("Resource_fn58a"),
+"13": SubResource("Resource_4wkki"),
+"14": SubResource("Resource_788d2"),
+"15": SubResource("Resource_eiw2d"),
+"16": SubResource("Resource_cxej6"),
+"17": SubResource("Resource_x0bpa")
+}
+base_scene = ExtResource("1_lebjr")
+metadata/_latest_layer = ""
