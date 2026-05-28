@@ -1,13 +1,9 @@
+class_name TimelineStarter
 extends Node
-# Provides a short inspect description for in-world items, by utilizing Dialogic. 
 
-@export var inspect_description: String = "I am looking at something but I don't know what it is."
 @export var tmln: DialogicTimeline
-@export var enabled: bool = true
 
-func _ready():
-	if !enabled:
-		return
+func start():
 	if Dialogic.current_timeline != null:
 		return
 	# # Create & Start a Dialogic timeline.
