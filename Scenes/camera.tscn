@@ -1,20 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpjknj0hpjq62"]
+[gd_scene format=3 uid="uid://dpjknj0hpjq62"]
 
 [ext_resource type="Script" uid="uid://bk5sryhfug4dp" path="res://Code/Other/camera_zoom.gd" id="1_375tr"]
 [ext_resource type="Script" uid="uid://dmovndroak7do" path="res://Code/Other/camera_followtarget.gd" id="2_f1cf7"]
 
-[node name="Camera" type="Camera2D"]
+[node name="Camera" type="Camera2D" unique_id=1968504275]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 
-[node name="Zoom" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+[node name="Zoom" type="Node2D" parent="." unique_id=2024863864 node_paths=PackedStringArray("camera")]
 script = ExtResource("1_375tr")
 camera = NodePath("..")
 
-[node name="FollowTarget" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+[node name="FollowTarget" type="Node2D" parent="." unique_id=1000508458 node_paths=PackedStringArray("camera")]
 script = ExtResource("2_f1cf7")
 camera = NodePath("..")
 
-[node name="AudioListener2D" type="AudioListener2D" parent="."]
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=156923640]
 current = true

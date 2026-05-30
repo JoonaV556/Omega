@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cfet87w05l1id"]
+
+[ext_resource type="Script" uid="uid://ckuc2u7kfckfv" path="res://Code/Other/level_transition.gd" id="1_i4sh1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4sh1"]
+size = Vector2(32, 16)
+
+[node name="LevelTransition - 1x2" type="Area2D" unique_id=2016993157]
+collision_mask = 2
+script = ExtResource("1_i4sh1")
+metadata/_custom_type_script = "uid://ckuc2u7kfckfv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1355832445]
+position = Vector2(16, 8)
+shape = SubResource("RectangleShape2D_i4sh1")

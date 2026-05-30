@@ -2,63 +2,20 @@
 
 [ext_resource type="TileSet" uid="uid://b6sbttywifagr" path="res://TileSets/tileset_placeholder.tres" id="1_fuujp"]
 [ext_resource type="Script" uid="uid://cp7e62ucpyya6" path="res://Code/Other/level.gd" id="1_w75d6"]
-[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="2_f6yd4"]
-[ext_resource type="PackedScene" uid="uid://chtck7hchxyj1" path="res://Scenes/Character/Player.tscn" id="3_vfqig"]
-[ext_resource type="Script" uid="uid://bx3c36aytlncp" path="res://Code/Weapons/aim.gd" id="4_4pq1b"]
-[ext_resource type="Script" uid="uid://cl0j8tdkrd3pf" path="res://Code/Weapons/gun.gd" id="5_7es0l"]
-[ext_resource type="PackedScene" uid="uid://ci6iqv5rj4ovj" path="res://Scenes/Weapons/bullet.tscn" id="6_5g2fi"]
-[ext_resource type="Script" uid="uid://cnortdvgcov2t" path="res://Code/Other/CombatSample/gunfire_knockback.gd" id="7_n8rd4"]
-[ext_resource type="Script" uid="uid://ua4yjaod24ne" path="res://Code/Other/CombatSample/muzzle_flash_controller.gd" id="8_hkypi"]
-[ext_resource type="Script" uid="uid://blye06ve7saf5" path="res://Code/Other/CombatSample/sfx_spawner.gd" id="9_nb561"]
-[ext_resource type="AudioStream" uid="uid://co4vg1ojus6fc" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_1.wav" id="10_sjvu3"]
-[ext_resource type="AudioStream" uid="uid://dvcr14cgsk327" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_2.wav" id="11_rjw4j"]
-[ext_resource type="AudioStream" uid="uid://c1n7snvo4o7tk" path="res://Assets_LICENSED/Audio/sfx/bullet-casings-drop_3.wav" id="12_snacj"]
-[ext_resource type="AudioStream" uid="uid://biowb6w275ky1" path="res://Assets_LICENSED/Audio/sfx/pistol_shot.wav" id="13_etlpw"]
-[ext_resource type="Script" uid="uid://de83fwio3m7j6" path="res://Code/Other/CombatSample/audio_stream_player_2d_extra.gd" id="14_fsmsn"]
-[ext_resource type="AudioStream" uid="uid://b6rxl8etf5gnn" path="res://Assets_LICENSED/Audio/sfx/pistol_dry_fire.wav" id="15_nsjrd"]
-[ext_resource type="AudioStream" uid="uid://cohmfs3m3mdok" path="res://Assets_LICENSED/Audio/sfx/pistol_reload.wav" id="16_658ee"]
-[ext_resource type="PackedScene" uid="uid://dfxj285eefk5n" path="res://Scenes/Other/flashlight.tscn" id="17_mox82"]
-[ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="18_lil8l"]
-[ext_resource type="AudioStream" uid="uid://o14rshyllifc" path="res://Assets_LICENSED/Audio/sfx/bullet_impact_general.wav" id="19_7xe81"]
 [ext_resource type="AudioStream" uid="uid://8epgc5ef02ve" path="res://Assets_LICENSED/Audio/city_ambience.wav" id="20_7klia"]
-[ext_resource type="Script" uid="uid://fmshsl43yb7u" path="res://Levels/other/canvas_layer_show_in_game.gd" id="21_12blp"]
-[ext_resource type="Script" uid="uid://db4dhvpli6ao0" path="res://Code/test/ammo_ui.gd" id="22_q8l5w"]
-[ext_resource type="PackedScene" uid="uid://cfua0tg35785p" path="res://Scenes/Other/aim_cursor.tscn" id="23_c1bwd"]
-[ext_resource type="Texture2D" uid="uid://we23vdg0v3uo" path="res://Assets_LICENSED/Sprites/aim_cursors/ac1.tres" id="24_dym8l"]
-[ext_resource type="Texture2D" uid="uid://c77woyap1xwnc" path="res://Assets_LICENSED/Sprites/aim_cursors/ac2.tres" id="25_h5q04"]
-[ext_resource type="Texture2D" uid="uid://ke1rid8g4l5n" path="res://Assets_LICENSED/Sprites/aim_cursors/ac3.tres" id="26_360xx"]
-[ext_resource type="Texture2D" uid="uid://drqhi3cktlkju" path="res://Assets_LICENSED/Sprites/aim_cursors/ac4.tres" id="27_h274n"]
-[ext_resource type="Texture2D" uid="uid://cnn1ohyo6oyht" path="res://Assets_LICENSED/Sprites/aim_cursors/ac5.tres" id="28_321l2"]
-[ext_resource type="Texture2D" uid="uid://bltomijuxf21s" path="res://Assets_LICENSED/Sprites/aim_cursors/ac6.tres" id="29_6vfyh"]
-[ext_resource type="Texture2D" uid="uid://cni24lstjl7n0" path="res://Assets_LICENSED/Sprites/aim_cursors/ac7.tres" id="30_p2bl2"]
-[ext_resource type="Material" path="res://Resources/canvas_item_material-unshaded.tres" id="31_sugri"]
-[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="32_b3m75"]
-[ext_resource type="Script" uid="uid://b5qteiikgyam3" path="res://Code/Other/CombatSample/player_movement_detector.gd" id="33_to6nt"]
-[ext_resource type="Script" uid="uid://bwicvodln2dkh" path="res://Code/Other/CombatSample/global_events_scene_proxy.gd" id="34_00lc6"]
-[ext_resource type="Script" uid="uid://d2fou4sxovpk4" path="res://Code/toggle_fullscreen_debug.gd" id="35_4welc"]
 [ext_resource type="Script" uid="uid://b2u5qjmtkk2gy" path="res://Code/Other/time_of_day.gd" id="36_bce88"]
 [ext_resource type="Curve" uid="uid://b5skcsbckcel7" path="res://Resources/curve_daylight.tres" id="37_e61cr"]
 [ext_resource type="Texture2D" uid="uid://dsxej67iip8ga" path="res://Assets_LICENSED/Sprites/protagonist_spritesheet.png" id="38_in3sh"]
-
-[sub_resource type="Gradient" id="Gradient_h8flf"]
-offsets = PackedFloat32Array(0, 0.440129, 0.495146, 0.653722)
-colors = PackedColorArray(1, 1, 1, 1, 0.260726, 0.260726, 0.260726, 1, 0.168317, 0.168317, 0.168317, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_i14fs"]
-gradient = SubResource("Gradient_h8flf")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Curve" id="Curve_i14fs"]
-_data = [Vector2(0, 1), 0.0, -12.925, 0, 0, Vector2(0.235, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="PackedScene" uid="uid://dhmj6pspqrd3c" path="res://Scenes/Other/level_transition_1x1.tscn" id="40_utyum"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vqsdw"]
 atlas = ExtResource("38_in3sh")
 region = Rect2(0, 0, 16, 32)
 
-[node name="Level - Prologue Neighbourhood" type="Node2D" unique_id=533572502]
+[node name="Level - Teardrop Hills" type="Node2D" unique_id=533572502 node_paths=PackedStringArray("player_start_position", "transitions")]
 script = ExtResource("1_w75d6")
+player_start_position = NodePath("Node2D - player start")
+transitions = [NodePath("LevelTransition - 1x1")]
 metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=86370594]
@@ -70,219 +27,12 @@ visible = false
 tile_map_data = PackedByteArray("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AADC/0IAAAAGAAAAAADC/0MAAAAGAAAAAADC/0QAAAAGAAAAAADC/0UAAAAGAAAAAADC/0YAAAAGAAAAAADC/0cAAAAGAAAAAADC/0gAAAAGAAAAAADC/0kAAAAGAAAAAADC/0oAAAAGAAAAAADC/0sAAAAGAAAAAADC/0wAAAAGAAAAAADC/00AAAAGAAAAAADC/04AAAAGAAAAAADC/08AAAAGAAAAAADC/1AAAAAGAAAAAADC/1EAAAAGAAAAAADC/1IAAAAGAAAAAADC/1MAAAAGAAAAAADC/1QAAAAGAAAAAADC/1UAAAAGAAAAAADC/1YAAAAGAAAAAADC/1cAAAAGAAAAAADC/1gAAAAGAAAAAADC/1kAAAAGAAAAAADC/1oAAAAGAAAAAADC/1sAAAAGAAAAAADC/9v/AAAGAAAAAADC/9r/AAAGAAAAAADC/9n/AAAGAAAAAADC/9j/AAAGAAAAAADC/9f/AAAGAAAAAADC/9b/AAAGAAAAAADC/9X/AAAGAAAAAADC/9T/AAAGAAAAAADC/9P/AAAGAAAAAADC/9L/AAAGAAAAAADC/9H/AAAGAAAAAADC/9D/AAAGAAAAAADC/8//AAAGAAAAAADC/87/AAAGAAAAAADC/83/AAAGAAAAAADC/8z/AAAGAAAAAADC/8v/AAAGAAAAAADC/8r/AAAGAAAAAADC/8n/AAAGAAAAAADC/8j/AAAGAAAAAADC/8f/AAAGAAAAAADC/8b/AAAGAAAAAADC/8X/AAAGAAAAAADC/8T/AAAGAAAAAADC/8P/AAAGAAAAAADC/8L/AAAGAAAAAADC/8H/AAAGAAAAAADC/8D/AAAGAAAAAADC/7//AAAGAAAAAADC/77/AAAGAAAAAADC/73/AAAGAAAAAADC/7z/AAAGAAAAAADC/7v/AAAGAAAAAADC/7r/AAAGAAAAAADC/7n/AAAGAAAAAADC/7j/AAAGAAAAAADC/7f/AAAGAAAAAADC/7b/AAAGAAAAAADC/7X/AAAGAAAAAADC/7T/AAAGAAAAAADC/7P/AAAGAAAAAADC/7L/AAAGAAAAAADC/7H/AAAGAAAAAADC/7D/AAAGAAAAAADC/6//AAAGAAAAAADC/67/AAAGAAAAAADC/63/AAAGAAAAAADC/6z/AAAGAAAAAADC/6v/AAAGAAAAAADC/6r/AAAGAAAAAADC/6n/AAAGAAAAAADC/6j/AAAGAAAAAADC/6f/AAAGAAAAAADC/6b/AAAGAAAAAADC/6X/AAAGAAAAAAA=")
 tile_set = ExtResource("1_fuujp")
 
-[node name="Camera" parent="." unique_id=1681875443 instance=ExtResource("2_f6yd4")]
-position = Vector2(-89, 109)
-position_smoothing_speed = 16.0
-
-[node name="Zoom" parent="Camera" index="0"]
-min_zoom = Vector2(0.5, 0.5)
-
-[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
-target = NodePath("../../Systems/Aim Cursor/Helper Pivot - CameraFollowPivot")
-
-[node name="AudioListener2D" parent="Camera" index="2"]
-current = false
-
-[node name="Player" parent="." unique_id=700090210 instance=ExtResource("3_vfqig")]
-y_sort_enabled = true
-position = Vector2(92, -34)
-collision_layer = 10
-additional_impulses_decay_per_tick = 0.3
-metadata/faction_index = 1
-
-[node name="Aim" type="Node2D" parent="Player" unique_id=1703837359 node_paths=PackedStringArray("lookat_target_override")]
-position = Vector2(0, -17)
-script = ExtResource("4_4pq1b")
-lookat_target_override = NodePath("../../Systems/Aim Cursor/Helper Pivot - CursorWorldPos")
-metadata/_custom_type_script = "uid://bx3c36aytlncp"
-
-[node name="Gun" type="Node2D" parent="Player/Aim" unique_id=1740834427 node_paths=PackedStringArray("bullet_spawn_pivot")]
-position = Vector2(9, 0)
-script = ExtResource("5_7es0l")
-bullet_prefab = ExtResource("6_5g2fi")
-magazine_size = 31
-bullets_start = 31
-bullets_velocity = 6080.0
-bullet_spawn_pivot = NodePath("Bullet spawn pivot")
-recoil_cooldown_duration = 0.7
-start_firemode = 1
-metadata/_custom_type_script = "uid://cl0j8tdkrd3pf"
-
-[node name="gun visual" type="ColorRect" parent="Player/Aim/Gun" unique_id=348238719]
-offset_left = -4.0
-offset_top = -1.0
-offset_right = 6.0
-offset_bottom = 1.0
-color = Color(0.201527, 0.201527, 0.201527, 1)
-
-[node name="Bullet spawn pivot" type="Node2D" parent="Player/Aim/Gun" unique_id=439418576]
-position = Vector2(6, 0)
-
-[node name="Gunfire Knockback" type="Node" parent="Player/Aim/Gun" unique_id=236865185 node_paths=PackedStringArray("target")]
-script = ExtResource("7_n8rd4")
-target = NodePath("../../..")
-metadata/_custom_type_script = "uid://cnortdvgcov2t"
-
-[node name="Muzzleflash Light" type="PointLight2D" parent="Player/Aim/Gun" unique_id=320921146]
-position = Vector2(6, 0)
-scale = Vector2(2.925, 2.925)
-energy = 0.0
-range_item_cull_mask = 3
-texture = SubResource("GradientTexture2D_i14fs")
-script = ExtResource("8_hkypi")
-light_energy_curve = SubResource("Curve_i14fs")
-rand_offset_range = 1.0
-
-[node name="sfx" type="Node2D" parent="Player/Aim/Gun" unique_id=1476969089]
-
-[node name="SfxSpawner - bullet shell dropping" type="Node2D" parent="Player/Aim/Gun/sfx" unique_id=2097817865 node_paths=PackedStringArray("override_sources")]
-position = Vector2(81, -107)
-script = ExtResource("9_nb561")
-stream = ExtResource("10_sjvu3")
-audio_max_distance = 160.0
-override_sources = [NodePath("AudioStreamPlayer2D casings1"), NodePath("AudioStreamPlayer2D casings2"), NodePath("AudioStreamPlayer2D casings3")]
-metadata/_custom_type_script = "uid://blye06ve7saf5"
-
-[node name="AudioStreamPlayer2D casings1" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping" unique_id=1354770751]
-stream = ExtResource("10_sjvu3")
-pitch_scale = 1.15
-max_distance = 160.0
-
-[node name="AudioStreamPlayer2D casings2" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping" unique_id=604570522]
-stream = ExtResource("11_rjw4j")
-pitch_scale = 1.15
-max_distance = 160.0
-
-[node name="AudioStreamPlayer2D casings3" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping" unique_id=1593025551]
-stream = ExtResource("12_snacj")
-pitch_scale = 1.15
-max_distance = 160.0
-
-[node name="sfx-shot" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx" unique_id=249519804]
-stream = ExtResource("13_etlpw")
-script = ExtResource("14_fsmsn")
-rand_pitch_delta_override = 0.07
-
-[node name="sfx-dry fire" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx" unique_id=143419844]
-stream = ExtResource("15_nsjrd")
-
-[node name="sfx-reload" type="AudioStreamPlayer2D" parent="Player/Aim/Gun/sfx" unique_id=1255028266]
-stream = ExtResource("16_658ee")
-max_distance = 500.0
-
-[node name="Flashlight" parent="Player/Aim" unique_id=1010354855 instance=ExtResource("17_mox82")]
-visible = false
-position = Vector2(0, 2)
-
-[node name="VisualObservable" type="Node2D" parent="Player" unique_id=1067540310]
-script = ExtResource("18_lil8l")
-metadata/_custom_type_script = "uid://y3t00ak6bxgy"
-
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1024996470]
-
-[node name="SfxSpawner - bullet impacts" type="Node2D" parent="." unique_id=418166587]
-script = ExtResource("9_nb561")
-stream = ExtResource("19_7xe81")
-audio_max_distance = 160.0
-metadata/_custom_type_script = "uid://blye06ve7saf5"
 
 [node name="SFX City" type="AudioStreamPlayer" parent="." unique_id=102389315]
 stream = ExtResource("20_7klia")
 volume_db = -15.0
 autoplay = true
-
-[node name="CanvasLayer - cursor" type="CanvasLayer" parent="." unique_id=1956933082]
-
-[node name="Node2D" type="Node2D" parent="CanvasLayer - cursor" unique_id=1117326037]
-
-[node name="Layer - UI" type="CanvasLayer" parent="." unique_id=1243296346]
-visible = false
-script = ExtResource("21_12blp")
-
-[node name="Root" type="Control" parent="Layer - UI" unique_id=100248035]
-custom_minimum_size = Vector2(1920, 1080)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Layer - UI/Root" unique_id=1371220259]
-layout_mode = 1
-offset_right = 159.0
-offset_bottom = 160.0
-theme_override_constants/separation = 0
-
-[node name="hdr ammo" type="RichTextLabel" parent="Layer - UI/Root/VBoxContainer" unique_id=87665602]
-custom_minimum_size = Vector2(193.215, 80)
-layout_direction = 2
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 36
-text = "Ammo"
-fit_content = true
-vertical_alignment = 2
-
-[node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer/hdr ammo" unique_id=510265406]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="num ammo" type="RichTextLabel" parent="Layer - UI/Root/VBoxContainer" unique_id=619635183 node_paths=PackedStringArray("gun")]
-custom_minimum_size = Vector2(193.215, 80)
-layout_direction = 2
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 56
-text = "1/1"
-fit_content = true
-horizontal_alignment = 2
-script = ExtResource("22_q8l5w")
-gun = NodePath("../../../../Player/Aim/Gun")
-
-[node name="Panel" type="Panel" parent="Layer - UI/Root/VBoxContainer/num ammo" unique_id=228961934]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Systems" type="Node" parent="." unique_id=873464886]
-
-[node name="Aim Cursor" parent="Systems" unique_id=520059240 node_paths=PackedStringArray("player", "cursor_custom_parent", "cursor_world_pos_helper", "cursor_camera_follow_helper") instance=ExtResource("23_c1bwd")]
-cursor_sprite_options = Array[Texture2D]([ExtResource("24_dym8l"), ExtResource("25_h5q04"), ExtResource("26_360xx"), ExtResource("27_h274n"), ExtResource("28_321l2"), ExtResource("29_6vfyh"), ExtResource("30_p2bl2")])
-cursor_scale = 7.0
-player = NodePath("../../Player/Aim")
-cursor_max_distance_from_player = 480.0
-cursor_sensitivity_multiplier = 0.5
-cursor_custom_parent = NodePath("../../CanvasLayer - cursor/Node2D")
-cursor_material = ExtResource("31_sugri")
-cursor_world_pos_helper = NodePath("Helper Pivot - CursorWorldPos")
-cursor_camera_follow_helper = NodePath("Helper Pivot - CameraFollowPivot")
-camera_helper_placement_mode = 1
-middle_point_alpha = 0.7
-
-[node name="Helper Pivot - CursorWorldPos" type="Node2D" parent="Systems/Aim Cursor" unique_id=1017595432]
-
-[node name="Helper Pivot - CameraFollowPivot" type="Node2D" parent="Systems/Aim Cursor" unique_id=1287059520]
-
-[node name="close app debug" type="Node" parent="Systems" unique_id=1853007731]
-script = ExtResource("32_b3m75")
-
-[node name="Character Movement Detector" type="Node" parent="Systems" unique_id=789115831 node_paths=PackedStringArray("character")]
-script = ExtResource("33_to6nt")
-character = NodePath("../../Player")
-metadata/_custom_type_script = "uid://b5qteiikgyam3"
-
-[node name="GESceneProxy" type="Node" parent="Systems" unique_id=1310072681]
-script = ExtResource("34_00lc6")
-metadata/_custom_type_script = "uid://bwicvodln2dkh"
-
-[node name="Toggle fullscreen debug" type="Node" parent="Systems" unique_id=236729558]
-script = ExtResource("35_4welc")
 
 [node name="TimeOfDay" type="Node" parent="." unique_id=627613910]
 script = ExtResource("36_bce88")
@@ -340,13 +90,12 @@ texture = SubResource("AtlasTexture_vqsdw")
 position = Vector2(-7, -43)
 texture = SubResource("AtlasTexture_vqsdw")
 
-[connection signal="on_dry_fire" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-dry fire" method="play"]
-[connection signal="on_reload_start" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-reload" method="play"]
-[connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Gunfire Knockback" method="deal_knockback"]
-[connection signal="on_shot_fired" from="Player/Aim/Gun" to="Player/Aim/Gun/Muzzleflash Light" method="flash"]
-[connection signal="on_shot_fired_e" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/sfx-shot" method="play_at_rand_pitch"]
-[connection signal="on_shot_fired_e" from="Player/Aim/Gun" to="Player/Aim/Gun/sfx/SfxSpawner - bullet shell dropping" method="play" binds= [0.5]]
-[connection signal="gesp_on_bullet_landed" from="Systems/GESceneProxy" to="SfxSpawner - bullet impacts" method="play_at_position"]
-[connection signal="on_daylight_color_update" from="TimeOfDay" to="CanvasModulate" method="set_color"]
+[node name="LevelTransition - 1x1" parent="." unique_id=348070820 instance=ExtResource("40_utyum")]
+position = Vector2(80, -80)
+transition_name = &"to_blue_house"
+target_level_transition_name = &"to_out"
 
-[editable path="Camera"]
+[node name="Node2D - player start" type="Node2D" parent="." unique_id=907236078]
+position = Vector2(80, -80)
+
+[connection signal="on_daylight_color_update" from="TimeOfDay" to="CanvasModulate" method="set_color"]
