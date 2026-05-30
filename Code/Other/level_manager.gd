@@ -16,6 +16,9 @@ enum level_name {
 	teardrop_hills,
 }
 
+@export
+var level_names_readable: Dictionary[level_name, String] = {}
+
 func _ready() -> void:
 	if instance == null:
 		instance = self

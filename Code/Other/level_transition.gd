@@ -33,6 +33,10 @@ func _body_entered(body: Node2D):
 		target.send_to(body)	
 
 func move_to_level(body):
+	GlobalEventBus.on_level_transition_started.emit(
+			LevelManager.instance.level_names_readable[target_level_name]
+		)
+
 	# load other level
 	var t_level: Level = LevelManager.instance.load_level(target_level_name)
 	
@@ -48,6 +52,8 @@ func move_to_level(body):
 			self.get_parent().visible = false 
 			trs.get_parent().visible = true
 	trs.send_to(body)
+
+	GlobalEventBus.on_level_transition_ended.emit()
 
 	# move body to bottom of hierarch.
 	body.get_parent().move_child(body, -1)
