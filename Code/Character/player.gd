@@ -40,5 +40,3 @@ func add_impulse(impulse: Vector2):
 func _input(_event):
 	if Input.is_action_just_released("Open Inventory"):
 		GlobalInventoryHandler.open_single_inventory(inventory)
-	if Input.is_action_just_released("Open Journal"):
-		GlobalJournalHandler.open_journal(journal)

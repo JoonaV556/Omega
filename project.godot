@@ -28,7 +28,6 @@ buses/default_bus_layout="res://other/default_bus_layout.tres"
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 GlobalInventoryHandler="*res://Code/Inventory/global_inventory_handler.gd"
-GlobalJournalHandler="*res://Code/Journal/global_journal_handler.gd"
 GlobalEventBus="*res://Code/Other/CombatSample/global_event_bus.gd"
 GlobalGameData="*uid://dbry0tf860fil"
 
@@ -146,14 +145,9 @@ dialogic_default_action={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
-"Open Journal"={
+ToggleJournal={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":74,"key_label":0,"unicode":106,"location":0,"echo":false,"script":null)
-]
-}
-"Close Journal"={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 ZoomIn={

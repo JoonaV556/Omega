@@ -1,8 +1,8 @@
 extends Node
 
-const JournalUIScene = preload("res://Scenes/Journal/JournalUI.tscn")
+const JournalUIScene = preload("res://Scenes/Journal/JournalUIObsolete.tscn")
 
-var journal_ui: JournalUI
+var journal_ui: JournalUIObsolete
 
 func _ready():
 	journal_ui = JournalUIScene.instantiate()
@@ -14,3 +14,4 @@ func open_journal(journal: Journal):
 	if journal_ui.visible: return
 	journal_ui.load_journal(journal)
 	journal_ui.show()
+	
