@@ -34,9 +34,9 @@ news_host: "...evacuation- hold on, I think we are seeing a some violence occuri
 news_host: "I have to stress that all citizens on the island are strongly advised to stay inside, lock doors, and await for further information."
 # marvin text message
 narrator: *Blue's phone vibrates on the floor next to him*
-marvin: text message: "dude are you seeing the news, literally wtf. shit is fucking crazy downtown. bro we gotta meet-up or smthng. can i come to ur house?"
-blue: *responds*: "I really don't think it's a good idea man. My window blew wide open from the blast." 
+marvin: text message\: "dude are you seeing the news, literally wtf. shit is fucking crazy downtown. bro we gotta meet-up or smthng. can i come to ur house?"
+blue: *responds*\: "I really don't think it's a good idea man. My window blew wide open from the blast."
 # screams outside
 narrator: *suddenly, painful screams of a young girl echo through the window, originating from somewhere close by*
-blue: *a sense of responsibility takes over Blue and he storms outside to help the girl*
+blue: *a sense of responsibility takes over, and Blue storms outside to help the girl*
 # *fade out*

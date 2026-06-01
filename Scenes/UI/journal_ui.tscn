@@ -69,4 +69,5 @@ size_flags_vertical = 3
 [node name="VBoxContainer - QuestContainer" type="VBoxContainer" parent="Anchor/Panel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1480448559]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 19

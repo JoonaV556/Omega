@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://nktwn20mvfj5"]
+
+[ext_resource type="Script" uid="uid://dasj1grspeclu" path="res://Code/Quests/quest.gd" id="1_hp76t"]
+
+[resource]
+script = ExtResource("1_hp76t")
+title = "Investigate the screams"
+unique_name = &"investigate_screams"
+notes = PackedStringArray("I heard desperate screams of a girl from close-by. I have to go and help her quickly.", "It wasn\'t a girl in danger after all, but my idiot friend Marvin baiting me. All is good for now...")
+metadata/_custom_type_script = "uid://dasj1grspeclu"
