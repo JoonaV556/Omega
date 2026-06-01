@@ -6,5 +6,5 @@
 script = ExtResource("1_hp76t")
 title = "Investigate the screams"
 unique_name = &"investigate_screams"
-notes = PackedStringArray("I heard desperate screams of a girl from close-by. I have to go and help her quickly.", "It wasn\'t a girl in danger after all, but my idiot friend Marvin baiting me. All is good for now...")
+notes = PackedStringArray("I heard screams of a girl from somewhere close-by. I have to go and help quickly.", "It wasn\'t a girl in danger after all, but my idiot friend Marvin baiting me. All is good for now...")
 metadata/_custom_type_script = "uid://dasj1grspeclu"
