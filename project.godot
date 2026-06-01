@@ -51,7 +51,8 @@ directories/dch_directory={
 directories/dtl_directory={
 "donuts_test": "res://Dialogue/Timelines/donuts_test.dtl",
 "robert_test_timeline": "res://Dialogue/Timelines/robert_test_timeline.dtl",
-"timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl"
+"timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl",
+"timeline_marvin_enctounter": "res://Dialogue/Timelines/timeline_marvin_enctounter.dtl"
 }
 variables={}
 glossary/default_case_sensitive=true

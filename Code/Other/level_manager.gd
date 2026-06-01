@@ -30,7 +30,9 @@ func load_level(_level_name: level_name):
 	if _level_name not in levels:
 		var l_scene = load(level_scenes[_level_name]) # heavy
 		var l_node: Level = l_scene.instantiate()
+		
 		get_tree().current_scene.add_child(l_node)
+		
 		levels[_level_name] = l_node
 	return levels[_level_name]
 

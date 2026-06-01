@@ -91,13 +91,11 @@ position = Vector2(-7, -43)
 texture = SubResource("AtlasTexture_vqsdw")
 
 [node name="LevelTransition - 1x1" parent="." unique_id=348070820 instance=ExtResource("7_r3qy4")]
-position = Vector2(80, -80)
+position = Vector2(176, -80)
 transition_name = &"to_blue_house"
 target_level_transition_name = &"to_out"
 
 [node name="Node2D - player start" type="Node2D" parent="." unique_id=907236078]
 position = Vector2(80, -80)
-
-[node name="Node2D - Intro layer" type="Node2D" parent="." unique_id=1920834687]
 
 [connection signal="on_daylight_color_update" from="TimeOfDay" to="CanvasModulate" method="set_color"]
