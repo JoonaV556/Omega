@@ -20,4 +20,7 @@ func add_note(note: String):
 	notes_cont.add_child(n_lab)
 
 func mark_complete(complete: bool):
-	pass
+	if !complete:
+		return
+	var c_txt = str("[DONE] "+str(title_label.text))
+	title_label.text = c_txt

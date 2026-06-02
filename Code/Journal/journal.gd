@@ -6,6 +6,7 @@ var quests: Array[Quest] # Ordered by newest quest first
 signal journal_init(quests: Array[Quest])
 signal on_quest_added(q: Quest)
 signal on_quest_note_added(q: Quest, note: String)
+signal on_quest_completed(q: Quest)
 
 func _ready():
 	quests = []
@@ -38,6 +39,6 @@ func quest_mark_complete(quest_unique_name: StringName, complete_value: bool = t
 
 		if q.unique_name == quest_unique_name:
 			q.set_completed(complete_value)
-
+			on_quest_completed.emit(q)
 			if mark_with_note:
 				quest_advance_notes(q)
