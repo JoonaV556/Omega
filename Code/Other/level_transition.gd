@@ -16,6 +16,7 @@ func _ready():
 func _body_entered(body: Node2D):
 	var body_col := body as CollisionObject2D
 
+	# donts send the same body instantly back if it's the same one that just came through
 	if body_col and (body_col.get_rid() == self.ignore):
 		ignore = RID()
 		return
