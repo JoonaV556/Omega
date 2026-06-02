@@ -16,6 +16,7 @@ region = Rect2(0, 0, 16, 32)
 script = ExtResource("1_oulks")
 player_start_position = NodePath("Node2D - player start")
 transitions = [NodePath("LevelTransition - 1x1")]
+unique_name = &"teardrop_hills"
 metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=86370594]

@@ -8,6 +8,7 @@
 script = ExtResource("1_4uet7")
 player_start_position = NodePath("Node2D - Blue\'s Room/Node2D - Spawn Position")
 transitions = [NodePath("Node2D - Blue\'s Room/LevelTransition - blue\'s to 2nd floor"), NodePath("Node2D - 2nd Floor/LevelTransition - 2nd to blue\'s"), NodePath("Node2D - 2nd Floor/LevelTransition - 2nd to 1st"), NodePath("Node2D - 2nd Floor2/LevelTransition - 1st to 2nd"), NodePath("Node2D - 2nd Floor2/LevelTransition - 1st to out")]
+unique_name = &"blues_house"
 metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 
 [node name="Node2D - Blue\'s Room" type="Node2D" parent="." unique_id=1512551855]
@@ -28,10 +29,6 @@ position = Vector2(39, -17)
 [node name="LevelTransition - blue\'s to 2nd floor" parent="Node2D - Blue\'s Room" unique_id=2016993157 node_paths=PackedStringArray("target") instance=ExtResource("4_r1c1n")]
 position = Vector2(-64, 32)
 target = NodePath("../../Node2D - 2nd Floor/LevelTransition - 2nd to blue\'s")
-transition_name = null
-target_level_name = &""
-target_level_transition_name = null
-target_level_transition_index = null
 
 [node name="Node2D - 2nd Floor" type="Node2D" parent="." unique_id=1493601079]
 visible = false
@@ -48,18 +45,10 @@ tile_set = ExtResource("2_wk3cs")
 [node name="LevelTransition - 2nd to blue\'s" parent="Node2D - 2nd Floor" unique_id=47745691 node_paths=PackedStringArray("target") instance=ExtResource("4_r1c1n")]
 position = Vector2(288, -48)
 target = NodePath("../../Node2D - Blue\'s Room/LevelTransition - blue\'s to 2nd floor")
-transition_name = null
-target_level_name = null
-target_level_transition_name = null
-target_level_transition_index = null
 
 [node name="LevelTransition - 2nd to 1st" parent="Node2D - 2nd Floor" unique_id=2032830001 node_paths=PackedStringArray("target") instance=ExtResource("4_r1c1n")]
 position = Vector2(352, 64)
 target = NodePath("../../Node2D - 2nd Floor2/LevelTransition - 1st to 2nd")
-transition_name = null
-target_level_name = null
-target_level_transition_name = null
-target_level_transition_index = null
 
 [node name="Node2D - 2nd Floor2" type="Node2D" parent="." unique_id=83836478]
 visible = false
@@ -76,14 +65,9 @@ tile_set = ExtResource("2_wk3cs")
 [node name="LevelTransition - 1st to 2nd" parent="Node2D - 2nd Floor2" unique_id=332369038 node_paths=PackedStringArray("target") instance=ExtResource("4_r1c1n")]
 position = Vector2(800, 48)
 target = NodePath("../../Node2D - 2nd Floor/LevelTransition - 2nd to 1st")
-transition_name = null
-target_level_name = null
-target_level_transition_name = null
-target_level_transition_index = null
 
 [node name="LevelTransition - 1st to out" parent="Node2D - 2nd Floor2" unique_id=1994786030 instance=ExtResource("4_r1c1n")]
 position = Vector2(832, 208)
 transition_name = &"to_out"
 target_level_name = 1
 target_level_transition_name = &"to_blue_house"
-target_level_transition_index = null

@@ -4,6 +4,7 @@ extends Node2D
 @export var player_start_position: Node2D
 @export var nav_tilemap: TileMapLayer
 @export var transitions: Array[LevelTransition]
+@export var unique_name: StringName = "level_unnamed"
 
 func get_transition_by_name(_name: StringName) -> LevelTransition:
     for trs in transitions:
