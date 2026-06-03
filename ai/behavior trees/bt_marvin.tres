@@ -1,0 +1,21 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://d2jxao41vkqa1"]
+
+[ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="1_tryj6"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_qmfqr"]
+var/player_trail_pos/name = &"player_trail_pos"
+var/player_trail_pos/type = 5
+var/player_trail_pos/value = Vector2(0, 0)
+var/player_trail_pos/hint = 0
+var/player_trail_pos/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_ldgvs"]
+script = ExtResource("1_tryj6")
+target_position_var = &"player_trail_pos"
+
+[sub_resource type="BTSequence" id="BTSequence_ldgvs"]
+children = [SubResource("BTAction_ldgvs")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_qmfqr")
+root_task = SubResource("BTSequence_ldgvs")

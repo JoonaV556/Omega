@@ -2264,12 +2264,19 @@ texture = ExtResource("3_nmd6m")
 28:29/0 = 0
 29:29/0 = 0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mytuf"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rpn7y"]
 texture = ExtResource("4_mytuf")
 2:0/0 = 0
 3:0/0 = 0
 4:0/0 = 0
 5:0/0 = 0
+5:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_mytuf")
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -2356,6 +2363,7 @@ texture = ExtResource("4_mytuf")
 
 [resource]
 physics_layer_0/collision_layer = 1
+navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_4ktio")
 sources/1 = SubResource("TileSetAtlasSource_vqsdw")
 sources/2 = SubResource("TileSetAtlasSource_mytuf")
