@@ -9,12 +9,15 @@ extends Node2D
 
 @export var active = false
 
+@export var trail_glob_position: Vector2 = Vector2.ZERO
+
 var t_move_dir: Vector2 = Vector2.RIGHT
 
 var t_last_pos: Vector2 = Vector2.ZERO
 
 func _ready():
     t_last_pos = target.global_position
+    trail_glob_position = target.global_position + Vector2(trail_distance, 0.0)
 
 func _process(delta):
     if active:
@@ -23,4 +26,5 @@ func _process(delta):
             t_move_dir = t_last_pos.direction_to(target.global_position).normalized()
             var t_pos: Vector2 = target.global_position + (-1 * t_move_dir * trail_distance)
             self.global_position = t_pos
-            t_last_pos = target.global_position
+            trail_glob_position = t_pos
+        t_last_pos = target.global_position

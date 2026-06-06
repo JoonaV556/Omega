@@ -13,9 +13,6 @@ var/player_trail_pos/hint_string = ""
 script = ExtResource("1_tryj6")
 target_position_var = &"player_trail_pos"
 
-[sub_resource type="BTSequence" id="BTSequence_ldgvs"]
-children = [SubResource("BTAction_ldgvs")]
-
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_qmfqr")
-root_task = SubResource("BTSequence_ldgvs")
+root_task = SubResource("BTAction_ldgvs")

@@ -30,7 +30,7 @@ func _enter() -> void:
 	nav_a = npc.nav_agent
 
 	# set target pos 
-	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO)
+	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO, true)
 	nav_a.target_position = target_pos
 
 # Called each time this task is exited.
@@ -44,12 +44,15 @@ func _tick(delta: float) -> Status:
 	if !npc:
 		return FAILURE
 
-	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO)
+	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO, true)
 
 	# set target pos
 	nav_a.target_position = target_pos
 
-	# get path
+	if target_pos == Vector2(0.0, 0.0):
+		print("catch")
+
+	# get paths
 	var next_pos = nav_a.get_next_path_position()
 	
 	if (npc.global_position.distance_to(target_pos)) <= close_enough_distance:
