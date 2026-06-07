@@ -1,0 +1,11 @@
+marvin: Did you hear that? I think I heard sounds coming out of the sewer...
+[signal arg="z_appear"]
+narrator: A pale, monstrously big creature jumps out of the sewer.
+zombie: *grunting and gurgling sounds*
+[signal arg="z_attack"]
+[wait time="1.0"]
+
+marvin: AAAAAAAAAAAAAAAARGH
+narrator: (a few specks of blood spill on the ground)
+marvin: IT BIT ME IN THE FUCKING ASS
+marvin: RUN BLUE, RUN!!!!

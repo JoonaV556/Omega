@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="1_tryj6"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_qmfqr"]
-var/player_trail_pos/name = &"player_trail_pos"
-var/player_trail_pos/type = 5
-var/player_trail_pos/value = Vector2(0, 0)
-var/player_trail_pos/hint = 0
-var/player_trail_pos/hint_string = ""
+var/move_target_pos/name = &"move_target_pos"
+var/move_target_pos/type = 5
+var/move_target_pos/value = Vector2(0, 0)
+var/move_target_pos/hint = 0
+var/move_target_pos/hint_string = ""
 
 [sub_resource type="BTAction" id="BTAction_ldgvs"]
 script = ExtResource("1_tryj6")
-target_position_var = &"player_trail_pos"
+target_position_var = &"move_target_pos"
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_qmfqr")

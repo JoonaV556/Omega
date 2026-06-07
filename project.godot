@@ -46,17 +46,19 @@ directories/dch_directory={
 "narrator": "res://Dialogue/Characters/narrator.dch",
 "news_host": "res://Dialogue/Characters/news_host.dch",
 "ptg": "res://Dialogue/Characters/ptg.dch",
-"robert": "res://Dialogue/Characters/robert.dch"
+"robert": "res://Dialogue/Characters/robert.dch",
+"zombie": "res://Dialogue/Characters/zombie.dch"
 }
 directories/dtl_directory={
 "donuts_test": "res://Dialogue/Timelines/donuts_test.dtl",
 "robert_test_timeline": "res://Dialogue/Timelines/robert_test_timeline.dtl",
 "timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl",
-"timeline_marvin_enctounter": "res://Dialogue/Timelines/timeline_marvin_enctounter.dtl"
+"timeline_marvin_enctounter": "res://Dialogue/Timelines/timeline_marvin_enctounter.dtl",
+"timeline_zombie_encounter": "res://Dialogue/Timelines/timeline_zombie_encounter.dtl"
 }
 variables={}
 glossary/default_case_sensitive=true
-layout/style_list=["res://Dialogue/Styles/s_no-portrait.tres", "res://Dialogue/Styles/s_no-portrait_no-nametag.tres", "res://Dialogue/Styles/s_no-portrait_blue.tres", "res://Dialogue/Styles/s_no-portrait_blue2.tres", "res://Dialogue/Styles/s_no-portrait_light-green.tres", "res://Dialogue/Styles/tst_style.tres", "res://Dialogue/Styles/tst_style_2.tres", "res://Dialogue/Styles/tst_style_3.tres"]
+layout/style_list=["res://Dialogue/Styles/s_no-portrait.tres", "res://Dialogue/Styles/s_no-portrait_no-nametag.tres", "res://Dialogue/Styles/s_no-portrait_blue.tres", "res://Dialogue/Styles/s_no-portrait_blue2.tres", "res://Dialogue/Styles/s_no-portrait_light-green.tres", "res://Dialogue/Styles/tst_style.tres", "res://Dialogue/Styles/tst_style_2.tres", "res://Dialogue/Styles/tst_style_3.tres", "res://Dialogue/Styles/s_no-portrait_red.tres"]
 layout/default_style="res://Dialogue/Styles/s_no-portrait.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
