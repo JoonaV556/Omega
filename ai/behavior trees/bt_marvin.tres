@@ -1,18 +1,22 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://d2jxao41vkqa1"]
 
-[ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="1_tryj6"]
+[ext_resource type="Script" uid="uid://btn7natrijhev" path="res://Code/AI/tasks/pursue_character.gd" id="1_tryj6"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_qmfqr"]
-var/move_target_pos/name = &"move_target_pos"
-var/move_target_pos/type = 5
-var/move_target_pos/value = Vector2(0, 0)
-var/move_target_pos/hint = 0
-var/move_target_pos/hint_string = ""
+var/target_pos/name = &"target_pos"
+var/target_pos/type = 5
+var/target_pos/value = Vector2(0, 0)
+var/target_pos/hint = 0
+var/target_pos/hint_string = ""
 
-[sub_resource type="BTAction" id="BTAction_ldgvs"]
+[sub_resource type="BTAction" id="BTAction_5i7kg"]
 script = ExtResource("1_tryj6")
-target_position_var = &"move_target_pos"
+pursue_character_position = null
+target_position_var = &"target_pos"
+
+[sub_resource type="BTSequence" id="BTSequence_tryj6"]
+children = [SubResource("BTAction_5i7kg")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_qmfqr")
-root_task = SubResource("BTAction_ldgvs")
+root_task = SubResource("BTSequence_tryj6")

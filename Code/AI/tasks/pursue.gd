@@ -1,5 +1,6 @@
 @tool
 extends BTAction
+class_name TPursue
 ## Pursue
 ## continuously moves npc towards a specific position 
 
@@ -30,8 +31,7 @@ func _enter() -> void:
 	nav_a = npc.nav_agent
 
 	# set target pos 
-	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO, true)
-	nav_a.target_position = target_pos
+	nav_a.target_position = _get_target_pos()
 
 # Called each time this task is exited.
 func _exit() -> void:
@@ -41,10 +41,13 @@ func _exit() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
+	return update(delta)
+
+func update(delta: float) -> Status:
 	if !npc:
 		return FAILURE
 
-	var target_pos: Vector2 = blackboard.get_var(target_position_var, Vector2.ZERO, true)
+	var target_pos: Vector2 = _get_target_pos()
 
 	# set target pos
 	nav_a.target_position = target_pos
@@ -63,8 +66,11 @@ func _tick(delta: float) -> Status:
 	
 	return RUNNING
 
-
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings := PackedStringArray()
 	return warnings
+
+
+func _get_target_pos() -> Vector2:
+	return blackboard.get_var(target_position_var, Vector2.ZERO, true)
