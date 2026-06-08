@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmi3g3ai6dy4c"]
 
-[ext_resource type="Script" uid="uid://dl0dpwcakcq3a" path="res://Dialogue/LayoutScenes/CustomStyleNoPortrait/default_layout_base.gd" id="1_ifsho"]
+[ext_resource type="Script" uid="uid://dl0dpwcakcq3a" path="res://Scenes/Dialogic/LayoutScenes/CustomStyleNoPortrait/default_layout_base.gd" id="1_ifsho"]
 [ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="2_nqjo4"]
 [ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="4_lf4f4"]
 [ext_resource type="PackedScene" uid="uid://bquja8jyk8kbr" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Textbox/vn_textbox_layer.tscn" id="6_n3768"]

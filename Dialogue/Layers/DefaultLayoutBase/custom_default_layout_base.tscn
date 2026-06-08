@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dww3l8xul8cfp"]
-
-[ext_resource type="Script" uid="uid://n0cpayn4m56b" path="res://Dialogue/Layers/DefaultLayoutBase/default_layout_base.gd" id="1_ifsho"]
-
-[node name="DefaultLayoutBase" type="CanvasLayer" unique_id=610595655]
-script = ExtResource("1_ifsho")

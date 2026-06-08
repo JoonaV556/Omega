@@ -58,7 +58,7 @@ directories/dtl_directory={
 }
 variables={}
 glossary/default_case_sensitive=true
-layout/style_list=["res://Dialogue/Styles/s_no-portrait.tres", "res://Dialogue/Styles/s_no-portrait_no-nametag.tres", "res://Dialogue/Styles/s_no-portrait_blue.tres", "res://Dialogue/Styles/s_no-portrait_blue2.tres", "res://Dialogue/Styles/s_no-portrait_light-green.tres", "res://Dialogue/Styles/tst_style.tres", "res://Dialogue/Styles/tst_style_2.tres", "res://Dialogue/Styles/tst_style_3.tres", "res://Dialogue/Styles/s_no-portrait_red.tres"]
+layout/style_list=["res://Scenes/Dialogic/Styles/prod/style_base.tres"]
 layout/default_style="res://Dialogue/Styles/s_no-portrait.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
