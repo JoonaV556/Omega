@@ -30,6 +30,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 GlobalInventoryHandler="*res://Code/Inventory/global_inventory_handler.gd"
 GlobalEventBus="*res://Code/Other/CombatSample/global_event_bus.gd"
 GlobalGameData="*uid://dbry0tf860fil"
+OmegaDialogueHandler="*uid://rhivm6mjcypb"
 
 [debug]
 
@@ -50,16 +51,17 @@ directories/dch_directory={
 "zombie": "res://Dialogue/Characters/zombie.dch"
 }
 directories/dtl_directory={
-"donuts_test": "res://Dialogue/Timelines/donuts_test.dtl",
-"robert_test_timeline": "res://Dialogue/Timelines/robert_test_timeline.dtl",
+"donuts_test": "res://Dialogue/Timelines/testing/donuts_test.dtl",
+"robert_test_timeline": "res://Dialogue/Timelines/testing/robert_test_timeline.dtl",
+"timeline_dlg_test": "res://Dialogue/Timelines/testing/timeline_dlg_test.dtl",
 "timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl",
 "timeline_marvin_enctounter": "res://Dialogue/Timelines/timeline_marvin_enctounter.dtl",
 "timeline_zombie_encounter": "res://Dialogue/Timelines/timeline_zombie_encounter.dtl"
 }
 variables={}
 glossary/default_case_sensitive=true
-layout/style_list=["res://Scenes/Dialogic/Styles/prod/style_base.tres"]
-layout/default_style="res://Dialogue/Styles/s_no-portrait.tres"
+layout/style_list=["res://Scenes/Dialogic/Styles/prod/style_base.tres", "res://Scenes/Dialogic/Styles/s_no-portrait.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_blue2.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_blue.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_light-green.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_no-nametag.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_red.tres"]
+layout/default_style="res://Scenes/Dialogic/Styles/s_no-portrait.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true

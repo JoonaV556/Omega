@@ -217,6 +217,7 @@ autoplay = &"RESET"
 script = ExtResource("2_xy7a2")
 
 [node name="Anchor" type="Control" parent="." unique_id=1937080713]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5

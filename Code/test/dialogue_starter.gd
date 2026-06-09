@@ -8,7 +8,10 @@ extends Node
 ## SignalOutput: Signal output node to trigger 
 @export var dialogue_event_signal_output_nodes: Dictionary[String, SignalOutput]
 
+signal on_dialogue_started
 signal on_dialogue_ended
+
+var layout: Node
 
 func start():
 	if Dialogic.current_timeline != null:
@@ -16,7 +19,9 @@ func start():
 
 	Dialogic.signal_event.connect(on_dialogic_signal_event)
 
-	Dialogic.start(timeline)
+	layout = Dialogic.start(timeline)
+	
+	on_dialogue_started.emit()
 	
 	await Dialogic.timeline_ended
 	

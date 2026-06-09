@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cb26d2g8qs4ml"]
+
+[ext_resource type="Script" uid="uid://v8264p3xejj8" path="res://Code/test/dlg_ui_test.gd" id="1_skyyu"]
+[ext_resource type="Script" uid="uid://jarhmlogrsmw" path="res://Code/test/dialogue_starter.gd" id="2_40oly"]
+[ext_resource type="Resource" uid="uid://do5jiy2oyf31q" path="res://Dialogue/Timelines/testing/timeline_dlg_test.dtl" id="3_cxkcg"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="4_jgrk0"]
+
+[node name="Node2D" type="Node2D" unique_id=360148192]
+
+[node name="Node" type="Node" parent="." unique_id=1893677654]
+script = ExtResource("1_skyyu")
+
+[node name="DialogueStarter" type="Node" parent="." unique_id=1053738642]
+unique_name_in_owner = true
+script = ExtResource("2_40oly")
+timeline = ExtResource("3_cxkcg")
+metadata/_custom_type_script = "uid://jarhmlogrsmw"
+
+[node name="DebugCloseApp" type="Node" parent="." unique_id=776706693]
+script = ExtResource("4_jgrk0")
+metadata/_custom_type_script = "uid://cxhd4hqfa1osn"

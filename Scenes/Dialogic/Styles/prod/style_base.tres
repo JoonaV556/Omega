@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="DialogicStyle" format=3 uid="uid://dl81x3uv3h1xb"]
 
 [ext_resource type="Script" uid="uid://d227pc5uafqoe" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_56u03"]
+[ext_resource type="PackedScene" uid="uid://c6ya3ac40fqto" path="res://Scenes/Dialogic/LayoutScenes/CustomStyleBase/custom_style_base.tscn" id="1_l1op5"]
 [ext_resource type="PackedScene" uid="uid://c1k5m0w3r40xf" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn" id="2_t08wf"]
 [ext_resource type="PackedScene" uid="uid://cy1y14inwkplb" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Portraits/vn_portrait_layer.tscn" id="3_l1op5"]
 [ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="4_iw40o"]
@@ -14,6 +15,7 @@
 
 [sub_resource type="Resource" id="Resource_ojyc8"]
 script = ExtResource("1_56u03")
+scene = ExtResource("1_l1op5")
 
 [sub_resource type="Resource" id="Resource_jpn1t"]
 script = ExtResource("1_56u03")
@@ -67,4 +69,4 @@ layer_info = {
 "17": SubResource("Resource_ysejf"),
 "18": SubResource("Resource_l1op5")
 }
-metadata/_latest_layer = "13"
+metadata/_latest_layer = ""
