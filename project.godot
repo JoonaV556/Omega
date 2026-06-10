@@ -41,13 +41,13 @@ gdscript/warnings/unused_signal=0
 
 directories/dch_directory={
 "blue": "res://Dialogue/Characters/blue.dch",
-"dinkum": "res://Dialogue/Characters/dinkum.dch",
-"donut": "res://Dialogue/Characters/donut.dch",
+"dinkum": "res://Dialogue/Characters/tsting/dinkum.dch",
+"donut": "res://Dialogue/Characters/tsting/donut.dch",
 "marvin": "res://Dialogue/Characters/marvin.dch",
 "narrator": "res://Dialogue/Characters/narrator.dch",
 "news_host": "res://Dialogue/Characters/news_host.dch",
-"ptg": "res://Dialogue/Characters/ptg.dch",
-"robert": "res://Dialogue/Characters/robert.dch",
+"ptg": "res://Dialogue/Characters/tsting/ptg.dch",
+"robert": "res://Dialogue/Characters/tsting/robert.dch",
 "zombie": "res://Dialogue/Characters/zombie.dch"
 }
 directories/dtl_directory={
@@ -61,7 +61,7 @@ directories/dtl_directory={
 variables={}
 glossary/default_case_sensitive=true
 layout/style_list=["res://Scenes/Dialogic/Styles/prod/style_base.tres", "res://Scenes/Dialogic/Styles/s_no-portrait.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_blue2.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_blue.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_light-green.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_no-nametag.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_red.tres"]
-layout/default_style="res://Scenes/Dialogic/Styles/s_no-portrait.tres"
+layout/default_style="res://Scenes/Dialogic/Styles/prod/style_base.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true

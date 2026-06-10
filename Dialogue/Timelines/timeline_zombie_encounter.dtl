@@ -1,3 +1,4 @@
+do OmegaDialogueHandler.text_box_move_up()
 marvin: Did you hear that? I think I heard sounds coming out of the sewer...
 [signal arg="z_appear"]
 narrator: A pale, monstrously big creature jumps out of the sewer.
@@ -9,3 +10,4 @@ marvin: AAAAAAAAAAAAAAAARGH
 narrator: (a few specks of blood spill on the ground)
 marvin: IT BIT ME IN THE FUCKING ASS
 marvin: RUN BLUE, RUN!!!!
+do OmegaDialogueHandler.text_box_move_down()
