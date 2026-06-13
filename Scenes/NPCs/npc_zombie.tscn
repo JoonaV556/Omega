@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://c0a44gil5ss06"]
+
+[ext_resource type="Script" uid="uid://d3hmhjuee4ivu" path="res://Code/Other/NPCSample/npc_character.gd" id="1_rhjje"]
+[ext_resource type="Texture2D" uid="uid://c77ipjt7iun6" path="res://Assets_LICENSED/Sprites/zombie_placeholder.png" id="2_u4dew"]
+[ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_6hcm6"]
+[ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="5_1toey"]
+[ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="6_xr5gc"]
+[ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="7_hf4ec"]
+[ext_resource type="Script" uid="uid://dyijf0ehtuk" path="res://Code/AI/btplayer_scene_extension.gd" id="9_ou813"]
+[ext_resource type="BehaviorTree" uid="uid://bf8gg6se7vhyv" path="res://ai/behavior trees/bt_zombie.tres" id="9_u4dew"]
+[ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="10_4h2xv"]
+[ext_resource type="Script" uid="uid://bt6mrfd7od1vh" path="res://Code/Other/status_effect_receiver.gd" id="11_ruiog"]
+[ext_resource type="Script" uid="uid://byw4y1ikbhuff" path="res://Code/Other/NPCSample/faction_identity.gd" id="13_6hcm6"]
+[ext_resource type="Resource" uid="uid://dp040qhvw2iw6" path="res://Resources/faction_zombies.tres" id="14_1toey"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
+radius = 2.0
+height = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vahqk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u4dew")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kyqiw"]
+polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_6hcm6"]
+binding/detected = NodePath("../VisualObserver:detected")
+
+[node name="NPC - Zombie" type="CharacterBody2D" unique_id=837682975 node_paths=PackedStringArray("nav_agent")]
+collision_layer = 40
+script = ExtResource("1_rhjje")
+nav_agent = NodePath("NavigationAgent2D")
+walk_speed = 70.0
+sprint_speed = 120.0
+metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
+metadata/faction_index = 1
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1020145549]
+unique_name_in_owner = true
+path_postprocessing = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1843644756]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jr1ro")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2007569679]
+light_mask = 2
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_vahqk")
+offset = Vector2(0, -16)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=158717153]
+show_behind_parent = true
+position = Vector2(0, -2)
+occluder = SubResource("OccluderPolygon2D_kyqiw")
+
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." unique_id=939773773 node_paths=PackedStringArray("animsprite")]
+stream = ExtResource("4_6hcm6")
+pitch_scale = 1.3
+max_distance = 400.0
+attenuation = 2.0
+script = ExtResource("5_1toey")
+animsprite = NodePath("../AnimatedSprite2D")
+footstep_frames = Array[int]([1, 3])
+
+[node name="VisualObservable" type="Node2D" parent="." unique_id=2036545595]
+script = ExtResource("6_xr5gc")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="VisualObserver" type="Node2D" parent="." unique_id=1199437309]
+script = ExtResource("7_hf4ec")
+sight_raycast_layers = 8
+sight_blocking_layers = 20
+metadata/_custom_type_script = "uid://b8guhrmputmil"
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=510154575]
+behavior_tree = ExtResource("9_u4dew")
+blackboard_plan = SubResource("BlackboardPlan_6hcm6")
+script = ExtResource("9_ou813")
+metadata/_custom_type_script = "uid://dyijf0ehtuk"
+
+[node name="Health" type="Node" parent="." unique_id=772449044]
+unique_name_in_owner = true
+script = ExtResource("10_4h2xv")
+
+[node name="StatusEffectReceiver" type="Node" parent="." unique_id=350757187]
+unique_name_in_owner = true
+script = ExtResource("11_ruiog")
+metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
+
+[node name="FactionIdentity" type="Node" parent="." unique_id=1314601294]
+unique_name_in_owner = true
+script = ExtResource("13_6hcm6")
+faction = ExtResource("14_1toey")
+metadata/_custom_type_script = "uid://byw4y1ikbhuff"
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="on_depleted" from="Health" to="." method="disable_movement"]
+[connection signal="on_depleted" from="Health" to="BTPlayer" method="set_active"]
+[connection signal="on_depleted" from="Health" to="CollisionShape2D" method="set_disabled" flags=3 binds= [true]]
+[connection signal="on_depleted" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]

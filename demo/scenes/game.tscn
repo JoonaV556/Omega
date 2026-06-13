@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://hnwi23oef752" path="res://demo/assets/hp_bar.png" id="8_invih"]
 [ext_resource type="PackedScene" uid="uid://bsig1usigbbuy" path="res://demo/scenes/base/arena.tscn" id="9_k3uu1"]
 [ext_resource type="PackedScene" uid="uid://bpd1wmw2f7bvg" path="res://demo/props/gong.tscn" id="10_tftjb"]
-[ext_resource type="PackedScene" uid="uid://d07ag5dcje13i" path="res://demo/agents/player/player.tscn" id="11_bndob"]
+[ext_resource type="PackedScene" uid="uid://d07ag5dcje13i" path="res://demo/agents/player/ai_sample_player.tscn" id="11_bndob"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qvxvp"]
 font = ExtResource("4_w0vii")

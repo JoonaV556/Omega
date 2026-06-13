@@ -6,6 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_5ixxa"]
 [ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="4_dewec"]
 [ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="6_1tkam"]
+[ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="7_n35ei"]
+[ext_resource type="Script" uid="uid://byw4y1ikbhuff" path="res://Code/Other/NPCSample/faction_identity.gd" id="8_pk0dj"]
+[ext_resource type="Resource" uid="uid://bp85lch2ommbd" path="res://Resources/faction_player.tres" id="9_o3ifh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
 atlas = ExtResource("2_5ixxa")
@@ -235,7 +238,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D" unique_id=700090210]
-collision_layer = 2
+collision_layer = 10
 script = ExtResource("1_kyqiw")
 metadata/is_player = false
 
@@ -278,5 +281,15 @@ texture_scale = 0.85
 unique_name_in_owner = true
 script = ExtResource("6_1tkam")
 metadata/_custom_type_script = "uid://d106ew175y1va"
+
+[node name="VisualObservable" type="Node2D" parent="." unique_id=1062346801]
+script = ExtResource("7_n35ei")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="FactionIdentity" type="Node" parent="." unique_id=1213136081]
+unique_name_in_owner = true
+script = ExtResource("8_pk0dj")
+faction = ExtResource("9_o3ifh")
+metadata/_custom_type_script = "uid://byw4y1ikbhuff"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]

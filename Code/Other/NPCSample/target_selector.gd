@@ -1,5 +1,6 @@
-## Selects a target of interest, useful for aggression logic
-class_name TargetSelector
+## stupid old ai placeholder code Selects a target of interest, useful for aggression logic
+## @deprecated
+class_name OBSTargetSelector
 extends Node
 
 @export var observer: Observer 
@@ -29,7 +30,7 @@ func on_target_candidates_updated(candidates: Array[Observable]):
 func select(_target: Node2D) -> bool:
 	# prevent targetting non-hostile faction members
 	var target_faction = _target.get_parent().get_meta("faction_index")
-	if not FactionRelations.instance.is_hostile(self_faction, target_faction):
+	if not FactionRelations.instance.is_hostile_by_idx(self_faction, target_faction):
 		return false
 
 	# prevent targetting dead
@@ -65,9 +66,9 @@ func _process(delta: float) -> void:
 				trg_health = null
 
 func try_reselect():
-	if observer.detected.size() > 0:
-		if observer.detected.keys()[0] != null:
-			select(observer.detected.keys()[0])
+	if observer._detected.size() > 0:
+		if observer._detected.keys()[0] != null:
+			select(observer._detected.keys()[0])
 
 func has_target() -> bool:
 	return _has_target

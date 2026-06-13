@@ -2,18 +2,22 @@
 extends BTAction
 class_name TPursue
 ## Pursue
-## continuously moves npc towards a specific position 
+## continuously moves npc towards a specific position or a target Node2D
 
-@export var target_position_var := &"pos"
+@export var target_position_var: BBVector2
 ## pixels
 @export var close_enough_distance: float = 16.0
+
+@export_group("Optional - Pursue Node")
+@export var pursue_node: bool = false
+@export var target_node_var: BBNode
 
 var npc: 	NpcCharacter
 var nav_a: 	NavigationAgent2D
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
-	return "Pursue - Endless"
+	return "Pursue"
 
 # Called once during initialization.
 func _setup() -> void:
@@ -71,6 +75,17 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warnings := PackedStringArray()
 	return warnings
 
-
 func _get_target_pos() -> Vector2:
-	return blackboard.get_var(target_position_var, Vector2.ZERO, true)
+	if !pursue_node:
+		var p_ret = target_position_var.get_value(scene_root, blackboard)
+		if !p_ret:
+			push_error("error retrieving pursue target position value from blackboard")
+		return p_ret
+
+	var ret = target_node_var.get_value(scene_root, blackboard) as Node2D
+	
+	if !ret:
+		push_error("error retrieving pursue target node reference from blackboard")
+		return Vector2.ZERO
+
+	return ret.global_position

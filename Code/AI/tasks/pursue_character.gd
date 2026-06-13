@@ -23,9 +23,9 @@ func _generate_name() -> String:
 func _enter() -> void:
 	super._enter()
 
-	var player: BTPlayerExtended
+	var player: OBTPlayer
 	for c in agent.get_children():
-		if c is BTPlayerExtended:
+		if c is OBTPlayer:
 			player = c
 	
 	if !player: 
@@ -58,5 +58,8 @@ func _get_target_pos() -> Vector2:
 	if pursue_character_position:
 		return trg_c.global_position
 	else:
-		return blackboard.get_var(target_position_var, Vector2.ZERO, true)
+		var ret = target_position_var.get_value(scene_root, blackboard)
+		if !ret:
+			push_error("error retrieving pursue target position value from blackboard")
+		return ret
 	
