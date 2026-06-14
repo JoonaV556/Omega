@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="7_n35ei"]
 [ext_resource type="Script" uid="uid://byw4y1ikbhuff" path="res://Code/Other/NPCSample/faction_identity.gd" id="8_pk0dj"]
 [ext_resource type="Resource" uid="uid://bp85lch2ommbd" path="res://Resources/faction_player.tres" id="9_o3ifh"]
+[ext_resource type="Script" uid="uid://7xs603f83kli" path="res://Code/Other/stamina.gd" id="10_gurq1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
 atlas = ExtResource("2_5ixxa")
@@ -292,4 +293,14 @@ script = ExtResource("8_pk0dj")
 faction = ExtResource("9_o3ifh")
 metadata/_custom_type_script = "uid://byw4y1ikbhuff"
 
+[node name="Stamina" type="Node" parent="." unique_id=195880788]
+script = ExtResource("10_gurq1")
+deplete_per_sec = 20.0
+regen_per_sec = 20.0
+metadata/_custom_type_script = "uid://7xs603f83kli"
+
+[connection signal="on_sprinting_started" from="." to="Stamina" method="enable_deplete"]
+[connection signal="on_sprinting_stopped" from="." to="Stamina" method="disable_deplete"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="on_depleted" from="Stamina" to="." method="allow_sprint" binds= [false]]
+[connection signal="on_replenished_over_treshold" from="Stamina" to="." method="allow_sprint" binds= [true]]
