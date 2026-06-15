@@ -6,5 +6,5 @@ extends BTPlayer
 @export var var_blackboard: Dictionary[StringName, Variant]
 
 
-func _enter_tree() -> void:
+func _ready() -> void:
 	set_scene_root_hint(get_tree().current_scene) # try fix scene root errors

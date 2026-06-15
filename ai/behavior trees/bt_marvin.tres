@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://btn7natrijhev" path="res://Code/AI/tasks/pursue_character.gd" id="1_tryj6"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tryj6"]
+prefetch_nodepath_vars = false
 var/target_pos/name = &"target_pos"
 var/target_pos/type = 5
 var/target_pos/value = Vector2(0, 0)
