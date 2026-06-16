@@ -49,6 +49,9 @@ target_position_var = SubResource("BBVector2_10kwi")
 pursue_node = true
 target_node_var = SubResource("BBNode_8vt37")
 
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_10kwi"]
+children = [SubResource("BTAction_8vt37"), SubResource("BTAction_3378j")]
+
 [sub_resource type="BBNode" id="BBNode_jjxm8"]
 value_source = 1
 variable = &"target"
@@ -69,9 +72,13 @@ script = ExtResource("4_jjxm8")
 target_pos_var = &"target"
 target_node = SubResource("BBNode_kc3qf")
 
-[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_10kwi"]
-children = [SubResource("BTAction_8vt37"), SubResource("BTAction_3378j"), SubResource("BTAction_kc3qf"), SubResource("BTAction_e4mhl")]
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_3378j"]
+children = [SubResource("BTAction_kc3qf"), SubResource("BTAction_e4mhl")]
+
+[sub_resource type="BTParallel" id="BTParallel_jjxm8"]
+repeat = true
+children = [SubResource("BTDynamicSequence_10kwi"), SubResource("BTDynamicSequence_3378j")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_3qa03")
-root_task = SubResource("BTDynamicSequence_10kwi")
+root_task = SubResource("BTParallel_jjxm8")

@@ -107,6 +107,7 @@ metadata/_custom_type_script = "uid://byw4y1ikbhuff"
 unique_name_in_owner = true
 script = ExtResource("13_4bu71")
 attack_layers = 2
+damage = 20.0
 metadata/_custom_type_script = "uid://bedac8fd5wj6p"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
