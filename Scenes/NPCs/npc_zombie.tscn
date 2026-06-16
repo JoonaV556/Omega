@@ -10,6 +10,7 @@
 [ext_resource type="BehaviorTree" uid="uid://bf8gg6se7vhyv" path="res://ai/behavior trees/bt_zombie.tres" id="9_u4dew"]
 [ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="10_4h2xv"]
 [ext_resource type="Script" uid="uid://bt6mrfd7od1vh" path="res://Code/Other/status_effect_receiver.gd" id="11_ruiog"]
+[ext_resource type="Script" uid="uid://bedac8fd5wj6p" path="res://Code/Other/NPCSample/melee_attack.gd" id="13_4bu71"]
 [ext_resource type="Script" uid="uid://byw4y1ikbhuff" path="res://Code/Other/NPCSample/faction_identity.gd" id="13_6hcm6"]
 [ext_resource type="Resource" uid="uid://dp040qhvw2iw6" path="res://Resources/faction_zombies.tres" id="14_1toey"]
 
@@ -101,6 +102,12 @@ unique_name_in_owner = true
 script = ExtResource("13_6hcm6")
 faction = ExtResource("14_1toey")
 metadata/_custom_type_script = "uid://byw4y1ikbhuff"
+
+[node name="MeleeAttack" type="Node2D" parent="." unique_id=287699039]
+unique_name_in_owner = true
+script = ExtResource("13_4bu71")
+attack_layers = 2
+metadata/_custom_type_script = "uid://bedac8fd5wj6p"
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
 [connection signal="on_depleted" from="Health" to="." method="disable_movement"]

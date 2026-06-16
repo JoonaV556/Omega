@@ -1,3 +1,4 @@
+## Simple, direction-based melee attack. 
 class_name MeleeAttack
 extends Node2D
 
@@ -10,7 +11,6 @@ extends Node2D
 @export var attack_range: float = 10.0
 ## secs
 @export var cooldown_duration: float = 1.0
-
 
 var cooldown_left: float
 

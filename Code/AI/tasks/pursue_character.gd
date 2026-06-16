@@ -41,17 +41,20 @@ func _enter() -> void:
 		pre_fail = true
 
 func _tick(delta: float) -> Status:
+	# stop pursue if char ref is null
 	if pre_fail:
 		return FAILURE
 	if !trg_c:
 		return FAILURE
-   
+
+	# imitate move speed
 	if imitate_move_speed:
 		if trg_c.sprinting and !npc.sprinting:
 			npc.set_sprinting(true)
 		if !trg_c.sprinting and npc.sprinting:
 			npc.set_sprinting(false)
-
+	
+	# move the agent towards the target character
 	return super.update(delta)
 
 func _get_target_pos() -> Vector2:

@@ -35,7 +35,7 @@ func _enter() -> void:
 	nav_a = npc.nav_agent
 
 	# set target pos 
-	nav_a.target_position = _get_target_pos()
+	nav_a.set_target_position(_get_target_pos())
 
 # Called each time this task is exited.
 func _exit() -> void:
@@ -51,23 +51,25 @@ func update(delta: float) -> Status:
 	if !npc:
 		return FAILURE
 
+	# get target position
 	var target_pos: Vector2 = _get_target_pos()
 
-	# set target pos
-	nav_a.target_position = target_pos
+	# stop moving if close enough
+	# request new path if not yet close enough
+	var close_enough = npc.global_position.distance_to(target_pos) <= close_enough_distance
+	if nav_a.is_navigation_finished():
+		if close_enough:
+			npc.move_dir = Vector2.ZERO
+		else:
+			nav_a.set_target_position(_get_target_pos())
+		return RUNNING
 
-	if target_pos == Vector2(0.0, 0.0):
-		print("catch")
-
-	# get paths
+	# get next pos on path
 	var next_pos = nav_a.get_next_path_position()
-	
-	if (npc.global_position.distance_to(target_pos)) <= close_enough_distance:
-		npc.move_dir = Vector2.ZERO
-	else:
-		# move npc
-		npc.move_dir = Vector2(next_pos - npc.global_position)
-	
+
+	# move towards target
+	npc.move_dir = Vector2(next_pos - npc.global_position)
+
 	return RUNNING
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).

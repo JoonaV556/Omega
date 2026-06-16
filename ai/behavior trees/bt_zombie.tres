@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dcm7by44bkipy" path="res://Code/AI/tasks/select_target.gd" id="1_42kxw"]
 [ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="2_8vt37"]
+[ext_resource type="Script" uid="uid://dgmwnfrar2ny1" path="res://Code/AI/tasks/task_within_distance.gd" id="3_3378j"]
+[ext_resource type="Script" uid="uid://j4rc8hgpbtqg" path="res://Code/AI/tasks/task_melee_attack.gd" id="4_jjxm8"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_3qa03"]
 var/detected/name = &"detected"
@@ -47,8 +49,28 @@ target_position_var = SubResource("BBVector2_10kwi")
 pursue_node = true
 target_node_var = SubResource("BBNode_8vt37")
 
+[sub_resource type="BBNode" id="BBNode_jjxm8"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_kc3qf"]
+script = ExtResource("3_3378j")
+target_pos_var = &"target"
+target_node = SubResource("BBNode_jjxm8")
+
+[sub_resource type="BBNode" id="BBNode_kc3qf"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_e4mhl"]
+script = ExtResource("4_jjxm8")
+target_pos_var = &"target"
+target_node = SubResource("BBNode_kc3qf")
+
 [sub_resource type="BTDynamicSequence" id="BTDynamicSequence_10kwi"]
-children = [SubResource("BTAction_8vt37"), SubResource("BTAction_3378j")]
+children = [SubResource("BTAction_8vt37"), SubResource("BTAction_3378j"), SubResource("BTAction_kc3qf"), SubResource("BTAction_e4mhl")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_3qa03")
