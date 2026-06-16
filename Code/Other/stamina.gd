@@ -16,9 +16,12 @@ extends Node
 signal on_depleted
 signal on_full_replenish
 signal on_replenished_over_treshold
+signal on_stamina_updated(stam, max_stam)
 
 func _ready():
 	stamina = stamina_cap
+
+	on_stamina_updated.emit(stamina, stamina_cap)
 
 func _process(delta):
 	if deplete:
@@ -47,6 +50,8 @@ func _process(delta):
 			on_replenished_over_treshold.emit()
 
 		stamina = clampf(stamina + (regen_amnt), 0.0, stamina_cap)
+	
+	on_stamina_updated.emit(stamina, stamina_cap)
 		
 func enable_deplete():
 	deplete = true

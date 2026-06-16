@@ -17,7 +17,7 @@ binding/target_pos = NodePath("Node2D - Intro layer - Teardrop hills/Node2D - Ma
 binding/target_char = NodePath("Player:script")
 
 [sub_resource type="BBNode" id="BBNode_tryj6"]
-saved_value = null
+saved_value = NodePath("")
 
 [sub_resource type="BBVector2" id="BBVector2_5i7kg"]
 value_source = 1
