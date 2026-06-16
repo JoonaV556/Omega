@@ -3,6 +3,26 @@
 [ext_resource type="PackedScene" uid="uid://bndip7xfe7fjb" path="res://Levels/TeardropHills.tscn" id="2_40oly"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="4_jgrk0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_40oly"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_40oly"]
+variation_embolden = 0.75
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxkcg"]
+bg_color = Color(0.26863328, 6.091548e-07, 3.2488256e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgrk0"]
+bg_color = Color(0.6642645, 2.5268644e-06, 4.813075e-07, 1)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tarc1"]
+bg_color = Color(0.13188669, 0.28989637, 5.2943824e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1qkid"]
+bg_color = Color(0.31666672, 1, 0, 1)
+shadow_size = 6
+
 [node name="Node2D" type="Node2D" unique_id=360148192]
 
 [node name="DebugCloseApp" type="Node" parent="." unique_id=776706693]
@@ -10,3 +30,69 @@ script = ExtResource("4_jgrk0")
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="Level - Teardrop Hills" parent="." unique_id=533572502 instance=ExtResource("2_40oly")]
+
+[node name="CanvasLayer - HUD" type="CanvasLayer" parent="." unique_id=1192243919]
+
+[node name="Control - anchor" type="Control" parent="CanvasLayer - HUD" unique_id=1905443890]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer - HUD/Control - anchor" unique_id=1139248364]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -96.0
+offset_right = 140.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_40oly")
+
+[node name="ProgressBar - HP" type="ProgressBar" parent="CanvasLayer - HUD/Control - anchor" unique_id=1444589719]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -132.5
+offset_top = -87.0
+offset_right = 132.5
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_40oly")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/background = SubResource("StyleBoxFlat_cxkcg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jgrk0")
+value = 74.33
+
+[node name="ProgressBar - Stamina" type="ProgressBar" parent="CanvasLayer - HUD/Control - anchor" unique_id=498891798]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -132.0
+offset_top = -46.0
+offset_right = 133.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_40oly")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/background = SubResource("StyleBoxFlat_tarc1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1qkid")
+value = 74.33
+show_percentage = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2086856772]
