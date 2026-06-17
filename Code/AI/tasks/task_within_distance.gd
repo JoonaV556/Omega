@@ -40,9 +40,16 @@ func _tick(delta: float) -> Status:
 	var trg_pos: Vector2
 
 	if trg_n:
+		if !trg_n:
+			return FAILURE
+			
 		trg_pos = trg_n.global_position
 	else:
-		trg_pos = blackboard.get_var(target_pos_var, Vector2.ZERO)
+		var pos_val = blackboard.get_var(target_pos_var) as Vector2
+		if !pos_val:
+			return FAILURE
+			
+		trg_pos = pos_val
 
 	var dist = slf.global_position.distance_to(trg_pos)
 

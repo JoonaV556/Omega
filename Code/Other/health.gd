@@ -1,7 +1,8 @@
 class_name Health
 extends Node
 
-signal on_depleted
+signal on_died
+signal on_died_who(health: Health)
 signal on_revived
 signal on_hp_updated(hp, max_hp)
 
@@ -23,6 +24,8 @@ func deal_damage(amount: float):
 	if (health - amount) <= 0.0:
 		is_dead = true
 		health = 0
+		on_died.emit()
+		on_died_who.emit(self)
 	else:
 		health -= amount
 

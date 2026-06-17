@@ -246,15 +246,15 @@ metadata/is_player = false
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1173599209 node_paths=PackedStringArray("character_body")]
 light_mask = 2
 texture_filter = 1
-position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_rpqav")
 animation = &"IdleBreathing_Down"
+offset = Vector2(0, -16)
 script = ExtResource("3_gntrk")
 character_body = NodePath("..")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=1408089494]
 show_behind_parent = true
-position = Vector2(0, 13)
+position = Vector2(0, -2)
 occluder = SubResource("OccluderPolygon2D_kyqiw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=846737930]
@@ -295,12 +295,16 @@ metadata/_custom_type_script = "uid://byw4y1ikbhuff"
 
 [node name="Stamina" type="Node" parent="." unique_id=195880788]
 script = ExtResource("10_gurq1")
-deplete_per_sec = 20.0
-regen_per_sec = 20.0
+deplete_per_sec = 30.0
+regen_per_sec = 30.0
 metadata/_custom_type_script = "uid://7xs603f83kli"
 
 [connection signal="on_sprinting_started" from="." to="Stamina" method="enable_deplete"]
 [connection signal="on_sprinting_stopped" from="." to="Stamina" method="disable_deplete"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="on_died" from="Health" to="." method="disable_movement"]
+[connection signal="on_died" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]
+[connection signal="on_revived" from="Health" to="." method="enable_movement"]
+[connection signal="on_revived" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [0.0]]
 [connection signal="on_depleted" from="Stamina" to="." method="allow_sprint" binds= [false]]
 [connection signal="on_replenished_over_treshold" from="Stamina" to="." method="allow_sprint" binds= [true]]

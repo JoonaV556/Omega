@@ -40,3 +40,7 @@ func add_impulse(impulse: Vector2):
 func _input(_event):
 	if Input.is_action_just_released("Open Inventory"):
 		GlobalInventoryHandler.open_single_inventory(inventory)
+
+
+func _on_health_on_depleted() -> void:
+	pass # Replace with function body.
