@@ -34,5 +34,31 @@ func divide_recursive(iterations : int = 1):
 		cn = add
 
 
+func get_leaves() -> Array[QuadTree]:
+	var leaves: Array[QuadTree] = []
+	if self.is_leaf():
+		leaves.append(self)
+		return leaves
+
+	var _children: Array[QuadTree] = self.children
+	
+	while true:
+		var nxt_children : Array[QuadTree] =  []
+		
+		for c : QuadTree in _children:
+			if c.is_leaf():
+				leaves.append(c)
+			else:
+				nxt_children.append_array(c.children)
+		
+		if nxt_children.is_empty():
+			break
+		else:
+			_children = nxt_children
+			
+
+	return leaves
+
+
 func is_leaf() -> bool:
 	return children.is_empty()
