@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bid3lnh7thxja"]
+
+[ext_resource type="TileSet" uid="uid://b6sbttywifagr" path="res://TileSets/tileset_placeholder.tres" id="1_h3qv7"]
+[ext_resource type="Script" uid="uid://b075ubfx8ofjv" path="res://Code/LevelGeneration/quad_tree_gen.gd" id="2_r0in5"]
+
+[node name="Node2D" type="Node2D" unique_id=1649260176]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2034697605]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=424062983]
+tile_set = ExtResource("1_h3qv7")
+
+[node name="Node" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
+script = ExtResource("2_r0in5")
+tmap = NodePath("../TileMapLayer")
