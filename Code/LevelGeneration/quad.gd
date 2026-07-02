@@ -3,7 +3,6 @@ extends RefCounted
 
 var children: Array[QuadTree] = []
 
-
 func divide() -> Array[QuadTree]:
 
 	children = []
@@ -12,7 +11,7 @@ func divide() -> Array[QuadTree]:
 		var new_c: QuadTree = QuadTree.new()
 		children.append(new_c)
 	
-	print_debug("divided QuadTree")
+	# print_debug("divided QuadTree")
 	return children
 
 
@@ -22,9 +21,8 @@ func divide_recursive(iterations : int = 1):
    
 	print_debug("dividing QuadTree with "+str(iterations)+" iterations")
 	var cn : Array[QuadTree] = self.divide()
-	iterations -= 1
 
-	for i in range(iterations):
+	for i in range(iterations - 1):
 	   
 		var add : Array[QuadTree] = []
 	   
@@ -32,6 +30,9 @@ func divide_recursive(iterations : int = 1):
 			add.append_array(c.divide())
 
 		cn = add
+
+	var leaves = self.get_leaves()
+	print_debug("division finished. result is  "+str(leaves.size())+" leaf quads")
 
 
 func get_leaves() -> Array[QuadTree]:

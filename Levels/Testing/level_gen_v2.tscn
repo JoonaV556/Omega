@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bid3lnh7thxja"]
+[gd_scene format=4 uid="uid://bid3lnh7thxja"]
 
 [ext_resource type="TileSet" uid="uid://b6sbttywifagr" path="res://TileSets/tileset_placeholder.tres" id="1_h3qv7"]
 [ext_resource type="Script" uid="uid://b075ubfx8ofjv" path="res://Code/LevelGeneration/quad_tree_gen.gd" id="2_r0in5"]
@@ -8,6 +8,7 @@
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2034697605]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=424062983]
+tile_map_data = PackedByteArray("AAAAAAkAAgAQAAsAAAACAAkAAgAQAAsAAAAEAAkAAgAQAAsAAAAGAAkAAgAQAAsAAAAJAAkAAgAQAAsAAAALAAkAAgAQAAsAAAANAAkAAgAQAAsAAAAPAAkAAgAQAAsAAAAJAAQAAgAQAAsAAAAAAAQAAgAQAAsAAAASAAkAAgAQAAsAAAASAAQAAgAQAAsAAAAUAAkAAgAQAAsAAAAWAAkAAgAQAAsAAAAYAAkAAgAQAAsAAAAbAAkAAgAQAAsAAAAbAAQAAgAQAAsAAAAdAAkAAgAQAAsAAAAfAAkAAgAQAAsAAAAhAAkAAgAQAAsAAAAAAP//AgAQAAsAAAD3////AgAPABkAAAD3//7/AgAPABkAAAD4//7/AgAPABkAAAD4////AgAPABkAAAD1//7/AgAPABkAAAD1////AgAPABkAAAD2//7/AgAPABkAAAD2////AgAPABkAAAD1//z/AgAPABkAAAD1//3/AgAPABkAAAD2//z/AgAPABkAAAD2//3/AgAPABkAAAD3//z/AgAPABkAAAD3//3/AgAPABkAAAD4//z/AgAPABkAAAD4//3/AgAPABkAAADx//j/AgANABMAAADx//n/AgANABgAAADx//r/AgANABgAAADx//v/AgANABgAAADy//j/AgAPABcAAADy//n/AgAPABkAAADy//r/AgANABgAAADy//v/AgANABgAAADz//j/AgAPABkAAADz//n/AgAPABkAAADz//r/AgANABMAAADz//v/AgANABMAAAD0//j/AgAPABkAAAD0//n/AgAPABkAAAD0//r/AgANABMAAAD0//v/AgANABMAAAD1//j/AgANABgAAAD1//n/AgANABgAAAD1//r/AgANABgAAAD1//v/AgANABgAAAD2//j/AgANABgAAAD2//n/AgANABgAAAD2//r/AgANABgAAAD2//v/AgANABgAAAD3//j/AgANABgAAAD3//n/AgANABgAAAD3//r/AgANABgAAAD3//v/AgANABgAAAD4//j/AgANABgAAAD4//n/AgANABgAAAD4//r/AgANABgAAAD4//v/AgANABgAAADx//z/AgAPABcAAADx//3/AgAPABcAAADx//7/AgAPABcAAADx////AgAPABcAAADy//z/AgAPABcAAADy//3/AgAPABcAAADy//7/AgAPABcAAADy////AgAPABcAAADz//z/AgAPABcAAADz//3/AgAPABcAAADz//7/AgAPABcAAADz////AgAPABcAAAD0//z/AgAPABcAAAD0//3/AgAPABcAAAD0//7/AgAPABcAAAD0////AgAPABcAAAA=")
 tile_set = ExtResource("1_h3qv7")
 
 [node name="Node" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
