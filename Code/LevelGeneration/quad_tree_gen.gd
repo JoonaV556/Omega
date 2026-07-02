@@ -7,7 +7,7 @@ func _ready():
 
 func generate():
 	#generate 
-	var q = QuadTree.new()
+	var q = QuadTree2D.new()
 
 	q.divide_recursive(5)
 
@@ -16,10 +16,12 @@ func generate():
 
 	for qt : QuadTree in q.get_leaves():
 		
-		var tile_coords : Vector2 = Vector2(rng.randi_range(0, 28), rng.randi_range(0,28))
+		var qt2d = qt as QuadTree2D
+
+		var tile_coords : Vector2 = Vector2(rng.randi_range(0, 28), rng.randi_range(0,26))
 
 		# get quad coords
-
+		var q_coords = qt2d.position
+		
 		# draw tile on quad coords
-
-		pass 
+		tmap.set_cell(q_coords, 2, tile_coords)

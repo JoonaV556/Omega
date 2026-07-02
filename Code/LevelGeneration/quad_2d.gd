@@ -32,7 +32,7 @@ func divide() -> Array[QuadTree]:
 
 	c = children[3]
 	c.size = size / 2
-	c.position = self.position + Vector2i(1, c.size.y)
+	c.position = self.position + Vector2i(c.size.x, c.size.y)
 
 	# print_debug("divided QuadTree")
 	return children
