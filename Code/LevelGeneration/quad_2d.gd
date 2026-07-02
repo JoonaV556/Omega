@@ -5,6 +5,7 @@ extends QuadTree
 ## example: If tree is divided uniformly by 3 iterations, the result is an 8x8 array of cells.  
 var size : Vector2i = Vector2i.ZERO
 
+## Position of the quad cell relative to its tree parent. If this quad is the tree origin, position is 0,0
 var position : Vector2i
 
 func divide() -> Array[QuadTree]:

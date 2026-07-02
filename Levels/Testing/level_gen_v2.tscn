@@ -2,17 +2,42 @@
 
 [ext_resource type="TileSet" uid="uid://b6sbttywifagr" path="res://TileSets/tileset_placeholder.tres" id="1_h3qv7"]
 [ext_resource type="Script" uid="uid://b075ubfx8ofjv" path="res://Code/LevelGeneration/quad_tree_gen.gd" id="2_r0in5"]
+[ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="3_ak4ep"]
+[ext_resource type="Script" uid="uid://pmeam4p3q7d" path="res://Code/Other/move_with_wasd.gd" id="4_08qqg"]
+[ext_resource type="Texture2D" uid="uid://bph7w4k0qj2h3" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
 
 [node name="Node2D" type="Node2D" unique_id=1649260176]
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=2034697605]
-position = Vector2(298, 155)
-zoom = Vector2(1.13, 1.13)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=424062983]
 tile_map_data = PackedByteArray("AAD3////AgAPABkAAAD3//7/AgAPABkAAAD4//7/AgAPABkAAAD4////AgAPABkAAAD1//7/AgAPABkAAAD1////AgAPABkAAAD2//7/AgAPABkAAAD2////AgAPABkAAAD1//z/AgAPABkAAAD1//3/AgAPABkAAAD2//z/AgAPABkAAAD2//3/AgAPABkAAAD3//z/AgAPABkAAAD3//3/AgAPABkAAAD4//z/AgAPABkAAAD4//3/AgAPABkAAADx//j/AgANABMAAADx//n/AgANABgAAADx//r/AgANABgAAADx//v/AgANABgAAADy//j/AgAPABcAAADy//n/AgAPABkAAADy//r/AgANABgAAADy//v/AgANABgAAADz//j/AgAPABkAAADz//n/AgAPABkAAADz//r/AgANABMAAADz//v/AgANABMAAAD0//j/AgAPABkAAAD0//n/AgAPABkAAAD0//r/AgANABMAAAD0//v/AgANABMAAAD1//j/AgANABgAAAD1//n/AgANABgAAAD1//r/AgANABgAAAD1//v/AgANABgAAAD2//j/AgANABgAAAD2//n/AgANABgAAAD2//r/AgANABgAAAD2//v/AgANABgAAAD3//j/AgANABgAAAD3//n/AgANABgAAAD3//r/AgANABgAAAD3//v/AgANABgAAAD4//j/AgANABgAAAD4//n/AgANABgAAAD4//r/AgANABgAAAD4//v/AgANABgAAADx//z/AgAPABcAAADx//3/AgAPABcAAADx//7/AgAPABcAAADx////AgAPABcAAADy//z/AgAPABcAAADy//3/AgAPABcAAADy//7/AgAPABcAAADy////AgAPABcAAADz//z/AgAPABcAAADz//3/AgAPABcAAADz//7/AgAPABcAAADz////AgAPABcAAAD0//z/AgAPABcAAAD0//3/AgAPABcAAAD0//7/AgAPABcAAAD0////AgAPABcAAADd/+v/AgAQAAsAAADd//D/AgAQAAsAAADd//X/AgAQAAsAAADf//X/AgAQAAsAAADh//X/AgAQAAsAAADj//X/AgAQAAsAAADm//D/AgAQAAsAAADm//X/AgAQAAsAAADo//X/AgAQAAsAAADq//X/AgAQAAsAAADs//X/AgAQAAsAAADv//D/AgAQAAsAAADv//X/AgAQAAsAAADx//X/AgAQAAsAAADz//X/AgAQAAsAAAD1//X/AgAQAAsAAAD4//D/AgAQAAsAAAD4//X/AgAQAAsAAAD6//X/AgAQAAsAAAD8//X/AgAQAAsAAAD+//X/AgAQAAsAAAA=")
 tile_set = ExtResource("1_h3qv7")
 
-[node name="Node" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
+[node name="Level generator" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
+cell_size = 2
+
+[node name="Camera" parent="." unique_id=1968504275 instance=ExtResource("3_ak4ep")]
+
+[node name="MoveWithWASD" type="Node" parent="Camera" unique_id=589186080]
+script = ExtResource("4_08qqg")
+move_speed_per_sec = 100.0
+metadata/_custom_type_script = "uid://pmeam4p3q7d"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=156424855]
+position = Vector2(-8, 16)
+texture = ExtResource("5_urxea")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2090949361]
+position = Vector2(-8, 48)
+texture = ExtResource("5_urxea")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=359550241]
+position = Vector2(8, -16)
+texture = ExtResource("5_urxea")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=276182312]
+position = Vector2(24, -16)
+texture = ExtResource("5_urxea")
+
+[editable path="Camera"]
