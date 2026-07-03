@@ -16,12 +16,13 @@ tile_set = ExtResource("1_h3qv7")
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
 cell_size = 2
+trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
 
 [node name="Camera" parent="." unique_id=1968504275 instance=ExtResource("3_ak4ep")]
 
 [node name="MoveWithWASD" type="Node" parent="Camera" unique_id=589186080]
 script = ExtResource("4_08qqg")
-move_speed_per_sec = 100.0
+move_speed_per_sec = 200.0
 metadata/_custom_type_script = "uid://pmeam4p3q7d"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=156424855]

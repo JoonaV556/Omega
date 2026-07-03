@@ -14,6 +14,7 @@ func divide() -> Array[QuadTree]:
 
 	for c in range(4):
 		var new_c: QuadTree2D = QuadTree2D.new()
+		new_c.parent = self
 		children.append(new_c)
 
 	# assign sizes and positions to child quads
