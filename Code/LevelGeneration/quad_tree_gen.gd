@@ -10,14 +10,62 @@ extends Node
 @export
 var trim_odds_percentage : Array[float] = [0.0]
 
-func _ready():
-	generate.call_deferred()
+enum tunneler_dir {N, S, E, W}
 
-func generate():
+func _ready():
+	generate_v2.call_deferred()
+
+func generate_v2():
+	# generate tree 
+	var q : QuadTree2D = QuadTree2D.new()
+
+	q.divide_recursive(tree_iterations)
+	
+	# fill with grass
+	TilemapLayerExtensions.fill_area(
+			tmap,
+			Vector2i(0, 0),
+			q.size * cell_size,
+			4,
+			Vector2i(1,7)
+		)
+
+	# generate road grid 
+	var r_grid : Array[Array] = []
+
+	for i in range(q.size.x):
+		var row = []
+		row.resize(q.size.x)
+		row.fill(false)
+		r_grid.append(row)
+
+	# single road with tunneler 
+	var start_tile = Vector2i(512, 1023)
+	var start_dir = tunneler_dir.N
+	var tunnel_iterations = 50
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+
+	for i in range(tunnel_iterations):
+		var dir_i = randi_range(1, 3)
+		var dir : tunneler_dir
+		match dir_i:
+			1:
+				dir = tunneler_dir.N
+			2:
+				dir = tunneler_dir.S
+			3:
+				dir = tunneler_dir.E
+			4:
+				dir = tunneler_dir.W
+
+func get_cell_in_direction():
+	pass
+
+func generate_v1():
 	# generate tree 
 	var q = QuadTree2D.new()
 
-	q.divide_recursive(4)
+	q.divide_recursive(tree_iterations)
 
 	# trim leaves to introduce size variance 
 	for i in range(q.get_levels()-1):
