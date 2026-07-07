@@ -41,7 +41,19 @@ func generate_v2():
 
 	# single road with tunneler 
 	var tunneler = Tunneler2D.new()
-	tunneler.run()
+	var road_cells : Array[Vector2i] = tunneler.run(
+		Vector2i(15, 31),
+		30,
+		Tunneler2D.move_direction.N,
+		Vector2i(0, 0),
+		Vector2i(q.size.x-1, q.size.y-1)
+	)
+
+	# mark road cells 
+	for c in road_cells:
+		r_grid[c.y][c.x] = true
+
+	# draw road grid on tilemap
 
 func get_cell_in_direction():
 	pass

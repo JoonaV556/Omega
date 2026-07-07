@@ -33,6 +33,10 @@ func run(start_cell : Vector2i, max_steps : int, start_dir : move_direction, bou
 			if not inside_bounds(cell):
 				inaccessible.append(cell)
 				continue
+			# prevent walking over the same path twice - ? ? optional ? 
+			if walked.has(cell):
+				inaccessible.append(cell)
+				continue
 
 		for c in inaccessible:
 			cells_in_directions.erase(c)
