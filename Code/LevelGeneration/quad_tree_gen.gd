@@ -40,23 +40,8 @@ func generate_v2():
 		r_grid.append(row)
 
 	# single road with tunneler 
-	var start_tile = Vector2i(512, 1023)
-	var start_dir = tunneler_dir.N
-	var tunnel_iterations = 50
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-
-	for i in range(tunnel_iterations):
-		var dir_i = randi_range(1, 3)
-		var dir : tunneler_dir
-		match dir_i:
-			1:
-				dir = tunneler_dir.N
-			2:
-				dir = tunneler_dir.S
-			3:
-				dir = tunneler_dir.E
-			4:
-				dir = tunneler_dir.W
+	var tunneler = Tunneler2D.new()
+	tunneler.run()
 
 func get_cell_in_direction():
 	pass
