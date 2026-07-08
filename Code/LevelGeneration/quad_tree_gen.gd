@@ -16,54 +16,58 @@ func _ready():
 	generate_v2.call_deferred()
 
 func generate_v2():
-	# generate tree 
-	var q : QuadTree2D = QuadTree2D.new()
+	var gap = 1
+	for i in range(10):
+		var offset = (i*32)+(i*gap)
 
-	q.divide_recursive(tree_iterations)
-	
-	# fill with grass
-	TilemapLayerExtensions.fill_area(
-			tmap,
-			Vector2i(0, 0),
-			q.size * cell_size_in_tiles,
-			4,
-			Vector2i(1,7)
-		)
+		# generate tree 
+		var q : QuadTree2D = QuadTree2D.new()
 
-	# generate road grid Array[Array[bool], where true=road, false=non-road
-	var road_grid : Array[Array] = []
+		q.divide_recursive(tree_iterations)
+		
+		# fill with grass
+		TilemapLayerExtensions.fill_area(
+				tmap,
+				Vector2i(offset, 0),
+				q.size * cell_size_in_tiles,
+				4,
+				Vector2i(1,7)
+			)
 
-	for i in range(q.size.x):
-		var row = []
-		row.resize(q.size.x)
-		row.fill(false)
-		road_grid.append(row)
+		# generate road grid Array[Array[bool], where true=road, false=non-road
+		var road_grid : Array[Array] = []
 
-	# single road with tunneler 
-	var tunneler = Tunneler2D.new()
-	var ts : Tunneler2DSettings = Tunneler2DSettings.new()
-	ts.start_cell = Vector2i(15, 31)
-	ts.initial_direction = Tunneler2D.move_direction.N
-	ts.bounds_max = Vector2i(q.size.x-1, q.size.y-1)
-	ts.turn_odds_percentage = 20.0
-	
-	var road_cells = tunneler.simple_tunnel(ts)
+		for x in range(q.size.x):
+			var row = []
+			row.resize(q.size.x)
+			row.fill(false)
+			road_grid.append(row)
 
-	# mark road cells in road grid
-	for c in road_cells:
-		road_grid[c.y][c.x] = true
+		# single road with tunneler 
+		var tunneler = Tunneler2D.new()
+		var ts : Tunneler2DSettings = Tunneler2DSettings.new()
+		ts.start_cell = Vector2i(15, 31)
+		ts.initial_direction = Tunneler2D.move_direction.N
+		ts.bounds_max = Vector2i(q.size.x-1, q.size.y-1)
+		ts.turn_odds_percentage = 20.0
+		
+		var road_cells = tunneler.simple_tunnel(ts)
 
-	# draw road grid on tilemap
-	for y in range(road_grid.size()):
-		for x in range(road_grid[0].size()):
-			if road_grid[y][x] == true:
-				TilemapLayerExtensions.fill_area(
-					tmap,
-					Vector2i(x, y),
-					Vector2i(1,1)  * cell_size_in_tiles,
-					4,
-					Vector2i(27,9)
-				)
+		# mark road cells in road grid
+		for c in road_cells:
+			road_grid[c.y][c.x] = true
+
+		# draw road grid on tilemap
+		for y in range(road_grid.size()):
+			for x in range(road_grid[0].size()):
+				if road_grid[y][x] == true:
+					TilemapLayerExtensions.fill_area(
+						tmap,
+						Vector2i(x+offset, y),
+						Vector2i(1,1)  * cell_size_in_tiles,
+						4,
+						Vector2i(27,9)
+					)
 
 
 func get_cell_in_direction():
