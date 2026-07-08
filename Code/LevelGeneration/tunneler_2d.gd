@@ -74,7 +74,7 @@ func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 	print("tunneler  tunneled %s steps out of %s requested." % [tunneled_cells.size(), st.max_steps])
 	return tunneled_cells
 
-## bounds.x = min & bounds.y = max
+## this is poo, pretty much a true random walk. use simple_tunnel instead
 func run(start_cell : Vector2i, max_steps : int, start_dir : move_direction, bounds_min : Vector2i, bounds_max : Vector2i, prevent_out_of_bounds : bool = true, change_direction_odds_percentage : float = 100.0) -> Array[Vector2i]:
 	_bounds_min = bounds_min
 	_bounds_max = bounds_max
