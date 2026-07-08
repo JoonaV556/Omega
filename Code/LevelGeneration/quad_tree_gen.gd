@@ -43,10 +43,12 @@ func generate_v2():
 	var tunneler = Tunneler2D.new()
 	var road_cells : Array[Vector2i] = tunneler.run(
 		Vector2i(15, 31),
-		30,
+		50,
 		Tunneler2D.move_direction.N,
 		Vector2i(0, 0),
-		Vector2i(q.size.x-1, q.size.y-1)
+		Vector2i(q.size.x-1, q.size.y-1),
+		false,
+		20.0
 	)
 
 	# mark road cells in road grid
@@ -87,7 +89,7 @@ func generate_v1():
 			break
 
 		for qd in quads:
-			if roll_percentage_odds(trim_odds):
+			if OmegaUtils.roll_percentage_odds(trim_odds):
 				qd.trim_leaves()
 				trimmed_count += 1
 		
@@ -113,14 +115,3 @@ func generate_v1():
 			2,
 			atlas_coords
 		)
-
-func roll_percentage_odds(percentage : float = 100.0) -> bool:
-	if percentage <	0.0001:
-		return false
-	if percentage > 99.99:
-		return true
-
-	var p_norm = percentage / 100.0
-	var rand = randf()
-	return rand <= p_norm
-	print("rolled percentage")
