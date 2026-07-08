@@ -12,3 +12,4 @@ var min_steps_between_turns : int = 3
 
 var max_turns : int = 3
 var turn_odds_percentage : float = 50.0
+var allow_turning_on_edges : bool = true

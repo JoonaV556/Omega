@@ -17,8 +17,14 @@ static var directions : Dictionary[move_direction, Vector2i] = {
 	move_direction.W: Vector2i(-1, 0),
 }
 
+static var directions_left_and_right : Dictionary[move_direction, Array] = {
+	move_direction.N: [move_direction.E, move_direction.W],
+	move_direction.S: [move_direction.E, move_direction.W],
+	move_direction.E: [move_direction.N, move_direction.S],
+	move_direction.W: [move_direction.N, move_direction.S],
+}
+
 func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
-	var steps = 0
 	var steps_after_last_turn = 0
 	var turned_count = 0
 	tunneled_cells = []
@@ -34,8 +40,15 @@ func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 	for i in range(st.max_steps):
 		var move_dir : move_direction = last_move_dir
 
-		# pick new direction (exclude last one)
-		var can_turn = (steps_after_last_turn >= st.min_steps_between_turns) and (turned_count < st.max_turns)
+		# pick new direction from left and right
+
+		# prevent turning while on edge
+		var on_edge : bool = false
+
+		if !st.allow_turning_on_edges:
+			on_edge = (position.x == st.bounds_min.x) or (position.y == st.bounds_min.y) or (position.x == st.bounds_max.x) or (position.y == st.bounds_max.y)
+
+		var can_turn = (steps_after_last_turn >= st.min_steps_between_turns) and (turned_count < st.max_turns) and (not on_edge)
 
 		if can_turn:
 
@@ -43,14 +56,7 @@ func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 
 			if turn:
 				steps_after_last_turn = 0
-				var possible_directions : Array[move_direction] = [
-					move_direction.N,
-					move_direction.S,
-					move_direction.E,
-					move_direction.W,
-				]
-				possible_directions.erase(last_move_dir) # ensure we wont continue along same direction
-				move_dir = possible_directions.pick_random()
+				move_dir = directions_left_and_right[last_move_dir].pick_random()
 				turned_count += 1
 
 		# stop if next cell is out of bounds
@@ -59,12 +65,11 @@ func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 			break
 
 		position = new_pos
-		steps += 1
 		steps_after_last_turn += 1
 		last_move_dir = move_dir
 		tunneled_cells.append(position)
 
-		print("Tunneled in direction: %s" % [move_direction.keys()[move_dir]])
+		# print("Tunneled in direction: %s" % [move_direction.keys()[move_dir]])
 
 	print("tunneler  tunneled %s steps out of %s requested." % [tunneled_cells.size(), st.max_steps])
 	return tunneled_cells
@@ -162,6 +167,8 @@ func _get_accessible_directions(_prevent_out_of_bounds = true) -> Array[move_dir
 
 	return possible_directions
 
+## bounds inclusive [br]
+## min = 0, max = 10, values 0 and 10 are considered inside, but -1 and 11 outside
 func _inside_bounds(cell : Vector2i, bounds_min, bounds_max) -> bool:
 	if cell.x < bounds_min.x or cell.y < bounds_min.y:
 		return false

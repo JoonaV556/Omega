@@ -49,9 +49,10 @@ func generate_v2():
 		ts.start_cell = Vector2i(15, 31)
 		ts.initial_direction = Tunneler2D.move_direction.N
 		ts.bounds_max = Vector2i(q.size.x-1, q.size.y-1)
-		ts.min_steps_between_turns = 5
+		ts.min_steps_between_turns = 6
 		ts.max_turns = 2
-		ts.turn_odds_percentage = 20.0
+		ts.turn_odds_percentage = 15.0
+		ts.allow_turning_on_edges = false
 		
 		var road_cells = tunneler.simple_tunnel(ts)
 
