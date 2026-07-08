@@ -41,15 +41,13 @@ func generate_v2():
 
 	# single road with tunneler 
 	var tunneler = Tunneler2D.new()
-	var road_cells : Array[Vector2i] = tunneler.run(
-		Vector2i(15, 31),
-		50,
-		Tunneler2D.move_direction.N,
-		Vector2i(0, 0),
-		Vector2i(q.size.x-1, q.size.y-1),
-		false,
-		20.0
-	)
+	var ts : Tunneler2DSettings = Tunneler2DSettings.new()
+	ts.start_cell = Vector2i(15, 31)
+	ts.initial_direction = Tunneler2D.move_direction.N
+	ts.bounds_max = Vector2i(q.size.x-1, q.size.y-1)
+	ts.turn_odds_percentage = 20.0
+	
+	var road_cells = tunneler.simple_tunnel(ts)
 
 	# mark road cells in road grid
 	for c in road_cells:
