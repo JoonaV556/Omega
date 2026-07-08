@@ -2,7 +2,7 @@ extends Node
 
 @export var tmap: TileMapLayer
 
-@export var cell_size : int
+@export var cell_size_in_tiles : int = 10
 
 @export var tree_iterations : int = 3
 
@@ -25,19 +25,19 @@ func generate_v2():
 	TilemapLayerExtensions.fill_area(
 			tmap,
 			Vector2i(0, 0),
-			q.size * cell_size,
+			q.size * cell_size_in_tiles,
 			4,
 			Vector2i(1,7)
 		)
 
-	# generate road grid 
-	var r_grid : Array[Array] = []
+	# generate road grid Array[Array[bool], where true=road, false=non-road
+	var road_grid : Array[Array] = []
 
 	for i in range(q.size.x):
 		var row = []
 		row.resize(q.size.x)
 		row.fill(false)
-		r_grid.append(row)
+		road_grid.append(row)
 
 	# single road with tunneler 
 	var tunneler = Tunneler2D.new()
@@ -49,14 +49,26 @@ func generate_v2():
 		Vector2i(q.size.x-1, q.size.y-1)
 	)
 
-	# mark road cells 
+	# mark road cells in road grid
 	for c in road_cells:
-		r_grid[c.y][c.x] = true
+		road_grid[c.y][c.x] = true
 
 	# draw road grid on tilemap
+	for y in range(road_grid.size()):
+		for x in range(road_grid[0].size()):
+			if road_grid[y][x] == true:
+				TilemapLayerExtensions.fill_area(
+					tmap,
+					Vector2i(x, y),
+					Vector2i(1,1)  * cell_size_in_tiles,
+					4,
+					Vector2i(27,9)
+				)
+
 
 func get_cell_in_direction():
 	pass
+
 
 func generate_v1():
 	# generate tree 
@@ -87,17 +99,17 @@ func generate_v1():
 
 	for qt : QuadTree in q.get_leaves():
 		
-		var qt2d = qt as QuadTree2D
+		var qt2d : QuadTree2D = qt as QuadTree2D
 
 		var atlas_coords : Vector2i = Vector2i(rng.randi_range(0, 28), rng.randi_range(0,26))
 
-		var tmap_coords : Vector2i = Vector2i(qt2d.position.x * cell_size, qt2d.position.y * cell_size)
+		var tmap_coords : Vector2i = Vector2i(qt2d.position.x * cell_size_in_tiles, qt2d.position.y * cell_size_in_tiles)
 		
 		# draw tile on quad coords
 		TilemapLayerExtensions.fill_area(
 			tmap,
 			tmap_coords,
-			qt2d.size * cell_size,
+			qt2d.size * cell_size_in_tiles,
 			2,
 			atlas_coords
 		)

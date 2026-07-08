@@ -2,7 +2,7 @@ class_name QuadTree2D
 extends QuadTree 
 
 ## Size in individual cells, i.e. the smallest leaf quads in the tree [br]
-## example: If tree is divided uniformly by 3 iterations, the result is an 8x8 array of cells.  
+## example: If tree is divided uniformly by 3 iterations, the result is an 8x8 sized array of cells.  
 var size : Vector2i = Vector2i.ZERO
 
 ## Position of the quad cell relative to its tree parent. If this quad is the tree origin, position is 0,0
