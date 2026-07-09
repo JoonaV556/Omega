@@ -34,6 +34,36 @@ func generate_v2():
 				Vector2i(1,7)
 			)
 
+		# generate noise image for water areas 
+		var n_gen = FastNoiseLite.new()
+		n_gen.seed = randi()
+		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+		n_gen.frequency = 0.05
+		var n_image : Image = n_gen.get_image(
+			q.size.x,
+			q.size.y,
+		)
+		
+		# mark water cells on water grid & render
+		var w_grid : Array[Array] = OmegaUtils.create_grid(q.size.x, q.size.y, false)
+		const mark_water_treshold : float  = 0.7
+
+		for y in range(q.size.y):
+			for x in range(q.size.x):
+
+				var pixel_color : Color = n_image.get_pixel(x,y)
+				
+				if pixel_color.v > mark_water_treshold:
+					w_grid[y][x] = true
+
+					TilemapLayerExtensions.fill_area(
+						tmap,
+						Vector2i((cell_size_in_tiles*x)+offset, cell_size_in_tiles*y),
+						Vector2i(1,1)  * cell_size_in_tiles,
+						4,
+						Vector2i(11,57)
+					)
+
 		# generate road grid Array[Array[bool], where true=road, false=non-road
 		var road_grid : Array[Array] = []
 

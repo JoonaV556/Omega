@@ -8,8 +8,8 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_urxea"]
 noise_type = 3
-seed = 29
-frequency = 0.1688
+seed = 4
+frequency = 0.0509
 offset = Vector3(0, 3.5, 0)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcrlh"]
@@ -26,6 +26,7 @@ tile_set = ExtResource("1_h3qv7")
 [node name="Level generator" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
+cell_size_in_tiles = 3
 tree_iterations = 5
 trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
 
