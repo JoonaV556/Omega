@@ -6,6 +6,17 @@
 [ext_resource type="Script" uid="uid://pmeam4p3q7d" path="res://Code/Other/move_with_wasd.gd" id="4_08qqg"]
 [ext_resource type="Texture2D" uid="uid://bph7w4k0qj2h3" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_urxea"]
+noise_type = 3
+seed = 29
+frequency = 0.1688
+offset = Vector3(0, 3.5, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcrlh"]
+width = 32
+height = 32
+noise = SubResource("FastNoiseLite_urxea")
+
 [node name="Node2D" type="Node2D" unique_id=1649260176]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=424062983]
@@ -15,7 +26,6 @@ tile_set = ExtResource("1_h3qv7")
 [node name="Level generator" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
-cell_size_in_tiles = 1
 tree_iterations = 5
 trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
 
@@ -44,5 +54,10 @@ texture = ExtResource("5_urxea")
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=276182312]
 position = Vector2(24, -16)
 texture = ExtResource("5_urxea")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1569508249]
+position = Vector2(-683, -104)
+scale = Vector2(5.727434, 5.727434)
+texture = SubResource("NoiseTexture2D_xcrlh")
 
 [editable path="Camera"]

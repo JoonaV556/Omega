@@ -18,7 +18,7 @@ func _ready():
 func generate_v2():
 	var gap = 1
 	for i in range(10):
-		var offset = (i*32)+(i*gap)
+		var offset = (i*32*cell_size_in_tiles)+(i*gap)
 
 		# generate tree 
 		var q : QuadTree2D = QuadTree2D.new()
@@ -66,7 +66,7 @@ func generate_v2():
 				if road_grid[y][x] == true:
 					TilemapLayerExtensions.fill_area(
 						tmap,
-						Vector2i(x+offset, y),
+						Vector2i((cell_size_in_tiles*x)+offset, cell_size_in_tiles*y),
 						Vector2i(1,1)  * cell_size_in_tiles,
 						4,
 						Vector2i(27,9)
