@@ -1,7 +1,7 @@
 class_name Tunneler2D
 extends RefCounted
 
-enum move_direction {N, S, E, W}
+enum move_direction {none, N, S, E, W}
 
 var _bounds_min : Vector2i
 var _bounds_max : Vector2i
@@ -24,6 +24,47 @@ static var directions_left_and_right : Dictionary[move_direction, Array] = {
 	move_direction.W: [move_direction.N, move_direction.S],
 }
 
+
+func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
+	var river_cells : Array[Vector2i] = []
+
+	# pick direction of river flow
+	var _direction : move_direction = st.direction
+	if st.direction == move_direction.none:
+		var p_dirs : Array[move_direction] = [
+			move_direction.N,
+			move_direction.S,
+			move_direction.E,
+			move_direction.W, 
+		]
+		_direction = p_dirs.pick_random()
+	
+	# pick river start cell from along the correct starting edge
+	var start_cell : Vector2i = Vector2i(0,0)
+	match _direction:
+		move_direction.N: # starting from south
+			var x = OmegaUtils.randi_between_values_n(st.bounds_min.x, st.bounds_max.x)
+			start_cell = Vector2i(x, st.bounds_max.y)
+		move_direction.S: # starting from north
+			var x = OmegaUtils.randi_between_values_n(st.bounds_min.x, st.bounds_max.x)
+			start_cell = Vector2i(x, st.bounds_min.y)
+		move_direction.E: # starting from west
+			var y = OmegaUtils.randi_between_values_n(st.bounds_min.y, st.bounds_max.y)
+			start_cell = Vector2i(st.bounds_max.x, y)
+		move_direction.W: # starting from east
+			var y = OmegaUtils.randi_between_values_n(st.bounds_min.y, st.bounds_max.y)
+			start_cell = Vector2i(st.bounds_min.x, y)
+
+	river_cells.append(start_cell)
+
+	# start carving the branches
+	for branch in range(st.max_branches):
+		# TODO LEFT HERE LAST TIME
+		pass 
+	
+	return []
+
+
 func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 	var steps_after_last_turn = 0
 	var turned_count = 0
@@ -39,8 +80,6 @@ func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 
 	for i in range(st.max_steps):
 		var move_dir : move_direction = last_move_dir
-
-		# pick new direction from left and right
 
 		# prevent turning while on edge
 		var on_edge : bool = false

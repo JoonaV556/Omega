@@ -21,3 +21,13 @@ static func create_grid(w, h, fill_value) -> Array[Array]:
 			row.fill(fill_value)
 		grid.append(row)
 	return grid
+
+## Returns random int between two values using normal distribution. [br]
+## result is inclusive between bounds, e.g. (0, 10) = 0 and (0, 10) = 10 [br]
+## [warning]: will yield unexpected results If distance between min and max values is less than 6
+static func randi_between_values_n(_min : int, _max : int, _deviations : int = 3) -> int:
+	var dist = abs(_min - _max)
+	var mean : int = max - (dist / 2)
+	var deviation = (dist / 2) / _deviations
+	var rand = int(randfn(mean, deviation))
+	return clampi(rand, _min, _max)
