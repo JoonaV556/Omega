@@ -8,13 +8,13 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_urxea"]
 noise_type = 3
-seed = 4
-frequency = 0.0509
+seed = 10
+frequency = 0.0081
 offset = Vector3(0, 3.5, 0)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcrlh"]
-width = 32
-height = 32
+width = 320
+height = 320
 noise = SubResource("FastNoiseLite_urxea")
 
 [node name="Node2D" type="Node2D" unique_id=1649260176]
@@ -26,7 +26,6 @@ tile_set = ExtResource("1_h3qv7")
 [node name="Level generator" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap")]
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
-cell_size_in_tiles = 3
 tree_iterations = 5
 trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
 
@@ -58,7 +57,7 @@ texture = ExtResource("5_urxea")
 
 [node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1569508249]
 position = Vector2(-683, -104)
-scale = Vector2(5.727434, 5.727434)
+scale = Vector2(0.47292662, 0.47292662)
 texture = SubResource("NoiseTexture2D_xcrlh")
 
 [editable path="Camera"]

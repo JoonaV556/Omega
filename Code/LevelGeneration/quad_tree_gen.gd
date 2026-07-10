@@ -17,7 +17,7 @@ func _ready():
 
 func generate_v2():
 	var gap = 1
-	for i in range(10):
+	for i in range(1):
 		var offset = (i*32*cell_size_in_tiles)+(i*gap)
 
 		# generate tree 
@@ -38,28 +38,26 @@ func generate_v2():
 		var n_gen = FastNoiseLite.new()
 		n_gen.seed = randi()
 		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
-		n_gen.frequency = 0.05
+		n_gen.frequency = 0.0081
 		var n_image : Image = n_gen.get_image(
-			q.size.x,
-			q.size.y,
+			q.size.x * cell_size_in_tiles,
+			q.size.y * cell_size_in_tiles,
 		)
 		
 		# mark water cells on water grid & render
-		var w_grid : Array[Array] = OmegaUtils.create_grid(q.size.x, q.size.y, false)
+		var w_grid : Array[Array] = OmegaUtils.create_grid(n_image.get_size().x, n_image.get_size().y, false)
 		const mark_water_treshold : float  = 0.7
 
-		for y in range(q.size.y):
-			for x in range(q.size.x):
+		for y in range(n_image.get_size().y):
+			for x in range(n_image.get_size().x):
 
 				var pixel_color : Color = n_image.get_pixel(x,y)
 				
 				if pixel_color.v > mark_water_treshold:
 					w_grid[y][x] = true
 
-					TilemapLayerExtensions.fill_area(
-						tmap,
-						Vector2i((cell_size_in_tiles*x)+offset, cell_size_in_tiles*y),
-						Vector2i(1,1)  * cell_size_in_tiles,
+					tmap.set_cell(
+						Vector2i(x+offset, y),
 						4,
 						Vector2i(11,57)
 					)
