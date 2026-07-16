@@ -67,11 +67,33 @@ func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 
 	river_cells.append(start_cell)
 
-	# start carving the branches
-	for branch in range(st.max_branches):
-		# TODO LEFT HERE LAST TIME
-		# draw a simple l shape 
-		pass 
+	var last_branch_length
+
+	# carve the river branches
+	for i in range(st.max_branches):
+		# carve first branch as straight line
+		if i == 0:
+			var length = abs(st.bounds_min.x - st.bounds_max.x)
+			river_cells.append(
+				Tunneler2D.draw_line(
+					start_cell,
+					_direction,
+					length
+				)
+			)
+			last_branch_length = length
+
+		# carve branch
+		# pick branch starting point 
+		var _s_cells : Array[Vector2i] = river_cells.slice(
+			-last_branch_length,
+			river_cells.size(),
+		)
+
+	# LEFT HERE TODO, pick starting point next
+
+
+		# carve l-shaped branch from starting point
 	
 	return []
 

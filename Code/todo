@@ -1,13 +1,15 @@
 ☐ Add branching rivers to level
-    randomized direction max 2 branches (1 main, 1 sub)
-
     x draw l func
         test on tilemap
 
     branching river func
-        river grid
-        render on tilemap
+        first branch is straight line 
+        starting cell of next branch is normalized random of last branch back cells
         test
+        
+    randomized direction 2 branches
+
+
 
     
 
