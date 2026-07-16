@@ -10,12 +10,22 @@ var position : Vector2i
 
 var tunneled_cells : Array[Vector2i]
 
-static var directions : Dictionary[move_direction, Vector2i] = {
+
+const directions : Dictionary[move_direction, Vector2i] = {
 	move_direction.N: Vector2i(0, -1),
 	move_direction.S: Vector2i(0, 1),
 	move_direction.E: Vector2i(1, 0),
 	move_direction.W: Vector2i(-1, 0),
 }
+
+
+static var possible_directions : Array[move_direction] = [
+	move_direction.N,
+	move_direction.S,
+	move_direction.E,
+	move_direction.W,
+]
+
 
 static var directions_left_and_right : Dictionary[move_direction, Array] = {
 	move_direction.N: [move_direction.E, move_direction.W],
@@ -60,14 +70,47 @@ func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 	# start carving the branches
 	for branch in range(st.max_branches):
 		# TODO LEFT HERE LAST TIME
+		# draw a simple l shape 
 		pass 
 	
 	return []
 
 
+static func draw_l(start_cell : Vector2i, first_line_dir : move_direction, second_line_dir : move_direction, root_length : int, back_length : int) -> Array[Vector2i]:
+	# choose dir, randomize if no directions given
+	var f_dir = first_line_dir
+	if first_line_dir == move_direction.none:
+		f_dir = possible_directions.pick_random()
+	var s_dir = second_line_dir
+	if second_line_dir == move_direction.none:
+		s_dir = possible_directions.pick_random()
+		pass
+
+	# draw first line (root)
+	var cells : Array[Vector2i] = draw_line(start_cell, f_dir, root_length)
+
+	# draw second line (back)
+	var s_line_f_cell = cells[-1] + directions[second_line_dir]
+	cells.append_array(draw_line(s_line_f_cell, s_dir, back_length-1))
+	
+	return cells
+
+
+static func draw_line(start_cell : Vector2i, _direction : move_direction, length) -> Array[Vector2i]:
+	var _cells : Array[Vector2i] = []
+	var cell = start_cell
+
+	for i in range(length):	
+		_cells.append(cell)
+		cell = cell + directions[_direction]
+
+	return _cells
+	
+
 func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 	var steps_after_last_turn = 0
 	var turned_count = 0
+
 	tunneled_cells = []
 
 	if not _inside_bounds(st.start_cell, st.bounds_min, st.bounds_max):
@@ -184,7 +227,7 @@ func _get_cell_in_dir(direction : move_direction) -> Vector2i:
 
 func _get_accessible_directions(_prevent_out_of_bounds = true) -> Array[move_direction]:
 	# prevent going in certain directions - inaccessible etc.
-	var possible_directions : Array[move_direction] = [
+	var _possible_directions : Array[move_direction] = [
 		move_direction.N,
 		move_direction.S,
 		move_direction.E,
@@ -192,7 +235,7 @@ func _get_accessible_directions(_prevent_out_of_bounds = true) -> Array[move_dir
 	]
 
 	var inaccessible_directions = []
-	for dir : move_direction in possible_directions:
+	for dir : move_direction in _possible_directions:
 		var offset : Vector2i = directions[dir]
 		var cell_in_dir = position + offset
 
@@ -202,9 +245,9 @@ func _get_accessible_directions(_prevent_out_of_bounds = true) -> Array[move_dir
 			continue
 
 	for dir in inaccessible_directions:
-		possible_directions.erase(dir)
+		_possible_directions.erase(dir)
 
-	return possible_directions
+	return _possible_directions
 
 ## bounds inclusive [br]
 ## min = 0, max = 10, values 0 and 10 are considered inside, but -1 and 11 outside

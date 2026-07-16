@@ -1,11 +1,11 @@
 [gd_resource type="TileSet" format=3 uid="uid://b6sbttywifagr"]
 
-[ext_resource type="Texture2D" uid="uid://b43jbfawv4wg7" path="res://Assets_LICENSED/Sprites/tilemap_level-placeholder.png" id="1_f2prk"]
-[ext_resource type="Texture2D" uid="uid://di5dgtcj85f21" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="2_nmd6m"]
+[ext_resource type="Texture2D" uid="uid://d1lxkfk0bpq8x" path="res://Assets_LICENSED/Sprites/tilemap_level-placeholder.png" id="1_f2prk"]
+[ext_resource type="Texture2D" uid="uid://bfcdijubx70v1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="2_nmd6m"]
 [ext_resource type="Texture2D" uid="uid://dponu0tksyqpk" path="res://Assets_LICENSED/Sprites/tileset_placeholder_three-step-gradient_30x30.png" id="3_nmd6m"]
-[ext_resource type="Texture2D" uid="uid://cvnn8c1vqegb8" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_thinking_emotes_animation_16x16.png" id="4_mytuf"]
-[ext_resource type="Texture2D" uid="uid://cjq5yfrfcuvy5" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="5_rpn7y"]
-[ext_resource type="Texture2D" uid="uid://cbyt6eauudgne" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/2_City_Terrains_16x16.png" id="6_xsp42"]
+[ext_resource type="Texture2D" uid="uid://crp0g1nmmxopd" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_thinking_emotes_animation_16x16.png" id="4_mytuf"]
+[ext_resource type="Texture2D" uid="uid://brx1or4anpupq" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/1_Terrains_and_Fences_16x16.png" id="5_rpn7y"]
+[ext_resource type="Texture2D" uid="uid://bxeymm6bof6x0" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/2_City_Terrains_16x16.png" id="6_xsp42"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ktio"]
 texture = ExtResource("1_f2prk")
