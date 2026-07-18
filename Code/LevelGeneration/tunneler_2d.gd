@@ -27,7 +27,7 @@ static var possible_directions : Array[move_direction] = [
 ]
 
 
-static var directions_left_and_right : Dictionary[move_direction, Array] = {
+static var directions_perpendicular : Dictionary[move_direction, Array] = {
 	move_direction.N: [move_direction.E, move_direction.W],
 	move_direction.S: [move_direction.E, move_direction.W],
 	move_direction.E: [move_direction.N, move_direction.S],
@@ -35,7 +35,7 @@ static var directions_left_and_right : Dictionary[move_direction, Array] = {
 }
 
 
-func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
+static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 	var river_cells : Array[Vector2i] = []
 
 	# pick direction of river flow
@@ -67,14 +67,14 @@ func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 
 	river_cells.append(start_cell)
 
-	var last_branch_length
+	var last_branch_length : int 
 
 	# carve the river branches
-	for i in range(st.max_branches):
+	for i in range(st.max_branches + 1):
 		# carve first branch as straight line
 		if i == 0:
 			var length = abs(st.bounds_min.x - st.bounds_max.x)
-			river_cells.append(
+			river_cells.append_array(
 				Tunneler2D.draw_line(
 					start_cell,
 					_direction,
@@ -82,20 +82,51 @@ func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 				)
 			)
 			last_branch_length = length
+			print("river root start cell: %s " % [start_cell])
+			print("root branch length: %s " % [length])
+			continue
 
-		# carve branch
+		# ----> carve branch
 		# pick branch starting point 
 		var _s_cells : Array[Vector2i] = river_cells.slice(
 			-last_branch_length,
 			river_cells.size(),
 		)
+		var s_point : Vector2i= OmegaUtils.pick_random_normalized(_s_cells)
 
-	# LEFT HERE TODO, pick starting point next
+		# pick branch split direction
+		var s_dir = directions_perpendicular[_direction].pick_random()
 
+		# Carve l-shaped branch
+		var split_segment_length = randi_range(2, st.bounds_max.x / 2)
 
-		# carve l-shaped branch from starting point
-	
-	return []
+		var back_length
+		match _direction:
+			move_direction.N:
+				back_length = s_point.y + 1
+			move_direction.S:
+				back_length = (st.bounds_max.y + 1) - s_point.y
+			move_direction.E:
+				back_length = (st.bounds_max.x + 1) - s_point.x
+			move_direction.W:
+				back_length = s_point.x + 1
+
+		river_cells.append_array(
+			draw_l(
+				s_point,
+				s_dir,
+				_direction,
+				split_segment_length,
+				back_length
+			)
+		)
+
+		print("branch start cell: %s " % [s_point])
+		print("branch root length: %s \nbranch back length: %s " % [split_segment_length, back_length])
+
+	print("river direction: %s " % [move_direction.keys()[_direction]])
+
+	return river_cells
 
 
 static func draw_l(start_cell : Vector2i, first_line_dir : move_direction, second_line_dir : move_direction, root_length : int, back_length : int) -> Array[Vector2i]:
@@ -160,7 +191,7 @@ func simple_tunnel(st : Tunneler2DSettings) -> Array[Vector2i]:
 
 			if turn:
 				steps_after_last_turn = 0
-				move_dir = directions_left_and_right[last_move_dir].pick_random()
+				move_dir = directions_perpendicular[last_move_dir].pick_random()
 				turned_count += 1
 
 		# stop if next cell is out of bounds

@@ -27,7 +27,12 @@ static func create_grid(w, h, fill_value) -> Array[Array]:
 ## [warning]: will yield unexpected results If distance between min and max values is less than 6
 static func randi_between_values_n(_min : int, _max : int, _deviations : int = 3) -> int:
 	var dist = abs(_min - _max)
-	var mean : int = max - (dist / 2)
+	var mean : int = _max - (dist / 2)
 	var deviation = (dist / 2) / _deviations
 	var rand = int(randfn(mean, deviation))
 	return clampi(rand, _min, _max)
+
+
+static func pick_random_normalized(array) -> Variant:
+	var r_index = randi_between_values_n(0, array.size() -1)
+	return array[r_index] 

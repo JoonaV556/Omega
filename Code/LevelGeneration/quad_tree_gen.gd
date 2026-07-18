@@ -13,7 +13,42 @@ var trim_odds_percentage : Array[float] = [0.0]
 enum tunneler_dir {N, S, E, W}
 
 func _ready():
-	generate_v2.call_deferred()
+	test_river.call_deferred()
+
+
+func test_river():
+
+	const w = 10
+	const h = 10
+
+	const gap = 1
+
+	for i in range(5):
+
+		var offset = (w*i) + (gap*i)
+
+		# paint ground
+		for y in range(h):
+			for x in range(w):
+				tmap.set_cell(
+					Vector2i(x + offset, y),
+					4,
+					Vector2i(1,7)
+				)
+
+		# generate & render river
+		var r_st = BranchingRiver2DSettings.new()
+		var r_cells = Tunneler2D.branching_river(r_st)
+		for c : Vector2i in r_cells:
+			tmap.set_cell(
+					c + Vector2i(offset, 0),
+					4,
+					Vector2i(17,39)
+				)
+		
+		print("x offset: %s" % [offset])
+		print("\n")
+
 
 func generate_v2():
 	var gap = 1
