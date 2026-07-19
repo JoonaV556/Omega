@@ -60,10 +60,10 @@ static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 			start_cell = Vector2i(x, st.bounds_min.y)
 		move_direction.E: # starting from west
 			var y = OmegaUtils.randi_between_values_n(st.bounds_min.y, st.bounds_max.y)
-			start_cell = Vector2i(st.bounds_max.x, y)
+			start_cell = Vector2i(st.bounds_min.x, y)
 		move_direction.W: # starting from east
 			var y = OmegaUtils.randi_between_values_n(st.bounds_min.y, st.bounds_max.y)
-			start_cell = Vector2i(st.bounds_min.x, y)
+			start_cell = Vector2i(st.bounds_max.x, y)
 
 	river_cells.append(start_cell)
 
@@ -73,7 +73,7 @@ static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 	for i in range(st.max_branches + 1):
 		# carve first branch as straight line
 		if i == 0:
-			var length = abs(st.bounds_min.x - st.bounds_max.x)
+			var length = abs(st.bounds_min.x - st.bounds_max.x) + 1
 			river_cells.append_array(
 				Tunneler2D.draw_line(
 					start_cell,
@@ -98,7 +98,8 @@ static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 		var s_dir = directions_perpendicular[_direction].pick_random()
 
 		# Carve l-shaped branch
-		var split_segment_length = randi_range(2, st.bounds_max.x / 2)
+		var bounds : Array = [3, st.bounds_max.x / 2]
+		var split_segment_length = randi_range(bounds.min(), bounds.max())
 
 		var back_length
 		match _direction:

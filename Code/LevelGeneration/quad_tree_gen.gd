@@ -23,6 +23,9 @@ func test_river():
 
 	const gap = 1
 
+	var  r_st = BranchingRiver2DSettings.new()
+	r_st.bounds_max = Vector2i(9,9)
+
 	for i in range(5):
 
 		var offset = (w*i) + (gap*i)
@@ -37,7 +40,6 @@ func test_river():
 				)
 
 		# generate & render river
-		var r_st = BranchingRiver2DSettings.new()
 		var r_cells = Tunneler2D.branching_river(r_st)
 		for c : Vector2i in r_cells:
 			tmap.set_cell(

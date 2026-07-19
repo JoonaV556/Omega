@@ -3,9 +3,18 @@
         test on tilemap
 
     branching river func
-        first branch is straight line 
-        starting cell of next branch is normalized random of last branch back cells
-        test
+       x  first branch is straight line 
+       x  starting cell of next branch is normalized random of last branch back cells
+        x test
+        x fix bad start cell
+        x fix bad l segment lengths
+        make branch width more random
+        make number of branches random
+            binary tree struct
+                arr - branches
+                max branches
+                branching chance
+                consecutive branching chance multiplier
         
     randomized direction 2 branches
 
