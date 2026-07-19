@@ -99,7 +99,18 @@ static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 
 		# Carve l-shaped branch
 		var bounds : Array = [3, st.bounds_max.x / 2]
-		var split_segment_length = randi_range(bounds.min(), bounds.max())
+		var rand = clampi(
+			int(
+				randfn(
+					st.bounds_max.x / 2.0,
+					(st.bounds_max.x / 2.0) / 3.0
+				)
+			),
+			3, 
+			st.bounds_max.x
+		)
+		# var split_segment_length = randi_range(bounds.min(), bounds.max())
+		var split_segment_length = rand
 
 		var back_length
 		match _direction:
@@ -112,15 +123,28 @@ static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 			move_direction.W:
 				back_length = s_point.x + 1
 
-		river_cells.append_array(
-			draw_l(
+		var branch_cells = draw_l(
 				s_point,
 				s_dir,
 				_direction,
 				split_segment_length,
 				back_length
 			)
-		)
+
+		# trim any cells outside bounds
+		var rm = []
+		for cell : Vector2i in branch_cells:
+			if (cell.x < st.bounds_min.x) or (cell.x > st.bounds_max.x):
+				rm.append(cell)
+				continue
+			if (cell.y < st.bounds_min.y) or (cell.y > st.bounds_max.y):
+				rm.append(cell)
+				continue
+		for cell in rm:
+			branch_cells.erase(cell)
+		rm.clear()
+
+		river_cells.append_array(branch_cells)
 
 		print("branch start cell: %s " % [s_point])
 		print("branch root length: %s \nbranch back length: %s " % [split_segment_length, back_length])

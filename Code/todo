@@ -8,7 +8,8 @@
         x test
         x fix bad start cell
         x fix bad l segment lengths
-        make branch width more random
+        x make branch width more random
+            x exclude cells outside bounds
         make number of branches random
             binary tree struct
                 arr - branches

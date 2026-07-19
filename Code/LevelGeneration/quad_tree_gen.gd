@@ -26,7 +26,7 @@ func test_river():
 	var  r_st = BranchingRiver2DSettings.new()
 	r_st.bounds_max = Vector2i(9,9)
 
-	for i in range(5):
+	for i in range(10):
 
 		var offset = (w*i) + (gap*i)
 
