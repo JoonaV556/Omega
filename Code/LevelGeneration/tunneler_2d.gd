@@ -35,6 +35,70 @@ static var directions_perpendicular : Dictionary[move_direction, Array] = {
 }
 
 
+static var direction_opposite: Dictionary[move_direction, move_direction] = {
+	move_direction.N: move_direction.S,
+	move_direction.S: move_direction.N,
+	move_direction.E: move_direction.W,
+	move_direction.W: move_direction.E
+}
+
+
+func random_walk(grid_size : Vector2i, max_turns : int = 3) -> Array[Vector2i]:
+	var cells : Array[Vector2i] = []
+
+	# pick start direction
+	var s_dir : move_direction = possible_directions.pick_random()
+	var _p_dirs = possible_directions
+	_p_dirs.erase(direction_opposite[s_dir]) # prevent going backwards the starting dir
+
+	# pick start cell
+	var cell = Vector2i.ZERO
+	match s_dir:
+		move_direction.N: # starting from south
+			cell.x = OmegaUtils.randi_between_values_n(0, grid_size.x - 1)
+			cell.y = grid_size.y - 1
+		move_direction.S: # starting from north
+			cell.x = OmegaUtils.randi_between_values_n(0, grid_size.x - 1)
+			cell.y = 0
+		move_direction.E: # starting from west
+			cell.x = 0
+			cell.y = OmegaUtils.randi_between_values_n(0, grid_size.y - 1)
+		move_direction.W: # starting from east
+			cell.x = grid_size.x - 1
+			cell.y = OmegaUtils.randi_between_values_n(0, grid_size.y - 1)
+	cells.append(cell)
+
+	var last_dir : move_direction = s_dir
+
+	for i in range(max_turns):
+		# pick direction
+		var dir = s_dir
+		if i != 0:
+			var _dirs = _p_dirs
+			_dirs.erase(last_dir) # prevent same dir twice in row
+			dir = _dirs.pick_random()
+
+		# pick walk length
+		var w_length = randi_range(1, (grid_size.x / 2))
+
+		# walk cells
+		for step in range(w_length):
+			match dir:
+				move_direction.N:
+					cell = cell + Vector2i(0, -1) 
+				move_direction.S:
+					cell = cell + Vector2i(0, 1) 
+				move_direction.E:
+					cell = cell + Vector2i(1, 0) 
+				move_direction.W:
+					cell = cell + Vector2i(-1, 0) 
+			cells.append(cell)
+
+		last_dir = dir
+
+	return cells
+
+
 static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 	var river_cells : Array[Vector2i] = []
 

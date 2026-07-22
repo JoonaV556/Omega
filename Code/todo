@@ -1,23 +1,10 @@
 ☐ Add branching rivers to level
-    x draw l func
-        test on tilemap
+    random walk branching 
+         x  prevent walking back in start dir
 
-    branching river func
-       x  first branch is straight line 
-       x  starting cell of next branch is normalized random of last branch back cells
-        x test
-        x fix bad start cell
-        x fix bad l segment lengths
-        x make branch width more random
-            x exclude cells outside bounds
-        make number of branches random
-            binary tree struct
-                arr - branches
-                max branches
-                branching chance
-                consecutive branching chance multiplier
-        
-    randomized direction 2 branches
+        stop if reached map edge
+
+        test 
 
 
 
