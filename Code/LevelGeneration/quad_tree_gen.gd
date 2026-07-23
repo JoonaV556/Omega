@@ -24,6 +24,7 @@ func test():
 	const gap = 1
 	const max_turns = 4
 	const min_walk_length = 3
+	const branches = 1
 
 	for i in range(iterations):
 
@@ -39,7 +40,12 @@ func test():
 				)
 
 		# generate & render river
-		var r_cells = Tunneler2D.random_walk(Vector2i(w, h), max_turns, min_walk_length)
+		var r_cells = Tunneler2D.random_walk(
+			Vector2i(w, h), 
+			max_turns, 
+			min_walk_length,
+			branches
+			)
 
 		for c : Vector2i in r_cells:
 			tmap.set_cell(

@@ -1,23 +1,14 @@
-☐ Add branching rivers to level
-    random walk branching 
-         x  prevent walking back in start dir
+✔ Add branching rivers to level @done(26-07-24 01:36)
 
-        x stop if reached map edge
+☐ add mountain zones
 
-       x  reach map edge after last turn
-            x make steps inf.
+    rivers clear mountains (mountains cannot generate over rivers)
+    
+    single level mountains
+    multi-level mountains
 
-        x make some sections longer (0.8 * w)
-        
-        x prevent opposite directions back to back
+☐ fog of war
 
-        x test
-
-        add occasional straight branches
-            max branches
-            branch chance per cell
-
-        test 
 
     
 

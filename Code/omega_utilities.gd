@@ -32,7 +32,7 @@ static func randi_between_values_n(_min : int, _max : int, _deviations : int = 3
 	var rand = int(randfn(mean, deviation))
 	return clampi(rand, _min, _max)
 
-
+## Returns random array element, but more likely to pick members from middle of the array
 static func pick_random_normalized(array) -> Variant:
 	var r_index = randi_between_values_n(0, array.size() -1)
 	return array[r_index] 

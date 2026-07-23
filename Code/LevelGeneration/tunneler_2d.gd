@@ -46,12 +46,12 @@ const t_ground : Vector3i = Vector3i(0, 0, 0)
 const t_water : Vector3i = Vector3i(0, 0, 0)
 
 
-static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_length : int = 3) -> Array[Vector2i]:
+static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_length : int = 3, max_branches : int = 0) -> Array[Vector2i]:
 	var cells : Array[Vector2i] = []
 
 	# pick start direction
 	var s_dir : move_direction = possible_directions.pick_random()
-	var _p_dirs = possible_directions
+	var _p_dirs = possible_directions.duplicate()
 	_p_dirs.erase(direction_opposite[s_dir]) # prevent going backwards the starting dir
 
 	# pick start cell
@@ -75,6 +75,10 @@ static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_leng
 
 	var last_dir : move_direction = s_dir
 
+	var branch_candidates : Dictionary[Vector2i, move_direction]
+
+	var cease = false
+
 	for i in range(max_turns):
 		# pick direction
 		var dir : move_direction = s_dir
@@ -84,6 +88,7 @@ static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_leng
 			_dirs.erase(direction_opposite[last_dir]) # prevent opposite dirs back to back
 			
 			dir = _dirs.pick_random() as move_direction
+			print('picked new direction: %s' % [move_direction.keys()[dir]])
 
 		# pick walk length
 		var length_max = int(0.8 * grid_size.x)
@@ -92,27 +97,53 @@ static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_leng
 			w_length = 999999999999  # After last turn, keep walking until map edge is reached 
 
 		# walk cells
-		for step in range(w_length):
-			match dir:
-				move_direction.N:
-					cell = cell + Vector2i(0, -1) 
-				move_direction.S:
-					cell = cell + Vector2i(0, 1) 
-				move_direction.E:
-					cell = cell + Vector2i(1, 0) 
-				move_direction.W:
-					cell = cell + Vector2i(-1, 0) 
+		for n in range(w_length):
+			cell = _get_cell_in_direction(cell, dir)
 
 			# prevent walking outside grid
 			if (cell.x < 0) or (cell.x >= grid_size.x) or (cell.y < 0) or (cell.y >= grid_size.y):
-				return cells
+				cease = true
+				break
+
+			# Mark every other cell as branch starting candidate
+			if (max_branches > 0) and ((n%2) != 0):
+				branch_candidates[cell] = directions_perpendicular[dir].pick_random()
 
 			cells.append(cell)
 
+		if cease:
+			break
+
 		last_dir = dir
 
-	return cells
+	var b_count = 0
+	# carve branches
+	for i in range(max_branches):
+		# pick branch start cell
+		var branch_start_cell = OmegaUtils.pick_random_normalized(
+			branch_candidates.keys()
+		)
+		var b_dir = branch_candidates[branch_start_cell]
+		branch_candidates.erase(branch_start_cell) # prevent picking same start cell twice
+		
+		cell = branch_start_cell
+		cells.append(branch_start_cell)
+		
+		# carve branch
+		while true:
+			cell = _get_cell_in_direction(cell, b_dir)
 
+			# prevent walking outside grid
+			if (cell.x < 0) or (cell.x >= grid_size.x) or (cell.y < 0) or (cell.y >= grid_size.y):
+				break
+
+			# Carve	
+			cells.append(cell)
+		b_count += 1
+	print('carved %s branches' % [b_count])
+	
+	print('walk has total: %s cells' % [cells.size()])
+	return cells
 
 static func branching_river(st : BranchingRiver2DSettings) -> Array[Vector2i]:
 	var river_cells : Array[Vector2i] = []
@@ -369,16 +400,16 @@ func run(start_cell : Vector2i, max_steps : int, start_dir : move_direction, bou
 	print("tunneler  tunneled_cells %s steps out of %s requested." % [tunneled_cells.size(), max_steps])
 	return tunneled_cells
 
-func _get_cell_in_dir(direction : move_direction) -> Vector2i:
+static func _get_cell_in_direction(cell, direction : move_direction) -> Vector2i:
 	match direction:
-		0: # N 
-			return position + Vector2i(0, -1)
-		1: # S
-			return position + Vector2i(0, 1)
-		2: # E 
-			return position + Vector2i(1, 0)
-		3: # W
-			return position +Vector2i(-1, 0)
+		move_direction.N: # N 
+			return cell + Vector2i(0, -1)
+		move_direction.S: # S
+			return cell + Vector2i(0, 1)
+		move_direction.E: # E 
+			return cell + Vector2i(1, 0)
+		move_direction.W: # W
+			return cell +Vector2i(-1, 0)
 	
 	return Vector2i.ZERO
 
