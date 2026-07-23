@@ -2,10 +2,24 @@
     random walk branching 
          x  prevent walking back in start dir
 
-        stop if reached map edge
+        x stop if reached map edge
+
+       x  reach map edge after last turn
+            x make steps inf.
+
+        x make some sections longer (0.8 * w)
+        
+        x prevent opposite directions back to back
+
+        x test
+
+        add occasional straight branches
+            max branches
+            branch chance per cell
 
         test 
 
+    
 
 
     

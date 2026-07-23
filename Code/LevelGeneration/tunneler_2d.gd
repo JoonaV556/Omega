@@ -42,8 +42,11 @@ static var direction_opposite: Dictionary[move_direction, move_direction] = {
 	move_direction.W: move_direction.E
 }
 
+const t_ground : Vector3i = Vector3i(0, 0, 0)
+const t_water : Vector3i = Vector3i(0, 0, 0)
 
-func random_walk(grid_size : Vector2i, max_turns : int = 3) -> Array[Vector2i]:
+
+static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_length : int = 3) -> Array[Vector2i]:
 	var cells : Array[Vector2i] = []
 
 	# pick start direction
@@ -67,19 +70,26 @@ func random_walk(grid_size : Vector2i, max_turns : int = 3) -> Array[Vector2i]:
 			cell.x = grid_size.x - 1
 			cell.y = OmegaUtils.randi_between_values_n(0, grid_size.y - 1)
 	cells.append(cell)
+	
+	print('start dir: %s, start cell: %s' % [move_direction.keys()[s_dir], cell])
 
 	var last_dir : move_direction = s_dir
 
 	for i in range(max_turns):
 		# pick direction
-		var dir = s_dir
+		var dir : move_direction = s_dir
 		if i != 0:
-			var _dirs = _p_dirs
+			var _dirs : Array[move_direction] = _p_dirs.duplicate()
 			_dirs.erase(last_dir) # prevent same dir twice in row
-			dir = _dirs.pick_random()
+			_dirs.erase(direction_opposite[last_dir]) # prevent opposite dirs back to back
+			
+			dir = _dirs.pick_random() as move_direction
 
 		# pick walk length
-		var w_length = randi_range(1, (grid_size.x / 2))
+		var length_max = int(0.8 * grid_size.x)
+		var w_length : int = randi_range(min_walk_length, length_max)
+		if i == (max_turns - 1):
+			w_length = 999999999999  # After last turn, keep walking until map edge is reached 
 
 		# walk cells
 		for step in range(w_length):
@@ -92,6 +102,11 @@ func random_walk(grid_size : Vector2i, max_turns : int = 3) -> Array[Vector2i]:
 					cell = cell + Vector2i(1, 0) 
 				move_direction.W:
 					cell = cell + Vector2i(-1, 0) 
+
+			# prevent walking outside grid
+			if (cell.x < 0) or (cell.x >= grid_size.x) or (cell.y < 0) or (cell.y >= grid_size.y):
+				return cells
+
 			cells.append(cell)
 
 		last_dir = dir

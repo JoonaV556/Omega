@@ -13,20 +13,19 @@ var trim_odds_percentage : Array[float] = [0.0]
 enum tunneler_dir {N, S, E, W}
 
 func _ready():
-	test_river.call_deferred()
+	test.call_deferred()
 
 
-func test_river():
+func test():
 
-	const w = 10
-	const h = 10
-
+	const w = 30
+	const h = 30
+	const iterations = 5
 	const gap = 1
+	const max_turns = 4
+	const min_walk_length = 3
 
-	var  r_st = BranchingRiver2DSettings.new()
-	r_st.bounds_max = Vector2i(9,9)
-
-	for i in range(10):
+	for i in range(iterations):
 
 		var offset = (w*i) + (gap*i)
 
@@ -40,7 +39,8 @@ func test_river():
 				)
 
 		# generate & render river
-		var r_cells = Tunneler2D.branching_river(r_st)
+		var r_cells = Tunneler2D.random_walk(Vector2i(w, h), max_turns, min_walk_length)
+
 		for c : Vector2i in r_cells:
 			tmap.set_cell(
 					c + Vector2i(offset, 0),
