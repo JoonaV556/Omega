@@ -10,22 +10,28 @@ extends Node
 @export
 var trim_odds_percentage : Array[float] = [0.0]
 
+@export_category("generation")
+@export var iterations = 3
+@export var w = 30
+@export var h = 30
+@export var gap = 1
+@export var max_turns = 5
+@export var min_walk_length = 3
+@export var river_max_branches = 1
+@export var mark_water_treshold = 0.7
+@export var water_noise_frequency = 0.0326
+@export var remove_lakes_near_rivers_radius : int = 4
+@export var ground_tile : Vector2i = Vector2i(1,7)
+@export var river_tile = Vector2i(17,39)
+
 enum tunneler_dir {N, S, E, W}
+
 
 func _ready():
 	test.call_deferred()
 
 
 func test():
-
-	const w = 30
-	const h = 30
-	const iterations = 5
-	const gap = 1
-	const max_turns = 4
-	const min_walk_length = 3
-	const branches = 1
-
 	for i in range(iterations):
 
 		var offset = (w*i) + (gap*i)
@@ -36,30 +42,91 @@ func test():
 				tmap.set_cell(
 					Vector2i(x + offset, y),
 					4,
-					Vector2i(1,7)
+					ground_tile
 				)
 
-		# generate & render river
-		var r_cells = Tunneler2D.random_walk(
+		# generate lakes with noise
+		var n_gen = FastNoiseLite.new()
+		n_gen.seed = randi()
+		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+		n_gen.frequency = water_noise_frequency
+		var n_image : Image = n_gen.get_image(
+			w,
+			h
+		)
+		# render water 
+		for y in range(h):
+			for x in range(w):
+				
+				var pixel_color : Color = n_image.get_pixel(x,y)
+				if pixel_color.v > mark_water_treshold:
+					tmap.set_cell(
+						Vector2i(x+offset, y),
+						4,
+						Vector2i(11,57)
+					)
+
+		# generate rivers canals
+		var r_cells : Array[Vector2i] = Tunneler2D.random_walk(
 			Vector2i(w, h), 
 			max_turns, 
 			min_walk_length,
-			branches
+			river_max_branches
 			)
-
+		# render rivers canals
 		for c : Vector2i in r_cells:
 			tmap.set_cell(
 					c + Vector2i(offset, 0),
 					4,
 					Vector2i(17,39)
 				)
-		
+
+		# remove lakes near river canals (get all cells in square area around river cell and check if they are within distance of river)
+		var to_unmark_as_lakes : Array[Vector2i] = []
+		for r_cell : Vector2i in r_cells:
+			var x = r_cell.x - remove_lakes_near_rivers_radius
+			var y = r_cell.y - remove_lakes_near_rivers_radius
+			for y_off in range(remove_lakes_near_rivers_radius*2):
+				for x_off in range(remove_lakes_near_rivers_radius*2):
+
+					# ignore cells outside map bounds
+					var map_cell = Vector2i(x+x_off, y+y_off)
+					if (map_cell.x < 0) or (map_cell.x >= w) or (map_cell.y < 0) or (map_cell.y >= h):
+						continue
+
+					# ignore river cells
+					if map_cell == r_cell: # ignore the rivel cell itself
+						continue
+
+					# check distance
+					var distance = r_cell.distance_to(map_cell)
+
+					if distance <= remove_lakes_near_rivers_radius:
+						
+						# unmark as lake 
+						to_unmark_as_lakes.append(map_cell)
+						
+		# return lake cells back to ground around rivers
+		for cell : Vector2i in to_unmark_as_lakes:
+			if r_cells.has(cell): # skip river cells
+				continue
+			tmap.set_cell(
+				cell  + Vector2i(offset, 0),
+				4,
+				ground_tile
+			)
+	
+		# generate mountains 
+
+		# render mountains
+
 		print("x offset: %s" % [offset])
 		print("\n")
 
+func generate_mountains():
+	pass
 
 func generate_v2():
-	var gap = 1
 	for i in range(1):
 		var offset = (i*32*cell_size_in_tiles)+(i*gap)
 
@@ -81,7 +148,6 @@ func generate_v2():
 		var n_gen = FastNoiseLite.new()
 		n_gen.seed = randi()
 		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
-		n_gen.frequency = 0.0081
 		var n_image : Image = n_gen.get_image(
 			q.size.x * cell_size_in_tiles,
 			q.size.y * cell_size_in_tiles,
@@ -89,7 +155,7 @@ func generate_v2():
 		
 		# mark water cells on water grid & render
 		var w_grid : Array[Array] = OmegaUtils.create_grid(n_image.get_size().x, n_image.get_size().y, false)
-		const mark_water_treshold : float  = 0.7
+		var mark_water_treshold : float  = 0.7
 
 		for y in range(n_image.get_size().y):
 			for x in range(n_image.get_size().x):

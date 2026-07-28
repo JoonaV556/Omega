@@ -1,11 +1,23 @@
 ✔ Add branching rivers to level @done(26-07-24 01:36)
 
-☐ add mountain zones
+✔ merge rivers and pools @done(26-07-28 20:40)
+    ✔ remove lakes near rivers @done(26-07-28 20:40)
+        ✔ add all cells in dist to arr - except river cell itself @done(26-07-28 20:40)
+        ✔ after all river cells went through - unmark lake cells @done(26-07-28 20:40)
+        
+        ✔ ignore cells outside map @done(26-07-28 20:40)
 
+☐ add mountain zones
+    generate() func
     rivers clear mountains (mountains cannot generate over rivers)
-    
-    single level mountains
-    multi-level mountains
+
+☐ add forests
+
+☐ surround map with forest
+
+☐ add buildings & built features (cell map)
+
+☐ add 4 map exits 
 
 ☐ fog of war
 
