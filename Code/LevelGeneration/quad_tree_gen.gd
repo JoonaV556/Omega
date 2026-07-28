@@ -24,6 +24,12 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var ground_tile : Vector2i = Vector2i(1,7)
 @export var river_tile = Vector2i(17,39)
 
+@export var mountain_noise_freq : float = 0.0841
+@export var mountains_height_max_l : int  = 4
+@export var mountains_level_noise_tresholds : Array[float]
+@export var mountain_level_1_tile : Vector3i
+@export var mountain_level_2_tile : Vector3i
+
 enum tunneler_dir {N, S, E, W}
 
 
@@ -117,14 +123,46 @@ func test():
 			)
 	
 		# generate mountains 
+		var mountains : Array[Array] = generate_mountains(Vector2i(w,h), mountain_noise_freq, mountains_level_noise_tresholds)
 
-		# render mountains
+		# render mountains LEFT TODO
 
 		print("x offset: %s" % [offset])
 		print("\n")
 
-func generate_mountains():
-	pass
+
+func generate_mountains(grid_size, _noise_frequency, level_noise_tresholds : Array[float] = []) -> Array[Array]:
+	var mountain_heightmap : Array[Array] = OmegaUtils.create_grid(grid_size.x, grid_size.y, 0)
+
+	if level_noise_tresholds.is_empty():
+		return []
+
+	# generate noise
+	var n_gen = FastNoiseLite.new()
+	n_gen.seed = randi()
+	n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+	n_gen.frequency = _noise_frequency
+	var n_image : Image = n_gen.get_image(
+		grid_size.x,
+		grid_size.y
+	)
+
+	# mark mountain levels in grid
+	for y in range(grid_size.y):
+		for x in range(grid_size.x):
+			var tresh_idx = 1
+			var pixel_color : Color = n_image.get_pixel(x,y)
+			for tresh : float in level_noise_tresholds:
+				if pixel_color.v >= tresh:
+					mountain_heightmap[y][x] = tresh_idx
+					tresh_idx += 1
+
+	for y in range(h):
+		for x in range(w):
+			var pixel_color : Color = n_image.get_pixel(x,y)
+			print('pixel v: %s' % [pixel_color.v])
+
+	return mountain_heightmap
 
 func generate_v2():
 	for i in range(1):

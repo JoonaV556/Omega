@@ -9,12 +9,11 @@
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_urxea"]
 noise_type = 3
 seed = 10
-frequency = 0.0326
-offset = Vector3(0, 3.5, 0)
+frequency = 0.0841
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcrlh"]
-width = 30
-height = 30
+width = 50
+height = 50
 noise = SubResource("FastNoiseLite_urxea")
 
 [node name="Node2D" type="Node2D" unique_id=1649260176]
@@ -32,6 +31,7 @@ w = 50
 h = 50
 gap = 10
 remove_lakes_near_rivers_radius = 5
+mountains_level_noise_tresholds = Array[float]([0.6, 0.7])
 
 [node name="Camera" parent="." unique_id=1968504275 instance=ExtResource("3_ak4ep")]
 
@@ -60,7 +60,7 @@ position = Vector2(24, -16)
 texture = ExtResource("5_urxea")
 
 [node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1569508249]
-position = Vector2(-683, -104)
+position = Vector2(-273, -489)
 scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
 

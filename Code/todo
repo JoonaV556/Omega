@@ -8,7 +8,13 @@
         ✔ ignore cells outside map @done(26-07-28 20:40)
 
 ☐ add mountain zones
-    generate() func
+    x generate() heightmap func Array[Array[int]]
+
+    render heightmap flat on tilemap
+        tst
+
+    render with correct rpg style
+
     rivers clear mountains (mountains cannot generate over rivers)
 
 ☐ add forests
