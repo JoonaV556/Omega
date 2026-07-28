@@ -27,8 +27,7 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var mountain_noise_freq : float = 0.0841
 @export var mountains_height_max_l : int  = 4
 @export var mountains_level_noise_tresholds : Array[float]
-@export var mountain_level_1_tile : Vector3i
-@export var mountain_level_2_tile : Vector3i
+@export var mountain_level_tiles : Array[Vector3i]
 
 enum tunneler_dir {N, S, E, W}
 
@@ -123,9 +122,28 @@ func test():
 			)
 	
 		# generate mountains 
-		var mountains : Array[Array] = generate_mountains(Vector2i(w,h), mountain_noise_freq, mountains_level_noise_tresholds)
+		var mountains_heightmap : Array[Array] = generate_mountains(Vector2i(w,h), mountain_noise_freq, mountains_level_noise_tresholds)
 
-		# render mountains LEFT TODO
+		# render mountains flat on tilemap
+		for y in range(h):
+			for x in range(w):
+
+				var mount_height : int = mountains_heightmap[y][x]
+				
+				if mount_height == 0:
+					continue
+				
+				for n in range(mountain_level_tiles.size()):
+					var mountain_tile : Vector3i = mountain_level_tiles[n]
+
+					if (n+1) == mount_height:
+						# paint mountain
+						tmap.set_cell(
+							Vector2i(x + offset, y),
+							mountain_tile.z,
+							Vector2i(mountain_tile.x, mountain_tile.y)
+						)
+
 
 		print("x offset: %s" % [offset])
 		print("\n")
@@ -156,11 +174,6 @@ func generate_mountains(grid_size, _noise_frequency, level_noise_tresholds : Arr
 				if pixel_color.v >= tresh:
 					mountain_heightmap[y][x] = tresh_idx
 					tresh_idx += 1
-
-	for y in range(h):
-		for x in range(w):
-			var pixel_color : Color = n_image.get_pixel(x,y)
-			print('pixel v: %s' % [pixel_color.v])
 
 	return mountain_heightmap
 

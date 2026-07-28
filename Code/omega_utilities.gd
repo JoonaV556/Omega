@@ -12,12 +12,12 @@ static func roll_percentage_odds(percentage : float = 100.0) -> bool:
 	return rand <= p_norm
 
 
-static func create_grid(w, h, fill_value) -> Array[Array]:
+static func create_grid(w, h, fill_value = null) -> Array[Array]:
 	var grid : Array[Array] = []
 	for y in range(h):
 		var row = []
 		row.resize(w)
-		if fill_value:
+		if fill_value != null:
 			row.fill(fill_value)
 		grid.append(row)
 	return grid

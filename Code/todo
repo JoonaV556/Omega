@@ -10,8 +10,8 @@
 ☐ add mountain zones
     x generate() heightmap func Array[Array[int]]
 
-    render heightmap flat on tilemap
-        tst
+    x render heightmap flat on tilemap
+        x tst
 
     render with correct rpg style
 
