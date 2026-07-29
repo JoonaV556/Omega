@@ -7,15 +7,21 @@
         
         ✔ ignore cells outside map @done(26-07-28 20:40)
 
-☐ add mountain zones
-    x generate() heightmap func Array[Array[int]]
-
-    x render heightmap flat on tilemap
-        x tst
-
-    render with correct rpg style
-
-    rivers clear mountains (mountains cannot generate over rivers)
+    ✔ add mountain zones @done(26-07-29 16:36)
+        ✔ generate() heightmap func Array[Array[int]] @done(26-07-29 16:36)
+        ✔ render heightmap flat on tilemap @done(26-07-29 16:36)
+            ✔ tst @done(26-07-29 16:36)
+        ✔ render with correct rpg style @done(26-07-29 16:36)
+        
+✔ integrate mountains and lakes cleanly @done(26-07-29 16:35)
+    ✔ single noise texture for both @done(26-07-29 16:35)
+        ✔ cells < lake treshold = lakes @done(26-07-29 16:35)
+        ✔ cells > mountain treshold = mountains @done(26-07-29 16:35)
+    ✔ generate lake map with single noise image @done(26-07-29 16:35)
+        ✔ false = no lake @done(26-07-29 16:35)
+        ✔ true = lake @done(26-07-29 16:35)
+        ✔ tst render @done(26-07-29 16:35)
+    ✔ genrate mountain map with single noise @done(26-07-29 16:35)
 
 ☐ add forests
 

@@ -31,8 +31,9 @@ w = 50
 h = 50
 gap = 10
 remove_lakes_near_rivers_radius = 5
-mountains_level_noise_tresholds = Array[float]([0.6, 0.75])
-mountain_level_tiles = Array[Vector3i]([Vector3i(9, 23, 2), Vector3i(9, 19, 2)])
+lake_water_level_treshold = 0.35
+mountains_level_noise_tresholds = Array[float]([0.7, 0.85])
+mountain_level_tiles = Array[Vector3i]([Vector3i(15, 45, 4), Vector3i(15, 43, 4)])
 
 [node name="Camera" parent="." unique_id=1968504275 instance=ExtResource("3_ak4ep")]
 

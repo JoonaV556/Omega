@@ -15,19 +15,25 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var w = 30
 @export var h = 30
 @export var gap = 1
+@export var terrain_noise_freq = 0.0841
+
+# river canals
 @export var max_turns = 5
 @export var min_walk_length = 3
 @export var river_max_branches = 1
-@export var mark_water_treshold = 0.7
-@export var water_noise_frequency = 0.0326
+
 @export var remove_lakes_near_rivers_radius : int = 4
 @export var ground_tile : Vector2i = Vector2i(1,7)
 @export var river_tile = Vector2i(17,39)
 
-@export var mountain_noise_freq : float = 0.0841
-@export var mountains_height_max_l : int  = 4
+# lakes
+@export var lake_water_level_treshold = 0.7 
+@export var lake_tile = Vector3i(17, 39, 4)
+
+# mountains
 @export var mountains_level_noise_tresholds : Array[float]
 @export var mountain_level_tiles : Array[Vector3i]
+
 
 enum tunneler_dir {N, S, E, W}
 
@@ -50,25 +56,27 @@ func test():
 					ground_tile
 				)
 
-		# generate lakes with noise
+		# generate noise texture for terrain
 		var n_gen = FastNoiseLite.new()
 		n_gen.seed = randi()
 		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
-		n_gen.frequency = water_noise_frequency
+		n_gen.frequency = terrain_noise_freq
 		var n_image : Image = n_gen.get_image(
 			w,
 			h
 		)
-		# render water 
+
+		# generate lakes
+		var lake_map = generate_lakes(n_image, lake_water_level_treshold)
+
+		# render lakes
 		for y in range(h):
 			for x in range(w):
-				
-				var pixel_color : Color = n_image.get_pixel(x,y)
-				if pixel_color.v > mark_water_treshold:
+				if lake_map[y][x] == true:
 					tmap.set_cell(
 						Vector2i(x+offset, y),
-						4,
-						Vector2i(11,57)
+						lake_tile.z,
+						Vector2i(lake_tile.x, lake_tile.y)
 					)
 
 		# generate rivers canals
@@ -122,7 +130,7 @@ func test():
 			)
 	
 		# generate mountains 
-		var mountains_heightmap : Array[Array] = generate_mountains(Vector2i(w,h), mountain_noise_freq, mountains_level_noise_tresholds)
+		var mountains_heightmap : Array[Array] = generate_mountains(n_image, mountains_level_noise_tresholds)
 
 		# render mountains flat on tilemap
 		for y in range(h):
@@ -148,32 +156,37 @@ func test():
 		print("x offset: %s" % [offset])
 		print("\n")
 
+## returns Array[ Array[ bool ] ]	where false = no lake, true = lake
+func generate_lakes(_noise_img : Image, _water_level_treshold : float) -> Array[Array]:
+	var lake_map = OmegaUtils.create_grid(_noise_img.get_size().x, _noise_img.get_size().y, false)
+	var size = _noise_img.get_size()
+	for y in range(size.y):
+		for x in range(size.x):
+			var pixel_color_v : float = _noise_img.get_pixel(x, y).v
+			if pixel_color_v <= _water_level_treshold:
+				lake_map[y][x] = true
 
-func generate_mountains(grid_size, _noise_frequency, level_noise_tresholds : Array[float] = []) -> Array[Array]:
-	var mountain_heightmap : Array[Array] = OmegaUtils.create_grid(grid_size.x, grid_size.y, 0)
+	return lake_map
+
+
+func generate_mountains(_noise_image : Image, level_noise_tresholds : Array[float] = []) -> Array[Array]:
+	var map_size = _noise_image.get_size()
+	var mountain_heightmap : Array[Array] = OmegaUtils.create_grid(map_size.x, map_size.y, 0)
 
 	if level_noise_tresholds.is_empty():
 		return []
 
-	# generate noise
-	var n_gen = FastNoiseLite.new()
-	n_gen.seed = randi()
-	n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
-	n_gen.frequency = _noise_frequency
-	var n_image : Image = n_gen.get_image(
-		grid_size.x,
-		grid_size.y
-	)
+	# mark mountain cells in map
+	for y in range(map_size.y):
+		for x in range(map_size.x):
 
-	# mark mountain levels in grid
-	for y in range(grid_size.y):
-		for x in range(grid_size.x):
-			var tresh_idx = 1
-			var pixel_color : Color = n_image.get_pixel(x,y)
+			var mountain_level_index = 1
+			var pixel_color : Color = _noise_image.get_pixel(x, y)
+			
 			for tresh : float in level_noise_tresholds:
 				if pixel_color.v >= tresh:
-					mountain_heightmap[y][x] = tresh_idx
-					tresh_idx += 1
+					mountain_heightmap[y][x] = mountain_level_index
+					mountain_level_index += 1
 
 	return mountain_heightmap
 
