@@ -33,6 +33,13 @@
     ✔ array. replace(Arr[], if_val, replace_with_val) @done(26-07-31 01:17)
 
 ☐ add forests in center areas
+    separate noise map for forest areas
+    generate forest() - returns forest cells as Arr[Vector2]
+    from forest - exclude cells with:
+        mountains 
+        lakes 
+        rivers
+    render
 
 ☐ prevent mountains forming on top of river canals
 

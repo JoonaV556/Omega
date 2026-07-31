@@ -38,6 +38,10 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var forest_edge_thickness = 1
 @export var forest_edge_tile : Vector3i
 
+# forest middle 
+@export var forest_noise_freq = 0.0841
+@export var forest_noise_treshold = 0.7
+
 
 enum tunneler_dir {N, S, E, W}
 
@@ -175,9 +179,42 @@ func test():
 							Vector2i(forest_edge_tile.x, forest_edge_tile.y)
 						)
 
+		# create noise for forest centre areas
+		n_gen.seed = randi()
+		n_gen.frequency = forest_noise_freq
+		var f_n_image : Image = n_gen.get_image(
+			w,
+			h
+		)
+
+		# generate forest
+		var forest_cells : Array[Vector2i] = generate_forest(f_n_image, forest_noise_treshold)
+
+		# filter forest cells over mountains, lakes, rivers etc.
+
+		# render forest
+		for f_cell : Vector2i in forest_cells:
+			tmap.set_cell(
+				Vector2i(f_cell.x + offset, f_cell.y),
+				forest_edge_tile.z,
+				Vector2i(forest_edge_tile.x, forest_edge_tile.y)
+			)
 
 		print("x offset: %s" % [offset])
 		print("\n")
+
+
+func generate_forest(_noise_image : Image, forest_treshold : float) -> Array[Vector2i]:
+	var cells : Array[Vector2i] = []
+	var size = _noise_image.get_size()
+
+	for y in range(size.y):
+		for x in range(size.x):
+			var pixel_v = _noise_image.get_pixel(x, y).v
+			if pixel_v >= forest_treshold:
+				cells.append(Vector2i(x, y))
+
+	return cells
 
 
 func generate_forest_edge(map_size : Vector2i, thickness : int) -> Array[Array]:
