@@ -191,6 +191,9 @@ func test():
 		var forest_cells : Array[Vector2i] = generate_forest(f_n_image, forest_noise_treshold)
 
 		# filter forest cells over mountains, lakes, rivers etc.
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
 
 		# render forest
 		for f_cell : Vector2i in forest_cells:
