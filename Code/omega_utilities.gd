@@ -46,6 +46,7 @@ static func array_compare_replace_with(arr : Array, compare_arr : Array, if_val,
 			if compare_arr[i] != if_val:
 				arr[i] = replace_val
 				continue
+			continue
 		if compare_arr[i] == if_val:
 			arr[i] = replace_val
 	return arr
@@ -55,7 +56,8 @@ static func array_compare_replace_with_2D(arr : Array[Array], compare_arr : Arra
 	for i in range(arr.size()):
 		var inner_arr = arr[i]
 		var inner_compare_array = compare_arr[i]
-		array_compare_replace_with(inner_arr, inner_compare_array, if_val, replace_val, invert_compare)
+		inner_arr = array_compare_replace_with(inner_arr, inner_compare_array, if_val, replace_val, invert_compare)
+		arr[i] = inner_arr
 
 	return arr
 

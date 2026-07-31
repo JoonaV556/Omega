@@ -127,6 +127,7 @@ func test():
 		for cell : Vector2i in to_unmark_as_lakes:
 			if river_canal_cells.has(cell): # skip river cells
 				continue
+			lake_map[cell.y][cell.x] = false
 			tmap.set_cell(
 				cell  + Vector2i(offset, 0),
 				4,
@@ -156,13 +157,13 @@ func test():
 							Vector2i(mountain_tile.x, mountain_tile.y)
 						)
 		
-		# generate forest edge 
-		var forest_edge_cells = generate_forest_edge(Vector2i(w, h), forest_edge_thickness)
+		# generate forest edge [[bool]]
+		var forest_edge_cells : Array[Array] = generate_forest_edge(Vector2i(w, h), forest_edge_thickness)
 
 		# from forest edge, filter lake, river canal, and mountain cells
-		# forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
-		# forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
-		# forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
+		forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
 
 		# render forest edge 
 		for y in range(h):
