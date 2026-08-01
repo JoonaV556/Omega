@@ -67,3 +67,27 @@ static func array_replace_with_2D(arr : Array[Array], replace_cells : Array[Vect
 		arr[cell.y][cell.x] = replace_val
 
 	return arr
+
+
+static func get_coords_within_radius(coord : Vector2i, radius : int = 2) -> Array[Vector2i]:
+	var coords : Array[Vector2i]
+
+	var start_coord = coord - Vector2i(radius, radius)
+	var square_side = (radius*2) + 1
+	
+	for y in range(square_side):
+		for x in range(square_side):
+			var new_coord = start_coord + Vector2i(x, y)
+			if (int(coord.distance_to(new_coord)) <= radius):
+				coords.append(new_coord)
+
+	return coords
+
+
+static func within_bounds_2d(x, y, arr : Array[Array]) -> bool:
+	var inner = arr[0]
+	return (within_bounds(x, inner) and within_bounds(y, arr))
+
+
+static func within_bounds(n : int, arr : Array) -> bool:
+	return ( (n >= 0) and (n < arr.size()) )

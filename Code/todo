@@ -41,7 +41,18 @@
         ✔ rivers @done(26-07-31 16:40)
     ✔ render @done(26-07-31 16:40)
 
-☐ prevent mountains forming on top of river canals
+✔ prevent mountains forming on top of river canals @done(26-08-01 22:30)
+    ✔ func get_cells_within_radius_2D(cell, radius) @done(26-08-01 20:30)
+    ✔ do rendering last @done(26-08-01 20:38)
+    ✔ clear lake cells within radius @done(26-08-01 22:22)
+    ✔ clear mountains within radius @done(26-08-01 22:23)
+
+☐ smoothen mountains within radius of rivers
+    new func get_cells_within_dist Dict[cell, distance]
+
+    unmark mountains smoothly based on distance from river
+        dist 2 = 1
+        dist 3 = 2
 
 ☐ add buildings & built features (cell map)
 

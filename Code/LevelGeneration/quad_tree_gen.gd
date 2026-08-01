@@ -22,7 +22,7 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var min_walk_length = 3
 @export var river_max_branches = 1
 
-@export var remove_lakes_near_rivers_radius : int = 4
+@export var remove_lakes_near_rivers_radius : int = 3
 @export var ground_tile : Vector2i = Vector2i(1,7)
 @export var river_tile = Vector2i(17,39)
 
@@ -55,15 +55,6 @@ func test():
 
 		var offset = (w*i) + (gap*i)
 
-		# paint ground
-		for y in range(h):
-			for x in range(w):
-				tmap.set_cell(
-					Vector2i(x + offset, y),
-					4,
-					ground_tile
-				)
-
 		# generate noise texture for terrain
 		var n_gen = FastNoiseLite.new()
 		n_gen.seed = randi()
@@ -77,6 +68,87 @@ func test():
 		# generate lakes
 		var lake_map = generate_lakes(n_image, lake_water_level_treshold)
 
+		# generate rivers canals
+		var river_canal_cells : Array[Vector2i] = Tunneler2D.random_walk(
+			Vector2i(w, h), 
+			max_turns, 
+			min_walk_length,
+			river_max_branches
+			)
+
+		# remove lakes and mountains near river canals (get all cells in square area around river cell and check if they are within distance of river)
+		var to_unmark_as_lakes : Array[Vector2i] = []
+		for r_cell : Vector2i in river_canal_cells:
+			var x = r_cell.x - remove_lakes_near_rivers_radius
+			var y = r_cell.y - remove_lakes_near_rivers_radius
+			for y_off in range(remove_lakes_near_rivers_radius*2):
+				for x_off in range(remove_lakes_near_rivers_radius*2):
+
+					# ignore cells outside map bounds
+					var cell_coords : Vector2i = Vector2i(x+x_off, y+y_off)
+					if (cell_coords.x < 0) or (cell_coords.x >= w) or (cell_coords.y < 0) or (cell_coords.y >= h):
+						continue
+
+					# ignore river cells
+					if cell_coords == r_cell: # ignore the rivel cell itself
+						continue
+
+					# check distance
+					var distance = r_cell.distance_to(cell_coords)
+
+					if distance <= remove_lakes_near_rivers_radius:
+						
+						# unmark as lake 
+						to_unmark_as_lakes.append(cell_coords)
+	
+		# generate mountains 
+		var mountains_heightmap : Array[Array] = generate_mountains(n_image, mountains_level_noise_tresholds)
+		
+		# generate forest edge [[bool]]
+		var forest_edge_cells : Array[Array] = generate_forest_edge(Vector2i(w, h), forest_edge_thickness)
+
+		# from forest edge, filter lake, river canal, and mountain cells
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
+		forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
+
+		# create noise for forest centre areas
+		n_gen.seed = randi()
+		n_gen.frequency = forest_noise_freq
+		var f_n_image : Image = n_gen.get_image(
+			w,
+			h
+		)
+
+		# generate forest
+		var forest_cells : Array[Vector2i] = generate_forest(f_n_image, forest_noise_treshold)
+
+		# filter forest cells over mountains, lakes, rivers etc.
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
+
+		# clear area around rivers
+		var cells_around_rivers = []
+		for cell in river_canal_cells:
+			var cells = OmegaUtils.get_coords_within_radius(cell, remove_lakes_near_rivers_radius)
+			cells_around_rivers.append_array(cells)
+
+			for c : Vector2i in cells:
+				if OmegaUtils.within_bounds_2d(c.x, c.y, lake_map):
+					lake_map[c.y][c.x] = false
+					mountains_heightmap[c.y][c.x] = 0
+					print("unmarked mountain")
+
+		# render ground
+		for y in range(h):
+			for x in range(w):
+				tmap.set_cell(
+					Vector2i(x + offset, y),
+					4,
+					ground_tile
+				)
+
 		# render lakes
 		for y in range(h):
 			for x in range(w):
@@ -86,14 +158,7 @@ func test():
 						lake_tile.z,
 						Vector2i(lake_tile.x, lake_tile.y)
 					)
-
-		# generate rivers canals
-		var river_canal_cells : Array[Vector2i] = Tunneler2D.random_walk(
-			Vector2i(w, h), 
-			max_turns, 
-			min_walk_length,
-			river_max_branches
-			)
+		
 		# render rivers canals
 		for c : Vector2i in river_canal_cells:
 			tmap.set_cell(
@@ -101,45 +166,6 @@ func test():
 					4,
 					Vector2i(17,39)
 				)
-
-		# remove lakes near river canals (get all cells in square area around river cell and check if they are within distance of river)
-		var to_unmark_as_lakes : Array[Vector2i] = []
-		for r_cell : Vector2i in river_canal_cells:
-			var x = r_cell.x - remove_lakes_near_rivers_radius
-			var y = r_cell.y - remove_lakes_near_rivers_radius
-			for y_off in range(remove_lakes_near_rivers_radius*2):
-				for x_off in range(remove_lakes_near_rivers_radius*2):
-
-					# ignore cells outside map bounds
-					var map_cell = Vector2i(x+x_off, y+y_off)
-					if (map_cell.x < 0) or (map_cell.x >= w) or (map_cell.y < 0) or (map_cell.y >= h):
-						continue
-
-					# ignore river cells
-					if map_cell == r_cell: # ignore the rivel cell itself
-						continue
-
-					# check distance
-					var distance = r_cell.distance_to(map_cell)
-
-					if distance <= remove_lakes_near_rivers_radius:
-						
-						# unmark as lake 
-						to_unmark_as_lakes.append(map_cell)
-						
-		# return lake cells back to ground around rivers
-		for cell : Vector2i in to_unmark_as_lakes:
-			if river_canal_cells.has(cell): # skip river cells
-				continue
-			lake_map[cell.y][cell.x] = false
-			tmap.set_cell(
-				cell  + Vector2i(offset, 0),
-				4,
-				ground_tile
-			)
-	
-		# generate mountains 
-		var mountains_heightmap : Array[Array] = generate_mountains(n_image, mountains_level_noise_tresholds)
 
 		# render mountains flat on tilemap
 		for y in range(h):
@@ -160,14 +186,6 @@ func test():
 							mountain_tile.z,
 							Vector2i(mountain_tile.x, mountain_tile.y)
 						)
-		
-		# generate forest edge [[bool]]
-		var forest_edge_cells : Array[Array] = generate_forest_edge(Vector2i(w, h), forest_edge_thickness)
-
-		# from forest edge, filter lake, river canal, and mountain cells
-		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
-		forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
-		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
 
 		# render forest edge 
 		for y in range(h):
@@ -178,22 +196,6 @@ func test():
 							forest_edge_tile.z,
 							Vector2i(forest_edge_tile.x, forest_edge_tile.y)
 						)
-
-		# create noise for forest centre areas
-		n_gen.seed = randi()
-		n_gen.frequency = forest_noise_freq
-		var f_n_image : Image = n_gen.get_image(
-			w,
-			h
-		)
-
-		# generate forest
-		var forest_cells : Array[Vector2i] = generate_forest(f_n_image, forest_noise_treshold)
-
-		# filter forest cells over mountains, lakes, rivers etc.
-		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
-		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
-		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
 
 		# render forest
 		for f_cell : Vector2i in forest_cells:
