@@ -107,11 +107,6 @@ func test():
 		# generate forest edge [[bool]]
 		var forest_edge_cells : Array[Array] = generate_forest_edge(Vector2i(w, h), forest_edge_thickness)
 
-		# from forest edge, filter lake, river canal, and mountain cells
-		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
-		forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
-		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
-
 		# create noise for forest centre areas
 		n_gen.seed = randi()
 		n_gen.frequency = forest_noise_freq
@@ -123,11 +118,6 @@ func test():
 		# generate forest
 		var forest_cells : Array[Vector2i] = generate_forest(f_n_image, forest_noise_treshold)
 
-		# filter forest cells over mountains, lakes, rivers etc.
-		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
-		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
-		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
-
 		# clear area around rivers
 		var cells_around_rivers = []
 		for cell in river_canal_cells:
@@ -138,20 +128,29 @@ func test():
 				if OmegaUtils.within_bounds_2d(c.x, c.y, lake_map):
 					lake_map[c.y][c.x] = false
 					mountains_heightmap[c.y][c.x] = 0
-					print("unmarked mountain")
 
-		# render ground
+		# prevent forest edge over lake, river canal, and mountain cells
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
+		forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
+
+		# prevent forest over mountains, lakes, rivers etc.
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
+
+		# Render terrain on tilemap
 		for y in range(h):
 			for x in range(w):
+
+				# Ground
 				tmap.set_cell(
 					Vector2i(x + offset, y),
 					4,
 					ground_tile
 				)
-
-		# render lakes
-		for y in range(h):
-			for x in range(w):
+				
+				# Lake
 				if lake_map[y][x] == true:
 					tmap.set_cell(
 						Vector2i(x+offset, y),

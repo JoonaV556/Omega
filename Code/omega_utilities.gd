@@ -84,6 +84,12 @@ static func get_coords_within_radius(coord : Vector2i, radius : int = 2) -> Arra
 	return coords
 
 
+static func get_coords_within_radius_distance(coord : Vector2i, radius : int = 2) -> Dictionary[Vector2i, int]:
+	var coord_distances : Dictionary[Vector2i, int]
+
+	return coord_distances
+
+
 static func within_bounds_2d(x, y, arr : Array[Array]) -> bool:
 	var inner = arr[0]
 	return (within_bounds(x, inner) and within_bounds(y, arr))
