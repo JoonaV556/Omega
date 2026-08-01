@@ -47,7 +47,7 @@
     ✔ clear lake cells within radius @done(26-08-01 22:22)
     ✔ clear mountains within radius @done(26-08-01 22:23)
 
-☐ simplify rendering (no multiple loops)
+✔ simplify rendering (no multiple loops) @done(26-08-01 22:57)
 
 ☐ add buildings & built features (cell map)
 

@@ -142,7 +142,8 @@ func test():
 		# Render terrain on tilemap
 		for y in range(h):
 			for x in range(w):
-
+				var c = Vector2i(x, y)
+				
 				# Ground
 				tmap.set_cell(
 					Vector2i(x + offset, y),
@@ -157,23 +158,17 @@ func test():
 						lake_tile.z,
 						Vector2i(lake_tile.x, lake_tile.y)
 					)
-		
-		# render rivers canals
-		for c : Vector2i in river_canal_cells:
-			tmap.set_cell(
-					c + Vector2i(offset, 0),
-					4,
-					Vector2i(17,39)
-				)
-
-		# render mountains flat on tilemap
-		for y in range(h):
-			for x in range(w):
-
-				var mount_height : int = mountains_heightmap[y][x]
 				
-				if mount_height == 0:
-					continue
+				# River 
+				if river_canal_cells.has(c):
+					tmap.set_cell(
+						c + Vector2i(offset, 0),
+						4,
+						Vector2i(17,39)
+					)
+				
+				# Mountains
+				var mount_height : int = mountains_heightmap[y][x]
 				
 				for n in range(mountain_level_tiles.size()):
 					var mountain_tile : Vector3i = mountain_level_tiles[n]
@@ -185,10 +180,8 @@ func test():
 							mountain_tile.z,
 							Vector2i(mountain_tile.x, mountain_tile.y)
 						)
-
-		# render forest edge 
-		for y in range(h):
-			for x in range(w):
+				
+				# Forest edge
 				if forest_edge_cells[y][x] == true:
 					tmap.set_cell(
 							Vector2i(x + offset, y),
@@ -196,13 +189,13 @@ func test():
 							Vector2i(forest_edge_tile.x, forest_edge_tile.y)
 						)
 
-		# render forest
-		for f_cell : Vector2i in forest_cells:
-			tmap.set_cell(
-				Vector2i(f_cell.x + offset, f_cell.y),
-				forest_edge_tile.z,
-				Vector2i(forest_edge_tile.x, forest_edge_tile.y)
-			)
+				# Forest 
+				if forest_cells.has(c):
+					tmap.set_cell(
+						Vector2i(c.x + offset, c.y),
+						forest_edge_tile.z,
+						Vector2i(forest_edge_tile.x, forest_edge_tile.y)
+					)
 
 		print("x offset: %s" % [offset])
 		print("\n")
