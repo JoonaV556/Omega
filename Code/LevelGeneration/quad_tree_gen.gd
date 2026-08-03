@@ -17,6 +17,9 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var gap = 1
 @export var terrain_noise_freq = 0.0841
 
+# Base terrain height
+@export var base_terrain_height_noise_freq = 0.0841
+
 # river canals
 @export var max_turns = 5
 @export var min_walk_length = 3
@@ -55,8 +58,25 @@ func test():
 
 		var offset = (w*i) + (gap*i)
 
-		# generate noise texture for terrain
+		# generate base terrain with height ranging from 1-3 
+		# (noise pixel values genrate in range of 0.0 - 1.0)
+		var base_terrain_height_levels_count : int = randi_range(1,3)
 		var n_gen = FastNoiseLite.new()
+		n_gen.seed = randi()
+		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+		n_gen.frequency  = base_terrain_height_noise_freq
+		var base_terrain_noise : Image = n_gen.get_image(
+			w,
+			h
+		)
+		var base_terrain_heightmap : Array[Array] = []
+		for y in range(h):
+			for x in range(w):
+				var p_v = base_terrain_noise.get_pixel(x, y).v
+				var step_size : float = 1.0 / base_terrain_height_levels_count
+				base_terrain_heightmap[y][x] = floori(p_v / step_size)
+
+		# generate noise texture for Lakes and hills
 		n_gen.seed = randi()
 		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
 		n_gen.frequency = terrain_noise_freq

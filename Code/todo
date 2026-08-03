@@ -49,6 +49,13 @@
 
 ✔ simplify rendering (no multiple loops) @done(26-08-01 22:57)
 
+variable terrain height
+    ✔ rng 1-3 terrain height levels @done(26-08-04 00:23)
+    ✔ test noise peaks @done(26-08-04 00:33)
+    ✔ implement @done(26-08-04 01:11)
+    render 
+    integrate mountains
+
 ☐ add buildings & built features (cell map)
 
 ☐ add 4 map exits 

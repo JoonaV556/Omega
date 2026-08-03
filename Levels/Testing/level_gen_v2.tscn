@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b075ubfx8ofjv" path="res://Code/LevelGeneration/quad_tree_gen.gd" id="2_r0in5"]
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="3_ak4ep"]
 [ext_resource type="Script" uid="uid://pmeam4p3q7d" path="res://Code/Other/move_with_wasd.gd" id="4_08qqg"]
-[ext_resource type="Texture2D" uid="uid://bp67afwlhklkv" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
+[ext_resource type="Texture2D" uid="uid://bph7w4k0qj2h3" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
 
 [sub_resource type="Gradient" id="Gradient_urxea"]
 
