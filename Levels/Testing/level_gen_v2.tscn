@@ -34,6 +34,7 @@ w = 50
 h = 50
 gap = 10
 terrain_noise_freq = 0.063
+base_terrain_tiles = Array[Vector3i]([Vector3i(9, 26, 2), Vector3i(9, 23, 2), Vector3i(9, 20, 2)])
 remove_lakes_near_rivers_radius = 2
 lake_water_level_treshold = 0.3
 mountains_level_noise_tresholds = Array[float]([0.7, 0.85])

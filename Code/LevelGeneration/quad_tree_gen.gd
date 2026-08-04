@@ -19,6 +19,7 @@ var trim_odds_percentage : Array[float] = [0.0]
 
 # Base terrain height
 @export var base_terrain_height_noise_freq = 0.0841
+@export var base_terrain_tiles : Array[Vector3i]
 
 # river canals
 @export var max_turns = 5
@@ -69,7 +70,7 @@ func test():
 			w,
 			h
 		)
-		var base_terrain_heightmap : Array[Array] = []
+		var base_terrain_heightmap : Array[Array] = OmegaUtils.create_grid(w, h, 0)
 		for y in range(h):
 			for x in range(w):
 				var p_v = base_terrain_noise.get_pixel(x, y).v
@@ -170,6 +171,15 @@ func test():
 					4,
 					ground_tile
 				)
+
+				# Base terrain
+				for n in base_terrain_tiles.size():
+					if base_terrain_heightmap[y][x] == n:
+						tmap.set_cell(
+						Vector2i(x+offset, y),
+						base_terrain_tiles[n].z,
+						Vector2i(base_terrain_tiles[n].x, base_terrain_tiles[n].y)
+					)
 				
 				# Lake
 				if lake_map[y][x] == true:
