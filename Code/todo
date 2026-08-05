@@ -49,16 +49,18 @@
 
 ✔ simplify rendering (no multiple loops) @done(26-08-01 22:57)
 
-variable terrain height
+✔ variable terrain height @done(26-08-04 23:50)
     ✔ rng 1-3 terrain height levels @done(26-08-04 00:23)
     ✔ test noise peaks @done(26-08-04 00:33)
     ✔ implement @done(26-08-04 01:11)
     ✔ render @done(26-08-04 23:45)
-    integrate mountains
-        mountain
+    ✔ integrate mountains @done(26-08-04 23:50)
+        ✔ mountain first level is 1+ height of base terrain underneath @done(26-08-04 23:50)
 
 ☐ add buildings & built features (cell map)
-
+    1. Generate building cells of varying size with quad tree
+    2. Generate roads (varying sized roads)
+    3. Erase cells overlapping with roads 
 ☐ add 4 map exits 
 
 ☐ fog of war
