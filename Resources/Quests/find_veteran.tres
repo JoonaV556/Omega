@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Quest" format=3 uid="uid://drc3gq8yma1by"]
+
+[ext_resource type="Script" uid="uid://dasj1grspeclu" path="res://Code/Quests/quest.gd" id="1_kswku"]
+
+[resource]
+script = ExtResource("1_kswku")
+title = "Find the veteran"
+unique_name = &"find_veteran"
+notes = PackedStringArray("For some reason, Marvin thinks a veteran named Hank might know something about the accident. Marvin wants us to go and see him at his house on the western hill. I guess I\'m going with him for now...")
+metadata/_custom_type_script = "uid://dasj1grspeclu"

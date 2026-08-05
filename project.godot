@@ -28,9 +28,9 @@ buses/default_bus_layout="res://other/default_bus_layout.tres"
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 GlobalInventoryHandler="*res://Code/Inventory/global_inventory_handler.gd"
-GlobalJournalHandler="*res://Code/Journal/global_journal_handler.gd"
 GlobalEventBus="*res://Code/Other/CombatSample/global_event_bus.gd"
 GlobalGameData="*uid://dbry0tf860fil"
+OmegaDialogueHandler="*uid://rhivm6mjcypb"
 
 [debug]
 
@@ -40,21 +40,28 @@ gdscript/warnings/unused_signal=0
 [dialogic]
 
 directories/dch_directory={
-"dinkum": "res://Dialogue/Characters/dinkum.dch",
-"donut": "res://Dialogue/Characters/donut.dch",
+"blue": "res://Dialogue/Characters/blue.dch",
+"dinkum": "res://Dialogue/Characters/tsting/dinkum.dch",
+"donut": "res://Dialogue/Characters/tsting/donut.dch",
+"marvin": "res://Dialogue/Characters/marvin.dch",
 "narrator": "res://Dialogue/Characters/narrator.dch",
-"ptg": "res://Dialogue/Characters/ptg.dch",
-"robert": "res://Dialogue/Characters/robert.dch"
+"news_host": "res://Dialogue/Characters/news_host.dch",
+"ptg": "res://Dialogue/Characters/tsting/ptg.dch",
+"robert": "res://Dialogue/Characters/tsting/robert.dch",
+"zombie": "res://Dialogue/Characters/zombie.dch"
 }
 directories/dtl_directory={
-"donuts_test": "res://Dialogue/Timelines/donuts_test.dtl",
-"robert_test_timeline": "res://Dialogue/Timelines/robert_test_timeline.dtl",
-"timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl"
+"donuts_test": "res://Dialogue/Timelines/testing/donuts_test.dtl",
+"robert_test_timeline": "res://Dialogue/Timelines/testing/robert_test_timeline.dtl",
+"timeline_dlg_test": "res://Dialogue/Timelines/testing/timeline_dlg_test.dtl",
+"timeline_intro-cutscene": "res://Dialogue/Timelines/timeline_intro-cutscene.dtl",
+"timeline_marvin_enctounter": "res://Dialogue/Timelines/timeline_marvin_enctounter.dtl",
+"timeline_zombie_encounter": "res://Dialogue/Timelines/timeline_zombie_encounter.dtl"
 }
 variables={}
 glossary/default_case_sensitive=true
-layout/style_list=["res://Dialogue/myStyle3.tres", "res://Dialogue/dialogic-style_no_portrait.tres", "res://Dialogue/style_cutscene-centered-text.tres"]
-layout/default_style="res://Dialogue/dialogic-style_no_portrait.tres"
+layout/style_list=["res://Scenes/Dialogic/Styles/prod/style_base.tres", "res://Scenes/Dialogic/Styles/s_no-portrait.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_blue2.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_blue.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_light-green.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_no-nametag.tres", "res://Scenes/Dialogic/Styles/s_no-portrait_red.tres", "res://Scenes/Dialogic/Styles/tst_overhead.tres"]
+layout/default_style="res://Scenes/Dialogic/Styles/prod/style_base.tres"
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
@@ -79,8 +86,8 @@ portraits/default_portrait=""
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/vsync/vsync_mode=0
 
 [editor_plugins]
@@ -130,6 +137,7 @@ dialogic_default_action={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":88,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(276, 18),"global_position":Vector2(288, 78),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 "Open Inventory"={
@@ -142,24 +150,21 @@ dialogic_default_action={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
-"Open Journal"={
+ToggleJournal={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":74,"key_label":0,"unicode":106,"location":0,"echo":false,"script":null)
-]
-}
-"Close Journal"={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 ZoomIn={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":46,"key_label":0,"unicode":46,"location":0,"echo":false,"script":null)
 ]
 }
 ZoomOut={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":44,"key_label":0,"unicode":44,"location":0,"echo":false,"script":null)
 ]
 }
 Interact={

@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://0bw3drgqof12"]
+
+[ext_resource type="Script" uid="uid://d3hmhjuee4ivu" path="res://Code/Other/NPCSample/npc_character.gd" id="1_i1l40"]
+[ext_resource type="Texture2D" uid="uid://c77ipjt7iun6" path="res://Assets_LICENSED/Sprites/zombie_placeholder.png" id="2_ksdf7"]
+[ext_resource type="Script" uid="uid://b8jcguhpdr5au" path="res://Code/Other/character_anim_controller.gd" id="3_m6pqv"]
+[ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_m6c5p"]
+[ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="5_eusnl"]
+[ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="6_yc4xm"]
+[ext_resource type="Script" uid="uid://b8guhrmputmil" path="res://Code/Other/NPCSample/visual_observer.gd" id="7_8fnpv"]
+[ext_resource type="Script" uid="uid://dyijf0ehtuk" path="res://Code/AI/btplayer_scene_extension.gd" id="8_hlbfv"]
+[ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="9_u8xwj"]
+[ext_resource type="Script" uid="uid://bt6mrfd7od1vh" path="res://Code/Other/status_effect_receiver.gd" id="10_c7alp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jr1ro"]
+radius = 2.0
+height = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vahqk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ksdf7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kyqiw"]
+polygon = PackedVector2Array(-6, 0, -6, 3, 6, 3, 6, 0)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_5snbm"]
+
+[node name="NPC Base" type="CharacterBody2D" unique_id=1182430116 node_paths=PackedStringArray("nav_agent")]
+collision_layer = 40
+script = ExtResource("1_i1l40")
+nav_agent = NodePath("NavigationAgent2D")
+walk_speed = 70.0
+sprint_speed = 120.0
+metadata/_custom_type_script = "uid://d3hmhjuee4ivu"
+metadata/faction_index = 1
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=69296095]
+unique_name_in_owner = true
+path_postprocessing = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1758002983]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jr1ro")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1552506779 node_paths=PackedStringArray("character_body")]
+light_mask = 2
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_vahqk")
+offset = Vector2(0, -16)
+script = ExtResource("3_m6pqv")
+character_body = NodePath("..")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=1038018246]
+show_behind_parent = true
+position = Vector2(0, -2)
+occluder = SubResource("OccluderPolygon2D_kyqiw")
+
+[node name="AudioStreamPlayer2D_footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1738672525 node_paths=PackedStringArray("animsprite")]
+stream = ExtResource("4_m6c5p")
+pitch_scale = 1.3
+max_distance = 400.0
+attenuation = 2.0
+script = ExtResource("5_eusnl")
+animsprite = NodePath("../AnimatedSprite2D")
+footstep_frames = Array[int]([1, 3])
+
+[node name="VisualObservable" type="Node2D" parent="." unique_id=1407434061]
+script = ExtResource("6_yc4xm")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="VisualObserver" type="Node2D" parent="." unique_id=2142757227]
+script = ExtResource("7_8fnpv")
+sight_raycast_layers = 8
+sight_blocking_layers = 20
+metadata/_custom_type_script = "uid://b8guhrmputmil"
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=61883223]
+blackboard_plan = SubResource("BlackboardPlan_5snbm")
+script = ExtResource("8_hlbfv")
+metadata/_custom_type_script = "uid://dyijf0ehtuk"
+
+[node name="Health" type="Node" parent="." unique_id=159875981]
+unique_name_in_owner = true
+script = ExtResource("9_u8xwj")
+
+[node name="StatusEffectReceiver" type="Node" parent="." unique_id=106476356]
+unique_name_in_owner = true
+script = ExtResource("10_c7alp")
+metadata/_custom_type_script = "uid://bt6mrfd7od1vh"
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="on_depleted" from="Health" to="." method="disable_movement"]
+[connection signal="on_depleted" from="Health" to="BTPlayer" method="set_active"]
+[connection signal="on_depleted" from="Health" to="CollisionShape2D" method="set_disabled" flags=3 binds= [true]]
+[connection signal="on_depleted" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]

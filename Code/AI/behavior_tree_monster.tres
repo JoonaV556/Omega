@@ -33,7 +33,6 @@ value = SubResource("BBVariant_1k3s3")
 
 [sub_resource type="BTAction" id="BTAction_0l546"]
 script = ExtResource("2_w0jwp")
-target_position_var = &"target_pos"
 
 [sub_resource type="BTSequence" id="BTSequence_whsuq"]
 children = [SubResource("BTCheckVar_w0jwp"), SubResource("BTAction_0l546")]

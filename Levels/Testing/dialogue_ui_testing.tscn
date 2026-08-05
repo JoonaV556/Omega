@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cb26d2g8qs4ml"]
+
+[ext_resource type="PackedScene" uid="uid://bndip7xfe7fjb" path="res://Levels/TeardropHills.tscn" id="2_40oly"]
+[ext_resource type="PackedScene" uid="uid://c4kpjipbulm3c" path="res://Scenes/UI/hud_hp_stamina.tscn" id="3_cxkcg"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="4_jgrk0"]
+
+[node name="Node2D" type="Node2D" unique_id=360148192]
+
+[node name="DebugCloseApp" type="Node" parent="." unique_id=776706693]
+script = ExtResource("4_jgrk0")
+metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
+
+[node name="Level - Teardrop Hills" parent="." unique_id=533572502 instance=ExtResource("2_40oly")]
+
+[node name="CanvasLayer - HUD" parent="." unique_id=1840150354 instance=ExtResource("3_cxkcg")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2086856772]

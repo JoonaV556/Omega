@@ -198,7 +198,7 @@ position = Vector2(26, 45)
 position = Vector2(44, 43)
 position_smoothing_speed = 8.0
 
-[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+[node name="FollowTarget" parent="Camera" index="1" unique_id=1000508458 node_paths=PackedStringArray("target")]
 target = NodePath("../../Player")
 
 [editable path="Camera"]

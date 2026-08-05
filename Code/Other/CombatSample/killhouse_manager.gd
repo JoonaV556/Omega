@@ -25,7 +25,7 @@ func _ready() -> void:
 	kills_required = targets.size()
 	
 	for target in targets:
-		target.health.on_depleted.connect(self.on_target_killed)
+		target.health.on_died.connect(self.on_target_killed)
 	
 	player_start_pos = player.global_position
 

@@ -64,10 +64,10 @@ metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 position = Vector2(-89, 109)
 position_smoothing_speed = 8.0
 
-[node name="Zoom" parent="Camera" index="0"]
+[node name="Zoom" parent="Camera" index="0" unique_id=2024863864]
 min_zoom = Vector2(2, 2)
 
-[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+[node name="FollowTarget" parent="Camera" index="1" unique_id=1000508458 node_paths=PackedStringArray("target")]
 target = NodePath("../../Systems/Aim Cursor/Helper Pivot - CameraFollowPivot")
 
 [node name="Player" parent="." unique_id=1101564903 instance=ExtResource("3_qa2yd")]

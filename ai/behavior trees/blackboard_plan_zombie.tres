@@ -1,0 +1,4 @@
+[gd_resource type="BlackboardPlan" format=3 uid="uid://180b4o413sth"]
+
+[resource]
+binding/detected = NodePath("../VisualObserver:detected")

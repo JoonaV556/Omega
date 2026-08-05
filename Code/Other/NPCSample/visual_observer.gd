@@ -5,8 +5,10 @@ extends Observer
 # 	Optimize
 # 		update detected less frequently (maybe not necessary 60 times per sec)
 
-## layers which block sight raycasts
+## Layers which the observer can detect. Observer cannot see objects on other layers.
 @export_flags_2d_physics var sight_raycast_layers
+
+## Layers which block visual line of sight (walls, buildings etc.)
 @export_flags_2d_physics var sight_blocking_layers
 
 @export var sight_distance: float = 10*16.0

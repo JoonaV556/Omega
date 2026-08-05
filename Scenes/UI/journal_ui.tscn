@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://b0fc6kmjv5m4w"]
+
+[ext_resource type="Script" uid="uid://cu1e1iic8edhr" path="res://Code/Journal/journal_ui.gd" id="1_aog7u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldgvs"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.35755518, 0.29918915, 0.20618644, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_ldgvs"]
+font_size = 39
+
+[node name="CanvasLayer - Journal UI" type="CanvasLayer" unique_id=1132773761]
+script = ExtResource("1_aog7u")
+
+[node name="Anchor" type="Control" parent="." unique_id=1984519068]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Anchor" unique_id=497582206]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 695.0
+offset_top = 204.0
+offset_right = -695.0
+offset_bottom = -204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ldgvs")
+
+[node name="MarginContainer" type="MarginContainer" parent="Anchor/Panel" unique_id=1700040602]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 17
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 17
+theme_override_constants/margin_bottom = 22
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Anchor/Panel/MarginContainer" unique_id=132859836]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="Label - TODO Header" type="Label" parent="Anchor/Panel/MarginContainer/VBoxContainer" unique_id=2003269380]
+layout_mode = 2
+text = "To-Do"
+label_settings = SubResource("LabelSettings_ldgvs")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Anchor/Panel/MarginContainer/VBoxContainer" unique_id=2066275459]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer - QuestContainer" type="VBoxContainer" parent="Anchor/Panel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1480448559]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 19

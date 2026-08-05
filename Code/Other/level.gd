@@ -1,12 +1,16 @@
 class_name Level
 extends Node2D
 
-@export var player_start_position: Vector2 = Vector2(0.0, 0.0)
+@export var player_start_position: Node2D
 @export var nav_tilemap: TileMapLayer
+@export var transitions: Array[LevelTransition]
+@export var unique_name: StringName = "level_unnamed"
 
-func load(_player: Node2D, _camera: Node2D):
-	# place player and camera in a suitable location
-	_player.reparent(self)
-	_camera.reparent(self)
-	_player.set_position(player_start_position)
-	_camera.set_position(player_start_position)
+func get_transition_by_name(_name: StringName) -> LevelTransition:
+    for trs in transitions:
+        if trs.transition_name == _name:
+            return trs
+    return null
+
+func get_transition_by_idx(idx: int) -> LevelTransition:
+    return transitions[idx]

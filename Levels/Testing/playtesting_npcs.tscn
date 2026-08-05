@@ -36,10 +36,11 @@
 [ext_resource type="Script" uid="uid://b5qteiikgyam3" path="res://Code/Other/CombatSample/player_movement_detector.gd" id="37_tnt6y"]
 [ext_resource type="Script" uid="uid://bwicvodln2dkh" path="res://Code/Other/CombatSample/global_events_scene_proxy.gd" id="39_as8nj"]
 [ext_resource type="Script" uid="uid://b2u5qjmtkk2gy" path="res://Code/Other/time_of_day.gd" id="40_m82jt"]
+[ext_resource type="PackedScene" uid="uid://0bw3drgqof12" path="res://Scenes/NPCs/npc_base.tscn" id="40_tovtw"]
 [ext_resource type="Script" uid="uid://d2fou4sxovpk4" path="res://Code/toggle_fullscreen_debug.gd" id="41_5pla0"]
 [ext_resource type="PackedScene" uid="uid://cdnvt0k6rltfc" path="res://Scenes/Samples/NPCs/npc_civilian.tscn" id="41_mv5dp"]
 [ext_resource type="Curve" uid="uid://b5skcsbckcel7" path="res://Resources/curve_daylight.tres" id="41_tf4n2"]
-[ext_resource type="PackedScene" uid="uid://wkjwybb0nhse" path="res://Scenes/Samples/NPCs/npc_zombie.tscn" id="47_ywobr"]
+[ext_resource type="PackedScene" uid="uid://wkjwybb0nhse" path="res://Scenes/Samples/NPCs/testing_npc_zombie.tscn" id="47_ywobr"]
 [ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="49_h6aif"]
 
 [sub_resource type="Gradient" id="Gradient_h8flf"]
@@ -72,16 +73,15 @@ metadata/_custom_type_script = "uid://cp7e62ucpyya6"
 position = Vector2(-89, 109)
 position_smoothing_speed = 16.0
 
-[node name="Zoom" parent="Camera" index="0"]
+[node name="Zoom" parent="Camera" index="0" unique_id=2024863864]
 min_zoom = Vector2(2, 2)
 
-[node name="FollowTarget" parent="Camera" index="1" node_paths=PackedStringArray("target")]
+[node name="FollowTarget" parent="Camera" index="1" unique_id=1000508458 node_paths=PackedStringArray("target")]
 target = NodePath("../../Systems/Aim Cursor/Helper Pivot - CameraFollowPivot")
 
 [node name="Player" parent="." unique_id=299647049 instance=ExtResource("3_tf4n2")]
 y_sort_enabled = true
 position = Vector2(-103, 775)
-collision_layer = 10
 additional_impulses_decay_per_tick = 0.3
 metadata/faction_index = 1
 
@@ -168,7 +168,7 @@ max_distance = 500.0
 [node name="Flashlight" parent="Player/Aim" unique_id=320632796 instance=ExtResource("17_5u4i5")]
 position = Vector2(0, 2)
 
-[node name="VisualObservable" type="Node2D" parent="Player" unique_id=218402585]
+[node name="VisualObservable2" type="Node2D" parent="Player" unique_id=218402585]
 script = ExtResource("49_h6aif")
 metadata/_custom_type_script = "uid://y3t00ak6bxgy"
 
@@ -382,6 +382,9 @@ offset_right = 44.0
 offset_bottom = 4.999996
 scale = Vector2(-0.23473275, -0.23473275)
 color = Color(0.79, 0, 0, 1)
+
+[node name="NPC Base" parent="." unique_id=1182430116 instance=ExtResource("40_tovtw")]
+position = Vector2(205, 588)
 
 [node name="TimeOfDay" type="Node" parent="." unique_id=911075241]
 script = ExtResource("40_m82jt")

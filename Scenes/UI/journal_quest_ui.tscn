@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c1s7f8x35slxg"]
+
+[ext_resource type="Script" uid="uid://bybso1ptk68ws" path="res://Code/Journal/quest_ui.gd" id="1_jsya2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jsya2"]
+font_size = 18
+
+[node name="VBoxContainer - Quest" type="VBoxContainer" unique_id=605238956]
+offset_right = 153.0
+offset_bottom = 78.0
+theme_override_constants/separation = 10
+script = ExtResource("1_jsya2")
+metadata/_custom_type_script = "uid://bybso1ptk68ws"
+
+[node name="Label - Title" type="Label" parent="." unique_id=318088519]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Get some Chips"
+label_settings = SubResource("LabelSettings_jsya2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=49802683]
+layout_mode = 2
+theme_override_constants/margin_left = 37
+
+[node name="VBoxContainer - Notes" type="VBoxContainer" parent="MarginContainer" unique_id=819791258]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 11

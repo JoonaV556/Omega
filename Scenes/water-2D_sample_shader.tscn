@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://buojylnkmid7"]
+
+[ext_resource type="Shader" uid="uid://c16wpcvdwwvqd" path="res://Assets_LICENSED/shaders/demo.gdshader" id="1_6n2ai"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qmfqr"]
+shader = ExtResource("1_6n2ai")
+shader_parameter/uv_scale = 1.0
+shader_parameter/color_alpha = 1.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ldgvs"]
+size = Vector2(16, 16)
+
+[node name="Sprite2D" type="Sprite2D" unique_id=920793351]
+material = SubResource("ShaderMaterial_qmfqr")
+position = Vector2(16, 0)
+texture = SubResource("PlaceholderTexture2D_ldgvs")
+centered = false

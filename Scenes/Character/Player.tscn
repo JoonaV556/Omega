@@ -6,6 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://iwh0bkhcduad" path="res://Assets_LICENSED/Audio/footstep.wav" id="4_5ixxa"]
 [ext_resource type="Script" uid="uid://f4wheh20sus7" path="res://Code/Other/footsteps_sfx_controller.gd" id="4_dewec"]
 [ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="6_1tkam"]
+[ext_resource type="Script" uid="uid://y3t00ak6bxgy" path="res://Code/Other/NPCSample/visual_observable.gd" id="7_n35ei"]
+[ext_resource type="Script" uid="uid://byw4y1ikbhuff" path="res://Code/Other/NPCSample/faction_identity.gd" id="8_pk0dj"]
+[ext_resource type="Resource" uid="uid://bp85lch2ommbd" path="res://Resources/faction_player.tres" id="9_o3ifh"]
+[ext_resource type="Script" uid="uid://7xs603f83kli" path="res://Code/Other/stamina.gd" id="10_gurq1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
 atlas = ExtResource("2_5ixxa")
@@ -235,22 +239,22 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D" unique_id=700090210]
-collision_layer = 2
+collision_layer = 10
 script = ExtResource("1_kyqiw")
 metadata/is_player = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1173599209 node_paths=PackedStringArray("character_body")]
 light_mask = 2
 texture_filter = 1
-position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_rpqav")
 animation = &"IdleBreathing_Down"
+offset = Vector2(0, -16)
 script = ExtResource("3_gntrk")
 character_body = NodePath("..")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D" unique_id=1408089494]
 show_behind_parent = true
-position = Vector2(0, 13)
+position = Vector2(0, -2)
 occluder = SubResource("OccluderPolygon2D_kyqiw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=846737930]
@@ -279,4 +283,28 @@ unique_name_in_owner = true
 script = ExtResource("6_1tkam")
 metadata/_custom_type_script = "uid://d106ew175y1va"
 
+[node name="VisualObservable" type="Node2D" parent="." unique_id=1062346801]
+script = ExtResource("7_n35ei")
+metadata/_custom_type_script = "uid://y3t00ak6bxgy"
+
+[node name="FactionIdentity" type="Node" parent="." unique_id=1213136081]
+unique_name_in_owner = true
+script = ExtResource("8_pk0dj")
+faction = ExtResource("9_o3ifh")
+metadata/_custom_type_script = "uid://byw4y1ikbhuff"
+
+[node name="Stamina" type="Node" parent="." unique_id=195880788]
+script = ExtResource("10_gurq1")
+deplete_per_sec = 30.0
+regen_per_sec = 30.0
+metadata/_custom_type_script = "uid://7xs603f83kli"
+
+[connection signal="on_sprinting_started" from="." to="Stamina" method="enable_deplete"]
+[connection signal="on_sprinting_stopped" from="." to="Stamina" method="disable_deplete"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AudioStreamPlayer2D_footsteps" method="on_frame_switched"]
+[connection signal="on_died" from="Health" to="." method="disable_movement"]
+[connection signal="on_died" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [90.0]]
+[connection signal="on_revived" from="Health" to="." method="enable_movement"]
+[connection signal="on_revived" from="Health" to="AnimatedSprite2D" method="set_rotation_degrees" binds= [0.0]]
+[connection signal="on_depleted" from="Stamina" to="." method="allow_sprint" binds= [false]]
+[connection signal="on_replenished_over_treshold" from="Stamina" to="." method="allow_sprint" binds= [true]]

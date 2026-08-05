@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="DialogicStyle" format=3 uid="uid://c8kvykan6i3ms"]
+
+[ext_resource type="PackedScene" uid="uid://kgve385sw35r" path="res://Scenes/Dialogic/LayoutScenes/CustomTstOverhead/custom_tst_overhead.tscn" id="1_4mw6m"]
+[ext_resource type="Script" uid="uid://d227pc5uafqoe" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_mnd8s"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="2_4mw6m"]
+[ext_resource type="Script" uid="uid://c0bmkqev527f8" path="res://Scenes/Dialogic/LayoutScenes/CustomTstOverhead/default_layout_base.gd" id="2_5b1op"]
+[ext_resource type="PackedScene" uid="uid://d2it0xiap3gnt" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble_layer.tscn" id="3_5b1op"]
+[ext_resource type="Script" uid="uid://dbfcgocy5urab" path="res://addons/dialogic/Resources/dialogic_style.gd" id="4_8hqca"]
+
+[sub_resource type="PackedScene" id="PackedScene_8hqca"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [],
+"names": PackedStringArray("DefaultLayoutBase", "CanvasLayer", "script"),
+"node_count": 1,
+"node_ids": PackedInt32Array(0),
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0),
+"variants": [ExtResource("2_5b1op")],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_iwswc"]
+script = ExtResource("1_mnd8s")
+scene = SubResource("PackedScene_8hqca")
+
+[sub_resource type="Resource" id="Resource_lm7pr"]
+script = ExtResource("1_mnd8s")
+scene = ExtResource("2_4mw6m")
+
+[sub_resource type="Resource" id="Resource_cas4e"]
+script = ExtResource("1_mnd8s")
+scene = ExtResource("3_5b1op")
+
+[resource]
+script = ExtResource("4_8hqca")
+name = "tst_overhead"
+layer_list = Array[String](["10", "11"])
+layer_info = {
+"": SubResource("Resource_iwswc"),
+"10": SubResource("Resource_lm7pr"),
+"11": SubResource("Resource_cas4e")
+}
+base_scene = ExtResource("1_4mw6m")
+metadata/_latest_layer = ""

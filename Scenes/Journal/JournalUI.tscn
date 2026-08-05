@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddyaj0nacs1mi"]
+[gd_scene format=3 uid="uid://ddyaj0nacs1mi"]
 
-[ext_resource type="Script" uid="uid://dcbfmcvgq1b5u" path="res://Code/Journal/journal_ui.gd" id="1_d00hy"]
+[ext_resource type="Script" uid="uid://dcbfmcvgq1b5u" path="res://Code/Journal/journal_ui_old.gd" id="1_d00hy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d00hy"]
 bg_color = Color(0.666569, 0.666569, 0.666569, 1)

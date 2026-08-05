@@ -1,0 +1,37 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://d2jxao41vkqa1"]
+
+[ext_resource type="Script" uid="uid://btn7natrijhev" path="res://Code/AI/tasks/pursue_character.gd" id="1_tryj6"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_tryj6"]
+prefetch_nodepath_vars = false
+var/target_pos/name = &"target_pos"
+var/target_pos/type = 5
+var/target_pos/value = Vector2(0, 0)
+var/target_pos/hint = 0
+var/target_pos/hint_string = ""
+var/target_char/name = &"target_char"
+var/target_char/type = 24
+var/target_char/hint = 0
+var/target_char/hint_string = ""
+binding/target_pos = NodePath("Node2D - Intro layer - Teardrop hills/Node2D - Marvin encounter anchor/TrailMarker - Player trail:trail_glob_position")
+binding/target_char = NodePath("Player:script")
+
+[sub_resource type="BBNode" id="BBNode_tryj6"]
+saved_value = NodePath("")
+
+[sub_resource type="BBVector2" id="BBVector2_5i7kg"]
+value_source = 1
+variable = &"target_pos"
+resource_name = "$target_pos"
+
+[sub_resource type="BTAction" id="BTAction_5i7kg"]
+script = ExtResource("1_tryj6")
+target_position_var = SubResource("BBVector2_5i7kg")
+target_node_var = SubResource("BBNode_tryj6")
+
+[sub_resource type="BTSequence" id="BTSequence_tryj6"]
+children = [SubResource("BTAction_5i7kg")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_tryj6")
+root_task = SubResource("BTSequence_tryj6")

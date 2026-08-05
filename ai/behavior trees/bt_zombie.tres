@@ -1,0 +1,84 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://bf8gg6se7vhyv"]
+
+[ext_resource type="Script" uid="uid://dcm7by44bkipy" path="res://Code/AI/tasks/select_target.gd" id="1_42kxw"]
+[ext_resource type="Script" uid="uid://cgur2o6gfkrfq" path="res://Code/AI/tasks/pursue.gd" id="2_8vt37"]
+[ext_resource type="Script" uid="uid://dgmwnfrar2ny1" path="res://Code/AI/tasks/task_within_distance.gd" id="3_3378j"]
+[ext_resource type="Script" uid="uid://j4rc8hgpbtqg" path="res://Code/AI/tasks/task_melee_attack.gd" id="4_jjxm8"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_3qa03"]
+var/detected/name = &"detected"
+var/detected/type = 28
+var/detected/value = []
+var/detected/hint = 0
+var/detected/hint_string = ""
+var/target/name = &"target"
+var/target/type = 22
+var/target/value = NodePath("Player")
+var/target/hint = 0
+var/target/hint_string = ""
+binding/detected = NodePath("VisualObserver:detected")
+
+[sub_resource type="BBArray" id="BBArray_8vt37"]
+value_source = 1
+variable = &"detected"
+resource_name = "$detected"
+
+[sub_resource type="BBNode" id="BBNode_3378j"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_8vt37"]
+script = ExtResource("1_42kxw")
+input_detected_targets = SubResource("BBArray_8vt37")
+output_target_node = SubResource("BBNode_3378j")
+
+[sub_resource type="BBNode" id="BBNode_8vt37"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BBVector2" id="BBVector2_10kwi"]
+value_source = 1
+variable = &""
+resource_name = "$\"\""
+
+[sub_resource type="BTAction" id="BTAction_3378j"]
+script = ExtResource("2_8vt37")
+target_position_var = SubResource("BBVector2_10kwi")
+pursue_node = true
+target_node_var = SubResource("BBNode_8vt37")
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_10kwi"]
+children = [SubResource("BTAction_8vt37"), SubResource("BTAction_3378j")]
+
+[sub_resource type="BBNode" id="BBNode_jjxm8"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_kc3qf"]
+script = ExtResource("3_3378j")
+target_pos_var = &"target"
+target_node = SubResource("BBNode_jjxm8")
+
+[sub_resource type="BBNode" id="BBNode_kc3qf"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_e4mhl"]
+script = ExtResource("4_jjxm8")
+target_pos_var = &"target"
+target_node = SubResource("BBNode_kc3qf")
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_3378j"]
+children = [SubResource("BTAction_kc3qf"), SubResource("BTAction_e4mhl")]
+
+[sub_resource type="BTParallel" id="BTParallel_jjxm8"]
+repeat = true
+children = [SubResource("BTDynamicSequence_10kwi"), SubResource("BTDynamicSequence_3378j")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_3qa03")
+root_task = SubResource("BTParallel_jjxm8")
