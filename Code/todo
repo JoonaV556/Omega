@@ -57,10 +57,22 @@
     ✔ integrate mountains @done(26-08-04 23:50)
         ✔ mountain first level is 1+ height of base terrain underneath @done(26-08-04 23:50)
 
-☐ add buildings & built features (cell map)
+☐ Buildings and roads
+    Big Roads
+        ✔ decide tile-cell size for big auto roads @done(26-08-06 22:11)
+            ✔ 8 x 8 @done(26-08-06 22:11)
+        ✔ create a quadtree with matching resolution (iterations) @done(26-08-06 23:20)
+        run road func on matching q-tree level
+        render 
+
+    Buildings
+        Randomize building sizes by trimming quadtree leaf nodes at different levels
+        Prevent buildings spawning on roads - Erase cells overlapping with roads
+
     1. Generate building cells of varying size with quad tree
     2. Generate roads (varying sized roads)
     3. Erase cells overlapping with roads 
+
 ☐ add 4 map exits 
 
 ☐ fog of war

@@ -10,12 +10,11 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_urxea"]
 noise_type = 3
-seed = 10
-frequency = 0.0634
+frequency = 0.0076
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcrlh"]
-width = 50
-height = 50
+width = 256
+height = 256
 noise = SubResource("FastNoiseLite_urxea")
 color_ramp = SubResource("Gradient_urxea")
 
@@ -30,10 +29,12 @@ script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
 tree_iterations = 5
 trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
-w = 50
-h = 50
+iterations = 1
+w = 256
+h = 256
 gap = 10
 terrain_noise_freq = 0.063
+base_terrain_height_noise_freq = 0.008
 base_terrain_tiles = Array[Vector3i]([Vector3i(9, 26, 2), Vector3i(9, 23, 2), Vector3i(9, 20, 2)])
 remove_lakes_near_rivers_radius = 2
 lake_water_level_treshold = 0.3
@@ -69,7 +70,7 @@ position = Vector2(24, -16)
 texture = ExtResource("5_urxea")
 
 [node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1569508249]
-position = Vector2(-273, -489)
+position = Vector2(-149, -1178)
 scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
 
