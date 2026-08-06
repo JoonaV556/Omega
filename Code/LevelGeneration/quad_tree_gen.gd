@@ -160,6 +160,25 @@ func test():
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
 
+		# Generate roads and buildings
+		var q_tree : QuadTree2D = QuadTree2D.new()
+		q_tree.size.x = w
+		q_tree.size.y = h
+		const div_iterations = 5
+		const road_cell_size : Vector2i = Vector2i(8, 8)
+		q_tree.divide_recursive(div_iterations)
+		# Check appropriate tree level for big roads (the level where cells are 8x8 sized)
+		var big_road_tree_level : int
+		for n in range(q_tree.get_levels()):
+			if q_tree.get_quad_side_size_on_tree_level(n) == road_cell_size:
+				big_road_tree_level = n
+				break
+		# Create a road grid with a size matching the quad tree level
+		var road_level_width = q_tree.get_level_width_in_cells(big_road_tree_level)
+		# Render roads 
+
+
+
 		# Render terrain on tilemap
 		for y in range(h):
 			for x in range(w):
@@ -289,6 +308,8 @@ func generate_mountains(_noise_image : Image, level_noise_tresholds : Array[floa
 
 	return mountain_heightmap
 
+
+## Obsolete, for reference only
 func generate_v2():
 	for i in range(1):
 		var offset = (i*32*cell_size_in_tiles)+(i*gap)
@@ -373,10 +394,7 @@ func generate_v2():
 					)
 
 
-func get_cell_in_direction():
-	pass
-
-
+## Obsolete, for reference only
 func generate_v1():
 	# generate tree 
 	var q = QuadTree2D.new()

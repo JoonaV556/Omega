@@ -6,7 +6,7 @@ extends QuadTree
 var size : Vector2i = Vector2i.ZERO
 
 ## Position of the quad cell relative to its tree parent. If this quad is the tree origin, position is 0,0
-var position : Vector2i
+var position : Vector2i = Vector2i.ZERO
 
 func divide() -> Array[QuadTree]:
 
@@ -39,8 +39,19 @@ func divide() -> Array[QuadTree]:
 	# print_debug("divided QuadTree")
 	return children
 
+
 func divide_recursive(iterations : int = 1):
 	var width = 2 ** iterations
 	size = Vector2i(width, width)
 	position = Vector2i.ZERO
 	super(iterations)
+
+
+func get_quad_side_size_on_tree_level(level : int) -> Vector2i:
+	var qs : Array[QuadTree] = get_level(level)
+	var q = qs[0] as QuadTree2D
+	return q.size
+
+
+func get_level_width_in_cells(level : int) -> int:
+	return 1
