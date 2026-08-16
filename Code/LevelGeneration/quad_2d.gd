@@ -8,6 +8,8 @@ var size : Vector2i = Vector2i.ZERO
 ## Position of the quad cell relative to its tree parent. If this quad is the tree origin, position is 0,0
 var position : Vector2i = Vector2i.ZERO
 
+var _div_iterations : int
+
 func divide() -> Array[QuadTree]:
 
 	children = []
@@ -41,6 +43,7 @@ func divide() -> Array[QuadTree]:
 
 
 func divide_recursive(iterations : int = 1):
+	_div_iterations = iterations
 	var width = 2 ** iterations
 	size = Vector2i(width, width)
 	position = Vector2i.ZERO
@@ -54,4 +57,5 @@ func get_quad_side_size_on_tree_level(level : int) -> Vector2i:
 
 
 func get_level_width_in_cells(level : int) -> int:
-	return 1
+	var cell_count : int = int(pow(4, _div_iterations))
+	return int(sqrt(cell_count))
