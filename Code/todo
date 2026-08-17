@@ -64,7 +64,9 @@
         ✔ create a quadtree with matching resolution (iterations) @done(26-08-06 23:20)
         ✔ run road func on matching q-tree level @done(26-08-16 19:05)
         ✔ render @done(26-08-16 22:44)
-        fix some road cells outside of map
+        ✔ fix some road cells outside of map @done(26-08-17 22:01)
+            ✔ CAUSE: TILES FILLED BY FILL_AREA ARE OVERWRITTEN BY NEXT CELLS @done(26-08-17 22:01)
+                ✔ USE SEPARATE RENDERING PASSES FOR TERRAIN & ROADS & BUILDINGS @done(26-08-17 22:01)
 
     Buildings (big quad tree cells with varying contents)
         Randomize building sizes by trimming quadtree leaf nodes at different levels

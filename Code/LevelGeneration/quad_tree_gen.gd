@@ -168,10 +168,10 @@ func test():
 
 		# Generate roads and buildings
 		var q_tree : QuadTree2D = QuadTree2D.new()
-		q_tree.size.x = w
-		q_tree.size.y = h
+		q_tree.size_in_tiles.x = w
+		q_tree.size_in_tiles.y = h
 		const div_iterations = 5
-		var road_cell_size : Vector2i = Vector2i(8, 8)
+		const road_cell_size : Vector2i = Vector2i(8, 8)
 		q_tree.divide_recursive(div_iterations)
 		# Check appropriate tree level for big roads (the level where cells are 8x8 sized)
 		var big_road_tree_level : int
@@ -192,7 +192,6 @@ func test():
 		print('generated %s big road cells' % [big_road_cells.size()])
 		
 		# Render terrain on tilemap
-		var road_cells_rendered = 0
 		for y in range(h):
 			for x in range(w):
 				var c : Vector2i = Vector2i(x, y)
@@ -259,37 +258,23 @@ func test():
 						Vector2i(forest_edge_tile.x, forest_edge_tile.y)
 					)
 
-				# Big roads
+			# Render 2nd pass - Roads buildings etc.
+			# Big roads
 				# 	Big roads are generated using a quad tree with separate resolution from the actual map size, so we have to convert coordinates first
 				# var even = ((c.x % road_cell_size.x) == 0) and ((c.y % road_cell_size.y) == 0)
 				# if even:
-				var cell_in_big_road_coords = Vector2i(c.x / road_cell_size.x, c.y / road_cell_size.y)
-				if big_road_cells.has(cell_in_big_road_coords):
-					TilemapLayerExtensions.fill_area(
-						tmap,
-						c,
-						road_cell_size,
-						big_road_tile.z,
-						Vector2i(big_road_tile.x, big_road_tile.y)
-					)
-					road_cells_rendered += 1
-				
-				# DEBUG - render a mini version of the road grid
-				# if (x < big_road_level_width) and (y < big_road_level_width):
-				# 	tmap.set_cell(
-				# 		Vector2i(c.x + offset, c.y),
-				# 		forest_edge_tile.z,
-				# 		Vector2i(forest_edge_tile.x, forest_edge_tile.y)
-				# 	)
-				# if big_road_cells.has(c):
-				# 	tmap.set_cell(
-				# 		Vector2i(c.x + offset, c.y),
-				# 		big_road_tile.z,
-				# 		Vector2i(big_road_tile.x, big_road_tile.y)
-				# 	)
 
-					
-		print('rendered %s big road cells' % [road_cells_rendered])
+			for road_cell in big_road_cells:
+				var tmap_coord : Vector2i = road_cell * road_cell_size
+
+				TilemapLayerExtensions.fill_area(
+					tmap,
+					tmap_coord + Vector2i(offset, 0),
+					road_cell_size,
+					big_road_tile.z,
+					Vector2i(big_road_tile.x, big_road_tile.y)
+				)
+
 		print("x offset: %s" % [offset])
 		print("\n")
 
@@ -367,7 +352,7 @@ func generate_v2():
 		TilemapLayerExtensions.fill_area(
 				tmap,
 				Vector2i(offset, 0),
-				q.size * cell_size_in_tiles,
+				q.size_in_tiles * cell_size_in_tiles,
 				4,
 				Vector2i(1,7)
 			)
@@ -377,8 +362,8 @@ func generate_v2():
 		n_gen.seed = randi()
 		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
 		var n_image : Image = n_gen.get_image(
-			q.size.x * cell_size_in_tiles,
-			q.size.y * cell_size_in_tiles,
+			q.size_in_tiles.x * cell_size_in_tiles,
+			q.size_in_tiles.y * cell_size_in_tiles,
 		)
 		
 		# mark water cells on water grid & render
@@ -402,9 +387,9 @@ func generate_v2():
 		# generate road grid Array[Array[bool], where true=road, false=non-road
 		var road_grid : Array[Array] = []
 
-		for x in range(q.size.x):
+		for x in range(q.size_in_tiles.x):
 			var row = []
-			row.resize(q.size.x)
+			row.resize(q.size_in_tiles.x)
 			row.fill(false)
 			road_grid.append(row)
 
@@ -413,7 +398,7 @@ func generate_v2():
 		var ts : Tunneler2DSettings = Tunneler2DSettings.new()
 		ts.start_cell = Vector2i(15, 31)
 		ts.initial_direction = Tunneler2D.move_direction.N
-		ts.bounds_max = Vector2i(q.size.x-1, q.size.y-1)
+		ts.bounds_max = Vector2i(q.size_in_tiles.x-1, q.size_in_tiles.y-1)
 		ts.min_steps_between_turns = 6
 		ts.max_turns = 2
 		ts.turn_odds_percentage = 15.0
@@ -478,7 +463,7 @@ func generate_v1():
 		TilemapLayerExtensions.fill_area(
 			tmap,
 			tmap_coords,
-			qt2d.size * cell_size_in_tiles,
+			qt2d.size_in_tiles * cell_size_in_tiles,
 			2,
 			atlas_coords
 		)
