@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dpjknj0hpjq62" path="res://Scenes/camera.tscn" id="3_ak4ep"]
 [ext_resource type="Script" uid="uid://pmeam4p3q7d" path="res://Code/Other/move_with_wasd.gd" id="4_08qqg"]
 [ext_resource type="Texture2D" uid="uid://bph7w4k0qj2h3" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
+[ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="6_xcrlh"]
 
 [sub_resource type="Gradient" id="Gradient_urxea"]
 
@@ -73,5 +74,10 @@ texture = ExtResource("5_urxea")
 position = Vector2(-149, -1178)
 scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
+
+[node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
+script = ExtResource("6_xcrlh")
+grid_size = Vector2(128, 128)
+line_color = Color(1, 1, 1, 0.5647059)
 
 [editable path="Camera"]

@@ -17,7 +17,7 @@ func divide() -> Array[QuadTree]:
 	# print_debug("divided QuadTree")
 	return children
 
-
+## Recursively divides the quadtree into smaller quads. 1 Iteration results in 4 leaf quads
 func divide_recursive(iterations : int = 1):
 	if iterations <= 0:
 		return
