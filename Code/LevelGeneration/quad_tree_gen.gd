@@ -47,10 +47,18 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var forest_noise_treshold = 0.7
 
 # Big roads
+@export var big_road_cell_size : Vector2i = Vector2i(8, 8)
 @export var big_road_max_turns = 5
 @export var big_road_min_walk_length = 3
 @export var big_road_max_branches = 1
 @export var big_road_tile = Vector3i(12, 28, 5)
+
+# Small roads
+@export var small_roads_cell_size : Vector2i = Vector2i(4, 4)
+@export var small_roads_min_start_cells : int = 1
+@export var small_roads_max_start_cells : int = 3
+@export var small_roads_randomwalk_steps : int = 100
+@export var small_roads_randomwalk_step_length : int = 1
 
 
 enum tunneler_dir {N, S, E, W}
@@ -166,17 +174,16 @@ func test():
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
 
-		# Generate roads and buildings
+		# Generate big roads
 		var q_tree : QuadTree2D = QuadTree2D.new()
 		q_tree.size_in_tiles.x = w
 		q_tree.size_in_tiles.y = h
 		const div_iterations = 5
-		const road_cell_size : Vector2i = Vector2i(8, 8)
 		q_tree.divide_recursive(div_iterations)
 		# Check appropriate tree level for big roads (the level where cells are 8x8 sized)
 		var big_road_tree_level : int
 		for n in range(q_tree.get_levels()):
-			if q_tree.get_quad_side_size_on_tree_level(n) == road_cell_size:
+			if q_tree.get_quad_side_size_on_tree_level(n) == big_road_cell_size:
 				big_road_tree_level = n
 				break
 		# Create roads
@@ -190,7 +197,26 @@ func test():
 			)
 		print('generated road cell map dimensions: %s x %s' % [big_road_level_width, big_road_level_width])
 		print('generated %s big road cells' % [big_road_cells.size()])
+
+		# Generate small roads
+		var sr_tree_level : int = big_road_tree_level + 1
+		var sr_tree_level_width = q_tree.get_level_width_in_cells(sr_tree_level)
+		var sr_grid_size : Vector2i = Vector2i(sr_tree_level_width, sr_tree_level_width)
+		var sr_start_cell_count = randi_range(small_roads_min_start_cells, small_roads_max_start_cells)
+			
+			# Pick start cells
+		var sr_possible_start_cells : Array[Vector2i] = big_road_cells.duplicate()
+		for _n in range(sr_possible_start_cells.size()):
+			sr_possible_start_cells[_n] = sr_possible_start_cells[_n] * Vector2i(2, 2) # Convert all big road coords to small road coordinates
 		
+		var start_cells = []
+		for _i in range(sr_start_cell_count):
+			var start_cell = sr_possible_start_cells.pick_random()
+			start_cells.append(start_cell)
+			sr_possible_start_cells.erase(start_cell)
+		## TODO LEFT HERE
+
+
 		# Render terrain on tilemap
 		for y in range(h):
 			for x in range(w):
@@ -265,12 +291,12 @@ func test():
 				# if even:
 
 			for road_cell in big_road_cells:
-				var tmap_coord : Vector2i = road_cell * road_cell_size
+				var tmap_coord : Vector2i = road_cell * big_road_cell_size
 
 				TilemapLayerExtensions.fill_area(
 					tmap,
 					tmap_coord + Vector2i(offset, 0),
-					road_cell_size,
+					big_road_cell_size,
 					big_road_tile.z,
 					Vector2i(big_road_tile.x, big_road_tile.y)
 				)
