@@ -57,8 +57,8 @@
     ✔ integrate mountains @done(26-08-04 23:50)
         ✔ mountain first level is 1+ height of base terrain underneath @done(26-08-04 23:50)
 
-☐ Buildings and roads
-    Big Roads
+✔ Big roads @done(26-08-18 22:20)
+    ✔ Big Roads @done(26-08-18 22:18)
         ✔ decide tile-cell size for big auto roads @done(26-08-06 22:11)
             ✔ 8 x 8 @done(26-08-06 22:11)
         ✔ create a quadtree with matching resolution (iterations) @done(26-08-06 23:20)
@@ -68,13 +68,20 @@
             ✔ CAUSE: TILES FILLED BY FILL_AREA ARE OVERWRITTEN BY NEXT CELLS @done(26-08-17 22:01)
                 ✔ USE SEPARATE RENDERING PASSES FOR TERRAIN & ROADS & BUILDINGS @done(26-08-17 22:01)
 
-    Buildings (big quad tree cells with varying contents)
-        Randomize building sizes by trimming quadtree leaf nodes at different levels
-        Prevent buildings spawning on roads - Erase cells overlapping with roads
-
-    1. Generate building cells of varying size with quad tree
-    2. Generate roads (varying sized roads)
-    3. Erase cells overlapping with roads 
+☐ Small roads (neighbourhood roads)
+    Generate smaller roads on one quadtree level lower than big roads 
+        ✔ Random amount of road start cells @done(26-08-18 22:59)
+        ✔ Custom walk length @done(26-08-18 22:59)
+        ✔ Custom walk step length @done(26-08-18 22:59)
+    ✔ Choose random points along big roads as small road starting points @done(26-08-18 23:00)
+    
+    Generate small roads by startin random walks from start cells
+        Allow random walk to go outside map bounds
+        Trim small road cells outside map bounds afterwards 
+    
+    Trim small road cells beneath large roads
+    
+     Render
 
 ☐ add 4 map exits 
 
