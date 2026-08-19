@@ -198,24 +198,7 @@ func test():
 		print('generated road cell map dimensions: %s x %s' % [big_road_level_width, big_road_level_width])
 		print('generated %s big road cells' % [big_road_cells.size()])
 
-		# Generate small roads
-		var sr_tree_level : int = big_road_tree_level + 1
-		var sr_tree_level_width = q_tree.get_level_width_in_cells(sr_tree_level)
-		var sr_grid_size : Vector2i = Vector2i(sr_tree_level_width, sr_tree_level_width)
-		var sr_start_cell_count = randi_range(small_roads_min_start_cells, small_roads_max_start_cells)
-			
-			# Pick start cells
-		var sr_possible_start_cells : Array[Vector2i] = big_road_cells.duplicate()
-		for _n in range(sr_possible_start_cells.size()):
-			sr_possible_start_cells[_n] = sr_possible_start_cells[_n] * Vector2i(2, 2) # Convert all big road coords to small road coordinates
-		
-		var start_cells = []
-		for _i in range(sr_start_cell_count):
-			var start_cell = sr_possible_start_cells.pick_random()
-			start_cells.append(start_cell)
-			sr_possible_start_cells.erase(start_cell)
-		## TODO LEFT HERE
-
+		# Generate urban areas
 
 		# Render terrain on tilemap
 		for y in range(h):

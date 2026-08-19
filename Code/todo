@@ -68,20 +68,21 @@
             ✔ CAUSE: TILES FILLED BY FILL_AREA ARE OVERWRITTEN BY NEXT CELLS @done(26-08-17 22:01)
                 ✔ USE SEPARATE RENDERING PASSES FOR TERRAIN & ROADS & BUILDINGS @done(26-08-17 22:01)
 
-☐ Small roads (neighbourhood roads)
-    Generate smaller roads on one quadtree level lower than big roads 
-        ✔ Random amount of road start cells @done(26-08-18 22:59)
-        ✔ Custom walk length @done(26-08-18 22:59)
-        ✔ Custom walk step length @done(26-08-18 22:59)
-    ✔ Choose random points along big roads as small road starting points @done(26-08-18 23:00)
+☐ Plan urban area implementation
+    Parks
+    Rivers
+
+☐ Urban areas
+    city areas and neighbourhoods form around random spots along roads
+    urban areas are generated with puzzle-piece like road tiles (similar to peering bits in tilesets)
+        7d2d inspo
+    Various prefabs / versions of road pieces can be designed in editor
+    Buildings are randomly rolled in pre-defined spots along road tiles
     
-    Generate small roads by startin random walks from start cells
-        Allow random walk to go outside map bounds
-        Trim small road cells outside map bounds afterwards 
-    
-    Trim small road cells beneath large roads
-    
-     Render
+    Urban Rivers
+        Specific pre-defined road tiles are placed on map cells with running rivers
+
+    Parks
 
 ☐ add 4 map exits 
 
