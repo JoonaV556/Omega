@@ -53,13 +53,6 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var big_road_max_branches = 1
 @export var big_road_tile = Vector3i(12, 28, 5)
 
-# Small roads
-@export var small_roads_cell_size : Vector2i = Vector2i(4, 4)
-@export var small_roads_min_start_cells : int = 1
-@export var small_roads_max_start_cells : int = 3
-@export var small_roads_randomwalk_steps : int = 100
-@export var small_roads_randomwalk_step_length : int = 1
-
 
 enum tunneler_dir {N, S, E, W}
 

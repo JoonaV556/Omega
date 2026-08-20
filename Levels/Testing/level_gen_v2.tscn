@@ -30,7 +30,6 @@ script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
 tree_iterations = 5
 trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
-iterations = 1
 w = 256
 h = 256
 gap = 10
