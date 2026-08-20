@@ -68,21 +68,55 @@
             ✔ CAUSE: TILES FILLED BY FILL_AREA ARE OVERWRITTEN BY NEXT CELLS @done(26-08-17 22:01)
                 ✔ USE SEPARATE RENDERING PASSES FOR TERRAIN & ROADS & BUILDINGS @done(26-08-17 22:01)
 
-☐ Plan urban area implementation
+✔ Plan urban area implementation @done(26-08-20 21:27)
     Parks
+        multi cell urban tiles placed before city roads are generated
     Rivers
+        Special city road tiles designed for alongside rivers are placed on river cellss
+
 
 ☐ Urban areas
-    city areas and neighbourhoods form around random spots along roads
+    city areas and neighbourhoods form at random positions along big roads 
     urban areas are generated with puzzle-piece like road tiles (similar to peering bits in tilesets)
         7d2d inspo
     Various prefabs / versions of road pieces can be designed in editor
     Buildings are randomly rolled in pre-defined spots along road tiles
+    Tile-prefab system
+        Off of each road shape, multiple prefab "variants" can be created to add variety to levels
     
-    Urban Rivers
-        Specific pre-defined road tiles are placed on map cells with running rivers
+    Road tile N S E W system
+        road tile can have max. 4 connections
 
-    Parks
+    pseudo-code
+        Generate all urban features in single grid-structure
+        
+        Generate big roads
+        
+        From big road tiles, pick urban area starting tiles
+
+        Define urban area tiles with true random walk
+            No boundaries on creation
+            Filter tiles outside map after creation
+
+        For each urban area
+            Pick one or more big road tiles and replace them with intersections to smaller urban area roads 
+
+        Generate urban area road tiles
+            Start from map top left cell & loop through all cells 
+                For each cell
+                    If no side connections
+                        pick random road tile
+                    If road cells against sides
+                        pick random road tile which matches conenctions
+        
+        Generate appropriate buildings in urban tile plots
+        
+
+
+
+        
+
+        
 
 ☐ add 4 map exits 
 
