@@ -12,8 +12,8 @@ var trim_odds_percentage : Array[float] = [0.0]
 
 @export_category("generation")
 @export var iterations = 3
-@export var w = 30
-@export var h = 30
+@export var w : int = 30
+@export var h : int = 30
 @export var gap = 1
 @export var terrain_noise_freq = 0.0841
 
@@ -46,8 +46,10 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var forest_noise_freq = 0.0841
 @export var forest_noise_treshold = 0.7
 
+# Roads
+@export var road_cell_size : Vector2i = Vector2i(4, 4)
+
 # Big roads
-@export var big_road_cell_size : Vector2i = Vector2i(8, 8)
 @export var big_road_max_turns = 5
 @export var big_road_min_walk_length = 3
 @export var big_road_max_branches = 1
@@ -168,30 +170,40 @@ func test():
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
 
 		# Generate big roads
-		var q_tree : QuadTree2D = QuadTree2D.new()
-		q_tree.size_in_tiles.x = w
-		q_tree.size_in_tiles.y = h
-		const div_iterations = 5
-		q_tree.divide_recursive(div_iterations)
-		# Check appropriate tree level for big roads (the level where cells are 8x8 sized)
-		var big_road_tree_level : int
-		for n in range(q_tree.get_levels()):
-			if q_tree.get_quad_side_size_on_tree_level(n) == big_road_cell_size:
-				big_road_tree_level = n
-				break
-		# Create roads
-		var big_road_level_width = q_tree.get_level_width_in_cells(big_road_tree_level)
-		#	Generate big roads
+		var road_grid_size = Vector2i(w / road_cell_size.x, h / road_cell_size.y)
+
 		var big_road_cells : Array[Vector2i] = Tunneler2D.random_walk(
-			Vector2i(big_road_level_width, big_road_level_width), 
+			Vector2i(road_grid_size.x, road_grid_size.y), 
 			big_road_max_turns, 
 			big_road_min_walk_length,
 			big_road_max_branches
 			)
-		print('generated road cell map dimensions: %s x %s' % [big_road_level_width, big_road_level_width])
-		print('generated %s big road cells' % [big_road_cells.size()])
+		
+		const R_CONNECTION_N = 1
+		const R_CONNECTION_S = 2
+		const R_CONNECTION_E = 4
+		const R_CONNECTION_W = 8
+		
+		var road_grid : PackedByteArray = []
+		road_grid.resize(road_grid_size.x * road_grid_size.y)
+		road_grid.fill(0)
 
-		# Generate urban areas
+		# Save big roads to road grid
+		for road_cell in big_road_cells:
+			var connections = 0
+			if big_road_cells.has(road_cell + Vector2i(0, -1)):
+				connections += R_CONNECTION_N
+			if big_road_cells.has(road_cell + Vector2i(0, 1)):
+				connections += R_CONNECTION_S
+			if big_road_cells.has(road_cell + Vector2i(1, 0)):
+				connections += R_CONNECTION_E
+			if big_road_cells.has(road_cell + Vector2i(-1, 0)):
+				connections += R_CONNECTION_W
+			road_grid[grid_get_index(Vector2i(road_grid_size), road_cell)] = connections
+
+		# Generate small roads
+
+		# Generate buildings
 
 		# Render terrain on tilemap
 		for y in range(h):
@@ -267,18 +279,22 @@ func test():
 				# if even:
 
 			for road_cell in big_road_cells:
-				var tmap_coord : Vector2i = road_cell * big_road_cell_size
+				var tmap_coord : Vector2i = road_cell * road_cell_size
 
 				TilemapLayerExtensions.fill_area(
 					tmap,
 					tmap_coord + Vector2i(offset, 0),
-					big_road_cell_size,
+					road_cell_size,
 					big_road_tile.z,
 					Vector2i(big_road_tile.x, big_road_tile.y)
 				)
 
 		print("x offset: %s" % [offset])
 		print("\n")
+
+
+func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:
+	return _grid_size.x * coords.y + coords.x
 
 
 func generate_forest(_noise_image : Image, forest_treshold : float) -> Array[Vector2i]:
