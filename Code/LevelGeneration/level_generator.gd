@@ -1,292 +1,497 @@
 extends Node
-## Provides functions for generating and drawing procedural levels on tilemaps [br]
-## The usual starting point for generating levels is: [method LevelGenerator.generate_level]
-class_name LevelGenerator
 
+@export var tmap: TileMapLayer
+
+@export var cell_size_in_tiles : int = 10
+
+@export var tree_iterations : int = 3
+
+@export_group("Leaf trimming options")
 @export
-var enable_automatic_bulk_generation: bool = true # if true, level is generated and drawn on first update
-@export
-var scene_root: 	Node2D
-@export
-var player: Node2D
-@export
-var tiles: 	TileSet
-@export
-var print_each_generated_cell_coord: bool = true
+var trim_odds_percentage : Array[float] = [0.0]
 
-@export_range(10,9999)
-var width: 	int = 100
-@export_range(10,9999)
-var height: int = 100
+@export_category("generation")
+@export var iterations = 3
+@export var w : int = 30
+@export var h : int = 30
+@export var gap = 1
+@export var terrain_noise_freq = 0.0841
 
-@export var city_block_candidates: Array[CityBlockTypeGenerationCandidate] = []
+# Base terrain height
+@export var base_terrain_height_noise_freq = 0.0841
+@export var base_terrain_tiles : Array[Vector3i]
 
-@export_range(1,999)
-var bsp_tree_iterations: int = 4
+# river canals
+@export var max_turns = 5
+@export var min_walk_length = 3
+@export var river_max_branches = 1
 
-@export_group("Tiles")
-@export var groundcoords: Vector2i = Vector2i(17,56)
-@export var roadcoords: Vector2i = Vector2i(1,7)
-@export var outside_map_coords: Vector2i = Vector2i(0,0)
+@export var remove_lakes_near_rivers_radius : int = 3
+@export var ground_tile : Vector2i = Vector2i(1,7)
+@export var river_tile = Vector2i(17,39)
 
-@export_subgroup("Debug")
-@export_range(2, 99)
-var bulk_generate_count: int = 0
+# lakes
+@export var lake_water_level_treshold = 0.7 
+@export var lake_tile = Vector3i(17, 39, 4)
 
-var tmap		: TileMapLayer
-var first_update = true
-var level		: Array 		= [[]] # two dim array
-var g_ready_to_generate: bool = false
+# mountains
+@export var mountains_level_noise_tresholds : Array[float]
+@export var mountain_level_tiles : Array[Vector3i]
 
-func _process(_delta: float) -> void:
-	if first_update:
-		first_update = false
-		g_ready_to_generate = true
-		if enable_automatic_bulk_generation:
-			bulk_generate_and_draw()
+# forest edge
+@export var forest_edge_thickness = 1
+@export var forest_edge_tile : Vector3i
 
-## draws a level on a new tilemap
-func draw_level(_level: ProceduralLevelData):
-	# create tilemap under root node
-	assert(scene_root != null, "Cannot continue, root is not set")
-	if scene_root == null:
-		return false
-	tmap = TileMapLayerOmega.new()
-	tmap.name = "TilemapLayer_Generated"
-	if tiles != null:
-		tmap.set_tile_set(tiles);
-	scene_root.add_child(tmap)
+# forest middle 
+@export var forest_noise_freq = 0.0841
+@export var forest_noise_treshold = 0.7
+
+# Roads
+@export var road_cell_size : Vector2i = Vector2i(4, 4)
+
+# Big roads
+@export var big_road_max_turns = 5
+@export var big_road_min_walk_length = 3
+@export var big_road_max_branches = 1
+@export var big_road_tile = Vector3i(12, 28, 5)
+
+@export var pattern_generator : TileMapPatternGenerator
+
+
+enum tunneler_dir {N, S, E, W}
+
+
+func _ready():
+	test.call_deferred()
+
+
+func test():
+	for i in range(iterations):
+
+		var offset = (w*i) + (gap*i)
+
+		# generate base terrain with height ranging from 1-3 
+		# (noise pixel values genrate in range of 0.0 - 1.0)
+		var base_terrain_height_levels_count : int = randi_range(1,3)
+		var n_gen = FastNoiseLite.new()
+		n_gen.seed = randi()
+		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+		n_gen.frequency  = base_terrain_height_noise_freq
+		var base_terrain_noise : Image = n_gen.get_image(
+			w,
+			h
+		)
+		
+		var base_terrain_heightmap : Array[Array] = OmegaUtils.create_grid(w, h, 0)
+		for y in range(h):
+			for x in range(w):
+				var p_v = base_terrain_noise.get_pixel(x, y).v
+				var step_size : float = 1.0 / base_terrain_height_levels_count
+				base_terrain_heightmap[y][x] = floori(p_v / step_size)
+
+		# generate noise texture for Lakes and hills
+		n_gen.seed = randi()
+		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+		n_gen.frequency = terrain_noise_freq
+		var n_image : Image = n_gen.get_image(
+			w,
+			h
+		)
+
+		# generate lakes
+		var lake_map = generate_lakes(n_image, lake_water_level_treshold)
+
+		# generate rivers canals
+		var river_canal_cells : Array[Vector2i] = Tunneler2D.random_walk(
+			Vector2i(w, h), 
+			max_turns, 
+			min_walk_length,
+			river_max_branches
+			)
+
+		# remove lakes and mountains near river canals (get all cells in square area around river cell and check if they are within distance of river)
+		var to_unmark_as_lakes : Array[Vector2i] = []
+		for r_cell : Vector2i in river_canal_cells:
+			var x = r_cell.x - remove_lakes_near_rivers_radius
+			var y = r_cell.y - remove_lakes_near_rivers_radius
+			for y_off in range(remove_lakes_near_rivers_radius*2):
+				for x_off in range(remove_lakes_near_rivers_radius*2):
+
+					# ignore cells outside map bounds
+					var cell_coords : Vector2i = Vector2i(x+x_off, y+y_off)
+					if (cell_coords.x < 0) or (cell_coords.x >= w) or (cell_coords.y < 0) or (cell_coords.y >= h):
+						continue
+
+					# ignore river cells
+					if cell_coords == r_cell: # ignore the rivel cell itself
+						continue
+
+					# check distance
+					var distance = r_cell.distance_to(cell_coords)
+
+					if distance <= remove_lakes_near_rivers_radius:
+						
+						# unmark as lake 
+						to_unmark_as_lakes.append(cell_coords)
 	
-	# Move player in front of tilemap
-	if player != null:
-		player.move_to_front()
-	
-	# wip - make area outside map non-navigable (so player cannot walk over map edges)
-	const _non_nav_padding: int = 3
-	var _padding_width: int 	= _level.get_width() + (2 * _non_nav_padding)
-	var _padding_height: int 	= (_level.get_height() + (2 * _non_nav_padding) - 2) # something magical happening over here but it works
-	var _padding_origin: Vector2i = Vector2i(-_non_nav_padding, _non_nav_padding - 1)
-	tmap.fill_area(
-		_padding_origin,
-		Vector2i(
-			_padding_width,
-			_padding_height
-		),
-		0,
-		outside_map_coords
-	)
-	
-	# Draw level on tilemap
-	for _y in range(-1, -(_level.get_height()-1), -1):
-		for _x in range(_level.get_width()):
-			# draw road
-			if _level.road_grid[_y][_x] == true:
-				tmap.set_cell(Vector2i(_x, _y), 0, roadcoords)
-			# draw node
-			if _level.node_grid[_y][_x] != 0:
-				tmap.set_cell(Vector2i(_x, _y), 0, groundcoords)
-			# draw city blocks
-			if _level.city_block_type_grid[_y][_x] != 99:
-				var _block_type_index: int = _level.city_block_type_grid[_y][_x]
+		# generate mountains 
+		var mountains_heightmap : Array[Array] = generate_mountains(n_image, mountains_level_noise_tresholds)
+		
+		# generate forest edge [[bool]]
+		var forest_edge_cells : Array[Array] = generate_forest_edge(Vector2i(w, h), forest_edge_thickness)
+
+		# create noise for forest centre areas
+		n_gen.seed = randi()
+		n_gen.frequency = forest_noise_freq
+		var f_n_image : Image = n_gen.get_image(
+			w,
+			h
+		)
+
+		# generate forest
+		var forest_cells : Array[Vector2i] = generate_forest(f_n_image, forest_noise_treshold)
+
+		# clear area around rivers
+		var cells_around_rivers = []
+		for cell in river_canal_cells:
+			var cells = OmegaUtils.get_coords_within_radius(cell, remove_lakes_near_rivers_radius)
+			cells_around_rivers.append_array(cells)
+
+			for c : Vector2i in cells:
+				if OmegaUtils.within_bounds_2d(c.x, c.y, lake_map):
+					lake_map[c.y][c.x] = false
+					mountains_heightmap[c.y][c.x] = 0
+
+		# prevent forest edge over lake, river canal, and mountain cells
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, lake_map, true, false)
+		forest_edge_cells = OmegaUtils.array_replace_with_2D(forest_edge_cells, river_canal_cells, false)
+		forest_edge_cells = OmegaUtils.array_compare_replace_with_2D(forest_edge_cells, mountains_heightmap, 0, false, true)
+
+		# prevent forest over mountains, lakes, rivers etc.
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
+		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
+
+		# Generate big roads
+		var road_grid_size = Vector2i(w / road_cell_size.x, h / road_cell_size.y)
+
+		var big_road_cells : Array[Vector2i] = Tunneler2D.random_walk(
+			Vector2i(road_grid_size.x, road_grid_size.y), 
+			big_road_max_turns, 
+			big_road_min_walk_length,
+			big_road_max_branches
+			)
+		
+		const R_CONNECTION_N = 1
+		const R_CONNECTION_S = 2
+		const R_CONNECTION_E = 4
+		const R_CONNECTION_W = 8
+		
+		var road_grid : PackedByteArray = []
+		road_grid.resize(road_grid_size.x * road_grid_size.y)
+		road_grid.fill(0)
+
+		# Save big roads to road grid
+		for road_cell in big_road_cells:
+			var connections = 0
+			if big_road_cells.has(road_cell + Vector2i(0, -1)):
+				connections += R_CONNECTION_N
+			if big_road_cells.has(road_cell + Vector2i(0, 1)):
+				connections += R_CONNECTION_S
+			if big_road_cells.has(road_cell + Vector2i(1, 0)):
+				connections += R_CONNECTION_E
+			if big_road_cells.has(road_cell + Vector2i(-1, 0)):
+				connections += R_CONNECTION_W
+			road_grid[grid_get_index(Vector2i(road_grid_size), road_cell)] = connections
+
+		# Generate small roads
+
+		# Generate buildings
+
+		# Render terrain on tilemap
+		for y in range(h):
+			for x in range(w):
+				var c : Vector2i = Vector2i(x, y)
+				
+				# Ground
 				tmap.set_cell(
-					Vector2i(_x, _y), 
-					0, 
-					city_block_candidates[_block_type_index].block_type.tile_atlascoords
+					Vector2i(x + offset, y),
+					4,
+					ground_tile
 				)
 
-func bulk_generate_and_draw() -> bool:
-	# create tilemap under root node
-	assert(scene_root != null, "Cannot continue, root is not set")
-	if scene_root == null:
-		return false
-	tmap = TileMapLayer.new()
-	tmap.name = "TilemapLayer_Generated"
-	if tiles != null:
-		tmap.tile_set = tiles;
-	scene_root.add_child(tmap)
+				# Base terrain
+				for n in base_terrain_tiles.size():
+					if base_terrain_heightmap[y][x] == n:
+						tmap.set_cell(
+						Vector2i(x+offset, y),
+						base_terrain_tiles[n].z,
+						Vector2i(base_terrain_tiles[n].x, base_terrain_tiles[n].y)
+					)
+				
+				# Lake
+				if lake_map[y][x] == true:
+					tmap.set_cell(
+						Vector2i(x+offset, y),
+						lake_tile.z,
+						Vector2i(lake_tile.x, lake_tile.y)
+					)
+				
+				# River 
+				if river_canal_cells.has(c):
+					tmap.set_cell(
+						c + Vector2i(offset, 0),
+						4,
+						Vector2i(17,39)
+					)
+				
+				# Mountains
+				var mount_height : int = mountains_heightmap[y][x]
+				
+				for n in range(mountain_level_tiles.size()):
+					var mountain_tile : Vector3i = mountain_level_tiles[n]
+
+					if (n+1) == mount_height:
+						# paint mountain
+						tmap.set_cell(
+							Vector2i(x + offset, y),
+							mountain_tile.z,
+							Vector2i(mountain_tile.x, mountain_tile.y)
+						)
+				
+				# Forest edge
+				if forest_edge_cells[y][x] == true:
+					tmap.set_cell(
+							Vector2i(x + offset, y),
+							forest_edge_tile.z,
+							Vector2i(forest_edge_tile.x, forest_edge_tile.y)
+						)
+
+				# Forest 
+				if forest_cells.has(c):
+					tmap.set_cell(
+						Vector2i(c.x + offset, c.y),
+						forest_edge_tile.z,
+						Vector2i(forest_edge_tile.x, forest_edge_tile.y)
+					)
+
+			# Render 2nd pass - Roads buildings etc.
+			# Big roads
+				# 	Big roads are generated using a quad tree with separate resolution from the actual map size, so we have to convert coordinates first
+				# var even = ((c.x % road_cell_size.x) == 0) and ((c.y % road_cell_size.y) == 0)
+				# if even:
+
+			# Copy patterns from pattern generator to TileSet STUPID TODO
+			for n in range(pattern_generator.connected_patterns.size()):
+				var _pattern : TileMapPattern = pattern_generator.connected_patterns[n].pattern
+				tmap.tile_set.add_pattern(_pattern, n)
+
+			for road_cell_coord in big_road_cells:
+				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
+
+				# Check directional connections for the cell
+				var cell_connections_idx = grid_get_index(road_grid_size, road_cell_coord) # get cell index in 1D road grid array
+				var cell_connections = road_grid[cell_connections_idx] # get connections from array (N S E W)
+
+				# Retrieve a tile pattern with matching the connections
+				var r_pattern : TileMapPattern = pattern_generator.get_pattern_with_connections(cell_connections)
+
+				# Paint on tilemap
+				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+
+		print("x offset: %s" % [offset])
+		print("\n")
+
+
+func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:
+	return _grid_size.x * coords.y + coords.x
+
+
+func generate_forest(_noise_image : Image, forest_treshold : float) -> Array[Vector2i]:
+	var cells : Array[Vector2i] = []
+	var size = _noise_image.get_size()
+
+	for y in range(size.y):
+		for x in range(size.x):
+			var pixel_v = _noise_image.get_pixel(x, y).v
+			if pixel_v >= forest_treshold:
+				cells.append(Vector2i(x, y))
+
+	return cells
+
+
+func generate_forest_edge(map_size : Vector2i, thickness : int) -> Array[Array]:
+	var cells : Array[Array] = OmegaUtils.create_grid(map_size.x, map_size.y, false)
 	
-	# Move player in front of tilemap
-	if player != null:
-		player.move_to_front()
-	
-	# generate and draw levels in bulk
-	var num_generated: int = 0
-	for i in range(bulk_generate_count):
-		# generate level
-		var _level: ProceduralLevelData = generate_level(self.width, self.height, self.bsp_tree_iterations)
-		# Draw level on tilemap
-		for _y in range(-1, -(self.height-1), -1):
-			for _x in range(self.width):
-				# draw road
-				if _level.road_grid[_y][_x] == true:
-					tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, roadcoords)
-				# draw node
-				if _level.node_grid[_y][_x] != 0:
-					tmap.set_cell(Vector2i(_x + (num_generated * self.width), _y), 0, groundcoords)
-		num_generated += 1
-	return true
+	for y in range(map_size.y):
+		for x in range(map_size.x):
+			if (x < thickness) or (x > (map_size.x - 1 - thickness)) or (y < thickness) or (y > (map_size.y - 1 - thickness)):
+				cells[y][x] = true
 
-## generates a level
-func generate_level(_width: int = 100, _height: int = 200, _bsp_divide_iterations: int = 6) ->  ProceduralLevelData:
-	var _level_tree: Array = _generate(_width, _height, _bsp_divide_iterations)
-	var _roads: Array[Array] = generate_road_grid(_level_tree)
-	var _nodes: Array[Array] = generate_node_grid(_level_tree)
-	var _city_block_types: Array[Array] = generate_city_square_grid(_level_tree)
-	return ProceduralLevelData.new(_roads, _nodes, _city_block_types)
+	return cells
 
-## Makes a level vertically traversible from south->north by cutting a way through
-func make_vertically_traversable(_level: Array[Array]):
-	var _bad_nodes: Array[BspNode] 	= []
-	# check if the level is traversible
-	for _node: BspNode in _level[-1]:
-		var _level_root_width: int = _level[0][0].width
-		if _node.width >= _level_root_width:
-			push_warning("non-vertically traversable node detected!")
-			_bad_nodes.append(_node)
-	# cut through non-traversible parts by splitting bad nodes
-	for _bad_node: BspNode in _bad_nodes:
-		_level[-1].erase(_bad_node)
-		_level[-1].append_array(_bad_node._create_children())
 
-## Tries to generate the level, returns the map data as a bsp tree 
-func _generate(_width: int, _height: int, _iterations: int, _make_vertically_traversible: bool = true) -> Array:
-	# generate level data with a binary tree
-	var l_tree: Array[Array]
-	var iterations_done = 0
-	for i:int in range(_iterations):
-		var number_created = 0
-		l_tree.append([] as Array[BspNode])
-		
-		# create root node 
-		if i == 0:
-			var root = BspNode.new(Vector2i(0,0), _width, _height)
-			l_tree[i].append(root)
-			number_created += 1
+## returns Array[ Array[ bool ] ]	where false = no lake, true = lake
+func generate_lakes(_noise_img : Image, _water_level_treshold : float) -> Array[Array]:
+	var lake_map = OmegaUtils.create_grid(_noise_img.get_size().x, _noise_img.get_size().y, false)
+	var size = _noise_img.get_size()
+	for y in range(size.y):
+		for x in range(size.x):
+			var pixel_color_v : float = _noise_img.get_pixel(x, y).v
+			if pixel_color_v <= _water_level_treshold:
+				lake_map[y][x] = true
+
+	return lake_map
+
+
+func generate_mountains(_noise_image : Image, level_noise_tresholds : Array[float] = []) -> Array[Array]:
+	var map_size = _noise_image.get_size()
+	var mountain_heightmap : Array[Array] = OmegaUtils.create_grid(map_size.x, map_size.y, 0)
+
+	if level_noise_tresholds.is_empty():
+		return []
+
+	# mark mountain cells in map
+	for y in range(map_size.y):
+		for x in range(map_size.x):
+
+			var mountain_level_index = 1
+			var pixel_color : Color = _noise_image.get_pixel(x, y)
 			
-		# create child nodes for the parents on the upper level and add them on the current level
-		else:
-			var children: Array
-			for node: BspNode in l_tree[i-1]:
-				var child_candidates = node._create_children()
-				# skip bad children
-				if (child_candidates == null) or (child_candidates.size() == 0) :
-					push_error("Failed generating children for 1 parent. Skipping...")
-					continue
-				children.append_array(child_candidates)
-				number_created += 2
-			l_tree[i].append_array(children)
-		iterations_done += 1
-		print_debug("Created "+str(number_created)+" nodes on BSP tree level: "+str(i))
-	print_debug("Created a total of "+str(iterations_done)+" levels on BSP tree")
-	
-	# ensure the level has at least one way through vertically (south->north)
-	if _make_vertically_traversible:
-		make_vertically_traversable(l_tree)
-	
-	# Shrink sides of each bsp node to introduce roads in between
-	for _node: BspNode in l_tree[l_tree.size()-1]:
-		# prevent cutting from sides on map edges
-		var can_cut_left = (_node.position.x > 0)
-		var can_cut_right = (_node.position.x + _node.width) < _width
-		var can_cut_up = (_node.position.y + _node.height) < _height
-		var can_cut_down = (_node.position.y > 0)
-		if can_cut_left:
-			_node.cut_side(BspNode.side.Left, 1)
-		if can_cut_right:
-			_node.cut_side(BspNode.side.Right, 1)
-		if can_cut_up:
-			_node.cut_side(BspNode.side.Up, 1)
-		if can_cut_down:
-			_node.cut_side(BspNode.side.Down, 1)
-	return l_tree
+			for tresh : float in level_noise_tresholds:
+				if pixel_color.v >= tresh:
+					mountain_heightmap[y][x] = mountain_level_index
+					mountain_level_index += 1
 
-## Generates a road grid from a level grid [br]
-## Format: Array[Array[bool]], where arrays represent grid positions and booleans represent roads. True == road
-func generate_road_grid(_level_tree: Array) -> Array:
-	var _road_grid: Array[Array] = []
-	# figure out size of the level - bsp tree root node tells us that info
-	var _level_root_node: BspNode = _level_tree[0][0]
-	var _level_width: int = _level_root_node.width
-	var _level_height: int = _level_root_node.height
-	# prepare grid with all tiles as road
-	var _row_template: Array[bool] = []
-	_row_template.resize(_level_width)
-	_row_template.fill(true)
-	_road_grid.resize(_level_height)
-	for i in range(_level_height):
-		_road_grid[i] = _row_template.duplicate(true)
-	# unmark tiles with bsp nodes as roads, so only roads are left true
-	for _nd: BspNode in _level_tree[(_level_tree.size()-1)]:
-		for _y in range(_nd.position.y, (_nd.position.y + _nd.height)):
-			for _x in range(_nd.position.x, (_nd.position.x + _nd.width)):
-				_road_grid[_y][_x] = false
-	return _road_grid
+	return mountain_heightmap
 
-## Generates a grid representing all bsp nodes in the level. [br]
-## Format: Array[Array[int]], where arrays represent grid positions and integers represent index of each node. [br]
-## 0 == NO NODE		[br]
-## 1 == node n.1	[br]
-## 2 == node n.2	[br]
-## Check out example below: [br]
-## 1 1 2 2			[br]
-## 1 1 2 2			[br]
-## 3 3 2 2			[br]
-## 3 3 0 0
-func generate_node_grid(_level_tree: Array) -> Array[Array]:
-	var _node_grid: Array[Array] = []
-	# figure out size of the level - bsp tree root node tells us that info
-	var _level_root_node: BspNode = _level_tree[0][0]
-	var _level_width: int = _level_root_node.width
-	var _level_height: int = _level_root_node.height
-	# prepare grid with all tiles marked as non-nodes, i.e. 0
-	var _row_template: Array[int] = []
-	_row_template.resize(_level_width)
-	_row_template.fill(0)
-	_node_grid.resize(_level_height)
-	for y in range(_level_height):
-		_node_grid[y] = _row_template.duplicate(true)
-	# mark tiles with bsp nodes - 1, 2, 3, etc...
-	var _node_index: int = 1
-	for _nd: BspNode in _level_tree[(_level_tree.size()-1)]:
-		for _y in range(_nd.position.y, (_nd.position.y + _nd.height)):
-			for _x in range(_nd.position.x, (_nd.position.x + _nd.width)):
-				_node_grid[_y][_x] = _node_index
-		_node_index += 1
-	return _node_grid
 
-## returns an untyped 2-dimensional array sized according to given level
-## if _fill value is given, each tile in the grid is set to it by default, otherwise null
-func generate_empty_grid(_level_tree: Array[Array], _fill = null) -> Array[Array]:
-	var _grid: Array[Array] = []
-	var _level_height = _level_tree[0][0].height # _level_tree[0][0] is the first/root node in the bsp tree
-	var _level_width = _level_tree[0][0].width
-	var _row_template = []
-	_grid.resize(_level_height)
-	_row_template.resize(_level_width)
-	if _fill != null:
-		_row_template.fill(_fill)
-	for _y in range(_level_height):
-		_grid[_y] = _row_template.duplicate(true) # we need deep duplicates so we wont get just a pile of references to the original template array
-	return _grid
+## Obsolete, for reference only
+func generate_v2():
+	for i in range(1):
+		var offset = (i*32*cell_size_in_tiles)+(i*gap)
 
-## Selects a random city block type for each empty square between city roads.
-## returns an Array[Array[int]], where the int represents the city block type in the levelgenerators block types -array
-func generate_city_square_grid(_level_tree: Array[Array]) -> Array[Array]:
-	var _rnd_gen = RandomNumberGenerator.new()
-	var _square_grid = generate_empty_grid(_level_tree, 99) # filled with 99 - 99 represents no square in tile
-	
-	# get generation weights from squares defined in inspector
-	var _square_weights = PackedFloat32Array()
-	_square_weights.resize(city_block_candidates.size())
-	for i in range(city_block_candidates.size()):
-		_square_weights[i] = city_block_candidates[i].generation_weight
-	
-	# generate the grid
-	for _nd: BspNode in _level_tree[-1]:
-		# assign a random square type for the node 
-		var _block_type_index: int = _rnd_gen.rand_weighted(_square_weights)
-		for _y in range(_nd.position.y, (_nd.position.y + _nd.height)):
-			for _x in range(_nd.position.x, (_nd.position.x + _nd.width)):
-				_square_grid[_y][_x] = _block_type_index
+		# generate tree 
+		var q : QuadTree2D = QuadTree2D.new()
+
+		q.divide_recursive(tree_iterations)
 		
-	return _square_grid
+		# fill with grass
+		TilemapLayerExtensions.fill_area(
+				tmap,
+				Vector2i(offset, 0),
+				q.size_in_tiles * cell_size_in_tiles,
+				4,
+				Vector2i(1,7)
+			)
+
+		# generate noise image for water areas 
+		var n_gen = FastNoiseLite.new()
+		n_gen.seed = randi()
+		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
+		var n_image : Image = n_gen.get_image(
+			q.size_in_tiles.x * cell_size_in_tiles,
+			q.size_in_tiles.y * cell_size_in_tiles,
+		)
+		
+		# mark water cells on water grid & render
+		var w_grid : Array[Array] = OmegaUtils.create_grid(n_image.get_size().x, n_image.get_size().y, false)
+		var mark_water_treshold : float  = 0.7
+
+		for y in range(n_image.get_size().y):
+			for x in range(n_image.get_size().x):
+
+				var pixel_color : Color = n_image.get_pixel(x,y)
+				
+				if pixel_color.v > mark_water_treshold:
+					w_grid[y][x] = true
+
+					tmap.set_cell(
+						Vector2i(x+offset, y),
+						4,
+						Vector2i(11,57)
+					)
+
+		# generate road grid Array[Array[bool], where true=road, false=non-road
+		var road_grid : Array[Array] = []
+
+		for x in range(q.size_in_tiles.x):
+			var row = []
+			row.resize(q.size_in_tiles.x)
+			row.fill(false)
+			road_grid.append(row)
+
+		# single road with tunneler 
+		var tunneler = Tunneler2D.new()
+		var ts : Tunneler2DSettings = Tunneler2DSettings.new()
+		ts.start_cell = Vector2i(15, 31)
+		ts.initial_direction = Tunneler2D.move_direction.N
+		ts.bounds_max = Vector2i(q.size_in_tiles.x-1, q.size_in_tiles.y-1)
+		ts.min_steps_between_turns = 6
+		ts.max_turns = 2
+		ts.turn_odds_percentage = 15.0
+		ts.allow_turning_on_edges = false
+		
+		var road_cells = tunneler.simple_tunnel(ts)
+
+		# mark road cells in road grid
+		for c in road_cells:
+			road_grid[c.y][c.x] = true
+
+		# draw road grid on tilemap
+		for y in range(road_grid.size()):
+			for x in range(road_grid[0].size()):
+				if road_grid[y][x] == true:
+					TilemapLayerExtensions.fill_area(
+						tmap,
+						Vector2i((cell_size_in_tiles*x)+offset, cell_size_in_tiles*y),
+						Vector2i(1,1)  * cell_size_in_tiles,
+						4,
+						Vector2i(27,9)
+					)
+
+
+## Obsolete, for reference only
+func generate_v1():
+	# generate tree 
+	var q = QuadTree2D.new()
+
+	q.divide_recursive(tree_iterations)
+
+	# trim leaves to introduce size variance 
+	for i in range(q.get_levels()-1):
+
+		var trim_odds = trim_odds_percentage[i]
+		var quads : Array[QuadTree] = q.get_level(i)
+		var trimmed_count = 0
+		
+		if quads.is_empty():
+			break
+
+		for qd in quads:
+			if OmegaUtils.roll_percentage_odds(trim_odds):
+				qd.trim_leaves()
+				trimmed_count += 1
+		
+		var s = "With odds of %s percent per quad, trimmed %s quads out of %s quads on tree level %s"
+		print(s % [trim_odds, trimmed_count, quads.size(), i])
+
+	# draw on tilemap
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+
+	for qt : QuadTree in q.get_leaves():
+		
+		var qt2d : QuadTree2D = qt as QuadTree2D
+
+		var atlas_coords : Vector2i = Vector2i(rng.randi_range(0, 28), rng.randi_range(0,26))
+
+		var tmap_coords : Vector2i = Vector2i(qt2d.position.x * cell_size_in_tiles, qt2d.position.y * cell_size_in_tiles)
+		
+		# draw tile on quad coords
+		TilemapLayerExtensions.fill_area(
+			tmap,
+			tmap_coords,
+			qt2d.size_in_tiles * cell_size_in_tiles,
+			2,
+			atlas_coords
+		)

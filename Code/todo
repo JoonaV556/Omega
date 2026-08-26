@@ -114,8 +114,14 @@
      
     ✔ Convert big roads to bytearray road grid @done(26-08-25 22:45)
     
-    Render big roads
-        Render using tilemap patterns
+    ✔ Render big roads @done(26-08-27 00:40)
+        ✔ Render using tilemap patterns @done(26-08-27 00:40)
+            ✔ Write rendering logic framework @done(26-08-26 20:46)
+            ✔ Pattern generator @done(26-08-27 00:40)
+                ✔ saves patterns drawn on tilemap into TileMapPatterns @done(26-08-27 00:40)
+                
+                ✔ get_cell_with_connections(connections : int) -> TileMapPattern @done(26-08-27 00:40)
+
 
     Generate small roads
         Pick start positions from big roads
