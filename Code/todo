@@ -122,13 +122,18 @@
                 
                 ✔ get_cell_with_connections(connections : int) -> TileMapPattern @done(26-08-27 00:40)
 
+    ✔ fix: connect roads to map edges @done(26-08-27 18:10)
+
 
     Generate small roads
         Pick start positions from big roads
-        Use random walk to define small roads
-        Trim cells outside map
+        Use random walk to define small roads / urban areas
+        Trim cells outside map edges
         
     Render small roads
+        Utilize tilemap patterns (maybe time to come up with a clean architecture / pipeline for creating building template)
+            TileMapPatternGenerator (Generic - saves patterns from tiles into an array)
+                TileMapRoadPatternGenerator (specialized pattern generator which maps road patterns with needed connections BASICALLY EXISTS ALREADY) 
 
 
 

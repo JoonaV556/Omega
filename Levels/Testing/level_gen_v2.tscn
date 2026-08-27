@@ -83,8 +83,6 @@ scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
 
 [node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
-visible = false
-position = Vector2(-768, 0)
 script = ExtResource("6_xcrlh")
 line_color = Color(1, 1, 1, 0.5647059)
 

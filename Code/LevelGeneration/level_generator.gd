@@ -60,6 +60,11 @@ var trim_odds_percentage : Array[float] = [0.0]
 
 enum tunneler_dir {N, S, E, W}
 
+const R_CONNECTION_N = 1
+const R_CONNECTION_S = 2
+const R_CONNECTION_E = 4
+const R_CONNECTION_W = 8
+
 
 func _ready():
 	test.call_deferred()
@@ -182,11 +187,6 @@ func test():
 			big_road_max_branches
 			)
 		
-		const R_CONNECTION_N = 1
-		const R_CONNECTION_S = 2
-		const R_CONNECTION_E = 4
-		const R_CONNECTION_W = 8
-		
 		var road_grid : PackedByteArray = []
 		road_grid.resize(road_grid_size.x * road_grid_size.y)
 		road_grid.fill(0)
@@ -194,6 +194,8 @@ func test():
 		# Save big roads to road grid
 		for road_cell in big_road_cells:
 			var connections = 0
+
+			# Connect to neighboring road cells
 			if big_road_cells.has(road_cell + Vector2i(0, -1)):
 				connections += R_CONNECTION_N
 			if big_road_cells.has(road_cell + Vector2i(0, 1)):
@@ -202,6 +204,12 @@ func test():
 				connections += R_CONNECTION_E
 			if big_road_cells.has(road_cell + Vector2i(-1, 0)):
 				connections += R_CONNECTION_W
+
+			# Connect to map edge
+			var edge_connections = get_connections_to_map_edges(road_cell, road_grid_size)
+			for connection in edge_connections:
+				connections = add_connection(connections, connection)
+				
 			road_grid[grid_get_index(Vector2i(road_grid_size), road_cell)] = connections
 
 		# Generate small roads
@@ -276,16 +284,6 @@ func test():
 					)
 
 			# Render 2nd pass - Roads buildings etc.
-			# Big roads
-				# 	Big roads are generated using a quad tree with separate resolution from the actual map size, so we have to convert coordinates first
-				# var even = ((c.x % road_cell_size.x) == 0) and ((c.y % road_cell_size.y) == 0)
-				# if even:
-
-			# Copy patterns from pattern generator to TileSet STUPID TODO
-			for n in range(pattern_generator.connected_patterns.size()):
-				var _pattern : TileMapPattern = pattern_generator.connected_patterns[n].pattern
-				tmap.tile_set.add_pattern(_pattern, n)
-
 			for road_cell_coord in big_road_cells:
 				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
 
@@ -305,6 +303,40 @@ func test():
 
 func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:
 	return _grid_size.x * coords.y + coords.x
+
+
+func is_on_map_edge(coord : Vector2i, map_dimensions : Vector2i) -> bool:
+	var on_left = coord.x == 0
+	var on_right = coord.x == map_dimensions.x -1
+	var on_top = coord.y == 0
+	var on_bottom = coord.y == map_dimensions.y - 1
+	return (on_left or on_right or on_top or on_bottom)
+
+
+func get_connections_to_map_edges(coord : Vector2i, map_dimensions : Vector2i, ) -> Array[int]:
+	var edges : Array[int] = []
+
+	if coord.x == 0:
+		edges.append(R_CONNECTION_W)
+	if coord.x == map_dimensions.x - 1:
+		edges.append(R_CONNECTION_E) 
+	if coord.y == 0:
+		edges.append(R_CONNECTION_N)
+	if  coord.y == map_dimensions.y - 1:
+		edges.append(R_CONNECTION_S)
+	
+	return edges
+
+
+## Returns connections with the added connection if it does not have it already
+func add_connection(connections : int, connection : int) -> int:
+	if !has_connection(connections, connection):
+		return connections + connection
+	return connection
+
+
+func has_connection(connections : int, direction: int) -> bool:
+	return (connections & direction) != 0
 
 
 func generate_forest(_noise_image : Image, forest_treshold : float) -> Array[Vector2i]:
@@ -364,134 +396,3 @@ func generate_mountains(_noise_image : Image, level_noise_tresholds : Array[floa
 					mountain_level_index += 1
 
 	return mountain_heightmap
-
-
-## Obsolete, for reference only
-func generate_v2():
-	for i in range(1):
-		var offset = (i*32*cell_size_in_tiles)+(i*gap)
-
-		# generate tree 
-		var q : QuadTree2D = QuadTree2D.new()
-
-		q.divide_recursive(tree_iterations)
-		
-		# fill with grass
-		TilemapLayerExtensions.fill_area(
-				tmap,
-				Vector2i(offset, 0),
-				q.size_in_tiles * cell_size_in_tiles,
-				4,
-				Vector2i(1,7)
-			)
-
-		# generate noise image for water areas 
-		var n_gen = FastNoiseLite.new()
-		n_gen.seed = randi()
-		n_gen.noise_type = FastNoiseLite.TYPE_PERLIN
-		var n_image : Image = n_gen.get_image(
-			q.size_in_tiles.x * cell_size_in_tiles,
-			q.size_in_tiles.y * cell_size_in_tiles,
-		)
-		
-		# mark water cells on water grid & render
-		var w_grid : Array[Array] = OmegaUtils.create_grid(n_image.get_size().x, n_image.get_size().y, false)
-		var mark_water_treshold : float  = 0.7
-
-		for y in range(n_image.get_size().y):
-			for x in range(n_image.get_size().x):
-
-				var pixel_color : Color = n_image.get_pixel(x,y)
-				
-				if pixel_color.v > mark_water_treshold:
-					w_grid[y][x] = true
-
-					tmap.set_cell(
-						Vector2i(x+offset, y),
-						4,
-						Vector2i(11,57)
-					)
-
-		# generate road grid Array[Array[bool], where true=road, false=non-road
-		var road_grid : Array[Array] = []
-
-		for x in range(q.size_in_tiles.x):
-			var row = []
-			row.resize(q.size_in_tiles.x)
-			row.fill(false)
-			road_grid.append(row)
-
-		# single road with tunneler 
-		var tunneler = Tunneler2D.new()
-		var ts : Tunneler2DSettings = Tunneler2DSettings.new()
-		ts.start_cell = Vector2i(15, 31)
-		ts.initial_direction = Tunneler2D.move_direction.N
-		ts.bounds_max = Vector2i(q.size_in_tiles.x-1, q.size_in_tiles.y-1)
-		ts.min_steps_between_turns = 6
-		ts.max_turns = 2
-		ts.turn_odds_percentage = 15.0
-		ts.allow_turning_on_edges = false
-		
-		var road_cells = tunneler.simple_tunnel(ts)
-
-		# mark road cells in road grid
-		for c in road_cells:
-			road_grid[c.y][c.x] = true
-
-		# draw road grid on tilemap
-		for y in range(road_grid.size()):
-			for x in range(road_grid[0].size()):
-				if road_grid[y][x] == true:
-					TilemapLayerExtensions.fill_area(
-						tmap,
-						Vector2i((cell_size_in_tiles*x)+offset, cell_size_in_tiles*y),
-						Vector2i(1,1)  * cell_size_in_tiles,
-						4,
-						Vector2i(27,9)
-					)
-
-
-## Obsolete, for reference only
-func generate_v1():
-	# generate tree 
-	var q = QuadTree2D.new()
-
-	q.divide_recursive(tree_iterations)
-
-	# trim leaves to introduce size variance 
-	for i in range(q.get_levels()-1):
-
-		var trim_odds = trim_odds_percentage[i]
-		var quads : Array[QuadTree] = q.get_level(i)
-		var trimmed_count = 0
-		
-		if quads.is_empty():
-			break
-
-		for qd in quads:
-			if OmegaUtils.roll_percentage_odds(trim_odds):
-				qd.trim_leaves()
-				trimmed_count += 1
-		
-		var s = "With odds of %s percent per quad, trimmed %s quads out of %s quads on tree level %s"
-		print(s % [trim_odds, trimmed_count, quads.size(), i])
-
-	# draw on tilemap
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-
-	for qt : QuadTree in q.get_leaves():
-		
-		var qt2d : QuadTree2D = qt as QuadTree2D
-
-		var atlas_coords : Vector2i = Vector2i(rng.randi_range(0, 28), rng.randi_range(0,26))
-
-		var tmap_coords : Vector2i = Vector2i(qt2d.position.x * cell_size_in_tiles, qt2d.position.y * cell_size_in_tiles)
-		
-		# draw tile on quad coords
-		TilemapLayerExtensions.fill_area(
-			tmap,
-			tmap_coords,
-			qt2d.size_in_tiles * cell_size_in_tiles,
-			2,
-			atlas_coords
-		)
