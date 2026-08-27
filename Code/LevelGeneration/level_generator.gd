@@ -305,14 +305,6 @@ func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:
 	return _grid_size.x * coords.y + coords.x
 
 
-func is_on_map_edge(coord : Vector2i, map_dimensions : Vector2i) -> bool:
-	var on_left = coord.x == 0
-	var on_right = coord.x == map_dimensions.x -1
-	var on_top = coord.y == 0
-	var on_bottom = coord.y == map_dimensions.y - 1
-	return (on_left or on_right or on_top or on_bottom)
-
-
 func get_connections_to_map_edges(coord : Vector2i, map_dimensions : Vector2i, ) -> Array[int]:
 	var edges : Array[int] = []
 
