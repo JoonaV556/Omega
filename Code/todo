@@ -124,12 +124,23 @@
 
     ✔ fix: connect roads to map edges @done(26-08-27 18:10)
 
-    fix: prevent big roads from turning along map edges
+    ✔ fix: prevent big roads from turning along map edges @done(26-08-27 22:38)
 
     Generate small roads
-        Pick start positions from big roads
-        Use random walk to define small roads / urban areas
-        Trim cells outside map edges
+        ✔ Pick start positions from big roads @done(26-08-27 22:58)
+        
+        ✔ Use random walk to define small roads / urban areas @done(26-08-28 00:02)
+            ✔ walk func - dont return cells outside map bounds @done(26-08-28 00:02)
+            ✔ trim cells overlapping big roads @done(26-08-28 00:02)
+        
+        ✔ Render cells preview @done(26-08-28 00:02)
+
+        Randomize road connections in each road cell
+            Pick random connections which match nearing cells
+
+        Render with patterns
+    
+    Connect big roads to small roads
         
     Render small roads
         Utilize tilemap patterns (maybe time to come up with a clean architecture / pipeline for creating building template)
