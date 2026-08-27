@@ -124,6 +124,7 @@
 
     ✔ fix: connect roads to map edges @done(26-08-27 18:10)
 
+    fix: prevent big roads from turning along map edges
 
     Generate small roads
         Pick start positions from big roads

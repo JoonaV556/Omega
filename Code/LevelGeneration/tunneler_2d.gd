@@ -73,19 +73,22 @@ static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_leng
 	
 	print('start dir: %s, start cell: %s' % [move_direction.keys()[s_dir], cell])
 
-	var last_dir : move_direction = s_dir
+	var last_direction : move_direction = s_dir
 
 	var branch_candidates : Dictionary[Vector2i, move_direction]
 
 	var cease = false
 
 	for i in range(max_turns):
+		# Prevent turning along map edges
+		var prevent_turning = (i != 0) and (OmegaUtils.is_on_map_edge(cells[-1], grid_size))
+
 		# pick direction
-		var dir : move_direction = s_dir
-		if i != 0:
+		var dir : move_direction = last_direction
+		if i != 0 and !prevent_turning: # Pick new random direction
 			var _dirs : Array[move_direction] = _p_dirs.duplicate()
-			_dirs.erase(last_dir) # prevent same dir twice in row
-			_dirs.erase(direction_opposite[last_dir]) # prevent opposite dirs back to back
+			_dirs.erase(last_direction) # prevent same dir twice in row
+			_dirs.erase(direction_opposite[last_direction]) # prevent opposite dirs back to back
 			
 			dir = _dirs.pick_random() as move_direction
 			print('picked new direction: %s' % [move_direction.keys()[dir]])
@@ -114,7 +117,7 @@ static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_leng
 		if cease:
 			break
 
-		last_dir = dir
+		last_direction = dir
 
 	var b_count = 0
 	# carve branches
