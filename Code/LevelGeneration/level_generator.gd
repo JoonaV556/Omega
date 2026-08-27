@@ -10,7 +10,7 @@ extends Node
 @export
 var trim_odds_percentage : Array[float] = [0.0]
 
-@export_category("generation")
+@export_category("Generator parameters")
 @export var iterations = 3
 @export var w : int = 30
 @export var h : int = 30
@@ -22,6 +22,7 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var base_terrain_tiles : Array[Vector3i]
 
 # river canals
+@export_group("River Canals")
 @export var max_turns = 5
 @export var min_walk_length = 3
 @export var river_max_branches = 1
@@ -31,18 +32,22 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var river_tile = Vector2i(17,39)
 
 # lakes
+@export_group("Lakes")
 @export var lake_water_level_treshold = 0.7 
 @export var lake_tile = Vector3i(17, 39, 4)
 
 # mountains
+@export_group("Mountains")
 @export var mountains_level_noise_tresholds : Array[float]
 @export var mountain_level_tiles : Array[Vector3i]
 
 # forest edge
+@export_group("Forest Edges")
 @export var forest_edge_thickness = 1
 @export var forest_edge_tile : Vector3i
 
 # forest middle 
+@export_group("Middle Forests")
 @export var forest_noise_freq = 0.0841
 @export var forest_noise_treshold = 0.7
 
@@ -50,10 +55,19 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var road_cell_size : Vector2i = Vector2i(4, 4)
 
 # Big roads
+@export_group("Big roads")
 @export var big_road_max_turns = 5
 @export var big_road_min_walk_length = 3
 @export var big_road_max_branches = 1
 @export var big_road_tile = Vector3i(12, 28, 5)
+
+# Small roads
+@export_group("Small roads")
+@export var min_small_road_start_cells : int = 1
+@export var max_small_road_start_cells : int = 4
+@export var small_road_random_walk_length = 50
+@export var small_road_random_walk_turn_odds = 60.0
+@export var small_road_preview_tile : Vector3i = Vector3i(0,0,0)
 
 @export var pattern_generator : TileMapPatternGenerator
 
@@ -67,14 +81,14 @@ const R_CONNECTION_W = 8
 
 
 func _ready():
-	test.call_deferred()
+	generate.call_deferred()
 
-
-func test():
+func generate():
 	for i in range(iterations):
 
 		var offset = (w*i) + (gap*i)
 
+#region Generate Terrains
 		# generate base terrain with height ranging from 1-3 
 		# (noise pixel values genrate in range of 0.0 - 1.0)
 		var base_terrain_height_levels_count : int = randi_range(1,3)
@@ -107,7 +121,7 @@ func test():
 		var lake_map = generate_lakes(n_image, lake_water_level_treshold)
 
 		# generate rivers canals
-		var river_canal_cells : Array[Vector2i] = Tunneler2D.random_walk(
+		var river_canal_cells : Array[Vector2i] = Tunneler2D.branching_random_leap(
 			Vector2i(w, h), 
 			max_turns, 
 			min_walk_length,
@@ -176,11 +190,13 @@ func test():
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return mountains_heightmap[cell.y][cell.x] == 0)
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return lake_map[cell.y][cell.x] == false)
 		forest_cells = forest_cells.filter(func(cell : Vector2i): return !river_canal_cells.has(cell))
+#endregion
 
+#region Generate Urban Areas
 		# Generate big roads
-		var road_grid_size = Vector2i(w / road_cell_size.x, h / road_cell_size.y)
+		var road_grid_size : Vector2i = Vector2i(w / road_cell_size.x, h / road_cell_size.y)
 
-		var big_road_cells : Array[Vector2i] = Tunneler2D.random_walk(
+		var big_road_cells : Array[Vector2i] = Tunneler2D.branching_random_leap(
 			Vector2i(road_grid_size.x, road_grid_size.y), 
 			big_road_max_turns, 
 			big_road_min_walk_length,
@@ -213,9 +229,22 @@ func test():
 			road_grid[grid_get_index(Vector2i(road_grid_size), road_cell)] = connections
 
 		# Generate small roads
+		var small_road_cells = generate_small_roads(
+			big_road_cells, 
+			road_grid_size, 
+			small_road_random_walk_length,
+			small_road_random_walk_turn_odds
+			)
+		
+		# Erase small road cells overlapping big roads
+		small_road_cells = small_road_cells.filter(
+			func doesnt_overlap_big_road(cell): return !big_road_cells.has(cell)
+			)
 
 		# Generate buildings
+#endregion
 
+#region Render Terrain
 		# Render terrain on tilemap
 		for y in range(h):
 			for x in range(w):
@@ -282,7 +311,9 @@ func test():
 						forest_edge_tile.z,
 						Vector2i(forest_edge_tile.x, forest_edge_tile.y)
 					)
+#endregion
 
+#region Render Urban
 			# Render 2nd pass - Roads buildings etc.
 			for road_cell_coord in big_road_cells:
 				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
@@ -297,8 +328,42 @@ func test():
 				# Paint on tilemap
 				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
+			# Preview render small roads
+			for sr_cell in small_road_cells:
+				var coordindate_on_tilemap : Vector2i = sr_cell * road_cell_size
+				TilemapLayerExtensions.fill_area(
+					tmap,
+					coordindate_on_tilemap + Vector2i(offset, 0),
+					road_cell_size,
+					small_road_preview_tile.z,
+					Vector2i(small_road_preview_tile.x, small_road_preview_tile.y)
+				)
+
+#endregion
 		print("x offset: %s" % [offset])
 		print("\n")
+
+
+func generate_small_roads(big_road_cells : Array[Vector2i], map_dimensions, random_walk_length, random_walk_turn_odds) -> Array[Vector2i]:
+	var cells : Array[Vector2i] = []
+	var small_road_start_cell_count : int = randi_range(min_small_road_start_cells, max_small_road_start_cells)
+	var possible_cells = big_road_cells.duplicate()
+	var sr_start_cells = []
+
+	# Pick road starting cells
+	for n in range(small_road_start_cell_count):
+		var cell = possible_cells.pick_random()
+		possible_cells.erase(cell)
+		sr_start_cells.append(cell)
+
+	# Generate roads with random walk
+	for sc in sr_start_cells:
+		var _sr_cells = Tunneler2D.random_walk(sc, random_walk_length, map_dimensions, random_walk_turn_odds)
+		cells.append_array(_sr_cells)
+
+	print('Generated %s small road cells from %s start cells' % [cells.size(), small_road_start_cell_count])
+
+	return cells
 
 
 func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:

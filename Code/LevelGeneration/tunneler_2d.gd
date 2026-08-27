@@ -46,7 +46,29 @@ const t_ground : Vector3i = Vector3i(0, 0, 0)
 const t_water : Vector3i = Vector3i(0, 0, 0)
 
 
-static func random_walk(grid_size : Vector2i, max_turns : int = 3, min_walk_length : int = 3, max_branches : int = 0) -> Array[Vector2i]:
+static func random_walk(start_cell, walk_length, map_dimensions, turn_odds_percentage = 100.0) -> Array[Vector2i]:
+	var cells : Array[Vector2i] = []
+
+	cells.append(start_cell)
+
+	var last_dir = possible_directions.pick_random()
+
+	for step in range(walk_length):
+
+		var dir = last_dir
+		if OmegaUtils.roll_percentage_odds(turn_odds_percentage): # Roll chance to turn directions
+			dir = possible_directions.pick_random()
+		
+		var cell = _get_cell_in_direction(cells[-1], dir)
+		if OmegaUtils.is_inside_bounds(cell, map_dimensions): # ensure only cells inside map bounds are returned
+			cells.append(cell)
+		last_dir = dir
+
+	return cells
+
+
+## Customized random walk with some additional configuration options, and a branching feature
+static func branching_random_leap(grid_size : Vector2i, max_turns : int = 3, min_walk_length : int = 3, max_branches : int = 0) -> Array[Vector2i]:
 	var cells : Array[Vector2i] = []
 
 	# pick start direction

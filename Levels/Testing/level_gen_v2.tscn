@@ -34,7 +34,7 @@ trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
 w = 256
 h = 256
 gap = 10
-terrain_noise_freq = 0.063
+terrain_noise_freq = 0.008
 base_terrain_height_noise_freq = 0.008
 base_terrain_tiles = Array[Vector3i]([Vector3i(9, 26, 2), Vector3i(9, 23, 2), Vector3i(9, 20, 2)])
 remove_lakes_near_rivers_radius = 2
@@ -43,6 +43,9 @@ mountains_level_noise_tresholds = Array[float]([0.7, 0.85])
 mountain_level_tiles = Array[Vector3i]([Vector3i(15, 45, 4), Vector3i(15, 43, 4)])
 forest_edge_tile = Vector3i(22, 38, 1)
 forest_noise_treshold = 0.65
+small_road_random_walk_length = 150
+small_road_random_walk_turn_odds = 100.0
+small_road_preview_tile = Vector3i(14, 32, 5)
 pattern_generator = NodePath("../PatternGenerator")
 
 [node name="PatternGenerator" type="Node" parent="." unique_id=737362037 node_paths=PackedStringArray("tilemap_layer")]
@@ -84,6 +87,6 @@ texture = SubResource("NoiseTexture2D_xcrlh")
 
 [node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
 script = ExtResource("6_xcrlh")
-line_color = Color(1, 1, 1, 0.5647059)
+line_color = Color(1, 1, 1, 0.19215687)
 
 [editable path="Camera"]

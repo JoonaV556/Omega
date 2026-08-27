@@ -105,3 +105,9 @@ static func is_on_map_edge(coord : Vector2i, map_dimensions : Vector2i) -> bool:
 	var on_top = coord.y == 0
 	var on_bottom = coord.y == map_dimensions.y - 1
 	return (on_left or on_right or on_top or on_bottom)
+
+
+static func is_inside_bounds(cell, map_dimensions) -> bool:
+	var xin = (cell.x >= 0) and (cell.x < map_dimensions.x)
+	var yin = (cell.y >= 0) and (cell.y < map_dimensions.y)
+	return xin and yin
