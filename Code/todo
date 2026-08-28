@@ -136,7 +136,16 @@
         ✔ Render cells preview @done(26-08-28 00:02)
 
         Randomize road connections in each road cell
-            Pick random connections which match nearing cells
+            ✔ Create new bytearray for small roads @done(26-08-29 00:12)
+            
+            ✔ For each small road cell @done(26-08-29 00:12)
+                ✔ Skip if array already has connections for cell @done(26-08-29 00:12)
+                ✔ Randomize at least 1 connection @done(26-08-29 00:12)
+                ✔ 50% chance to add each connection @done(26-08-29 00:12)
+                ✔ Make compatible with nearby cells (connect to neighboring connections @done(26-08-29 00:12)
+                ✔ ) @done(26-08-29 00:12)
+            
+            Remove dead ends
 
         Render with patterns
     
