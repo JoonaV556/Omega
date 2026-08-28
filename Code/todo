@@ -141,12 +141,9 @@
         Render with patterns
     
     Connect big roads to small roads
+        idea: Connect small roads to big roads on some small road cells which overlap with big roads
         
-    Render small roads
-        Utilize tilemap patterns (maybe time to come up with a clean architecture / pipeline for creating building template)
-            TileMapPatternGenerator (Generic - saves patterns from tiles into an array)
-                TileMapRoadPatternGenerator (specialized pattern generator which maps road patterns with needed connections BASICALLY EXISTS ALREADY) 
-
+    Add Buildings
 
 
 
