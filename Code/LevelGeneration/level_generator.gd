@@ -79,6 +79,21 @@ const R_CONNECTION_S = 2
 const R_CONNECTION_E = 4
 const R_CONNECTION_W = 8
 
+## Helper array for picking connections at random
+const possible_connections : Array[int] = [
+	R_CONNECTION_N,
+	R_CONNECTION_S,
+	R_CONNECTION_E,
+	R_CONNECTION_W
+]
+
+const opposite_connections : Dictionary[int, int] = {
+	R_CONNECTION_N : R_CONNECTION_S,
+	R_CONNECTION_S : R_CONNECTION_N,
+	R_CONNECTION_E : R_CONNECTION_W,
+	R_CONNECTION_W : R_CONNECTION_E
+}
+
 
 func _ready():
 	generate.call_deferred()
@@ -203,9 +218,9 @@ func generate():
 			big_road_max_branches
 			)
 		
-		var road_grid : PackedByteArray = []
-		road_grid.resize(road_grid_size.x * road_grid_size.y)
-		road_grid.fill(0)
+		var big_road_grid : PackedByteArray = []
+		big_road_grid.resize(road_grid_size.x * road_grid_size.y)
+		big_road_grid.fill(0)
 
 		# Save big roads to road grid
 		for road_cell in big_road_cells:
@@ -226,7 +241,7 @@ func generate():
 			for connection in edge_connections:
 				connections = add_connection(connections, connection)
 				
-			road_grid[grid_get_index(Vector2i(road_grid_size), road_cell)] = connections
+			big_road_grid[grid_get_index(Vector2i(road_grid_size), road_cell)] = connections
 
 		# Generate small roads
 		var small_road_cells = generate_small_roads(
@@ -241,7 +256,49 @@ func generate():
 			func doesnt_overlap_big_road(cell): return !big_road_cells.has(cell)
 			)
 
+		# Generate connections for small roads
+		var small_road_grid : PackedByteArray = []
+		small_road_grid.resize(road_grid_size.x * road_grid_size.y)
+		small_road_grid.fill(0)
+
+		for sr_cell in small_road_cells:
+			# Skip if cell already has connections (random walk produces duplicate cells)
+			var connections = small_road_grid[grid_get_index(road_grid_size, sr_cell)]
+			var cell_index = grid_get_index(road_grid_size, sr_cell)
+			if connections != 0:
+				continue
+
+			# Ensure at least 1 onnection
+			var ensured_connection = possible_connections.pick_random()
+			small_road_grid[cell_index] = add_connection(connections, ensured_connection)
+
+			# Add each connection with 50/50 odds
+			for c in possible_connections:
+				if OmegaUtils.roll_percentage_odds(50.0):
+					connections = small_road_grid[cell_index]
+					small_road_grid[cell_index] = add_connection(connections, c)
+
+			# Ensure cell is compatible with neighboring cells (skip cells outside bounds)
+			var neighboring_cells = [
+				sr_cell + Vector2i(0, -1), # N
+				sr_cell + Vector2i(0, 1), # S
+				sr_cell + Vector2i(1, 0), # E 
+				sr_cell + Vector2i(-1, 0), # W
+			]
+			
+			# note: this is pretty confusing
+			for n in range(neighboring_cells.size()):
+				var n_cell = neighboring_cells[n]
+				if OmegaUtils.is_inside_bounds(n_cell, road_grid_size):
+					var neighbour_connections = small_road_grid[grid_get_index(n_cell, road_grid_size)]
+					if has_connection(neighbour_connections, opposite_connections[possible_connections[n]]):
+						small_road_grid[cell_index] = add_connection(
+							connections, 
+							possible_connections[n]
+							)
+
 		# Generate buildings
+
 #endregion
 
 #region Render Terrain
@@ -320,7 +377,7 @@ func generate():
 
 				# Check directional connections for the cell
 				var cell_connections_idx = grid_get_index(road_grid_size, road_cell_coord) # get cell index in 1D road grid array
-				var cell_connections = road_grid[cell_connections_idx] # get connections from array (N S E W)
+				var cell_connections = big_road_grid[cell_connections_idx] # get connections from array (N S E W)
 
 				# Retrieve a tile pattern with matching the connections
 				var r_pattern : TileMapPattern = pattern_generator.get_pattern_with_connections(cell_connections)
