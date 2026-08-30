@@ -150,11 +150,13 @@
         Fix: Not all roads are connected to highways
             pesudo:
             Isolate islands of neighboring road cells
-                for each island
-                    get cells next to big roads
-                    pick random amount of cells next to big roads
-                    for each cell picked 
-                        connect to big road
+                convert connections grid to vector2 array for ease of use
+
+            for each island
+                get cells next to big roads
+                pick random amount of cells next to big roads
+                for each cell picked 
+                    connect to big road
 
 
             Code: 
