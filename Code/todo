@@ -135,7 +135,7 @@
         
         ✔ Render cells preview @done(26-08-28 00:02)
 
-        Randomize road connections in each road cell
+        ✔ Randomize road connections in each road cell @done(26-08-30 18:32)
             ✔ Create new bytearray for small roads @done(26-08-29 00:12)
             
             ✔ For each small road cell @done(26-08-29 00:12)
@@ -145,10 +145,12 @@
                 ✔ Make compatible with nearby cells (connect to neighboring connections @done(26-08-29 00:12)
                 ✔ ) @done(26-08-29 00:12)
             
-            Remove dead ends
-
-        Render with patterns
+        ✔ Render with patterns @done(26-08-30 19:31)
     
+        Fix: Not all roads are connected to highways
+
+        Remove dead ends / cleanup
+
     Connect big roads to small roads
         idea: Connect small roads to big roads on some small road cells which overlap with big roads
         
