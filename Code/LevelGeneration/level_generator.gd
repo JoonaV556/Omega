@@ -279,7 +279,7 @@ func generate():
 					connections = small_road_grid[cell_index]
 					small_road_grid[cell_index] = add_connection(connections, c)
 
-			# Ensure cell is compatible with neighboring cells (skip cells outside bounds)
+			# Ensure cell is connected to highway
 			var neighboring_cells = [
 				sr_cell + Vector2i(0, -1), # N
 				sr_cell + Vector2i(0, 1), # S
@@ -287,18 +287,13 @@ func generate():
 				sr_cell + Vector2i(-1, 0), # W
 			]
 			
-			# note: this is pretty confusing
-			for n in range(neighboring_cells.size()):
-				var n_cell = neighboring_cells[n]
-
-				if OmegaUtils.is_inside_bounds(n_cell, road_grid_size):
-				
-					var neighbour_connections = small_road_grid[grid_get_index(road_grid_size, n_cell)]	
-					if has_connection(neighbour_connections, opposite_connections[possible_connections[n]]):
-						small_road_grid[cell_index] = add_connection(
-							connections, 
-							possible_connections[n]
-							)
+			# Isolate islands of neighboring road cells
+			var rc_islands : Array[Array]
+			for n in range(small_road_grid.size()):
+				# Skip cells with no roads
+				var cell_connections = small_road_grid[n]
+				if cell_connections == 0:
+					continue 
 
 		# Generate buildings
 
@@ -438,6 +433,92 @@ func generate_small_roads(big_road_cells : Array[Vector2i], map_dimensions, rand
 	print('Generated %s small road cells from %s start cells' % [cells.size(), small_road_start_cell_count])
 
 	return cells
+
+
+func get_connected_cells(cell, map_dimensions, connections_grid) -> Array[Vector2i]:
+	var cc : Array[Vector2i] = [cell]
+
+	while true:
+		var newly_found = []
+		
+		for c in cc:
+			var all_connected_neighbors = get_connected_neighbors(
+				c,
+				connections_grid,
+				map_dimensions
+			)
+			var new_connected_neighbors = all_connected_neighbors.filter(
+				func(_c): return (!cc.has(_c)) and (!newly_found.has(_c))
+			)
+			newly_found.append_array(new_connected_neighbors)
+
+		if newly_found.is_empty():
+			break
+		
+		cc.append_array(newly_found)
+			
+	return cc
+
+
+func get_connected_neighbors(cell, connections_grid, map_dimensions) -> Array[Vector2i]:
+	var neighbors = get_neighboring_cells(cell, map_dimensions)
+	
+	return neighbors.filter(
+		func(_c): are_connected(cell, _c, connections_grid, map_dimensions)
+	)
+
+
+func get_neighboring_cells(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Array[Vector2i]:
+	var ncs = [
+				cell + Vector2i(0, -1), # N
+				cell + Vector2i(0, 1), # S
+				cell + Vector2i(1, 0), # E 
+				cell + Vector2i(-1, 0), # W
+			]
+
+	# filter out cells outside map bounds
+	var filter = (map_dimensions.x > 0) and (map_dimensions.y > 0)
+	if filter:
+		ncs = ncs.filter(
+			func(_cell): return OmegaUtils.is_inside_bounds(_cell, map_dimensions)
+		)
+
+	return ncs
+
+## Returns true if cell_a and cell_b are connected in the given connections grid
+func are_connected(cell_a : Vector2i, cell_b : Vector2i, connections_grid : PackedByteArray, connections_grid_dimensions : Vector2i) -> bool:
+	var a_neighbours = get_neighboring_cells(cell_a)
+	var are_neighbours = a_neighbours.has(cell_b)
+	
+	if !are_neighbours:
+		return false
+
+	var b_idx = a_neighbours.find(cell_b)
+
+	var dir_to_b : int
+	match b_idx:
+		0:
+			dir_to_b = R_CONNECTION_N	
+		1:
+			dir_to_b = R_CONNECTION_S
+		2:
+			dir_to_b = R_CONNECTION_E
+		3:
+			dir_to_b = R_CONNECTION_W
+
+	var ais = has_connection(
+		connections_grid[grid_get_index(connections_grid_dimensions, cell_a)], 
+		dir_to_b
+		)
+	var bis = has_connection(
+		connections_grid[grid_get_index(connections_grid_dimensions, cell_b)], 
+		opposite_connections[dir_to_b]
+		)
+
+	if ais and bis:
+		return true
+
+	return false
 
 
 func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:
