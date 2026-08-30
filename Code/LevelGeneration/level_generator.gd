@@ -69,7 +69,8 @@ var trim_odds_percentage : Array[float] = [0.0]
 @export var small_road_random_walk_turn_odds = 60.0
 @export var small_road_preview_tile : Vector3i = Vector3i(0,0,0)
 
-@export var pattern_generator : TileMapPatternGenerator
+@export var pattern_generator_highways : TileMapPatternGenerator
+@export var pattern_generator_small_roads : TileMapPatternGenerator
 
 
 enum tunneler_dir {N, S, E, W}
@@ -256,7 +257,7 @@ func generate():
 			func doesnt_overlap_big_road(cell): return !big_road_cells.has(cell)
 			)
 
-		# Generate connections for small roads
+		# Randomize directional connections for small roads
 		var small_road_grid : PackedByteArray = []
 		small_road_grid.resize(road_grid_size.x * road_grid_size.y)
 		small_road_grid.fill(0)
@@ -289,8 +290,10 @@ func generate():
 			# note: this is pretty confusing
 			for n in range(neighboring_cells.size()):
 				var n_cell = neighboring_cells[n]
+
 				if OmegaUtils.is_inside_bounds(n_cell, road_grid_size):
-					var neighbour_connections = small_road_grid[grid_get_index(n_cell, road_grid_size)]
+				
+					var neighbour_connections = small_road_grid[grid_get_index(road_grid_size, n_cell)]	
 					if has_connection(neighbour_connections, opposite_connections[possible_connections[n]]):
 						small_road_grid[cell_index] = add_connection(
 							connections, 
@@ -371,7 +374,7 @@ func generate():
 #endregion
 
 #region Render Urban
-			# Render 2nd pass - Roads buildings etc.
+			# Render highways
 			for road_cell_coord in big_road_cells:
 				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
 
@@ -380,21 +383,35 @@ func generate():
 				var cell_connections = big_road_grid[cell_connections_idx] # get connections from array (N S E W)
 
 				# Retrieve a tile pattern with matching the connections
-				var r_pattern : TileMapPattern = pattern_generator.get_pattern_with_connections(cell_connections)
+				var r_pattern : TileMapPattern = pattern_generator_highways.get_pattern_with_connections(cell_connections)
 
 				# Paint on tilemap
 				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 			# Preview render small roads
-			for sr_cell in small_road_cells:
-				var coordindate_on_tilemap : Vector2i = sr_cell * road_cell_size
-				TilemapLayerExtensions.fill_area(
-					tmap,
-					coordindate_on_tilemap + Vector2i(offset, 0),
-					road_cell_size,
-					small_road_preview_tile.z,
-					Vector2i(small_road_preview_tile.x, small_road_preview_tile.y)
-				)
+			# for sr_cell in small_road_cells:
+			# 	var coordindate_on_tilemap : Vector2i = sr_cell * road_cell_size
+			# 	TilemapLayerExtensions.fill_area(
+			# 		tmap,
+			# 		coordindate_on_tilemap + Vector2i(offset, 0),
+			# 		road_cell_size,
+			# 		small_road_preview_tile.z,
+			# 		Vector2i(small_road_preview_tile.x, small_road_preview_tile.y)
+			# 	)
+
+			# Render small roads
+			for road_cell_coord in small_road_cells:  
+				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
+
+				# Check directional connections for the cell
+				var cell_connections_idx = grid_get_index(road_grid_size, road_cell_coord) # get cell index in 1D road grid array
+				var cell_connections = small_road_grid[cell_connections_idx] # get connections from array (N S E W)
+
+				# Retrieve a tile pattern with matching the connections
+				var r_pattern : TileMapPattern = pattern_generator_small_roads.get_pattern_with_connections(cell_connections)
+
+				# Paint on tilemap
+				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 #endregion
 		print("x offset: %s" % [offset])
