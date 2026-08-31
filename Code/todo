@@ -147,39 +147,39 @@
             
         ✔ Render with patterns @done(26-08-30 19:31)
     
+        ✔ fix get_connected_cells() func @done(26-08-31 23:51)
+            ✔ fix get_connected_neighbours func @done(26-08-31 23:51)
+
         Fix: Not all roads are connected to highways
-            pesudo:
-            Isolate islands of neighboring road cells
-                convert connections grid to vector2 array for ease of use
 
-            for each island
-                get cells next to big roads
-                pick random amount of cells next to big roads
-                for each cell picked 
-                    connect to big road
-
-
-            Code: 
-                ✔ get connected cells() @done(26-08-31 00:03)
-                    ✔ get neighboring cells() @done(26-08-30 20:08)
-
-                    ✔ filter cells outside bounds @done(26-08-30 20:08)
-
-                    ✔ filter cells which are not connected to cell @done(26-08-31 00:03)
-                        
-                        ✔ are_connected(cell_a, cell_b) @done(26-08-30 20:31)
-                            ✔ if next to each other @done(26-08-30 20:31)
-                                ✔ check direction to cell_b @done(26-08-30 20:31)
-                                ✔ ais = a has connection to direction @done(26-08-30 20:31)
-                                ✔ bis = b has connection to opposite direction @done(26-08-30 20:31)
-                                ✔ if ais and bis @done(26-08-30 20:31)
-                                    ✔ return true @done(26-08-30 20:31)
-
-                            ✔ else @done(26-08-30 20:31)
-                                ✔ return false @done(26-08-30 20:31)
-
-                
+            high level
+                Connect all cellgroups not connected to roads to random neighbours
+                repeat until no unconnected groups are left
             
+            pseudo code
+                while true
+                    get all cellgroups
+                    filter out cellgroups which are connected to highways
+
+                    if no cellgroups left
+                        break
+                    
+                    for each cellgroup 
+                        connect to random unconnected neighbour
+
+            get_cell_groups()
+                test by printing cell group count
+            
+
+
+
+
+
+
+
+
+
+
 
 
         Remove dead ends / cleanup

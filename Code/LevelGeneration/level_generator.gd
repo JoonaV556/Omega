@@ -259,11 +259,12 @@ func generate():
 			func doesnt_overlap_big_road(cell): return !big_road_cells.has(cell)
 			)
 
-		# Randomize directional connections for small roads
+		# Create 1D array for small road cells 
 		var small_road_grid : PackedByteArray = []
 		small_road_grid.resize(road_grid_dimensions.x * road_grid_dimensions.y)
 		small_road_grid.fill(0)
 
+		# Randomize directional connections for small roads
 		for sr_cell in small_road_cells:
 			# Skip if cell already has connections (random walk produces duplicate cells)
 			var connections = small_road_grid[grid_get_index(road_grid_dimensions, sr_cell)]
@@ -281,8 +282,7 @@ func generate():
 					connections = small_road_grid[cell_index]
 					small_road_grid[cell_index] = add_connection(connections, c)
 			
-		# Isolate islands of neighboring road cells
-			# Convert connections grid to an array of cell coordinates
+		# Convert 1D connections to an array of small road 2D coordinates (removes duplicate coords caused by random walk)
 		var small_road_cell_coords: Array[Vector2i] = []
 		for n in range(small_road_grid.size()):
 			var sr_connections = small_road_grid[n]
@@ -290,6 +290,37 @@ func generate():
 				small_road_cell_coords.append(
 					index_to_coordinates(n, road_grid_dimensions)
 				)
+		
+		print('Generated %s small road cells' % [small_road_cell_coords.size()])
+
+		# Connect all small road cells to highways
+		while true:
+			var unchecked_cells = small_road_cell_coords.duplicate()
+			
+			var cellgroups : Array[Array]
+
+			# Assemble cellgroups
+			while true:
+				if unchecked_cells.is_empty():
+					break
+
+				var start_cell = unchecked_cells[0]
+				var group = get_connected_cells(
+					start_cell,
+					road_grid_dimensions,
+					small_road_grid
+				)
+
+				for c in group:
+					unchecked_cells.erase(c)
+				cellgroups.append(group)
+			
+			print('Found %s connected groups of small road cells' % [cellgroups.size()])
+
+			break
+		
+		
+			
 
 #endregion
 		# Generate buildings
@@ -425,8 +456,6 @@ func generate_small_roads(big_road_cells : Array[Vector2i], map_dimensions, rand
 		var _sr_cells = Tunneler2D.random_walk(sc, random_walk_length, map_dimensions, random_walk_turn_odds)
 		cells.append_array(_sr_cells)
 
-	print('Generated %s small road cells from %s start cells' % [cells.size(), small_road_start_cell_count])
-
 	return cells
 
 
@@ -434,23 +463,21 @@ func get_connected_cells(cell, map_dimensions, connections_grid) -> Array[Vector
 	var cc : Array[Vector2i] = [cell]
 
 	while true:
-		var newly_found = []
+		var found = []
 		
 		for c in cc:
-			var all_connected_neighbors = get_connected_neighbors(
-				c,
-				connections_grid,
-				map_dimensions
-			)
-			var new_connected_neighbors = all_connected_neighbors.filter(
-				func(_c): return (!cc.has(_c)) and (!newly_found.has(_c))
-			)
-			newly_found.append_array(new_connected_neighbors)
+			var cn = get_connected_neighbors(cell, connections_grid, map_dimensions)
 
-		if newly_found.is_empty():
+			cn = cn.filter( # Filter alredy found cells
+				func(_c): return (!cc.has(_c)) and (!found.has(_c))
+			)
+			
+			found.append_array(cn)
+			
+		if found.is_empty():
 			break
 		
-		cc.append_array(newly_found)
+		cc.append_array(found)
 			
 	return cc
 
@@ -458,13 +485,15 @@ func get_connected_cells(cell, map_dimensions, connections_grid) -> Array[Vector
 func get_connected_neighbors(cell, connections_grid, map_dimensions) -> Array[Vector2i]:
 	var neighbors = get_neighboring_cells(cell, map_dimensions)
 	
-	return neighbors.filter(
-		func(_c): are_connected(cell, _c, connections_grid, map_dimensions)
+	var connected = neighbors.filter(
+		func(_c): return are_connected(cell, _c, connections_grid, map_dimensions)
 	)
+
+	return connected
 
 
 func get_neighboring_cells(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Array[Vector2i]:
-	var ncs = [
+	var ncs : Array[Vector2i] = [
 				cell + Vector2i(0, -1), # N
 				cell + Vector2i(0, 1), # S
 				cell + Vector2i(1, 0), # E 
