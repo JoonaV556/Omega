@@ -158,7 +158,7 @@
             
             pseudo code
                 while true
-                    get all cellgroups
+                    ✔ get all cellgroups @done(26-08-31 23:53)
                     filter out cellgroups which are connected to highways
 
                     if no cellgroups left
@@ -167,8 +167,6 @@
                     for each cellgroup 
                         connect to random unconnected neighbour
 
-            get_cell_groups()
-                test by printing cell group count
             
 
 
