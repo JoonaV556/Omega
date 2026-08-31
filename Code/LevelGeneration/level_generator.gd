@@ -295,33 +295,17 @@ func generate():
 
 		# Connect all small road cells to highways
 		while true:
-			var unchecked_cells = small_road_cell_coords.duplicate()
-			
-			var cellgroups : Array[Array]
-
-			# Assemble cellgroups
-			while true:
-				if unchecked_cells.is_empty():
-					break
-
-				var start_cell = unchecked_cells[0]
-				var group = get_connected_cells(
-					start_cell,
-					road_grid_dimensions,
-					small_road_grid
-				)
-
-				for c in group:
-					unchecked_cells.erase(c)
-				cellgroups.append(group)
+			var cellgroups = get_connected_cellgroups(
+				small_road_cell_coords,
+				small_road_grid,
+				road_grid_dimensions
+			)
 			
 			print('Found %s connected groups of small road cells' % [cellgroups.size()])
 
 			break
 		
 		
-			
-
 #endregion
 		# Generate buildings
 
@@ -437,6 +421,30 @@ func generate():
 #endregion
 		print("x offset: %s" % [offset])
 		print("\n")
+
+
+func get_connected_cellgroups(cells : Array[Vector2i], grid_connections, grid_dimensions) -> Array[Array]:
+	var unchecked_cells = cells.duplicate()
+			
+	var cellgroups : Array[Array]
+
+	# Assemble cellgroups
+	while true:
+		if unchecked_cells.is_empty():
+			break
+
+		var start_cell = unchecked_cells[0]
+		var group = get_connected_cells(
+			start_cell,
+			grid_dimensions,
+			grid_connections
+		)
+
+		for c in group:
+			unchecked_cells.erase(c)
+		cellgroups.append(group)
+	
+	return cellgroups
 
 
 func generate_small_roads(big_road_cells : Array[Vector2i], map_dimensions, random_walk_length, random_walk_turn_odds) -> Array[Vector2i]:
