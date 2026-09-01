@@ -293,17 +293,88 @@ func generate():
 		
 		print('Generated %s small road cells' % [small_road_cell_coords.size()])
 
+		
+
+		
 		# Connect all small road cells to highways
+		var passes = 0
 		while true:
+			print('Connecting small road cells to highways, pass: %s' % [passes])
 			var cellgroups = get_connected_cellgroups(
 				small_road_cell_coords,
 				small_road_grid,
 				road_grid_dimensions
 			)
-			
-			print('Found %s connected groups of small road cells' % [cellgroups.size()])
 
+			print('Found %s connected groups of small road cells' % [cellgroups.size()])
+			
+			# Filter out groups next to highways
+			var cg_filtered = cellgroups.filter(
+				func(_cellgroup): return !is_next_to_highway(
+					_cellgroup,
+					big_road_cells,
+					road_grid_dimensions
+				)
+			)
+
+			print('Found %s cellgroups not connected to highways' % [cg_filtered.size()])
+
+			if cg_filtered.size() <= 1:
+				break
+
+			var new_connections : Array
+
+			# Connect each cellgroup to random unconnected neighbour
+			for cg : Array[Vector2i] in cg_filtered:
+				## start_cell, connection direction
+				var connectable_neighbours : Dictionary[Vector2i, int]
+
+				# get each neighbor (group cell, direction)
+				for c in cg:
+					# Get neighboring cells
+					var neighbours : Dictionary[Vector2i, int] = get_neighboring_cells_directions(c, road_grid_dimensions)
+
+					# Pick cells with small roads, which are not connected to this group
+					for _c in neighbours.keys():
+						var add = (small_road_cell_coords.has(_c)) and (!cg.has(_c)) # Check if cell is a small road and doesn't belong to this cellgroup
+						if add:
+							connectable_neighbours[c] = neighbours[_c]
+
+				# TODO : refactor into connect_cells func ? 
+				var connect_cell = connectable_neighbours.keys().pick_random()
+				var dir = connectable_neighbours[connect_cell]
+				var other_cell = get_cell_in_direction(connect_cell, dir)
+
+				new_connections.append(connect_cell)
+				new_connections.append(connectable_neighbours[connect_cell])
+				new_connections.append(other_cell)
+				new_connections.append(opposite_connections[dir])
+			
+			# Make connections
+			var n = 0
+			while n < new_connections.size():
+				var cell = new_connections[n]
+				var dir = new_connections[n+1]
+				var c_idx = grid_get_index(road_grid_dimensions, cell)
+				small_road_grid[c_idx] = add_connection(
+					small_road_grid[c_idx],
+					dir
+					)
+				n += 2
+
+			print('Made %s new connections' % [new_connections.size()/2])
+
+			cellgroups = get_connected_cellgroups(
+				small_road_cell_coords,
+				small_road_grid,
+				road_grid_dimensions
+			)
+
+			print('Found %s cellsgroups after merging groups' % [cellgroups.size()])
+				
+			passes += 1
 			break
+			
 		
 		
 #endregion
@@ -423,9 +494,27 @@ func generate():
 		print("\n")
 
 
+func is_next_to_highway(cellgroup : Array[Vector2i], highway_cells, grid_dimensions) -> bool:
+	var neighbours = []
+
+	for cell in cellgroup:
+		neighbours.append_array(
+			get_neighboring_cells(
+				cell,
+				grid_dimensions
+			)
+		)
+
+	for c in neighbours:
+		if highway_cells.has(c):
+			return true
+
+	return false
+
+
 func get_connected_cellgroups(cells : Array[Vector2i], grid_connections, grid_dimensions) -> Array[Array]:
 	var unchecked_cells = cells.duplicate()
-			
+			 
 	var cellgroups : Array[Array]
 
 	# Assemble cellgroups
@@ -499,7 +588,7 @@ func get_connected_neighbors(cell, connections_grid, map_dimensions) -> Array[Ve
 
 	return connected
 
-
+## Returns cells in NSEW directions. Filters cells outside map bounds if map_dimensions are given
 func get_neighboring_cells(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Array[Vector2i]:
 	var ncs : Array[Vector2i] = [
 				cell + Vector2i(0, -1), # N
@@ -516,6 +605,28 @@ func get_neighboring_cells(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -
 		)
 
 	return ncs
+
+
+func get_neighboring_cells_directions(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Dictionary[Vector2i, int]:
+	var ret : Dictionary[Vector2i, int] = {
+		cell + Vector2i(0, -1): R_CONNECTION_N,
+		cell + Vector2i(0, 1): R_CONNECTION_S,
+		cell + Vector2i(1, 0): R_CONNECTION_E,
+		cell + Vector2i(-1, 0): R_CONNECTION_W,
+	}
+		
+	# filter out cells outside map bounds
+	var filter = (map_dimensions.x > 0) and (map_dimensions.y > 0)
+	if filter:
+		var to_erase = []
+		for n in range(ret.keys().size()):
+			if !OmegaUtils.is_inside_bounds(ret.keys()[n], map_dimensions):
+				to_erase.append(ret.keys()[n])
+		for coord in to_erase:
+			ret.erase(coord)
+
+	return ret
+
 
 ## Returns true if cell_a and cell_b are connected in the given connections grid
 func are_connected(cell_a : Vector2i, cell_b : Vector2i, connections_grid : PackedByteArray, connections_grid_dimensions : Vector2i) -> bool:
@@ -577,6 +688,21 @@ func get_connections_to_map_edges(coord : Vector2i, map_dimensions : Vector2i, )
 		edges.append(R_CONNECTION_S)
 	
 	return edges
+
+
+func get_cell_in_direction(source_cell, direction) -> Vector2i:
+	var cell = source_cell
+	match direction:
+		R_CONNECTION_N:
+			cell = source_cell + Vector2i(0, -1)
+		R_CONNECTION_S:
+			cell = source_cell + Vector2i(0, 1)
+		R_CONNECTION_E:
+			cell = source_cell + Vector2i(1, 0)
+		R_CONNECTION_W:
+			cell = source_cell + Vector2i(-1, 0)
+
+	return cell
 
 
 ## Returns connections with the added connection if it does not have it already

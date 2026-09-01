@@ -159,10 +159,11 @@
             pseudo code
                 while true
                     ✔ get all cellgroups @done(26-08-31 23:53)
-                    filter out cellgroups which are connected to highways
+                    
+                    ✔ filter out cellgroups which are connected to highways @done(26-09-01 23:54)
 
-                    if no cellgroups left
-                        break
+                    ✔ if no cellgroups left @done(26-09-01 23:54)
+                        ✔ break @done(26-09-01 23:54)
                     
                     for each cellgroup 
                         connect to random unconnected neighbour
