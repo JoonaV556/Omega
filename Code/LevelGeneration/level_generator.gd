@@ -380,6 +380,28 @@ func generate():
 				passes += 1
 
 			print('Connected all small road cells to highways after %s connection passes' % [passes])
+
+			# Remove dead end connections from small roads
+			for cell : Vector2i in small_road_cell_coords:
+				var cell_index = grid_get_index(road_grid_dimensions, cell)
+				var connections : int = small_road_grid[cell_index]
+
+				for direction : int in possible_connections:
+					if !has_connection(connections, direction):
+						continue
+
+					# Erase connections to neighbours roads which don't return the connection (Connections pointing one way only)
+					var neighbour = get_cell_in_direction(cell, direction)
+					var neighbour_index = grid_get_index(road_grid_dimensions, neighbour)
+					var opposite_direction = opposite_connections[direction]
+					var neighbour_has_connection = (
+						small_road_cell_coords.has(neighbour)
+						and has_connection(small_road_grid[neighbour_index], opposite_direction)
+					)
+					if !neighbour_has_connection:
+						connections -= direction
+
+				small_road_grid[cell_index] = connections
 			
 		
 		

@@ -165,21 +165,12 @@
 
             ✔ Do new passes until no groups not connected to highways are left @done(26-09-03 00:15)
                 
-        Remove dead ends / cleanup
+        ✔ Remove dead ends / cleanup @done(26-09-03 00:33)
 
     Connect big roads to small roads
         idea: Connect small roads to big roads on some small road cells which overlap with big roads
         
     Add Buildings
-
-
-
-
-
-
-
-
-
 
 ☐ add 4 map exits 
 
