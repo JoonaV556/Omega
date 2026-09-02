@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bph7w4k0qj2h3" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="6_xcrlh"]
 [ext_resource type="Script" uid="uid://dm332oojpanf1" path="res://Code/LevelGeneration/tilemap_pattern_generator.gd" id="7_ia673"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="8_5jm0d"]
 
 [sub_resource type="Gradient" id="Gradient_urxea"]
 
@@ -45,9 +46,10 @@ mountain_level_tiles = Array[Vector3i]([Vector3i(15, 45, 4), Vector3i(15, 43, 4)
 forest_edge_tile = Vector3i(22, 38, 1)
 forest_noise_treshold = 0.65
 max_small_road_start_cells = 3
-small_road_random_walk_length = 15
+small_road_random_walk_length = 30
 small_road_random_walk_turn_odds = 100.0
 small_road_preview_tile = Vector3i(14, 32, 5)
+highway_connection_passes = 4
 pattern_generator_highways = NodePath("../PatternGenerator - Highways")
 pattern_generator_small_roads = NodePath("../PatternGenerator - Small Roads")
 
@@ -97,5 +99,9 @@ texture = SubResource("NoiseTexture2D_xcrlh")
 [node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
 script = ExtResource("6_xcrlh")
 line_color = Color(1, 1, 1, 0.19215687)
+
+[node name="DebugCloseApp" type="Node" parent="." unique_id=837942203]
+script = ExtResource("8_5jm0d")
+metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [editable path="Camera"]
