@@ -49,7 +49,7 @@ max_small_road_start_cells = 3
 small_road_random_walk_length = 30
 small_road_random_walk_turn_odds = 100.0
 small_road_preview_tile = Vector3i(14, 32, 5)
-highway_connection_passes = 0
+highway_connection_passes = 3
 pattern_generator_highways = NodePath("../PatternGenerator - Highways")
 pattern_generator_small_roads = NodePath("../PatternGenerator - Small Roads")
 
