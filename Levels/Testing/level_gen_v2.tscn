@@ -29,12 +29,12 @@ tile_set = ExtResource("1_h3qv7")
 [node name="Level generator" type="Node" parent="." unique_id=1787643501 node_paths=PackedStringArray("tmap", "pattern_generator_highways", "pattern_generator_small_roads")]
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
-tree_iterations = 5
-trim_odds_percentage = Array[float]([0.0, 5.0, 20.0, 40.0, 0.0])
 iterations = 1
 w = 256
 h = 256
 gap = 10
+randomize_generator_seed = false
+generator_seed = -25474
 terrain_noise_freq = 0.008
 base_terrain_height_noise_freq = 0.008
 base_terrain_tiles = Array[Vector3i]([Vector3i(9, 26, 2), Vector3i(9, 23, 2), Vector3i(9, 20, 2)])

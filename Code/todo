@@ -150,24 +150,27 @@
         ✔ fix get_connected_cells() func @done(26-08-31 23:51)
             ✔ fix get_connected_neighbours func @done(26-08-31 23:51)
 
-        Fix: Not all roads are connected to highways
 
-            high level
-                Connect all cellgroups not connected to roads to random neighbours
-                repeat until no unconnected groups are left
+
+
+
+
             
-            pseudo code
-                while true
-                    ✔ get all cellgroups @done(26-08-31 23:53)
-                    
-                    ✔ filter out cellgroups which are connected to highways @done(26-09-01 23:54)
+        Fix: Not all roads are connected to highways
+            Plan:        
+                high level
+                    Connect all cellgroups not connected to roads to random neighbours
+                    repeat until no unconnected groups are left
+            
+            Fix infinite loop issue:
+                ✔ Ensure static rng seed @done(26-09-02 19:37)
 
-                    ✔ if no cellgroups left @done(26-09-01 23:54)
-                        ✔ break @done(26-09-01 23:54)
-                    
-                    for each cellgroup 
-                        connect to random unconnected neighbour
+                Fix dictionary overwrite
 
+                Run 1 test without connection pass
+
+                Run test with 1 connection pass
+               
             
 
 
