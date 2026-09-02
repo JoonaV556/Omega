@@ -295,12 +295,11 @@ func generate():
 		
 		print('Generated %s small road cells' % [small_road_cell_coords.size()])
 
-
 		# Connect all small road cells to highways
 		var passes = 0
 		var connect_highways = highway_connection_passes > 0
 		if connect_highways:
-			for _n in range(highway_connection_passes):
+			while true:
 				print('\n Connecting small road cells to highways, pass: %s' % [passes])
 				var cellgroups = get_connected_cellgroups(
 					small_road_cell_coords,
@@ -310,25 +309,20 @@ func generate():
 
 				print('Found %s connected groups of small road cells' % [cellgroups.size()])
 				
-				# Filter out groups next to highways
-				var cg_filtered = cellgroups.filter(
-					func(_cellgroup): return !is_next_to_highway(
-						_cellgroup,
-						big_road_cells,
-						road_grid_dimensions
-					)
-				)
-
-				print('Found %s cellgroups not connected to highways' % [cg_filtered.size()])
-
-				if cg_filtered.is_empty():
-					print('Canceling connection pass premautrely. No unconnected cellgroups left' % [])
+				# Stop connecting if all cellgroups are connected to highways
+				var cellgroups_not_connected_to_highways = 0
+				for cg in cellgroups:
+					if !is_next_to_highway(cg, big_road_cells, road_grid_dimensions):
+						cellgroups_not_connected_to_highways += 1
+				if cellgroups_not_connected_to_highways == 0:
 					break
+				
+				print('Found %s cellgroups not connected to highways' % [cellgroups_not_connected_to_highways])
 
 				var new_connections : Array = []
 
 				# Connect each cellgroup to random unconnected neighbour
-				for cg : Array[Vector2i] in cg_filtered:
+				for cg : Array[Vector2i] in cellgroups:
 					## start_cell, connection direction
 					var connectable_neighbours : Array[Array] = []
 
@@ -384,6 +378,9 @@ func generate():
 				print('Found %s cellsgroups after merging groups' % [cellgroups.size()])
 					
 				passes += 1
+
+			print('Connected all small road cells to highways after %s connection passes' % [passes])
+			
 		
 		
 #endregion
@@ -563,7 +560,7 @@ func get_connected_cells(cell, map_dimensions, connections_grid) -> Array[Vector
 		var found = []
 		
 		for c in cc:
-			var cn = get_connected_neighbors(cell, connections_grid, map_dimensions)
+			var cn = get_connected_neighbors(c, connections_grid, map_dimensions)
 
 			cn = cn.filter( # Filter alredy found cells
 				func(_c): return (!cc.has(_c)) and (!found.has(_c))
