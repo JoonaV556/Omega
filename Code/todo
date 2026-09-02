@@ -169,11 +169,7 @@
             Fix infinite loop issue:
                 ✔ Ensure static rng seed @done(26-09-02 19:37)
 
-                Fix dictionary overwrite
-
-                Run 1 test without connection pass
-
-                Run test with 1 connection pass
+                ✔ Fix dictionary overwrite @done(26-09-02 23:35)
                
             
 

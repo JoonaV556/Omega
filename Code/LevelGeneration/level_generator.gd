@@ -330,7 +330,7 @@ func generate():
 				# Connect each cellgroup to random unconnected neighbour
 				for cg : Array[Vector2i] in cg_filtered:
 					## start_cell, connection direction
-					var connectable_neighbours : Dictionary[Vector2i, int]
+					var connectable_neighbours : Array[Array] = []
 
 					# get each neighbor (group cell, direction)
 					for c in cg:
@@ -341,18 +341,19 @@ func generate():
 						for _c in neighbours.keys():
 							var add = (small_road_cell_coords.has(_c)) and (!cg.has(_c)) # Check if cell is a small road and doesn't belong to this cellgroup
 							if add:
-								connectable_neighbours[c] = neighbours[_c]
+								connectable_neighbours.append([c, neighbours[_c]])
 
 					if connectable_neighbours.is_empty():
 						continue
 
 					# TODO : refactor into connect_cells func ? 
-					var connect_cell = connectable_neighbours.keys().pick_random()
-					var dir = connectable_neighbours[connect_cell]
+					var connection: Array = connectable_neighbours.pick_random()
+					var connect_cell: Vector2i = connection[0]
+					var dir: int = connection[1]
 					var other_cell = get_cell_in_direction(connect_cell, dir)
 
 					new_connections.append(connect_cell)
-					new_connections.append(connectable_neighbours[connect_cell])
+					new_connections.append(dir)
 					new_connections.append(other_cell)
 					new_connections.append(opposite_connections[dir])
 				
