@@ -38,7 +38,6 @@ generator_seed = -25474
 terrain_noise_freq = 0.008
 base_terrain_height_noise_freq = 0.008
 base_terrain_tiles = Array[Vector3i]([Vector3i(9, 26, 2), Vector3i(9, 23, 2), Vector3i(9, 20, 2)])
-remove_lakes_near_rivers_radius = 2
 lake_water_level_treshold = 0.3
 mountains_level_noise_tresholds = Array[float]([0.7, 0.85])
 mountain_level_tiles = Array[Vector3i]([Vector3i(15, 45, 4), Vector3i(15, 43, 4)])
@@ -95,6 +94,7 @@ scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
 
 [node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
+visible = false
 script = ExtResource("6_xcrlh")
 line_color = Color(1, 1, 1, 0.19215687)
 
