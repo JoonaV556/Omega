@@ -141,8 +141,25 @@ Generate small roads
 ✔ Remove stupid rivers temporarily @done(26-09-04 23:06)
 
 Connect big roads to small roads
-    idea: Connect small roads to big roads on some small road cells which overlap with big roads
+    Algo
+        ✔ Isolate islands of small roads @done(26-09-04 23:44)
+
+        ✔ var connection_cells @done(26-09-04 23:54)
+        ✔ for each island @done(26-09-04 23:54)
+            ✔ pick random connection cell @done(26-09-04 23:54)
+        
+        for connection cell
+            ✔ connect neighboring small roads to the connector @done(26-09-05 00:29)
+
+            int add small road connections
+            int add big road connections
     
+    Render with appropriate patterns
+
+
+
+
+
 Add Buildings
 
 Immersive lighting

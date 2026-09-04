@@ -208,32 +208,32 @@ func generate():
 			)
 
 		# Create 1D array for small road cells 
-		var small_road_grid : PackedByteArray = []
-		small_road_grid.resize(road_grid_dimensions.x * road_grid_dimensions.y)
-		small_road_grid.fill(0)
+		var small_road_connections : PackedByteArray = []
+		small_road_connections.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		small_road_connections.fill(0)
 
 		# Randomize directional connections for small roads
 		for sr_cell in small_road_cells:
 			# Skip if cell already has connections (random walk produces duplicate cells)
-			var connections = small_road_grid[grid_get_index(road_grid_dimensions, sr_cell)]
+			var connections = small_road_connections[grid_get_index(road_grid_dimensions, sr_cell)]
 			var cell_index = grid_get_index(road_grid_dimensions, sr_cell)
 			if connections != 0:
 				continue
 
 			# Ensure at least 1 onnection
 			var ensured_connection = possible_connections.pick_random()
-			small_road_grid[cell_index] = add_connection(connections, ensured_connection)
+			small_road_connections[cell_index] = add_connection(connections, ensured_connection)
 
 			# Add each connection with 50/50 odds
 			for c in possible_connections:
 				if OmegaUtils.roll_percentage_odds(50.0):
-					connections = small_road_grid[cell_index]
-					small_road_grid[cell_index] = add_connection(connections, c)
+					connections = small_road_connections[cell_index]
+					small_road_connections[cell_index] = add_connection(connections, c)
 			
 		# Convert 1D connections to an array of small road 2D coordinates (removes duplicate coords caused by random walk)
 		var small_road_cell_coords: Array[Vector2i] = []
-		for n in range(small_road_grid.size()):
-			var sr_connections = small_road_grid[n]
+		for n in range(small_road_connections.size()):
+			var sr_connections = small_road_connections[n]
 			if sr_connections != 0:
 				small_road_cell_coords.append(
 					index_to_coordinates(n, road_grid_dimensions)
@@ -241,118 +241,172 @@ func generate():
 		
 		print('Generated %s small road cells' % [small_road_cell_coords.size()])
 
-		# Connect all small road cells to highways
+		# Ensure no isolated small road sections remain
 		var passes = 0
-		var connect_highways = highway_connection_passes > 0
-		if connect_highways:
-			while true:
-				print('\n Connecting small road cells to highways, pass: %s' % [passes])
-				var cellgroups = get_connected_cellgroups(
-					small_road_cell_coords,
-					small_road_grid,
-					road_grid_dimensions
-				)
+		while true:
+			print('\n Grouping small road cells, pass: %s' % [passes])
+			var cellgroups = get_connected_cellgroups(
+				small_road_cell_coords,
+				small_road_connections,
+				road_grid_dimensions
+			)
 
-				print('Found %s connected groups of small road cells' % [cellgroups.size()])
-				
-				# Stop connecting if all cellgroups are connected to highways
-				var cellgroups_not_connected_to_highways = 0
-				for cg in cellgroups:
-					if !is_next_to_highway(cg, big_road_cells, road_grid_dimensions):
-						cellgroups_not_connected_to_highways += 1
-				if cellgroups_not_connected_to_highways == 0:
-					break
-				
-				print('Found %s cellgroups not connected to highways' % [cellgroups_not_connected_to_highways])
-
-				var new_connections : Array = []
-
-				# Connect each cellgroup to random unconnected neighbour
-				for cg : Array[Vector2i] in cellgroups:
-					## start_cell, connection direction
-					var connectable_neighbours : Array[Array] = []
-
-					# get each neighbor (group cell, direction)
-					for c in cg:
-						# Get neighboring cells
-						var neighbours : Dictionary[Vector2i, int] = get_neighboring_cells_directions(c, road_grid_dimensions)
-
-						# Pick cells with small roads, which are not connected to this group
-						for _c in neighbours.keys():
-							var add = (small_road_cell_coords.has(_c)) and (!cg.has(_c)) # Check if cell is a small road and doesn't belong to this cellgroup
-							if add:
-								connectable_neighbours.append([c, neighbours[_c]])
-
-					if connectable_neighbours.is_empty():
-						continue
-
-					# TODO : refactor into connect_cells func ? 
-					var connection: Array = connectable_neighbours.pick_random()
-					var connect_cell: Vector2i = connection[0]
-					var dir: int = connection[1]
-					var other_cell = get_cell_in_direction(connect_cell, dir)
-
-					new_connections.append(connect_cell)
-					new_connections.append(dir)
-					new_connections.append(other_cell)
-					new_connections.append(opposite_connections[dir])
-				
-				if new_connections.is_empty():
-					print('No more new possible connections found, highway connections complete.' % [])
-					break
-
-				# Make connections
-				var n = 0
-				while n < new_connections.size():
-					var cell = new_connections[n]
-					var dir = new_connections[n+1]
-					var c_idx = grid_get_index(road_grid_dimensions, cell)
-					small_road_grid[c_idx] = add_connection(
-						small_road_grid[c_idx],
-						dir
-						)
-					n += 2
-
-				print('Made %s new connections' % [new_connections.size()/2])
-
-				cellgroups = get_connected_cellgroups(
-					small_road_cell_coords,
-					small_road_grid,
-					road_grid_dimensions
-				)
-
-				print('Found %s cellsgroups after merging groups' % [cellgroups.size()])
-					
-				passes += 1
-
-			print('Connected all small road cells to highways after %s connection passes' % [passes])
-
-			# Remove dead end connections from small roads
-			for cell : Vector2i in small_road_cell_coords:
-				var cell_index = grid_get_index(road_grid_dimensions, cell)
-				var connections : int = small_road_grid[cell_index]
-
-				for direction : int in possible_connections:
-					if !has_connection(connections, direction):
-						continue
-
-					# Erase connections to neighbours roads which don't return the connection (Connections pointing one way only)
-					var neighbour = get_cell_in_direction(cell, direction)
-					var neighbour_index = grid_get_index(road_grid_dimensions, neighbour)
-					var opposite_direction = opposite_connections[direction]
-					var neighbour_has_connection = (
-						small_road_cell_coords.has(neighbour)
-						and has_connection(small_road_grid[neighbour_index], opposite_direction)
-					)
-					if !neighbour_has_connection:
-						connections -= direction
-
-				small_road_grid[cell_index] = connections
+			print('Found %s connected groups of small road cells' % [cellgroups.size()])
 			
-		
-		
+			# Stop connecting if all cellgroups are connected to highways
+			var cellgroups_not_connected_to_highways = 0
+			for cg in cellgroups:
+				if !is_next_to_highway(cg, big_road_cells, road_grid_dimensions):
+					cellgroups_not_connected_to_highways += 1
+			if cellgroups_not_connected_to_highways == 0:
+				break
+			
+			print('Found %s isolated small road cellgroups' % [cellgroups_not_connected_to_highways])
+
+			var new_connections : Array = []
+
+			# Connect each cellgroup to random unconnected neighbour
+			for cg : Array[Vector2i] in cellgroups:
+				## start_cell, connection direction
+				var connectable_neighbours : Array[Array] = []
+
+				# get each neighbor (group cell, direction)
+				for c in cg:
+					# Get neighboring cells
+					var neighbours : Dictionary[Vector2i, int] = get_neighboring_cells_directions(c, road_grid_dimensions)
+
+					# Pick cells with small roads, which are not connected to this group
+					for _c in neighbours.keys():
+						var add = (small_road_cell_coords.has(_c)) and (!cg.has(_c)) # Check if cell is a small road and doesn't belong to this cellgroup
+						if add:
+							connectable_neighbours.append([c, neighbours[_c]])
+
+				if connectable_neighbours.is_empty():
+					continue
+
+				var connection: Array = connectable_neighbours.pick_random()
+				var connect_cell: Vector2i = connection[0]
+				var dir: int = connection[1]
+				var other_cell = get_cell_in_direction(connect_cell, dir)
+
+				new_connections.append(connect_cell)
+				new_connections.append(dir)
+				new_connections.append(other_cell)
+				new_connections.append(opposite_connections[dir])
+			
+			if new_connections.is_empty():
+				print('No more new possible connections found, highway connections complete.' % [])
+				break
+
+			# Make connections
+			var n = 0
+			while n < new_connections.size():
+				var cell = new_connections[n]
+				var dir = new_connections[n+1]
+				var c_idx = grid_get_index(road_grid_dimensions, cell)
+				small_road_connections[c_idx] = add_connection(
+					small_road_connections[c_idx],
+					dir
+					)
+				n += 2
+
+			print('Made %s new connections' % [new_connections.size()/2])
+
+			cellgroups = get_connected_cellgroups(
+				small_road_cell_coords,
+				small_road_connections,
+				road_grid_dimensions
+			)
+
+			print('Found %s cellsgroups after merging groups' % [cellgroups.size()])
+				
+			passes += 1
+
+		print('Connected all small road cells to highways after %s connection passes' % [passes])
+
+		# Remove dead-end small road connections 
+		for cell : Vector2i in small_road_cell_coords:
+			var cell_index = grid_get_index(road_grid_dimensions, cell)
+			var connections : int = small_road_connections[cell_index]
+
+			for direction : int in possible_connections:
+				if !has_connection(connections, direction):
+					continue
+
+				# Erase connections to neighbours roads which don't return the connection (Connections pointing one way only)
+				var neighbour = get_cell_in_direction(cell, direction)
+				var neighbour_index = grid_get_index(road_grid_dimensions, neighbour)
+				var opposite_direction = opposite_connections[direction]
+				var neighbour_has_connection = (
+					small_road_cell_coords.has(neighbour)
+					and has_connection(small_road_connections[neighbour_index], opposite_direction)
+				)
+				if !neighbour_has_connection:
+					connections -= direction
+
+			small_road_connections[cell_index] = connections
 #endregion
-		# Generate buildings
+
+#region Connect small roads to highways
+		# Gather islands of connected small road sections
+		var small_road_islands = get_connected_cellgroups(
+			small_road_cell_coords,
+			small_road_connections,
+			road_grid_dimensions
+		)
+		print("\nConnecting small roads to highways")
+		print('Found %s separate islands of connected small road cells' % [small_road_islands.size()])
+		print("Small road cell count in each island:")
+		var i_idx = 1
+		for island in small_road_islands:
+			print('\t%s. %s' % [i_idx, island.size()])
+			i_idx += 1
+		
+		# Pick 1 highway connection cell for each island
+		## highway connection cells coordinates for each small road grouping
+		print("Picking highway-small-road connection cells")
+		var connection_cell_coordinates : Array[Vector2i] = []
+
+		for island in small_road_islands:
+			## All possible connection cells for this specific island
+			var connection_cell_candidates = []
+			for _cell in island:
+				var neighbours = get_neighboring_cells(
+					_cell,
+					road_grid_dimensions
+				)
+				connection_cell_candidates.append_array(
+					neighbours.filter(
+						func(_nc : Vector2i): return big_road_cells.has(_nc)
+					)
+				)
+			connection_cell_coordinates.append(connection_cell_candidates.pick_random())
+		
+		print('Picked %s connection cells at the following coordinates:' % [connection_cell_coordinates.size()])
+		for _c in connection_cell_coordinates:
+			print('\t%s' % [_c])
+
+		# Connect neighboring small roads to each connection cell
+		print("Connecting small road cells to highway connector cells.")
+		var connection_count = 0
+		for _c in connection_cell_coordinates:
+			
+			var neighbour_cell_directions = get_neighboring_cells_directions(_c, road_grid_dimensions)
+			for _neighbour_cell : Vector2i in neighbour_cell_directions.keys():
+				
+				# Check if neighbour cell is a small road
+				if small_road_cell_coords.has(_neighbour_cell):
+					
+					# Connect small road to the connector
+					var connections = small_road_connections[grid_get_index(road_grid_dimensions, _neighbour_cell)]
+					small_road_connections[grid_get_index(road_grid_dimensions, _neighbour_cell)] = add_connection(
+						connections, 
+						opposite_connections[neighbour_cell_directions[_neighbour_cell]] # Get direction pointing from the small road cell towards us (the connector cell)
+						)
+					connection_count+=1
+		print('Connected %s small road cells to highway connectors.' % [connection_count])
+
+#endregion
 
 #region Render Terrain
 		# Render terrain on tilemap
@@ -447,7 +501,7 @@ func generate():
 
 				# Check directional connections for the cell
 				var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-				var cell_connections = small_road_grid[cell_connections_idx] # get connections from array (N S E W)
+				var cell_connections = small_road_connections[cell_connections_idx] # get connections from array (N S E W)
 
 				# Retrieve a tile pattern with matching the connections
 				var r_pattern : TileMapPattern = pattern_generator_small_roads.get_pattern_with_connections(cell_connections)
@@ -469,6 +523,7 @@ func is_next_to_highway(cellgroup : Array[Vector2i], highway_cells, grid_dimensi
 	return false
 
 
+## Returns all connected cells in cleanly separated groupings / islands
 func get_connected_cellgroups(cells : Array[Vector2i], grid_connections, grid_dimensions) -> Array[Array]:
 	var unchecked_cells = cells.duplicate()
 			 
