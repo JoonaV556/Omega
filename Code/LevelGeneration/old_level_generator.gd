@@ -1,7 +1,7 @@
 extends Node
 ## Provides functions for generating and drawing procedural levels on tilemaps [br]
-## The usual starting point for generating levels is: [method LevelGenerator.generate_level]
-class_name LevelGenerator
+## The usual starting point for generating levels is: [method LevelGeneratorOld.generate_level]
+class_name LevelGeneratorOld
 
 @export
 var enable_automatic_bulk_generation: bool = true # if true, level is generated and drawn on first update

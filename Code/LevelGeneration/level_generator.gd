@@ -1,4 +1,7 @@
 extends Node
+## Generates procedural terrains, cities, etc. and renders them on a [TileMapLayer] [br]
+## [generate()] is the monolithic generation and rendering function
+class_name LevelGenerator
 
 @export var tmap: TileMapLayer
 
@@ -15,7 +18,6 @@ extends Node
 @export var base_terrain_height_noise_freq = 0.0841
 @export var base_terrain_tiles : Array[Vector3i]
 @export var ground_tile : Vector2i = Vector2i(1,7)
-
 
 # lakes
 @export_group("Lakes")
@@ -98,7 +100,7 @@ func generate():
 		seed(g_seed)
 		print('Generating world with seed %s' % [g_seed])
 
-#region Generate Terrains
+#region Generate Terrain
 		# generate base terrain with height ranging from 1-3 
 		# (noise pixel values genrate in range of 0.0 - 1.0)
 		var base_terrain_height_levels_count : int = randi_range(1,3)
@@ -483,17 +485,6 @@ func generate():
 
 				# Paint on tilemap
 				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
-
-			# Preview render small roads
-			# for sr_cell in small_road_cells:
-			# 	var coordindate_on_tilemap : Vector2i = sr_cell * road_cell_size
-			# 	TilemapLayerExtensions.fill_area(
-			# 		tmap,
-			# 		coordindate_on_tilemap + Vector2i(offset, 0),
-			# 		road_cell_size,
-			# 		small_road_preview_tile.z,
-			# 		Vector2i(small_road_preview_tile.x, small_road_preview_tile.y)
-			# 	)
 
 			# Render small roads
 			for road_cell_coord in small_road_cells:  
