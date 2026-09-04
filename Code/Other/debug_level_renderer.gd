@@ -3,7 +3,7 @@ extends Node2D
 class_name LevelRenderer
 
 @export
-var g_generator: LevelGenerator 
+var g_generator: LevelGeneratorOld 
 @export
 var g_tile_size_in_pixels: int = 16
 @export 

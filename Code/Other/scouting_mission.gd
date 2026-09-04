@@ -3,7 +3,7 @@ extends Node
 class_name ScoutingMission
 
 @export
-var level_generator: LevelGenerator
+var level_generator: LevelGeneratorOld
 @export
 var player: Node2D
 @export
