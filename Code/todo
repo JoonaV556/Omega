@@ -76,105 +76,88 @@
 
 
 
+--- Urban areas
+✔ Define cell size for road grid @done(26-08-25 22:13)
+    ✔ 4x4 @done(26-08-25 22:13)
+✔ Calculate road grid size @done(26-08-25 22:13)
 
-
-
-
-
-
-
-
-
-
-
+✔ Generate big roads on road grid @done(26-08-25 22:13)
     
-        
+✔ Convert big roads to bytearray road grid @done(26-08-25 22:45)
 
+✔ Render big roads @done(26-08-27 00:40)
+    ✔ Render using tilemap patterns @done(26-08-27 00:40)
+        ✔ Write rendering logic framework @done(26-08-26 20:46)
+        ✔ Pattern generator @done(26-08-27 00:40)
+            ✔ saves patterns drawn on tilemap into TileMapPatterns @done(26-08-27 00:40)
+            
+            ✔ get_cell_with_connections(connections : int) -> TileMapPattern @done(26-08-27 00:40)
 
+✔ fix: connect roads to map edges @done(26-08-27 18:10)
 
+✔ fix: prevent big roads from turning along map edges @done(26-08-27 22:38)
 
-
-
-
-
-
-
-
-
-☐ remove big roads
-    gen 
-    render
-
-☐ Urban areas
-    ✔ Define cell size for road grid @done(26-08-25 22:13)
-        ✔ 4x4 @done(26-08-25 22:13)
-    ✔ Calculate road grid size @done(26-08-25 22:13)
-
-    ✔ Generate big roads on road grid @done(26-08-25 22:13)
-     
-    ✔ Convert big roads to bytearray road grid @done(26-08-25 22:45)
+Generate small roads
+    ✔ Pick start positions from big roads @done(26-08-27 22:58)
     
-    ✔ Render big roads @done(26-08-27 00:40)
-        ✔ Render using tilemap patterns @done(26-08-27 00:40)
-            ✔ Write rendering logic framework @done(26-08-26 20:46)
-            ✔ Pattern generator @done(26-08-27 00:40)
-                ✔ saves patterns drawn on tilemap into TileMapPatterns @done(26-08-27 00:40)
-                
-                ✔ get_cell_with_connections(connections : int) -> TileMapPattern @done(26-08-27 00:40)
-
-    ✔ fix: connect roads to map edges @done(26-08-27 18:10)
-
-    ✔ fix: prevent big roads from turning along map edges @done(26-08-27 22:38)
-
-    Generate small roads
-        ✔ Pick start positions from big roads @done(26-08-27 22:58)
-        
-        ✔ Use random walk to define small roads / urban areas @done(26-08-28 00:02)
-            ✔ walk func - dont return cells outside map bounds @done(26-08-28 00:02)
-            ✔ trim cells overlapping big roads @done(26-08-28 00:02)
-        
-        ✔ Render cells preview @done(26-08-28 00:02)
-
-        ✔ Randomize road connections in each road cell @done(26-08-30 18:32)
-            ✔ Create new bytearray for small roads @done(26-08-29 00:12)
-            
-            ✔ For each small road cell @done(26-08-29 00:12)
-                ✔ Skip if array already has connections for cell @done(26-08-29 00:12)
-                ✔ Randomize at least 1 connection @done(26-08-29 00:12)
-                ✔ 50% chance to add each connection @done(26-08-29 00:12)
-                ✔ Make compatible with nearby cells (connect to neighboring connections @done(26-08-29 00:12)
-                ✔ ) @done(26-08-29 00:12)
-            
-        ✔ Render with patterns @done(26-08-30 19:31)
+    ✔ Use random walk to define small roads / urban areas @done(26-08-28 00:02)
+        ✔ walk func - dont return cells outside map bounds @done(26-08-28 00:02)
+        ✔ trim cells overlapping big roads @done(26-08-28 00:02)
     
-        ✔ fix get_connected_cells() func @done(26-08-31 23:51)
-            ✔ fix get_connected_neighbours func @done(26-08-31 23:51)
+    ✔ Render cells preview @done(26-08-28 00:02)
 
-        ✔ Fix: Not all roads are connected to highways @done(26-09-03 00:15)
-            ✔ Plan @done(26-09-03 00:15)
-                ✔ high level @done(26-09-03 00:15)
-                    ✔ Connect all cellgroups not connected to roads to random neighbours @done(26-09-03 00:15)
-                    ✔ repeat until no unconnected groups are left @done(26-09-03 00:15)
-            
-            ✔ Fix infinite loop issue @done(26-09-03 00:15)
-                ✔ Ensure static rng seed @done(26-09-02 19:37)
-
-                ✔ Fix dictionary overwrite @done(26-09-02 23:35)
-            
-            ✔ Connect all cellgroups regardless if connected to highway @done(26-09-03 00:15)
-
-            ✔ Do new passes until no groups not connected to highways are left @done(26-09-03 00:15)
-                
-        ✔ Remove dead ends / cleanup @done(26-09-03 00:33)
-
-    Connect big roads to small roads
-        idea: Connect small roads to big roads on some small road cells which overlap with big roads
+    ✔ Randomize road connections in each road cell @done(26-08-30 18:32)
+        ✔ Create new bytearray for small roads @done(26-08-29 00:12)
         
-    Add Buildings
+        ✔ For each small road cell @done(26-08-29 00:12)
+            ✔ Skip if array already has connections for cell @done(26-08-29 00:12)
+            ✔ Randomize at least 1 connection @done(26-08-29 00:12)
+            ✔ 50% chance to add each connection @done(26-08-29 00:12)
+            ✔ Make compatible with nearby cells (connect to neighboring connections @done(26-08-29 00:12)
+            ✔ ) @done(26-08-29 00:12)
+        
+    ✔ Render with patterns @done(26-08-30 19:31)
 
-☐ add 4 map exits 
+    ✔ fix get_connected_cells() func @done(26-08-31 23:51)
+        ✔ fix get_connected_neighbours func @done(26-08-31 23:51)
 
-☐ fog of war
+    ✔ Fix: Not all roads are connected to highways @done(26-09-03 00:15)
+        ✔ Plan @done(26-09-03 00:15)
+            ✔ high level @done(26-09-03 00:15)
+                ✔ Connect all cellgroups not connected to roads to random neighbours @done(26-09-03 00:15)
+                ✔ repeat until no unconnected groups are left @done(26-09-03 00:15)
+        
+        ✔ Fix infinite loop issue @done(26-09-03 00:15)
+            ✔ Ensure static rng seed @done(26-09-02 19:37)
+
+            ✔ Fix dictionary overwrite @done(26-09-02 23:35)
+        
+        ✔ Connect all cellgroups regardless if connected to highway @done(26-09-03 00:15)
+
+        ✔ Do new passes until no groups not connected to highways are left @done(26-09-03 00:15)
+            
+    ✔ Remove dead ends / cleanup @done(26-09-03 00:33)
+
+✔ Remove stupid rivers temporarily @done(26-09-04 23:06)
+
+Connect big roads to small roads
+    idea: Connect small roads to big roads on some small road cells which overlap with big roads
+    
+Add Buildings
+
+Immersive lighting
+
+Zones (parks, residential, industrial, commercial)
+
+Wilderness pois (factories, bunkers)
+
+Realistic terrain rendering (Terrain elevation)
+
+4 ensured map exits
+
+Fog of war 
+
+Waterfalls....
 
 
     
