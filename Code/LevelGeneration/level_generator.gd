@@ -1,6 +1,6 @@
 extends Node
 ## Generates procedural terrains, cities, etc. and renders them on a [TileMapLayer] [br]
-## [generate()] is the monolithic generation and rendering function
+## See [method LevelGenerator.generate] for the monolithic generation and rendering function
 class_name LevelGenerator
 
 @export var tmap: TileMapLayer
@@ -58,9 +58,9 @@ class_name LevelGenerator
 @export var small_road_preview_tile : Vector3i = Vector3i(0,0,0)
 @export var highway_connection_passes = 1
 
-@export var pattern_generator_highways : TileMapPatternGenerator
-@export var pattern_generator_small_roads : TileMapPatternGenerator
-
+@export var pattern_generator_highways : RoadPatternGenerator
+@export var pattern_generator_small_roads : RoadPatternGenerator
+@export var pattern_generator_connectors : RoadConnectorPatternGenerator
 
 enum tunneler_dir {N, S, E, W}
 
@@ -169,9 +169,9 @@ func generate():
 			big_road_max_branches
 			)
 		
-		var big_road_grid : PackedByteArray = []
-		big_road_grid.resize(road_grid_dimensions.x * road_grid_dimensions.y)
-		big_road_grid.fill(0)
+		var big_road_connections : PackedByteArray = []
+		big_road_connections.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		big_road_connections.fill(0)
 
 		# Save big roads to road grid
 		for road_cell in big_road_cells:
@@ -192,7 +192,7 @@ func generate():
 			for connection in edge_connections:
 				connections = add_connection(connections, connection)
 				
-			big_road_grid[grid_get_index(Vector2i(road_grid_dimensions), road_cell)] = connections
+			big_road_connections[grid_get_index(Vector2i(road_grid_dimensions), road_cell)] = connections
 #endregion
 
 #region Generate Small Roads
@@ -388,12 +388,15 @@ func generate():
 		for _c in connection_cell_coordinates:
 			print('\t%s' % [_c])
 
-		# Connect neighboring small roads to each connection cell
+		# Connect neighboring roads and connector cells together
 		print("Connecting small road cells to highway connector cells.")
+		var connector_cells : Array[RoadConnectorCell] = []
 		var connection_count = 0
 		for _c in connection_cell_coordinates:
+			var connector_cell = RoadConnectorCell.new()
+			connector_cell.coordinate = _c
 			
-			var neighbour_cell_directions = get_neighboring_cells_directions(_c, road_grid_dimensions)
+			var neighbour_cell_directions : Dictionary[Vector2i, int] = get_neighboring_cells_directions(_c, road_grid_dimensions)
 			for _neighbour_cell : Vector2i in neighbour_cell_directions.keys():
 				
 				# Check if neighbour cell is a small road
@@ -406,8 +409,22 @@ func generate():
 						opposite_connections[neighbour_cell_directions[_neighbour_cell]] # Get direction pointing from the small road cell towards us (the connector cell)
 						)
 					connection_count+=1
-		print('Connected %s small road cells to highway connectors.' % [connection_count])
 
+					# Connect connector cell to the small road 
+					connector_cell.small_road_connections = add_connection(
+						connector_cell.small_road_connections,
+						neighbour_cell_directions[_neighbour_cell]
+					)
+
+			# Connect connector to highway
+			connector_cell.highway_connections = big_road_connections[grid_get_index(road_grid_dimensions, _c)]
+			
+			connector_cells.append(connector_cell)
+		print('Connected %s small road cells to highway connectors.' % [connection_count])
+		for _connector : RoadConnectorCell in connector_cells:
+			print('\nConnections for connector cell at coordinates %s:' % [_connector.coordinate])
+			print('\tSmall road connections: %s' % [get_connections_readable(_connector.small_road_connections)])
+			print('\tHighway connections: %s' % [get_connections_readable(_connector.highway_connections)])
 #endregion
 
 #region Render Terrain
@@ -478,7 +495,7 @@ func generate():
 
 				# Check directional connections for the cell
 				var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-				var cell_connections = big_road_grid[cell_connections_idx] # get connections from array (N S E W)
+				var cell_connections = big_road_connections[cell_connections_idx] # get connections from array (N S E W)
 
 				# Retrieve a tile pattern with matching the connections
 				var r_pattern : TileMapPattern = pattern_generator_highways.get_pattern_with_connections(cell_connections)
@@ -500,9 +517,28 @@ func generate():
 				# Paint on tilemap
 				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
+			# Render road connectors 
+			for connector_cell in connector_cells:  
+				var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * road_cell_size
+
+				# Retrieve a tile pattern with matching the connections
+				var r_pattern : TileMapPattern = pattern_generator_connectors.get_connector_pattern(
+					connector_cell.highway_connections, 
+					connector_cell.small_road_connections
+					)
+
+				# Paint on tilemap
+				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+
 #endregion
 		print("x offset: %s" % [offset])
 		print("\n")
+
+
+class RoadConnectorCell:
+	var coordinate : Vector2i
+	var small_road_connections : int
+	var highway_connections : int
 
 
 func is_next_to_highway(cellgroup : Array[Vector2i], highway_cells, grid_dimensions) -> bool:
@@ -590,6 +626,7 @@ func get_connected_neighbors(cell, connections_grid, map_dimensions) -> Array[Ve
 	)
 
 	return connected
+
 
 ## Returns cells in NSEW directions. Filters cells outside map bounds if map_dimensions are given
 func get_neighboring_cells(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Array[Vector2i]:
@@ -717,6 +754,38 @@ func add_connection(connections : int, connection : int) -> int:
 
 func has_connection(connections : int, direction: int) -> bool:
 	return (connections & direction) != 0
+
+
+## Returns each directional road connection represented by the bitmask.
+func get_connections(connections : int) -> Array[int]:
+	var separate_connections : Array[int] = []
+
+	for direction : int in possible_connections:
+		if has_connection(connections, direction):
+			separate_connections.append(direction)
+
+	return separate_connections
+
+
+## Returns each directional road connection represented by the bitmask as a readable string.
+func get_connections_readable(connections : int) -> Array[String]:
+	var readable_connections : Array[String] = []
+
+	for direction : int in possible_connections:
+		if !has_connection(connections, direction):
+			continue
+
+		match direction:
+			R_CONNECTION_N:
+				readable_connections.append("North")
+			R_CONNECTION_S:
+				readable_connections.append("South")
+			R_CONNECTION_E:
+				readable_connections.append("East")
+			R_CONNECTION_W:
+				readable_connections.append("West")
+
+	return readable_connections
 
 
 func generate_forest(_noise_image : Image, forest_treshold : float) -> Array[Vector2i]:
