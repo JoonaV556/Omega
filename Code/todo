@@ -140,25 +140,28 @@ Generate small roads
 
 ✔ Remove stupid rivers temporarily @done(26-09-04 23:06)
 
-Connect big roads to small roads
-    Algo
+✔ Connect big roads to small roads @done(26-09-07 00:30)
+    ✔ Algo @done(26-09-05 19:54)
         ✔ Isolate islands of small roads @done(26-09-04 23:44)
 
         ✔ var connection_cells @done(26-09-04 23:54)
         ✔ for each island @done(26-09-04 23:54)
             ✔ pick random connection cell @done(26-09-04 23:54)
         
-        for connection cell
+        ✔ for connection cell @done(26-09-05 19:54)
             ✔ connect neighboring small roads to the connector @done(26-09-05 00:29)
 
-            int add small road connections
-            int add big road connections
+            ✔ int add small road connections @done(26-09-05 19:54)
+            ✔ int add big road connections @done(26-09-05 19:54)
+            ✔ test connectors by printing @done(26-09-05 20:12)
     
-    Render with appropriate patterns
+    ✔ Render with appropriate patterns @done(26-09-07 00:29)
+        ✔ List possible combinations of small-road and highway connections for connectors @done(26-09-07 00:29)
+        ✔ for each combination @done(26-09-07 00:29)
+            ✔ generate pattern @done(26-09-07 00:29)
+        ✔ render appropriate pattern @done(26-09-07 00:29)
 
-
-
-
+Kuvii githubii
 
 Add Buildings
 
