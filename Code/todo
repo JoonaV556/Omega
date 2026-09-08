@@ -161,9 +161,51 @@ Generate small roads
             ✔ generate pattern @done(26-09-07 00:29)
         ✔ render appropriate pattern @done(26-09-07 00:29)
 
-Kuvii githubii
+
+
+
+
+
+
+
+
+
 
 Add Buildings
+    Generate:
+        ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
+            ✔ 64x64 tiles @done(26-09-08 22:47)
+        ✔ Check if memory usage is ok @done(26-09-08 23:04)
+
+        Pick random road cell for each small_road_coordinate
+            road_cell_provider
+            save in dict[
+                coord, 
+                road_cell_provider.get_matching_cell
+                ]
+        Place buildings in each BuildingPlot
+
+    Render:
+        Render road cells with patterns 
+        Render buildings with probably sprites (allows hiding them on demand)
+
+    Way to create RoadCells
+        RoadCell generator utility node
+        Place on tilemap
+        Define buildin plots with visualized child nodes
+
+    class BuildingPlot
+        position
+        size
+        Array type_tags
+
+    class RoadCell
+        array BuildingPlots
+        int connections
+            N S E W
+        TileMapPattern pattern
+
+    RoadCellProvider
 
 Immersive lighting
 
@@ -176,6 +218,10 @@ Realistic terrain rendering (Terrain elevation)
 4 ensured map exits
 
 Fog of war 
+
+Emissions
+
+Dangerous weather effects
 
 Waterfalls....
 
