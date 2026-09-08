@@ -14,11 +14,11 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_urxea"]
 noise_type = 3
-frequency = 0.0076
+frequency = 0.0091
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xcrlh"]
-width = 256
-height = 256
+width = 640
+height = 640
 noise = SubResource("FastNoiseLite_urxea")
 color_ramp = SubResource("Gradient_urxea")
 
@@ -32,8 +32,8 @@ tile_set = ExtResource("1_h3qv7")
 script = ExtResource("2_r0in5")
 tmap = NodePath("../TileMapLayer")
 iterations = 1
-w = 256
-h = 256
+w = 640
+h = 640
 gap = 10
 generator_seed = -25474
 terrain_noise_freq = 0.008
@@ -43,9 +43,10 @@ lake_water_level_treshold = 0.3
 mountains_level_noise_tresholds = Array[float]([0.7, 0.85])
 mountain_level_tiles = Array[Vector3i]([Vector3i(15, 45, 4), Vector3i(15, 43, 4)])
 forest_edge_tile = Vector3i(22, 38, 1)
-forest_noise_treshold = 0.65
+forest_noise_freq = 0.005
+forest_noise_treshold = 0.55
 small_road_random_walk_length = 200
-small_road_random_walk_turn_odds = 100.0
+small_road_random_walk_turn_odds = 99.0
 small_road_preview_tile = Vector3i(14, 32, 5)
 highway_connection_passes = 3
 pattern_generator_highways = NodePath("../PatternGenerator - Highways")
@@ -98,14 +99,15 @@ position = Vector2(24, -16)
 texture = ExtResource("5_urxea")
 
 [node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1569508249]
-position = Vector2(-149, -1178)
+position = Vector2(-2082, 1977)
 scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
 
 [node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
-position = Vector2(0, -224)
 script = ExtResource("6_xcrlh")
+grid_size = Vector2(1024, 1024)
 line_color = Color(1.9492692, 1.9492692, 1.9492692, 0.39215687)
+grid_extent_pixels = Vector2(10240, 10240)
 
 [node name="DebugCloseApp" type="Node" parent="." unique_id=837942203]
 script = ExtResource("8_5jm0d")

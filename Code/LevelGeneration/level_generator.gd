@@ -6,9 +6,13 @@ class_name LevelGenerator
 @export var tmap: TileMapLayer
 
 @export_category("Generator parameters")
+## Number of levels to generate side by side
 @export var iterations = 3
+## Level width in tilemap tiles
 @export var w : int = 30
+## Level height in tilemap tiles
 @export var h : int = 30
+## Number of empty tiles placed horizontally between each generated level iteration
 @export var gap = 1
 @export var randomize_generator_seed = true
 @export var generator_seed = 12345
