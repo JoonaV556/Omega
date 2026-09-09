@@ -750,13 +750,13 @@ func get_cell_in_direction(source_cell, direction) -> Vector2i:
 
 
 ## Returns connections with the added connection if it does not have it already
-func add_connection(connections : int, connection : int) -> int:
+static func add_connection(connections : int, connection : int) -> int:
 	if !has_connection(connections, connection):
 		return connections + connection
 	return connections
 
 
-func has_connection(connections : int, direction: int) -> bool:
+static func has_connection(connections : int, direction: int) -> bool:
 	return (connections & direction) != 0
 
 
