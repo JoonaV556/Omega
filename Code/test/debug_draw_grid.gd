@@ -18,7 +18,6 @@ extends Node2D
 
 func _draw() -> void:
 	# Get the viewport visible rectangle
-	var viewport_rect := get_viewport_rect()
 	var points := PackedVector2Array()
 
 	# Vertical lines

@@ -172,6 +172,24 @@ Generate small roads
 
 
 Add Buildings
+    Way to create RoadCells
+        ✔ RoadCell generator utility node @done(26-09-10 01:24)
+        ✔ Place on tilemap @done(26-09-10 01:24)
+        Define building plots with visualized child nodes
+
+    ✔ class BuildingPlot @done(26-09-10 00:35)
+        ✔ position @done(26-09-10 00:35)
+        ✔ size @done(26-09-10 00:35)
+        ✔ Array type_tags @done(26-09-10 00:35)
+
+    ✔ class RoadCell @done(26-09-10 00:39)
+        ✔ array BuildingPlots @done(26-09-10 00:39)
+        ✔ int connections @done(26-09-10 00:39)
+            ✔ N S E W @done(26-09-10 00:39)
+        ✔ TileMapPattern pattern @done(26-09-10 00:39)
+
+    RoadCellProvider
+
     Generate:
         ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
             ✔ 64x64 tiles @done(26-09-08 22:47)
@@ -189,23 +207,10 @@ Add Buildings
         Render road cells with patterns 
         Render buildings with probably sprites (allows hiding them on demand)
 
-    Way to create RoadCells
-        RoadCell generator utility node
-        Place on tilemap
-        Define buildin plots with visualized child nodes
 
-    class BuildingPlot
-        position
-        size
-        Array type_tags
 
-    class RoadCell
-        array BuildingPlots
-        int connections
-            N S E W
-        TileMapPattern pattern
 
-    RoadCellProvider
+
 
 Immersive lighting
 
