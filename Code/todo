@@ -161,22 +161,12 @@ Generate small roads
             ✔ generate pattern @done(26-09-07 00:29)
         ✔ render appropriate pattern @done(26-09-07 00:29)
 
-
-
-
-
-
-
-
-
-
-
 Add Buildings
-    Way to create RoadCells
+    ✔ Way to create RoadCells @done(26-09-10 23:25)
         ✔ RoadCell generator utility node @done(26-09-10 01:24)
         ✔ Place on tilemap @done(26-09-10 01:24)
-        Define building plots with visualized child nodes
-
+        ✔ Define building plots with visualized child nodes @done(26-09-10 23:24)
+ 
     ✔ class BuildingPlot @done(26-09-10 00:35)
         ✔ position @done(26-09-10 00:35)
         ✔ size @done(26-09-10 00:35)
@@ -188,7 +178,20 @@ Add Buildings
             ✔ N S E W @done(26-09-10 00:39)
         ✔ TileMapPattern pattern @done(26-09-10 00:39)
 
-    RoadCellProvider
+    ✔ RoadCell group generator @done(26-09-10 19:36)
+        ✔ Generates and stores all road cells in children @done(26-09-10 19:36)
+
+    ✔ Way to create building templates @done(26-09-10 23:51)
+
+    build minimum required building templates
+
+    Build minimum required road cells + with some building plots
+
+    Gather road cells with group generator
+
+    Gather building templates with group generator
+
+    Some sort of database for finding building patterns, road cells
 
     Generate:
         ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
