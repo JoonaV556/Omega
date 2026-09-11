@@ -183,9 +183,14 @@ Add Buildings
 
     ✔ Way to create building templates @done(26-09-10 23:51)
 
-    build minimum required building templates
+    ✔ fix: roadcell_generator roadcell position is not calculated in tilemap coordinates ( / 16) @done(26-09-11 21:45)
+
+    ✔ build minimum required building templates @done(26-09-11 22:10)
 
     Build minimum required road cells + with some building plots
+        ✔ Small road cells @done(26-09-11 23:09)
+        Highways 
+        Connectors
 
     Gather road cells with group generator
 
