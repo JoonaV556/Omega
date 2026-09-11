@@ -99,7 +99,7 @@ func generate(tmap : TileMapLayer) -> RoadCell:
 		if child is ColorRect:
 			var c_rect = child as ColorRect
 			var plot = BuildingPlot.new()
-			plot.position = Vector2i(int(c_rect.position.x), int(c_rect.position.y))
+			plot.position = Vector2i(int(c_rect.position.x / 16), int(c_rect.position.y / 16))
 			plot.size = Vector2i(int(c_rect.size.x / 16), int(c_rect.size.y / 16))
 			_c.building_plots.append(plot)
 
