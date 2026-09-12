@@ -55,8 +55,8 @@ func draw_preview_outline():
 	)
 
 
-func generate(tmap : TileMapLayer) -> RoadCell:
-	var _c = RoadCell.new()
+func generate(tmap : TileMapLayer) -> RoadCellTemplate:
+	var _c = RoadCellTemplate.new()
 	_c.size = size
 
 	# Define connections
@@ -86,7 +86,10 @@ func generate(tmap : TileMapLayer) -> RoadCell:
 	if !tmap: 
 		return null
 
-	var origin_cell = Vector2i(int(position.x) / 16, int(position.y) / 16)
+	var origin_cell = Vector2i(
+		int(floor(position.x / 16.0)),
+		int(floor(position.y / 16.0))
+	)
 	_c.tilemap_pattern = OmegaUtils.get_pattern_from_cell(
 		tmap,
 		origin_cell,
