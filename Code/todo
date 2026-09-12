@@ -187,10 +187,17 @@ Add Buildings
 
     ✔ build minimum required building templates @done(26-09-11 22:10)
 
-    Build minimum required road cells + with some building plots
-        ✔ Small road cells @done(26-09-11 23:09)
-        Highways 
-        Connectors
+    ✔ add structure for road connector cells @done(26-09-13 00:42)
+        ✔ same things as normal road cells @done(26-09-13 00:42)
+        ✔ highway connections @done(26-09-13 00:42)
+        ✔ small road connections @done(26-09-13 00:42)
+    
+    ✔ ai add generator util for road connector cells @done(26-09-13 00:42)
+    
+    ✔ Build minimum required road cells + with some building plots @done(26-09-13 00:43)
+        ✔ Small road cells @done(26-09-13 00:43)
+        ✔ Highways @done(26-09-13 00:43)
+        ✔ Connectors @done(26-09-13 00:43)
 
     Gather road cells with group generator
 

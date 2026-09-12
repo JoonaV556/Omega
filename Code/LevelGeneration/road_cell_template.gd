@@ -1,4 +1,4 @@
-class_name RoadCell
+class_name RoadCellTemplate
 extends RefCounted
 
 var size : Vector2i
