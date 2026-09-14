@@ -17,6 +17,7 @@ class_name LevelGenerator
 @export var randomize_generator_seed = true
 @export var generator_seed = 12345
 @export var terrain_noise_freq = 0.0841
+@export var rwg_cell_template_library : CellTemplateLibrary
 
 # Base terrain height
 @export var base_terrain_height_noise_freq = 0.0841
@@ -166,29 +167,30 @@ func generate():
 		# Generate big roads
 		var road_grid_dimensions : Vector2i = Vector2i(w / road_cell_size.x, h / road_cell_size.y)
 
-		var big_road_cells : Array[Vector2i] = Tunneler2D.branching_random_leap(
+		## Coordinates of each highway cell
+		var highway_cell_coordinates : Array[Vector2i] = Tunneler2D.branching_random_leap(
 			Vector2i(road_grid_dimensions.x, road_grid_dimensions.y), 
 			big_road_max_turns, 
 			big_road_min_walk_length,
 			big_road_max_branches
 			)
 		
-		var big_road_connections : PackedByteArray = []
-		big_road_connections.resize(road_grid_dimensions.x * road_grid_dimensions.y)
-		big_road_connections.fill(0)
+		var highway_cell_connections : PackedByteArray = []
+		highway_cell_connections.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		highway_cell_connections.fill(0)
 
 		# Save big roads to road grid
-		for road_cell in big_road_cells:
+		for road_cell in highway_cell_coordinates:
 			var connections = 0
 
 			# Connect to neighboring road cells
-			if big_road_cells.has(road_cell + Vector2i(0, -1)):
+			if highway_cell_coordinates.has(road_cell + Vector2i(0, -1)):
 				connections += R_CONNECTION_N
-			if big_road_cells.has(road_cell + Vector2i(0, 1)):
+			if highway_cell_coordinates.has(road_cell + Vector2i(0, 1)):
 				connections += R_CONNECTION_S
-			if big_road_cells.has(road_cell + Vector2i(1, 0)):
+			if highway_cell_coordinates.has(road_cell + Vector2i(1, 0)):
 				connections += R_CONNECTION_E
-			if big_road_cells.has(road_cell + Vector2i(-1, 0)):
+			if highway_cell_coordinates.has(road_cell + Vector2i(-1, 0)):
 				connections += R_CONNECTION_W
 
 			# Connect to map edge
@@ -196,21 +198,22 @@ func generate():
 			for connection in edge_connections:
 				connections = add_connection(connections, connection)
 				
-			big_road_connections[grid_get_index(Vector2i(road_grid_dimensions), road_cell)] = connections
+			highway_cell_connections[grid_get_index(Vector2i(road_grid_dimensions), road_cell)] = connections
 #endregion
 
 #region Generate Small Roads
 		# Generate small roads
-		var small_road_cells = generate_small_roads(
-			big_road_cells, 
+		## Unprocessed array of small road cell coordinates produced by a generation algorithm. May contain duplicate cells due to how Random Walk and similar algorithms work.
+		var small_road_cell_coords_raw : Array[Vector2i]= generate_small_roads(
+			highway_cell_coordinates, 
 			road_grid_dimensions, 
 			small_road_random_walk_length,
 			small_road_random_walk_turn_odds
 			)
 		
 		# Erase small road cells overlapping big roads
-		small_road_cells = small_road_cells.filter(
-			func doesnt_overlap_big_road(cell): return !big_road_cells.has(cell)
+		small_road_cell_coords_raw = small_road_cell_coords_raw.filter(
+			func doesnt_overlap_big_road(cell): return !highway_cell_coordinates.has(cell)
 			)
 
 		# Create 1D array for small road cells 
@@ -219,7 +222,7 @@ func generate():
 		small_road_connections.fill(0)
 
 		# Randomize directional connections for small roads
-		for sr_cell in small_road_cells:
+		for sr_cell in small_road_cell_coords_raw:
 			# Skip if cell already has connections (random walk produces duplicate cells)
 			var connections = small_road_connections[grid_get_index(road_grid_dimensions, sr_cell)]
 			var cell_index = grid_get_index(road_grid_dimensions, sr_cell)
@@ -237,7 +240,8 @@ func generate():
 					small_road_connections[cell_index] = add_connection(connections, c)
 			
 		# Convert 1D connections to an array of small road 2D coordinates (removes duplicate coords caused by random walk)
-		var small_road_cell_coords: Array[Vector2i] = []
+		## 2D road grid coordinates containing small roads / urban cells. Can be considered "clean" as no duplicate coordinates should exist.
+		var small_road_cell_coords : Array[Vector2i] = []
 		for n in range(small_road_connections.size()):
 			var sr_connections = small_road_connections[n]
 			if sr_connections != 0:
@@ -262,7 +266,7 @@ func generate():
 			# Stop connecting if all cellgroups are connected to highways
 			var cellgroups_not_connected_to_highways = 0
 			for cg in cellgroups:
-				if !is_next_to_highway(cg, big_road_cells, road_grid_dimensions):
+				if !is_next_to_highway(cg, highway_cell_coordinates, road_grid_dimensions):
 					cellgroups_not_connected_to_highways += 1
 			if cellgroups_not_connected_to_highways == 0:
 				break
@@ -383,7 +387,7 @@ func generate():
 				)
 				connection_cell_candidates.append_array(
 					neighbours.filter(
-						func(_nc : Vector2i): return big_road_cells.has(_nc)
+						func(_nc : Vector2i): return highway_cell_coordinates.has(_nc)
 					)
 				)
 			connection_cell_coordinates.append(connection_cell_candidates.pick_random())
@@ -421,7 +425,7 @@ func generate():
 					)
 
 			# Connect connector to highway
-			connector_cell.highway_connections = big_road_connections[grid_get_index(road_grid_dimensions, _c)]
+			connector_cell.highway_connections = highway_cell_connections[grid_get_index(road_grid_dimensions, _c)]
 			
 			connector_cells.append(connector_cell)
 		print('Connected %s small road cells to highway connectors.' % [connection_count])
@@ -429,6 +433,48 @@ func generate():
 			print('\nConnections for connector cell at coordinates %s:' % [_connector.coordinate])
 			print('\tSmall road connections: %s' % [get_connections_readable(_connector.small_road_connections)])
 			print('\tHighway connections: %s' % [get_connections_readable(_connector.highway_connections)])
+#endregion
+
+#region Pick cell templates for road cells
+
+		var small_road_templates : Dictionary[Vector2i, RoadCellTemplate]
+		var connector_templates : Dictionary[Vector2i, RoadConnectorCellTemplate]
+		var highway_templates : Dictionary[Vector2i, RoadCellTemplate]
+
+		for _c : Vector2i in small_road_cell_coords:
+			var templ = rwg_cell_template_library.get_random_small_road_template(
+				get_value_at_2d_coordinates(
+					small_road_connections,
+					_c,
+					road_grid_dimensions
+				)
+			)
+			if templ:
+				small_road_templates[_c] = templ
+
+		for _c : RoadConnectorCell in connector_cells:
+			var templ = rwg_cell_template_library.get_random_connector_template(
+				_c.small_road_connections,
+				_c.highway_connections
+			)
+			if templ:
+				connector_templates[_c.coordinate] = templ
+
+		for _c : Vector2i in highway_cell_coordinates:
+			var templ = rwg_cell_template_library.get_random_highway_template(
+				get_value_at_2d_coordinates(
+					highway_cell_connections,
+					_c,
+					road_grid_dimensions
+				)
+			)
+			if templ:
+				highway_templates[_c] = templ
+		
+		print('Succesfully picked %s cell templates for %s small road cells.' % [small_road_templates.keys().size(), small_road_cell_coords.size()])
+		print('Succesfully picked %s cell templates for %s highway cells.' % [highway_templates.keys().size(), highway_cell_coordinates.size()])
+		print('Succesfully picked %s cell templates for %s road connector cells.' % [connector_templates.keys().size(), connector_cells.size()])
+
 #endregion
 
 #region Render Terrain
@@ -494,12 +540,12 @@ func generate():
 
 #region Render Urban
 			# Render highways
-			for road_cell_coord in big_road_cells:
+			for road_cell_coord in highway_cell_coordinates:
 				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
 
 				# Check directional connections for the cell
 				var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-				var cell_connections = big_road_connections[cell_connections_idx] # get connections from array (N S E W)
+				var cell_connections = highway_cell_connections[cell_connections_idx] # get connections from array (N S E W)
 
 				# Retrieve a tile pattern with matching the connections
 				var r_pattern : TileMapPattern = pattern_generator_highways.get_pattern_with_connections(cell_connections)
@@ -508,7 +554,7 @@ func generate():
 				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 			# Render small roads
-			for road_cell_coord in small_road_cells:  
+			for road_cell_coord in small_road_cell_coords_raw:  
 				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
 
 				# Check directional connections for the cell
@@ -543,6 +589,10 @@ class RoadConnectorCell:
 	var coordinate : Vector2i
 	var small_road_connections : int
 	var highway_connections : int
+
+## returns 1d array member at index mapped from 2d coordinates.
+func get_value_at_2d_coordinates(array_1d, coord: Vector2i, dimensions: Vector2i) -> Variant:
+	return array_1d[grid_get_index(dimensions, coord)]
 
 
 func is_next_to_highway(cellgroup : Array[Vector2i], highway_cells, grid_dimensions) -> bool:
