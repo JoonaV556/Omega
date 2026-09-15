@@ -26,7 +26,7 @@ class_name LevelGenerator
 
 # lakes
 @export_group("Lakes")
-@export var lake_water_level_treshold = 0.7 
+@export var lake_water_level_treshold = 0.7
 @export var lake_tile = Vector3i(17, 39, 4)
 
 # mountains
@@ -39,7 +39,7 @@ class_name LevelGenerator
 @export var forest_edge_thickness = 1
 @export var forest_edge_tile : Vector3i
 
-# forest middle 
+# forest middle
 @export_group("Middle Forests")
 @export var forest_noise_freq = 0.0841
 @export var forest_noise_treshold = 0.7
@@ -165,7 +165,10 @@ func generate():
 
 #region Generate Highways
 		# Generate big roads
-		var road_grid_dimensions : Vector2i = Vector2i(w / road_cell_size.x, h / road_cell_size.y)
+		var road_grid_dimensions : Vector2i = Vector2i(
+			int(float(w) / road_cell_size.x),
+			int(float(h) / road_cell_size.y)
+		)
 
 		## Coordinates of each highway cell
 		var highway_cell_coordinates : Array[Vector2i] = Tunneler2D.branching_random_leap(
@@ -320,7 +323,7 @@ func generate():
 					)
 				n += 2
 
-			print('Made %s new connections' % [new_connections.size()/2])
+			print('Made %s new connections' % [int(new_connections.size() / 2.0)])
 
 			cellgroups = get_connected_cellgroups(
 				small_road_cell_coords,
@@ -482,104 +485,98 @@ func generate():
 		# Render terrain on tilemap
 		for y in range(h):
 			for x in range(w):
-				var c : Vector2i = Vector2i(x, y)
-				
-				# Ground
-				tmap.set_cell(
-					Vector2i(x + offset, y),
-					4,
-					ground_tile
-				)
+				var source_id : int = 4
+				var atlas_coords : Vector2i = ground_tile
 
 				# Base terrain
-				for n in base_terrain_tiles.size():
-					if base_terrain_heightmap[y][x] == n:
-						tmap.set_cell(
-						Vector2i(x+offset, y),
-						base_terrain_tiles[n].z,
-						Vector2i(base_terrain_tiles[n].x, base_terrain_tiles[n].y)
-					)
+				var base_terrain_height : int = base_terrain_heightmap[y][x]
+				if base_terrain_height < base_terrain_tiles.size():
+					var base_terrain_tile : Vector3i = base_terrain_tiles[base_terrain_height]
+					source_id = base_terrain_tile.z
+					atlas_coords = Vector2i(base_terrain_tile.x, base_terrain_tile.y)
 				
 				# Lake
 				if lake_map[y][x] == true:
-					tmap.set_cell(
-						Vector2i(x+offset, y),
-						lake_tile.z,
-						Vector2i(lake_tile.x, lake_tile.y)
-					)
+					source_id = lake_tile.z
+					atlas_coords = Vector2i(lake_tile.x, lake_tile.y)
 				
 				# Mountains
 				var mount_height : int = mountains_heightmap[y][x]
-				
-				for n in range(mountain_level_tiles.size()):
-					var mountain_tile : Vector3i = mountain_level_tiles[n]
-
-					if (n+1) == mount_height:
-						# paint mountain
-						tmap.set_cell(
-							Vector2i(x + offset, y),
-							mountain_tile.z,
-							Vector2i(mountain_tile.x, mountain_tile.y)
-						)
+				if mount_height > 0 and mount_height <= mountain_level_tiles.size():
+					var mountain_tile : Vector3i = mountain_level_tiles[mount_height - 1]
+					source_id = mountain_tile.z
+					atlas_coords = Vector2i(mountain_tile.x, mountain_tile.y)
 				
 				# Forest edge
 				if forest_edge_cells[y][x] == true:
-					tmap.set_cell(
-							Vector2i(x + offset, y),
-							forest_edge_tile.z,
-							Vector2i(forest_edge_tile.x, forest_edge_tile.y)
-						)
+					source_id = forest_edge_tile.z
+					atlas_coords = Vector2i(forest_edge_tile.x, forest_edge_tile.y)
 
-				# Forest 
-				if forest_cells.has(c):
-					tmap.set_cell(
-						Vector2i(c.x + offset, c.y),
-						forest_edge_tile.z,
-						Vector2i(forest_edge_tile.x, forest_edge_tile.y)
-					)
+				tmap.set_cell(Vector2i(x + offset, y), source_id, atlas_coords)
+
+		# Forest overrides the terrain cell, matching the previous render order.
+		for coord in forest_cells:
+			tmap.set_cell(
+				Vector2i(coord.x + offset, coord.y),
+				forest_edge_tile.z,
+				Vector2i(forest_edge_tile.x, forest_edge_tile.y)
+			)
 #endregion
 
 #region Render Urban
-			# Render highways
-			for road_cell_coord in highway_cell_coordinates:
-				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
+		var highway_pattern_cache : Dictionary = {}
+		var small_road_pattern_cache : Dictionary = {}
 
-				# Check directional connections for the cell
-				var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-				var cell_connections = highway_cell_connections[cell_connections_idx] # get connections from array (N S E W)
+		# Render highways
+		for road_cell_coord in highway_cell_coordinates:
+			var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
 
-				# Retrieve a tile pattern with matching the connections
-				var r_pattern : TileMapPattern = pattern_generator_highways.get_pattern_with_connections(cell_connections)
+			# Check directional connections for the cell
+			var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
+			var cell_connections = highway_cell_connections[cell_connections_idx] # get connections from array (N S E W)
 
-				# Paint on tilemap
-				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+			# Retrieve a tile pattern with matching the connections
+			var r_pattern : TileMapPattern
+			if highway_pattern_cache.has(cell_connections):
+				r_pattern = highway_pattern_cache[cell_connections]
+			else:
+				r_pattern = pattern_generator_highways.get_pattern_with_connections(cell_connections)
+				highway_pattern_cache[cell_connections] = r_pattern
 
-			# Render small roads
-			for road_cell_coord in small_road_cell_coords_raw:  
-				var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
+			# Paint on tilemap
+			tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
-				# Check directional connections for the cell
-				var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-				var cell_connections = small_road_connections[cell_connections_idx] # get connections from array (N S E W)
+		# Render small roads
+		for road_cell_coord in small_road_cell_coords:
+			var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
 
-				# Retrieve a tile pattern with matching the connections
-				var r_pattern : TileMapPattern = pattern_generator_small_roads.get_pattern_with_connections(cell_connections)
+			# Check directional connections for the cell
+			var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
+			var cell_connections = small_road_connections[cell_connections_idx] # get connections from array (N S E W)
 
-				# Paint on tilemap
-				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+			# Retrieve a tile pattern with matching the connections
+			var r_pattern : TileMapPattern
+			if small_road_pattern_cache.has(cell_connections):
+				r_pattern = small_road_pattern_cache[cell_connections]
+			else:
+				r_pattern = pattern_generator_small_roads.get_pattern_with_connections(cell_connections)
+				small_road_pattern_cache[cell_connections] = r_pattern
 
-			# Render road connectors 
-			for connector_cell in connector_cells:  
-				var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * road_cell_size
+			# Paint on tilemap
+			tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
-				# Retrieve a tile pattern with matching the connections
-				var r_pattern : TileMapPattern = pattern_generator_connectors.get_connector_pattern(
-					connector_cell.highway_connections, 
-					connector_cell.small_road_connections
-					)
+		# Render road connectors 
+		for connector_cell in connector_cells:  
+			var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * road_cell_size
 
-				# Paint on tilemap
-				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+			# Retrieve a tile pattern with matching the connections
+			var r_pattern : TileMapPattern = pattern_generator_connectors.get_connector_pattern(
+				connector_cell.highway_connections, 
+				connector_cell.small_road_connections
+				)
+
+			# Paint on tilemap
+			tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 #endregion
 #endregion

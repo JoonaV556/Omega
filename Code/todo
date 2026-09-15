@@ -218,7 +218,26 @@ Add Buildings
         ✔ connector @done(26-09-15 00:38)
         ✔ test @done(26-09-16 01:18)
 
-    Test slowness
+    ✔ Test slowness @done(26-09-16 02:09)
+        ✔ Timing results @done(26-09-16 02:09)
+            ✔ Generate Terrain took 316.721 ms @done(26-09-16 02:09)
+            ✔ Generate Highways took 0.934 ms @done(26-09-16 02:09)
+            ✔ Generate Small Roads took 81.878 ms @done(26-09-16 02:09)
+            ✔ Connect Small Roads to Highways took 16.330 ms @done(26-09-16 02:09)
+            ✔ Pick Cell Templates for Road Cells took 1.224 ms @done(26-09-16 02:09)
+            ✔ Render Terrain took 93168.323 ms @done(26-09-16 02:09)
+            ✔ Render Urban took 2.447 ms @done(26-09-16 02:09)
+        ✔ @done(26-09-16 02:09)
+        ✔ wrap terrain render steps with timers and document results @done(26-09-16 02:09)
+            ✔ results inside a single 2D render loop iteration @done(26-09-16 02:09)
+                ✔ Render Terrain - Ground took 338.452 ms @done(26-09-16 02:09)
+                ✔ Render Terrain - Base Terrain took 207.848 ms @done(26-09-16 02:09)
+                ✔ Render Terrain - Lake took 87.607 ms @done(26-09-16 02:09)
+                ✔ Render Terrain - Mountains took 131.287 ms @done(26-09-16 02:09)
+                ✔ Render Terrain - Forest Edge took 58.409 ms @done(26-09-16 02:09)
+                ✔ Render Terrain - Forest took 132820.571 ms @done(26-09-16 02:09)
+
+    ✔ Optimize rendering loop @done(26-09-16 02:09)
 
     Place buildings in each BuildingPlot
 
@@ -226,11 +245,7 @@ Add Buildings
     
     Render buildings with probably sprites (allows hiding them on demand)
 
-
-
-
-
-
+    
 Immersive lighting
 
 Zones (parks, residential, industrial, commercial)
