@@ -199,31 +199,32 @@ Add Buildings
         ✔ Highways @done(26-09-13 00:43)
         ✔ Connectors @done(26-09-13 00:43)
 
-    Generate:
-        ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
-            ✔ 64x64 tiles @done(26-09-08 22:47)
-        ✔ Check if memory usage is ok @done(26-09-08 23:04)
+    ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
+        ✔ 64x64 tiles @done(26-09-08 22:47)
+    ✔ Check if memory usage is ok @done(26-09-08 23:04)
 
-        ✔ implement cell_template_library for gathering rwg cells @done(26-09-14 23:02)
-            ✔ get_random_sm_cell(connections) @done(26-09-14 23:02)
+    ✔ implement cell_template_library for gathering rwg cells @done(26-09-14 23:02)
+        ✔ get_random_sm_cell(connections) @done(26-09-14 23:02)
 
-        implement library in level & pipe templates to library
-            ✔ small roads @done(26-09-15 00:21)
-            ✔ highways @done(26-09-15 00:21)
-            ✔ connectors @done(26-09-15 00:21)
-            test 
+    ✔ implement library in level & pipe templates to library @done(26-09-16 01:18)
+        ✔ small roads @done(26-09-16 01:18)
+        ✔ highways @done(26-09-16 01:18)
+        ✔ connectors @done(26-09-16 01:18)
+        ✔ test @done(26-09-16 01:18)
 
-        Pick road templates for each road cell
-            ✔ small road @done(26-09-14 23:16)
-            ✔ highway @done(26-09-15 00:38)
-            ✔ connector @done(26-09-15 00:38)
-            test
+    ✔ Pick road templates for each road cell @done(26-09-16 01:18)
+        ✔ small road @done(26-09-14 23:16)
+        ✔ highway @done(26-09-15 00:38)
+        ✔ connector @done(26-09-15 00:38)
+        ✔ test @done(26-09-16 01:18)
 
-        Place buildings in each BuildingPlot
+    Test slowness
 
-    Render:
-        Render road cells with patterns 
-        Render buildings with probably sprites (allows hiding them on demand)
+    Place buildings in each BuildingPlot
+
+    Render road cells with patterns 
+    
+    Render buildings with probably sprites (allows hiding them on demand)
 
 
 
