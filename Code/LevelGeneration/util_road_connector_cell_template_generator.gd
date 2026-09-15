@@ -125,7 +125,6 @@ func generate(tmap : TileMapLayer) -> RoadConnectorCellTemplate:
 	)
 
 	# Define plots
-	_c.building_plots = []
 	for child in get_children():
 		if child is ColorRect:
 			var c_rect = child as ColorRect

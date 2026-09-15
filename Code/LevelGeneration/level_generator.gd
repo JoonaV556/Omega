@@ -477,6 +477,7 @@ func generate():
 
 #endregion
 
+#region Render
 #region Render Terrain
 		# Render terrain on tilemap
 		for y in range(h):
@@ -580,6 +581,7 @@ func generate():
 				# Paint on tilemap
 				tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
+#endregion
 #endregion
 		print("x offset: %s" % [offset])
 		print("\n")

@@ -56,31 +56,32 @@ func draw_preview_outline():
 
 
 func generate(tmap : TileMapLayer) -> RoadCellTemplate:
-	var _c = RoadCellTemplate.new()
+	var _c : RoadCellTemplate = RoadCellTemplate.new()
 	_c.size = size
 
 	# Define connections
-	var connections = 0
+	var _connections = 0
 	if connection_north:
-		connections = LevelGenerator.add_connection(
-			connections, 
+		_connections = LevelGenerator.add_connection(
+			_connections, 
 			LevelGenerator.R_CONNECTION_N
 			)
 	if connection_south:
-		connections = LevelGenerator.add_connection(
-			connections, 
+		_connections = LevelGenerator.add_connection(
+			_connections, 
 			LevelGenerator.R_CONNECTION_S
 			)
 	if connection_east:
-		connections = LevelGenerator.add_connection(
-			connections, 
+		_connections = LevelGenerator.add_connection(
+			_connections, 
 			LevelGenerator.R_CONNECTION_E
 			)
 	if connection_west:
-		connections = LevelGenerator.add_connection(
-			connections, 
+		_connections = LevelGenerator.add_connection(
+			_connections, 
 			LevelGenerator.R_CONNECTION_W
 			)
+	_c.connections = _connections
 
 	# Define tilemap pattern
 	if !tmap: 
@@ -97,7 +98,7 @@ func generate(tmap : TileMapLayer) -> RoadCellTemplate:
 	)
 
 	# Define plots 
-	_c. building_plots = []
+	_c.building_plots = []
 	for child in get_children():
 		if child is ColorRect:
 			var c_rect = child as ColorRect
