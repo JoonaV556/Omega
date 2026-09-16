@@ -239,9 +239,13 @@ Add Buildings
 
     ✔ Optimize rendering loop @done(26-09-16 02:09)
 
-    Place buildings in each BuildingPlot
+    ✔ Render road cells with patterns @done(26-09-17 02:38)
+        ✔ fix: road patterns leave empty tiles in tilemap @done(26-09-17 02:38)
+            ✔ test what alas coords and source ids do empty cells have @done(26-09-17 02:38)
+            ✔ empty cells have atlas coords -1, -1 and source id -1 (negative) @done(26-09-17 02:38)
+            ✔ implement func set_pattern_ignore_empty_tiles() @done(26-09-17 02:38)
 
-    Render road cells with patterns 
+    Place buildings in each BuildingPlot
     
     Render buildings with probably sprites (allows hiding them on demand)
 

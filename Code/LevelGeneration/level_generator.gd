@@ -45,6 +45,8 @@ class_name LevelGenerator
 @export var forest_noise_treshold = 0.7
 
 # Roads
+@export_group("Roads")
+## Size of map road cells in tilemap tiles. 4x4 results in road cells sized 4x4 tiles, or 4x4 meters
 @export var road_cell_size : Vector2i = Vector2i(4, 4)
 
 # Big roads
@@ -61,11 +63,7 @@ class_name LevelGenerator
 @export var small_road_random_walk_length = 50
 @export var small_road_random_walk_turn_odds = 60.0
 @export var small_road_preview_tile : Vector3i = Vector3i(0,0,0)
-@export var highway_connection_passes = 1
 
-@export var pattern_generator_highways : RoadPatternGenerator
-@export var pattern_generator_small_roads : RoadPatternGenerator
-@export var pattern_generator_connectors : RoadConnectorPatternGenerator
 
 enum tunneler_dir {N, S, E, W}
 
@@ -524,59 +522,35 @@ func generate():
 #endregion
 
 #region Render Urban
-		var highway_pattern_cache : Dictionary = {}
-		var small_road_pattern_cache : Dictionary = {}
-
 		# Render highways
-		for road_cell_coord in highway_cell_coordinates:
-			var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
-
-			# Check directional connections for the cell
-			var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-			var cell_connections = highway_cell_connections[cell_connections_idx] # get connections from array (N S E W)
+		for coord in highway_cell_coordinates:
+			var coordindate_on_tilemap : Vector2i = coord * road_cell_size
 
 			# Retrieve a tile pattern with matching the connections
-			var r_pattern : TileMapPattern
-			if highway_pattern_cache.has(cell_connections):
-				r_pattern = highway_pattern_cache[cell_connections]
-			else:
-				r_pattern = pattern_generator_highways.get_pattern_with_connections(cell_connections)
-				highway_pattern_cache[cell_connections] = r_pattern
+			var r_pattern : TileMapPattern = highway_templates[coord].tilemap_pattern
 
 			# Paint on tilemap
-			tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+			set_pattern_ignore_empty_tiles(tmap, coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 		# Render small roads
-		for road_cell_coord in small_road_cell_coords:
-			var coordindate_on_tilemap : Vector2i = road_cell_coord * road_cell_size
-
-			# Check directional connections for the cell
-			var cell_connections_idx = grid_get_index(road_grid_dimensions, road_cell_coord) # get cell index in 1D road grid array
-			var cell_connections = small_road_connections[cell_connections_idx] # get connections from array (N S E W)
+		for coord in small_road_cell_coords:
+			var coordindate_on_tilemap : Vector2i = coord * road_cell_size
 
 			# Retrieve a tile pattern with matching the connections
-			var r_pattern : TileMapPattern
-			if small_road_pattern_cache.has(cell_connections):
-				r_pattern = small_road_pattern_cache[cell_connections]
-			else:
-				r_pattern = pattern_generator_small_roads.get_pattern_with_connections(cell_connections)
-				small_road_pattern_cache[cell_connections] = r_pattern
+			var r_pattern : TileMapPattern = small_road_templates[coord].tilemap_pattern
 
 			# Paint on tilemap
-			tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+			set_pattern_ignore_empty_tiles(tmap, coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 		# Render road connectors 
 		for connector_cell in connector_cells:  
 			var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * road_cell_size
 
 			# Retrieve a tile pattern with matching the connections
-			var r_pattern : TileMapPattern = pattern_generator_connectors.get_connector_pattern(
-				connector_cell.highway_connections, 
-				connector_cell.small_road_connections
-				)
+			var r_pattern : TileMapPattern = connector_templates[connector_cell.coordinate].tilemap_pattern
 
 			# Paint on tilemap
-			tmap.set_pattern(coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+			set_pattern_ignore_empty_tiles(tmap, coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
 
 #endregion
 #endregion
@@ -584,10 +558,28 @@ func generate():
 		print("\n")
 
 
+func set_pattern_ignore_empty_tiles(tilemap: TileMapLayer, tilemap_coord: Vector2i, pattern: TileMapPattern) -> void:
+	if tilemap == null or pattern == null:
+		return
+
+	var pattern_size : Vector2i = pattern.get_size()
+	for y in range(pattern_size.y):
+		for x in range(pattern_size.x):
+			var local_cell_coord : Vector2i = Vector2i(x, y)
+			var source_id : int = pattern.get_cell_source_id(local_cell_coord)
+			var atlas_coords : Vector2i = pattern.get_cell_atlas_coords(local_cell_coord)
+
+			if source_id < 0 or atlas_coords.x < 0 or atlas_coords.y < 0:
+				continue
+
+			tilemap.set_cell(tilemap_coord + local_cell_coord, source_id, atlas_coords)
+
+
 class RoadConnectorCell:
 	var coordinate : Vector2i
 	var small_road_connections : int
 	var highway_connections : int
+
 
 ## returns 1d array member at index mapped from 2d coordinates.
 func get_value_at_2d_coordinates(array_1d, coord: Vector2i, dimensions: Vector2i) -> Variant:
