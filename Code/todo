@@ -233,7 +233,7 @@ Add Buildings
                 ✔ Render Terrain - Ground took 338.452 ms @done(26-09-16 02:09)
                 ✔ Render Terrain - Base Terrain took 207.848 ms @done(26-09-16 02:09)
                 ✔ Render Terrain - Lake took 87.607 ms @done(26-09-16 02:09)
-                ✔ Render Terrain - Mountains took 131.287 ms @done(26-09-16 02:09)
+                ✔ Render Terrain - Mountains took 131.287 ms @done(26-09-16 s02:09)
                 ✔ Render Terrain - Forest Edge took 58.409 ms @done(26-09-16 02:09)
                 ✔ Render Terrain - Forest took 132820.571 ms @done(26-09-16 02:09)
 
@@ -245,9 +245,13 @@ Add Buildings
             ✔ empty cells have atlas coords -1, -1 and source id -1 (negative) @done(26-09-17 02:38)
             ✔ implement func set_pattern_ignore_empty_tiles() @done(26-09-17 02:38)
 
-    Place buildings in each BuildingPlot
+    ✔ Place buildings in each BuildingPlot @done(26-09-19 01:15)
+        ✔ output buildings into templ library @done(26-09-17 22:24)
+        ✔ bt generator - save plot position relative to cell origin @done(26-09-19 01:02)
+        ✔ LIB - get_matching_buildings @done(26-09-19 01:02)
+        ✔ store buildings dict[coord, templ] @done(26-09-19 01:15)
     
-    Render buildings with probably sprites (allows hiding them on demand)
+    ✔ Render buildings with probably sprites (allows hiding them on demand) @done(26-09-19 01:46)
 
     
 Immersive lighting
