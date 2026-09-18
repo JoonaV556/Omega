@@ -14,6 +14,6 @@ func generate() -> BuildingTemplate:
 	var atlas = texture as AtlasTexture
 	if !atlas:
 		return null
-	templ.texture = atlas
+	templ.texture = atlas.duplicate()
 	templ.name = template_name
 	return templ

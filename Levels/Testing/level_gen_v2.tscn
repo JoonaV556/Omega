@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="6_xcrlh"]
 [ext_resource type="Script" uid="uid://dm332oojpanf1" path="res://Code/LevelGeneration/road_pattern_generator.gd" id="7_ia673"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="8_5jm0d"]
+[ext_resource type="Script" uid="uid://b757lmigcfpbc" path="res://Code/LevelGeneration/util_building_template_group_generator.gd" id="11_tckok"]
 [ext_resource type="Texture2D" uid="uid://bfcdijubx70v1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="12_d3cnt"]
 [ext_resource type="Script" uid="uid://cmhselqf2tden" path="res://Code/LevelGeneration/util_building_template_generator.gd" id="12_rdwxe"]
 [ext_resource type="Texture2D" uid="uid://dli01dibtpnh0" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/22_Post_Office_16x16.png" id="14_du351"]
@@ -122,6 +123,7 @@ scale = Vector2(5.8729277, 5.8729277)
 texture = SubResource("NoiseTexture2D_xcrlh")
 
 [node name="draw grid" type="Node2D" parent="." unique_id=1952955361]
+visible = false
 script = ExtResource("6_xcrlh")
 grid_size = Vector2(1024, 1024)
 line_color = Color(1.9492692, 1.9492692, 1.9492692, 0.39215687)
@@ -131,9 +133,13 @@ grid_extent_pixels = Vector2(10240, 10240)
 script = ExtResource("8_5jm0d")
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
-[node name="Node2D - BuildingTemplates" type="Node2D" parent="." unique_id=422754372]
+[node name="BuildingTemplates" type="Node2D" parent="." unique_id=1338998326 node_paths=PackedStringArray("tilemap", "output_library")]
+script = ExtResource("11_tckok")
+tilemap = NodePath("../TileMapLayer")
+output_library = NodePath("../CellTemplateLibrary")
+output_group_name = &"buildings"
 
-[node name="UtilBuildingTemplateGenerator" type="Sprite2D" parent="Node2D - BuildingTemplates" unique_id=1508264149]
+[node name="UtilBuildingTemplateGenerator" type="Sprite2D" parent="BuildingTemplates" unique_id=1508264149]
 position = Vector2(0, -592)
 texture = SubResource("AtlasTexture_rdwxe")
 centered = false
@@ -142,7 +148,7 @@ building_dimensions = Vector2i(8, 13)
 template_name = "suburb_house_1"
 metadata/_custom_type_script = "uid://cmhselqf2tden"
 
-[node name="UtilBuildingTemplateGenerator2" type="Sprite2D" parent="Node2D - BuildingTemplates" unique_id=597518691]
+[node name="UtilBuildingTemplateGenerator2" type="Sprite2D" parent="BuildingTemplates" unique_id=597518691]
 position = Vector2(128, -592)
 texture = SubResource("AtlasTexture_17omf")
 centered = false

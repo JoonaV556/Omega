@@ -57,7 +57,7 @@ func draw_preview_outline():
 
 func generate(tmap : TileMapLayer) -> RoadCellTemplate:
 	var _c : RoadCellTemplate = RoadCellTemplate.new()
-	_c.size = size
+	_c.dimensions = size
 
 	# Define connections
 	var _connections = 0
@@ -104,7 +104,7 @@ func generate(tmap : TileMapLayer) -> RoadCellTemplate:
 			var c_rect = child as ColorRect
 			var plot = BuildingPlot.new()
 			plot.position = Vector2i(int(c_rect.position.x / 16), int(c_rect.position.y / 16))
-			plot.size = Vector2i(int(c_rect.size.x / 16), int(c_rect.size.y / 16))
+			plot.dimensions = Vector2i(int(c_rect.size.x / 16), int(c_rect.size.y / 16))
 			_c.building_plots.append(plot)
 
 	return _c

@@ -6,6 +6,7 @@ var template_groups : Dictionary[StringName, Array]
 const small_road_group_name : StringName = StringName("small_road")
 const highway_group_name : StringName = StringName("highway")
 const road_connector_group_name : StringName = StringName("road_connector")
+const building_group_name : StringName = StringName("buildings")
 
 
 func get_random_small_road_template(road_cell_connections : int) -> RoadCellTemplate:
@@ -32,3 +33,17 @@ func get_random_connector_template(connector_sr_connections : int, connector_hw_
 	)
 
 	return matching_templates.pick_random()
+
+func get_matching_buildings(building_dimensions : Vector2i) -> Array[BuildingTemplate]:
+	var matching_templates : Array[BuildingTemplate] = []
+
+	## This is ridiculously overcomplicated but required because Dictionary cannot have nested types (like [StringName, Array[BuildingTemplate])
+	var matching_templates_dirty = template_groups[building_group_name].filter(
+		func(templ : BuildingTemplate): return templ.dimensions == building_dimensions
+	)
+
+	for templ in matching_templates_dirty:
+		if templ is BuildingTemplate:
+			matching_templates.append(templ)
+	
+	return matching_templates

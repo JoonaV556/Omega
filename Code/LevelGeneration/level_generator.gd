@@ -438,9 +438,9 @@ func generate():
 
 #region Pick cell templates for road cells
 
-		var small_road_templates : Dictionary[Vector2i, RoadCellTemplate]
-		var connector_templates : Dictionary[Vector2i, RoadConnectorCellTemplate]
-		var highway_templates : Dictionary[Vector2i, RoadCellTemplate]
+		var small_road_cell_templates : Dictionary[Vector2i, RoadCellTemplate]
+		var road_connector_cell_templates : Dictionary[Vector2i, RoadConnectorCellTemplate]
+		var highway_cell_templates : Dictionary[Vector2i, RoadCellTemplate]
 
 		for _c : Vector2i in small_road_cell_coords:
 			var templ = rwg_cell_template_library.get_random_small_road_template(
@@ -451,7 +451,7 @@ func generate():
 				)
 			)
 			if templ:
-				small_road_templates[_c] = templ
+				small_road_cell_templates[_c] = templ
 
 		for _c : RoadConnectorCell in connector_cells:
 			var templ = rwg_cell_template_library.get_random_connector_template(
@@ -459,7 +459,7 @@ func generate():
 				_c.highway_connections
 			)
 			if templ:
-				connector_templates[_c.coordinate] = templ
+				road_connector_cell_templates[_c.coordinate] = templ
 
 		for _c : Vector2i in highway_cell_coordinates:
 			var templ = rwg_cell_template_library.get_random_highway_template(
@@ -470,12 +470,35 @@ func generate():
 				)
 			)
 			if templ:
-				highway_templates[_c] = templ
+				highway_cell_templates[_c] = templ
 		
-		print('Succesfully picked %s cell templates for %s small road cells.' % [small_road_templates.keys().size(), small_road_cell_coords.size()])
-		print('Succesfully picked %s cell templates for %s highway cells.' % [highway_templates.keys().size(), highway_cell_coordinates.size()])
-		print('Succesfully picked %s cell templates for %s road connector cells.' % [connector_templates.keys().size(), connector_cells.size()])
+		print('Succesfully picked %s cell templates for %s small road cells.' % [small_road_cell_templates.keys().size(), small_road_cell_coords.size()])
+		print('Succesfully picked %s cell templates for %s highway cells.' % [highway_cell_templates.keys().size(), highway_cell_coordinates.size()])
+		print('Succesfully picked %s cell templates for %s road connector cells.' % [road_connector_cell_templates.keys().size(), connector_cells.size()])
 
+#endregion
+
+#region Generate buildings
+		# Pick buildings for each building plot on map, and save it with its position on the tilemap
+		## [Position on tilemap] [Building]
+		var buildings : Dictionary[Vector2i, BuildingTemplate]
+		var building_template_groups : Array[Dictionary] = [small_road_cell_templates, road_connector_cell_templates, highway_cell_templates]
+		var building_plot_count = 0
+		var buildings_placed_count = 0
+		for template_group in building_template_groups:
+			for coord in template_group.keys():
+				var template = template_group[coord]
+				if template == null:
+					continue
+				for bp : BuildingPlot in template.building_plots:
+					building_plot_count += 1
+					var matching_buildings = rwg_cell_template_library.get_matching_buildings(bp.dimensions)
+					if matching_buildings.is_empty():
+						continue
+					var building_position_on_tilemap = (coord * road_cell_size) + bp.position + Vector2i(offset, 0)
+					buildings[building_position_on_tilemap] = matching_buildings.pick_random()
+					buildings_placed_count += 1
+		print('Picked %s buildings for %s building plots found on road cells.' % [buildings_placed_count, building_plot_count])
 #endregion
 
 #region Render
@@ -527,7 +550,7 @@ func generate():
 			var coordindate_on_tilemap : Vector2i = coord * road_cell_size
 
 			# Retrieve a tile pattern with matching the connections
-			var r_pattern : TileMapPattern = highway_templates[coord].tilemap_pattern
+			var r_pattern : TileMapPattern = highway_cell_templates[coord].tilemap_pattern
 
 			# Paint on tilemap
 			set_pattern_ignore_empty_tiles(tmap, coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
@@ -537,7 +560,7 @@ func generate():
 			var coordindate_on_tilemap : Vector2i = coord * road_cell_size
 
 			# Retrieve a tile pattern with matching the connections
-			var r_pattern : TileMapPattern = small_road_templates[coord].tilemap_pattern
+			var r_pattern : TileMapPattern = small_road_cell_templates[coord].tilemap_pattern
 
 			# Paint on tilemap
 			set_pattern_ignore_empty_tiles(tmap, coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
@@ -547,10 +570,21 @@ func generate():
 			var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * road_cell_size
 
 			# Retrieve a tile pattern with matching the connections
-			var r_pattern : TileMapPattern = connector_templates[connector_cell.coordinate].tilemap_pattern
+			var r_pattern : TileMapPattern = road_connector_cell_templates[connector_cell.coordinate].tilemap_pattern
 
 			# Paint on tilemap
 			set_pattern_ignore_empty_tiles(tmap, coordindate_on_tilemap + Vector2i(offset, 0), r_pattern)
+
+		# Render buildings 
+		for tilemap_coord : Vector2i in buildings.keys():
+			var b_template : BuildingTemplate = buildings[tilemap_coord]
+
+			var sprite : Sprite2D = Sprite2D.new()
+			sprite.centered = false
+			sprite.texture = b_template.texture
+			sprite.name = str("building - " + b_template.name)
+			tmap.add_sibling(sprite)
+			sprite.global_position = Vector2(tilemap_coord) * Vector2(16.0, 16.0)
 
 #endregion
 #endregion
