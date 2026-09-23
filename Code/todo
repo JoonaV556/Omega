@@ -253,14 +253,23 @@ Add Buildings
     
     ✔ Render buildings with probably sprites (allows hiding them on demand) @done(26-09-19 01:46)
 
-    
-Immersive lighting
-
-Zones (parks, residential, industrial, commercial)
+Zones
+    ✔ way to define zones @done(26-09-23 18:21)
+    ✔ way to adjust zone weights in editor @done(26-09-23 18:23)
+    ☐ generate
+        ✔ pick number of cells for each zone @done(26-09-23 18:45)
+        ✔ decide number of clusters for each zone @done(26-09-23 19:54)
+        ✔ decide number of cells for each cluster @done(26-09-23 19:54)
+        test by printing readable 
+        pick zone for each road cell 
+    test with two zones (place buildings of the matchign zone)
+        residential commercial
 
 Wilderness pois (factories, bunkers)
 
 Realistic terrain rendering (Terrain elevation)
+
+Immersive lighting
 
 4 ensured map exits
 
