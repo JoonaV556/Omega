@@ -64,8 +64,19 @@ class_name LevelGenerator
 @export var small_road_random_walk_turn_odds = 60.0
 @export var small_road_preview_tile : Vector3i = Vector3i(0,0,0)
 
+# Zones 
+@export_group("Zones")
+@export var dominant_zone : ZONE
+@export var zone_weights : Dictionary[ZONE, float]
+
 
 enum tunneler_dir {N, S, E, W}
+
+enum ZONE {
+	residential,
+	commercial,
+	industrial,
+}
 
 const R_CONNECTION_N = 1
 const R_CONNECTION_S = 2
@@ -475,6 +486,114 @@ func generate():
 		print('Succesfully picked %s cell templates for %s small road cells.' % [small_road_cell_templates.keys().size(), small_road_cell_coords.size()])
 		print('Succesfully picked %s cell templates for %s highway cells.' % [highway_cell_templates.keys().size(), highway_cell_coordinates.size()])
 		print('Succesfully picked %s cell templates for %s road connector cells.' % [road_connector_cell_templates.keys().size(), connector_cells.size()])
+
+#endregion
+
+#region Generate Zones
+		# Calculate number of cells to allocate for each zone type
+		var cells_per_zone : Dictionary[ZONE, int] = {}
+		var cells_per_cluster : Dictionary[ZONE, Array] = {}
+		var clusters_per_zone : Dictionary[ZONE, int] = {}
+		var zone_cells_total : int = small_road_cell_coords.size()
+		var zones : Array[ZONE] = zone_weights.keys()
+		var active_zones : Array[ZONE] = []
+		var zone_weights_sum : float = 0.0
+
+		# Ignore zero-weighted zones and guard against invalid weights.
+		for _z : ZONE in zones:
+			if zone_weights.has(_z) and zone_weights[_z] > 0.0:
+				active_zones.append(_z)
+				zone_weights_sum += zone_weights[_z]
+
+		if active_zones.is_empty():
+			active_zones = [dominant_zone]
+			zone_weights_sum = 1.0
+
+		# Allocate the exact total number of road cells across all zones.
+		var zone_fractional_remainders : Dictionary[ZONE, float] = {}
+		var cells_left_to_allocate : int = zone_cells_total
+		for _z : ZONE in active_zones:
+			var raw_allocation : float = (zone_weights[_z] / zone_weights_sum) * float(zone_cells_total)
+			var allocation : int = int(raw_allocation)
+			cells_per_zone[_z] = allocation
+			zone_fractional_remainders[_z] = raw_allocation - float(allocation)
+			cells_left_to_allocate -= allocation
+
+		while cells_left_to_allocate > 0:
+			var best_zone : ZONE = active_zones[0]
+			var best_remainder : float = -1.0
+			for _z : ZONE in active_zones:
+				var remainder : float = zone_fractional_remainders.get(_z, 0.0)
+				if remainder > best_remainder:
+					best_remainder = remainder
+					best_zone = _z
+			cells_per_zone[best_zone] += 1
+			zone_fractional_remainders[best_zone] = 0.0
+			cells_left_to_allocate -= 1
+
+		# Distribute the allocated cells into cluster sizes while keeping each cluster valid.
+		var cells_allocated_for_zones_total : int = 0
+		for _z : ZONE in active_zones:
+			var zone_cell_count : int = cells_per_zone.get(_z, 0)
+			if zone_cell_count <= 0:
+				clusters_per_zone[_z] = 0
+				cells_per_cluster[_z] = []
+				continue
+
+			var cluster_count_target : float = float(zone_cell_count) / 3.0
+			var cluster_count_spread : float = max(1.0, cluster_count_target * 0.5)
+			var cluster_count_randomized : int = int(round(randfn(cluster_count_target, cluster_count_spread)))
+			var cluster_count : int = clampi(cluster_count_randomized, 1, max(1, zone_cell_count))
+			clusters_per_zone[_z] = cluster_count
+
+			var cluster_cell_sizes : Array = []
+			var remaining_cells : int = zone_cell_count
+			var remaining_clusters : int = cluster_count
+			for _cluster in range(cluster_count):
+				remaining_clusters -= 1
+				var target_cluster_size : float = float(remaining_cells) / float(remaining_clusters + 1)
+				var spread : float = max(1.0, target_cluster_size * 0.5)
+				var min_for_this_cluster : int = 1
+				var max_for_this_cluster : int = remaining_cells - remaining_clusters
+				if max_for_this_cluster < min_for_this_cluster:
+					max_for_this_cluster = min_for_this_cluster
+				var gaussian_cluster_size : int = int(round(randfn(target_cluster_size, spread)))
+				var cluster_size : int = clampi(gaussian_cluster_size, min_for_this_cluster, max_for_this_cluster)
+				cluster_cell_sizes.append(cluster_size)
+				remaining_cells -= cluster_size
+				cells_allocated_for_zones_total += cluster_size
+
+			# Ensure the sum of cluster sizes matches the exact zone total.
+			var cluster_total : int = 0
+			for cluster_size : int in cluster_cell_sizes:
+				cluster_total += cluster_size
+			if cluster_total != zone_cell_count:
+				cluster_cell_sizes[-1] += zone_cell_count - cluster_total
+			cells_per_cluster[_z] = cluster_cell_sizes
+
+		# Also keep the zone summary readable if some zones are not used.
+		for _z : ZONE in zones:
+			if !cells_per_zone.has(_z):
+				cells_per_zone[_z] = 0
+			if !clusters_per_zone.has(_z):
+				clusters_per_zone[_z] = 0
+			if !cells_per_cluster.has(_z):
+				cells_per_cluster[_z] = []
+
+		# Print results readable
+		print('\nAllocated zones for %s small road cells in total' % [small_road_cell_coords.size()])
+		print('Cells allocated for zones: %s' % [cells_allocated_for_zones_total])
+		print("Zone allocation summary:")
+		for _z : ZONE in zones:
+			var zone_name : String = ZONE.keys()[int(_z)]
+			print(
+				"- %s | cells=%s | clusters=%s | cells_per_cluster=%s" % [
+					zone_name,
+					cells_per_zone[_z],
+					clusters_per_zone[_z],
+					cells_per_cluster[_z]
+				]
+			)
 
 #endregion
 
