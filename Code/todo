@@ -1,269 +1,275 @@
-✔ Add branching rivers to level @done(26-07-24 01:36)
+archive
+    ✔ Add branching rivers to level @done(26-07-24 01:36)
 
-✔ merge rivers and pools @done(26-07-28 20:40)
-    ✔ remove lakes near rivers @done(26-07-28 20:40)
-        ✔ add all cells in dist to arr - except river cell itself @done(26-07-28 20:40)
-        ✔ after all river cells went through - unmark lake cells @done(26-07-28 20:40)
-        
-        ✔ ignore cells outside map @done(26-07-28 20:40)
-
-    ✔ add mountain zones @done(26-07-29 16:36)
-        ✔ generate() heightmap func Array[Array[int]] @done(26-07-29 16:36)
-        ✔ render heightmap flat on tilemap @done(26-07-29 16:36)
-            ✔ tst @done(26-07-29 16:36)
-        ✔ render with correct rpg style @done(26-07-29 16:36)
-        
-✔ integrate mountains and lakes cleanly @done(26-07-29 16:35)
-    ✔ single noise texture for both @done(26-07-29 16:35)
-        ✔ cells < lake treshold = lakes @done(26-07-29 16:35)
-        ✔ cells > mountain treshold = mountains @done(26-07-29 16:35)
-    ✔ generate lake map with single noise image @done(26-07-29 16:35)
-        ✔ false = no lake @done(26-07-29 16:35)
-        ✔ true = lake @done(26-07-29 16:35)
-        ✔ tst render @done(26-07-29 16:35)
-    ✔ genrate mountain map with single noise @done(26-07-29 16:35)
-
-✔ surround map with forest @done(26-07-31 14:17)
-    ✔ surround with variable thickness @done(26-07-31 01:17)
-
-    ✔ remove forest certain cells: @done(26-07-31 14:17)
-        ✔ with lakes & river canals @done(26-07-31 14:17)
-        ✔ with mountains @done(26-07-31 14:17)
-    
-    ✔ array. replace(Arr[], if_val, replace_with_val) @done(26-07-31 01:17)
-
-✔ add forests in center areas @done(26-07-31 16:40)
-    ✔ separate noise map for forest areas @done(26-07-31 16:13)
-    ✔ generate forest() - returns forest cells as Arr[Vector2] @done(26-07-31 16:13)
-    ✔ from forest - exclude cells with: @done(26-07-31 16:40)
-        ✔ mountains @done(26-07-31 16:40)
-        ✔ lakes @done(26-07-31 16:40)
-        ✔ rivers @done(26-07-31 16:40)
-    ✔ render @done(26-07-31 16:40)
-
-✔ prevent mountains forming on top of river canals @done(26-08-01 22:30)
-    ✔ func get_cells_within_radius_2D(cell, radius) @done(26-08-01 20:30)
-    ✔ do rendering last @done(26-08-01 20:38)
-    ✔ clear lake cells within radius @done(26-08-01 22:22)
-    ✔ clear mountains within radius @done(26-08-01 22:23)
-
-✔ simplify rendering (no multiple loops) @done(26-08-01 22:57)
-
-✔ variable terrain height @done(26-08-04 23:50)
-    ✔ rng 1-3 terrain height levels @done(26-08-04 00:23)
-    ✔ test noise peaks @done(26-08-04 00:33)
-    ✔ implement @done(26-08-04 01:11)
-    ✔ render @done(26-08-04 23:45)
-    ✔ integrate mountains @done(26-08-04 23:50)
-        ✔ mountain first level is 1+ height of base terrain underneath @done(26-08-04 23:50)
-
-✔ Big roads @done(26-08-18 22:20)
-    ✔ Big Roads @done(26-08-18 22:18)
-        ✔ decide tile-cell size for big auto roads @done(26-08-06 22:11)
-            ✔ 8 x 8 @done(26-08-06 22:11)
-        ✔ create a quadtree with matching resolution (iterations) @done(26-08-06 23:20)
-        ✔ run road func on matching q-tree level @done(26-08-16 19:05)
-        ✔ render @done(26-08-16 22:44)
-        ✔ fix some road cells outside of map @done(26-08-17 22:01)
-            ✔ CAUSE: TILES FILLED BY FILL_AREA ARE OVERWRITTEN BY NEXT CELLS @done(26-08-17 22:01)
-                ✔ USE SEPARATE RENDERING PASSES FOR TERRAIN & ROADS & BUILDINGS @done(26-08-17 22:01)
-
-✔ Plan urban area implementation @done(26-08-20 21:27)
-    Parks
-        multi cell urban tiles placed before city roads are generated
-    Rivers
-        Special city road tiles designed for alongside rivers are placed on river cellss
-
-
-
---- Urban areas
-✔ Define cell size for road grid @done(26-08-25 22:13)
-    ✔ 4x4 @done(26-08-25 22:13)
-✔ Calculate road grid size @done(26-08-25 22:13)
-
-✔ Generate big roads on road grid @done(26-08-25 22:13)
-    
-✔ Convert big roads to bytearray road grid @done(26-08-25 22:45)
-
-✔ Render big roads @done(26-08-27 00:40)
-    ✔ Render using tilemap patterns @done(26-08-27 00:40)
-        ✔ Write rendering logic framework @done(26-08-26 20:46)
-        ✔ Pattern generator @done(26-08-27 00:40)
-            ✔ saves patterns drawn on tilemap into TileMapPatterns @done(26-08-27 00:40)
+    ✔ merge rivers and pools @done(26-07-28 20:40)
+        ✔ remove lakes near rivers @done(26-07-28 20:40)
+            ✔ add all cells in dist to arr - except river cell itself @done(26-07-28 20:40)
+            ✔ after all river cells went through - unmark lake cells @done(26-07-28 20:40)
             
-            ✔ get_cell_with_connections(connections : int) -> TileMapPattern @done(26-08-27 00:40)
+            ✔ ignore cells outside map @done(26-07-28 20:40)
 
-✔ fix: connect roads to map edges @done(26-08-27 18:10)
-
-✔ fix: prevent big roads from turning along map edges @done(26-08-27 22:38)
-
-Generate small roads
-    ✔ Pick start positions from big roads @done(26-08-27 22:58)
-    
-    ✔ Use random walk to define small roads / urban areas @done(26-08-28 00:02)
-        ✔ walk func - dont return cells outside map bounds @done(26-08-28 00:02)
-        ✔ trim cells overlapping big roads @done(26-08-28 00:02)
-    
-    ✔ Render cells preview @done(26-08-28 00:02)
-
-    ✔ Randomize road connections in each road cell @done(26-08-30 18:32)
-        ✔ Create new bytearray for small roads @done(26-08-29 00:12)
-        
-        ✔ For each small road cell @done(26-08-29 00:12)
-            ✔ Skip if array already has connections for cell @done(26-08-29 00:12)
-            ✔ Randomize at least 1 connection @done(26-08-29 00:12)
-            ✔ 50% chance to add each connection @done(26-08-29 00:12)
-            ✔ Make compatible with nearby cells (connect to neighboring connections @done(26-08-29 00:12)
-            ✔ ) @done(26-08-29 00:12)
-        
-    ✔ Render with patterns @done(26-08-30 19:31)
-
-    ✔ fix get_connected_cells() func @done(26-08-31 23:51)
-        ✔ fix get_connected_neighbours func @done(26-08-31 23:51)
-
-    ✔ Fix: Not all roads are connected to highways @done(26-09-03 00:15)
-        ✔ Plan @done(26-09-03 00:15)
-            ✔ high level @done(26-09-03 00:15)
-                ✔ Connect all cellgroups not connected to roads to random neighbours @done(26-09-03 00:15)
-                ✔ repeat until no unconnected groups are left @done(26-09-03 00:15)
-        
-        ✔ Fix infinite loop issue @done(26-09-03 00:15)
-            ✔ Ensure static rng seed @done(26-09-02 19:37)
-
-            ✔ Fix dictionary overwrite @done(26-09-02 23:35)
-        
-        ✔ Connect all cellgroups regardless if connected to highway @done(26-09-03 00:15)
-
-        ✔ Do new passes until no groups not connected to highways are left @done(26-09-03 00:15)
+        ✔ add mountain zones @done(26-07-29 16:36)
+            ✔ generate() heightmap func Array[Array[int]] @done(26-07-29 16:36)
+            ✔ render heightmap flat on tilemap @done(26-07-29 16:36)
+                ✔ tst @done(26-07-29 16:36)
+            ✔ render with correct rpg style @done(26-07-29 16:36)
             
-    ✔ Remove dead ends / cleanup @done(26-09-03 00:33)
+    ✔ integrate mountains and lakes cleanly @done(26-07-29 16:35)
+        ✔ single noise texture for both @done(26-07-29 16:35)
+            ✔ cells < lake treshold = lakes @done(26-07-29 16:35)
+            ✔ cells > mountain treshold = mountains @done(26-07-29 16:35)
+        ✔ generate lake map with single noise image @done(26-07-29 16:35)
+            ✔ false = no lake @done(26-07-29 16:35)
+            ✔ true = lake @done(26-07-29 16:35)
+            ✔ tst render @done(26-07-29 16:35)
+        ✔ genrate mountain map with single noise @done(26-07-29 16:35)
 
-✔ Remove stupid rivers temporarily @done(26-09-04 23:06)
+    ✔ surround map with forest @done(26-07-31 14:17)
+        ✔ surround with variable thickness @done(26-07-31 01:17)
 
-✔ Connect big roads to small roads @done(26-09-07 00:30)
-    ✔ Algo @done(26-09-05 19:54)
-        ✔ Isolate islands of small roads @done(26-09-04 23:44)
-
-        ✔ var connection_cells @done(26-09-04 23:54)
-        ✔ for each island @done(26-09-04 23:54)
-            ✔ pick random connection cell @done(26-09-04 23:54)
+        ✔ remove forest certain cells: @done(26-07-31 14:17)
+            ✔ with lakes & river canals @done(26-07-31 14:17)
+            ✔ with mountains @done(26-07-31 14:17)
         
-        ✔ for connection cell @done(26-09-05 19:54)
-            ✔ connect neighboring small roads to the connector @done(26-09-05 00:29)
+        ✔ array. replace(Arr[], if_val, replace_with_val) @done(26-07-31 01:17)
 
-            ✔ int add small road connections @done(26-09-05 19:54)
-            ✔ int add big road connections @done(26-09-05 19:54)
-            ✔ test connectors by printing @done(26-09-05 20:12)
+    ✔ add forests in center areas @done(26-07-31 16:40)
+        ✔ separate noise map for forest areas @done(26-07-31 16:13)
+        ✔ generate forest() - returns forest cells as Arr[Vector2] @done(26-07-31 16:13)
+        ✔ from forest - exclude cells with: @done(26-07-31 16:40)
+            ✔ mountains @done(26-07-31 16:40)
+            ✔ lakes @done(26-07-31 16:40)
+            ✔ rivers @done(26-07-31 16:40)
+        ✔ render @done(26-07-31 16:40)
+
+    ✔ prevent mountains forming on top of river canals @done(26-08-01 22:30)
+        ✔ func get_cells_within_radius_2D(cell, radius) @done(26-08-01 20:30)
+        ✔ do rendering last @done(26-08-01 20:38)
+        ✔ clear lake cells within radius @done(26-08-01 22:22)
+        ✔ clear mountains within radius @done(26-08-01 22:23)
+
+    ✔ simplify rendering (no multiple loops) @done(26-08-01 22:57)
+
+    ✔ variable terrain height @done(26-08-04 23:50)
+        ✔ rng 1-3 terrain height levels @done(26-08-04 00:23)
+        ✔ test noise peaks @done(26-08-04 00:33)
+        ✔ implement @done(26-08-04 01:11)
+        ✔ render @done(26-08-04 23:45)
+        ✔ integrate mountains @done(26-08-04 23:50)
+            ✔ mountain first level is 1+ height of base terrain underneath @done(26-08-04 23:50)
+
+    ✔ Big roads @done(26-08-18 22:20)
+        ✔ Big Roads @done(26-08-18 22:18)
+            ✔ decide tile-cell size for big auto roads @done(26-08-06 22:11)
+                ✔ 8 x 8 @done(26-08-06 22:11)
+            ✔ create a quadtree with matching resolution (iterations) @done(26-08-06 23:20)
+            ✔ run road func on matching q-tree level @done(26-08-16 19:05)
+            ✔ render @done(26-08-16 22:44)
+            ✔ fix some road cells outside of map @done(26-08-17 22:01)
+                ✔ CAUSE: TILES FILLED BY FILL_AREA ARE OVERWRITTEN BY NEXT CELLS @done(26-08-17 22:01)
+                    ✔ USE SEPARATE RENDERING PASSES FOR TERRAIN & ROADS & BUILDINGS @done(26-08-17 22:01)
+
+    ✔ Plan urban area implementation @done(26-08-20 21:27)
+        Parks
+            multi cell urban tiles placed before city roads are generated
+        Rivers
+            Special city road tiles designed for alongside rivers are placed on river cellss
+
+
+
+    --- Urban areas
+    ✔ Define cell size for road grid @done(26-08-25 22:13)
+        ✔ 4x4 @done(26-08-25 22:13)
+    ✔ Calculate road grid size @done(26-08-25 22:13)
+
+    ✔ Generate big roads on road grid @done(26-08-25 22:13)
+        
+    ✔ Convert big roads to bytearray road grid @done(26-08-25 22:45)
+
+    ✔ Render big roads @done(26-08-27 00:40)
+        ✔ Render using tilemap patterns @done(26-08-27 00:40)
+            ✔ Write rendering logic framework @done(26-08-26 20:46)
+            ✔ Pattern generator @done(26-08-27 00:40)
+                ✔ saves patterns drawn on tilemap into TileMapPatterns @done(26-08-27 00:40)
+                
+                ✔ get_cell_with_connections(connections : int) -> TileMapPattern @done(26-08-27 00:40)
+
+    ✔ fix: connect roads to map edges @done(26-08-27 18:10)
+
+    ✔ fix: prevent big roads from turning along map edges @done(26-08-27 22:38)
+
+    Generate small roads
+        ✔ Pick start positions from big roads @done(26-08-27 22:58)
+        
+        ✔ Use random walk to define small roads / urban areas @done(26-08-28 00:02)
+            ✔ walk func - dont return cells outside map bounds @done(26-08-28 00:02)
+            ✔ trim cells overlapping big roads @done(26-08-28 00:02)
+        
+        ✔ Render cells preview @done(26-08-28 00:02)
+
+        ✔ Randomize road connections in each road cell @done(26-08-30 18:32)
+            ✔ Create new bytearray for small roads @done(26-08-29 00:12)
+            
+            ✔ For each small road cell @done(26-08-29 00:12)
+                ✔ Skip if array already has connections for cell @done(26-08-29 00:12)
+                ✔ Randomize at least 1 connection @done(26-08-29 00:12)
+                ✔ 50% chance to add each connection @done(26-08-29 00:12)
+                ✔ Make compatible with nearby cells (connect to neighboring connections @done(26-08-29 00:12)
+                ✔ ) @done(26-08-29 00:12)
+            
+        ✔ Render with patterns @done(26-08-30 19:31)
+
+        ✔ fix get_connected_cells() func @done(26-08-31 23:51)
+            ✔ fix get_connected_neighbours func @done(26-08-31 23:51)
+
+        ✔ Fix: Not all roads are connected to highways @done(26-09-03 00:15)
+            ✔ Plan @done(26-09-03 00:15)
+                ✔ high level @done(26-09-03 00:15)
+                    ✔ Connect all cellgroups not connected to roads to random neighbours @done(26-09-03 00:15)
+                    ✔ repeat until no unconnected groups are left @done(26-09-03 00:15)
+            
+            ✔ Fix infinite loop issue @done(26-09-03 00:15)
+                ✔ Ensure static rng seed @done(26-09-02 19:37)
+
+                ✔ Fix dictionary overwrite @done(26-09-02 23:35)
+            
+            ✔ Connect all cellgroups regardless if connected to highway @done(26-09-03 00:15)
+
+            ✔ Do new passes until no groups not connected to highways are left @done(26-09-03 00:15)
+                
+        ✔ Remove dead ends / cleanup @done(26-09-03 00:33)
+
+    ✔ Remove stupid rivers temporarily @done(26-09-04 23:06)
+
+    ✔ Connect big roads to small roads @done(26-09-07 00:30)
+        ✔ Algo @done(26-09-05 19:54)
+            ✔ Isolate islands of small roads @done(26-09-04 23:44)
+
+            ✔ var connection_cells @done(26-09-04 23:54)
+            ✔ for each island @done(26-09-04 23:54)
+                ✔ pick random connection cell @done(26-09-04 23:54)
+            
+            ✔ for connection cell @done(26-09-05 19:54)
+                ✔ connect neighboring small roads to the connector @done(26-09-05 00:29)
+
+                ✔ int add small road connections @done(26-09-05 19:54)
+                ✔ int add big road connections @done(26-09-05 19:54)
+                ✔ test connectors by printing @done(26-09-05 20:12)
+        
+        ✔ Render with appropriate patterns @done(26-09-07 00:29)
+            ✔ List possible combinations of small-road and highway connections for connectors @done(26-09-07 00:29)
+            ✔ for each combination @done(26-09-07 00:29)
+                ✔ generate pattern @done(26-09-07 00:29)
+            ✔ render appropriate pattern @done(26-09-07 00:29)
+
+    ✔ Add Buildings @done(26-09-23 23:22)
+        ✔ Way to create RoadCells @done(26-09-10 23:25)
+            ✔ RoadCell generator utility node @done(26-09-10 01:24)
+            ✔ Place on tilemap @done(26-09-10 01:24)
+            ✔ Define building plots with visualized child nodes @done(26-09-10 23:24)
     
-    ✔ Render with appropriate patterns @done(26-09-07 00:29)
-        ✔ List possible combinations of small-road and highway connections for connectors @done(26-09-07 00:29)
-        ✔ for each combination @done(26-09-07 00:29)
-            ✔ generate pattern @done(26-09-07 00:29)
-        ✔ render appropriate pattern @done(26-09-07 00:29)
+        ✔ class BuildingPlot @done(26-09-10 00:35)
+            ✔ position @done(26-09-10 00:35)
+            ✔ size @done(26-09-10 00:35)
+            ✔ Array type_tags @done(26-09-10 00:35)
 
-Add Buildings
-    ✔ Way to create RoadCells @done(26-09-10 23:25)
-        ✔ RoadCell generator utility node @done(26-09-10 01:24)
-        ✔ Place on tilemap @done(26-09-10 01:24)
-        ✔ Define building plots with visualized child nodes @done(26-09-10 23:24)
- 
-    ✔ class BuildingPlot @done(26-09-10 00:35)
-        ✔ position @done(26-09-10 00:35)
-        ✔ size @done(26-09-10 00:35)
-        ✔ Array type_tags @done(26-09-10 00:35)
+        ✔ class RoadCell @done(26-09-10 00:39)
+            ✔ array BuildingPlots @done(26-09-10 00:39)
+            ✔ int connections @done(26-09-10 00:39)
+                ✔ N S E W @done(26-09-10 00:39)
+            ✔ TileMapPattern pattern @done(26-09-10 00:39)
 
-    ✔ class RoadCell @done(26-09-10 00:39)
-        ✔ array BuildingPlots @done(26-09-10 00:39)
-        ✔ int connections @done(26-09-10 00:39)
-            ✔ N S E W @done(26-09-10 00:39)
-        ✔ TileMapPattern pattern @done(26-09-10 00:39)
+        ✔ RoadCell group generator @done(26-09-10 19:36)
+            ✔ Generates and stores all road cells in children @done(26-09-10 19:36)
 
-    ✔ RoadCell group generator @done(26-09-10 19:36)
-        ✔ Generates and stores all road cells in children @done(26-09-10 19:36)
+        ✔ Way to create building templates @done(26-09-10 23:51)
 
-    ✔ Way to create building templates @done(26-09-10 23:51)
+        ✔ fix: roadcell_generator roadcell position is not calculated in tilemap coordinates ( / 16) @done(26-09-11 21:45)
 
-    ✔ fix: roadcell_generator roadcell position is not calculated in tilemap coordinates ( / 16) @done(26-09-11 21:45)
+        ✔ build minimum required building templates @done(26-09-11 22:10)
 
-    ✔ build minimum required building templates @done(26-09-11 22:10)
+        ✔ add structure for road connector cells @done(26-09-13 00:42)
+            ✔ same things as normal road cells @done(26-09-13 00:42)
+            ✔ highway connections @done(26-09-13 00:42)
+            ✔ small road connections @done(26-09-13 00:42)
+        
+        ✔ ai add generator util for road connector cells @done(26-09-13 00:42)
+        
+        ✔ Build minimum required road cells + with some building plots @done(26-09-13 00:43)
+            ✔ Small road cells @done(26-09-13 00:43)
+            ✔ Highways @done(26-09-13 00:43)
+            ✔ Connectors @done(26-09-13 00:43)
 
-    ✔ add structure for road connector cells @done(26-09-13 00:42)
-        ✔ same things as normal road cells @done(26-09-13 00:42)
-        ✔ highway connections @done(26-09-13 00:42)
-        ✔ small road connections @done(26-09-13 00:42)
-    
-    ✔ ai add generator util for road connector cells @done(26-09-13 00:42)
-    
-    ✔ Build minimum required road cells + with some building plots @done(26-09-13 00:43)
-        ✔ Small road cells @done(26-09-13 00:43)
-        ✔ Highways @done(26-09-13 00:43)
-        ✔ Connectors @done(26-09-13 00:43)
+        ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
+            ✔ 64x64 tiles @done(26-09-08 22:47)
+        ✔ Check if memory usage is ok @done(26-09-08 23:04)
 
-    ✔ decide fitting cell size (long term) @done(26-09-08 22:47)
-        ✔ 64x64 tiles @done(26-09-08 22:47)
-    ✔ Check if memory usage is ok @done(26-09-08 23:04)
+        ✔ implement cell_template_library for gathering rwg cells @done(26-09-14 23:02)
+            ✔ get_random_sm_cell(connections) @done(26-09-14 23:02)
 
-    ✔ implement cell_template_library for gathering rwg cells @done(26-09-14 23:02)
-        ✔ get_random_sm_cell(connections) @done(26-09-14 23:02)
+        ✔ implement library in level & pipe templates to library @done(26-09-16 01:18)
+            ✔ small roads @done(26-09-16 01:18)
+            ✔ highways @done(26-09-16 01:18)
+            ✔ connectors @done(26-09-16 01:18)
+            ✔ test @done(26-09-16 01:18)
 
-    ✔ implement library in level & pipe templates to library @done(26-09-16 01:18)
-        ✔ small roads @done(26-09-16 01:18)
-        ✔ highways @done(26-09-16 01:18)
-        ✔ connectors @done(26-09-16 01:18)
-        ✔ test @done(26-09-16 01:18)
+        ✔ Pick road templates for each road cell @done(26-09-16 01:18)
+            ✔ small road @done(26-09-14 23:16)
+            ✔ highway @done(26-09-15 00:38)
+            ✔ connector @done(26-09-15 00:38)
+            ✔ test @done(26-09-16 01:18)
 
-    ✔ Pick road templates for each road cell @done(26-09-16 01:18)
-        ✔ small road @done(26-09-14 23:16)
-        ✔ highway @done(26-09-15 00:38)
-        ✔ connector @done(26-09-15 00:38)
-        ✔ test @done(26-09-16 01:18)
+        ✔ Test slowness @done(26-09-16 02:09)
+            ✔ Timing results @done(26-09-16 02:09)
+                ✔ Generate Terrain took 316.721 ms @done(26-09-16 02:09)
+                ✔ Generate Highways took 0.934 ms @done(26-09-16 02:09)
+                ✔ Generate Small Roads took 81.878 ms @done(26-09-16 02:09)
+                ✔ Connect Small Roads to Highways took 16.330 ms @done(26-09-16 02:09)
+                ✔ Pick Cell Templates for Road Cells took 1.224 ms @done(26-09-16 02:09)
+                ✔ Render Terrain took 93168.323 ms @done(26-09-16 02:09)
+                ✔ Render Urban took 2.447 ms @done(26-09-16 02:09)
+            ✔ @done(26-09-16 02:09)
+            ✔ wrap terrain render steps with timers and document results @done(26-09-16 02:09)
+                ✔ results inside a single 2D render loop iteration @done(26-09-16 02:09)
+                    ✔ Render Terrain - Ground took 338.452 ms @done(26-09-16 02:09)
+                    ✔ Render Terrain - Base Terrain took 207.848 ms @done(26-09-16 02:09)
+                    ✔ Render Terrain - Lake took 87.607 ms @done(26-09-16 02:09)
+                    ✔ Render Terrain - Mountains took 131.287 ms @done(26-09-16 s02:09)
+                    ✔ Render Terrain - Forest Edge took 58.409 ms @done(26-09-16 02:09)
+                    ✔ Render Terrain - Forest took 132820.571 ms @done(26-09-16 02:09)
 
-    ✔ Test slowness @done(26-09-16 02:09)
-        ✔ Timing results @done(26-09-16 02:09)
-            ✔ Generate Terrain took 316.721 ms @done(26-09-16 02:09)
-            ✔ Generate Highways took 0.934 ms @done(26-09-16 02:09)
-            ✔ Generate Small Roads took 81.878 ms @done(26-09-16 02:09)
-            ✔ Connect Small Roads to Highways took 16.330 ms @done(26-09-16 02:09)
-            ✔ Pick Cell Templates for Road Cells took 1.224 ms @done(26-09-16 02:09)
-            ✔ Render Terrain took 93168.323 ms @done(26-09-16 02:09)
-            ✔ Render Urban took 2.447 ms @done(26-09-16 02:09)
-        ✔ @done(26-09-16 02:09)
-        ✔ wrap terrain render steps with timers and document results @done(26-09-16 02:09)
-            ✔ results inside a single 2D render loop iteration @done(26-09-16 02:09)
-                ✔ Render Terrain - Ground took 338.452 ms @done(26-09-16 02:09)
-                ✔ Render Terrain - Base Terrain took 207.848 ms @done(26-09-16 02:09)
-                ✔ Render Terrain - Lake took 87.607 ms @done(26-09-16 02:09)
-                ✔ Render Terrain - Mountains took 131.287 ms @done(26-09-16 s02:09)
-                ✔ Render Terrain - Forest Edge took 58.409 ms @done(26-09-16 02:09)
-                ✔ Render Terrain - Forest took 132820.571 ms @done(26-09-16 02:09)
+        ✔ Optimize rendering loop @done(26-09-16 02:09)
 
-    ✔ Optimize rendering loop @done(26-09-16 02:09)
+        ✔ Render road cells with patterns @done(26-09-17 02:38)
+            ✔ fix: road patterns leave empty tiles in tilemap @done(26-09-17 02:38)
+                ✔ test what alas coords and source ids do empty cells have @done(26-09-17 02:38)
+                ✔ empty cells have atlas coords -1, -1 and source id -1 (negative) @done(26-09-17 02:38)
+                ✔ implement func set_pattern_ignore_empty_tiles() @done(26-09-17 02:38)
 
-    ✔ Render road cells with patterns @done(26-09-17 02:38)
-        ✔ fix: road patterns leave empty tiles in tilemap @done(26-09-17 02:38)
-            ✔ test what alas coords and source ids do empty cells have @done(26-09-17 02:38)
-            ✔ empty cells have atlas coords -1, -1 and source id -1 (negative) @done(26-09-17 02:38)
-            ✔ implement func set_pattern_ignore_empty_tiles() @done(26-09-17 02:38)
+        ✔ Place buildings in each BuildingPlot @done(26-09-19 01:15)
+            ✔ output buildings into templ library @done(26-09-17 22:24)
+            ✔ bt generator - save plot position relative to cell origin @done(26-09-19 01:02)
+            ✔ LIB - get_matching_buildings @done(26-09-19 01:02)
+            ✔ store buildings dict[coord, templ] @done(26-09-19 01:15)
+        
+        ✔ Render buildings with probably sprites (allows hiding them on demand) @done(26-09-19 01:46)
 
-    ✔ Place buildings in each BuildingPlot @done(26-09-19 01:15)
-        ✔ output buildings into templ library @done(26-09-17 22:24)
-        ✔ bt generator - save plot position relative to cell origin @done(26-09-19 01:02)
-        ✔ LIB - get_matching_buildings @done(26-09-19 01:02)
-        ✔ store buildings dict[coord, templ] @done(26-09-19 01:15)
-    
-    ✔ Render buildings with probably sprites (allows hiding them on demand) @done(26-09-19 01:46)
 
 Zones
     ✔ way to define zones @done(26-09-23 18:21)
     ✔ way to adjust zone weights in editor @done(26-09-23 18:23)
-    ☐ generate
+    ✔ generate @done(26-09-24 00:23)
         ✔ pick number of cells for each zone @done(26-09-23 18:45)
         ✔ decide number of clusters for each zone @done(26-09-23 19:54)
         ✔ decide number of cells for each cluster @done(26-09-23 19:54)
-        test by printing readable 
-        pick zone for each road cell 
-    test with two zones (place buildings of the matchign zone)
-        residential commercial
+        ✔ test by printing readable @done(26-09-23 23:30)
+        ✔ distribute zones on map @done(26-09-24 00:23)
+
+    test with zones
+        residential 
+        commercial
+        place only buildings of matching zone type in template cell
+        
 
 Wilderness pois (factories, bunkers)
 

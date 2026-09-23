@@ -68,6 +68,8 @@ class_name LevelGenerator
 @export_group("Zones")
 @export var dominant_zone : ZONE
 @export var zone_weights : Dictionary[ZONE, float]
+@export var debug_enable_zone_color_overlay = false
+@export var debug_zone_colors : Dictionary[ZONE, Color]
 
 
 enum tunneler_dir {N, S, E, W}
@@ -393,7 +395,7 @@ func generate():
 			## All possible connection cells for this specific island
 			var connection_cell_candidates = []
 			for _cell in island:
-				var neighbours = get_neighboring_cells(
+				var neighbours = get_neighbor_coordinates(
 					_cell,
 					road_grid_dimensions
 				)
@@ -595,6 +597,89 @@ func generate():
 				]
 			)
 
+		# Distribute zones on map
+		## -1 == no zoned / no road 
+		var zone_cells : PackedByteArray = []
+		zone_cells.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		zone_cells.fill(-1)
+
+		# pre-step - fill all urban cells with dominant zone 
+		for coord in small_road_cell_coords:
+			grid_1d_set_value(
+					coord,
+					dominant_zone,
+					zone_cells,
+					road_grid_dimensions
+			)
+
+		var free_cells : Array[Vector2i] = small_road_cell_coords.duplicate()
+
+		for _z : ZONE in zones:
+			var z_cluster_sizes : Array = cells_per_cluster[_z]
+			
+			for cluster_size : int in z_cluster_sizes:
+				# set first cell in cluster
+				var cells_remaining : int = cluster_size
+				var start_cell : Vector2i= free_cells.pick_random()
+				grid_1d_set_value(
+					start_cell,
+					_z,
+					zone_cells,
+					road_grid_dimensions
+				)
+				free_cells.erase(start_cell)
+				cells_remaining -= 1
+
+				var current_cell = start_cell
+				while cells_remaining > 0:
+					# pick next cell from neighboring small road cells
+					var neighboring_coordinates = get_neighbor_coordinates(start_cell, road_grid_dimensions)
+					neighboring_coordinates.filter(
+						func(coord : Vector2i): # filter only cells which are urban and dont already have this zone
+							var is_urban = small_road_cell_coords.has(coord)
+							var not_this_zone = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions) != _z
+							return  is_urban and not_this_zone
+					)
+
+					if neighboring_coordinates.is_empty():# no neighboring urban cells left, create new cluster at a new coordinate
+						current_cell = free_cells.pick_random()
+						continue 
+				
+					current_cell = neighboring_coordinates.pick_random()
+					grid_1d_set_value(
+						current_cell,
+						_z,
+						zone_cells,
+						road_grid_dimensions
+					)
+					free_cells.erase(current_cell)
+					cells_remaining -= 1
+		
+		# preview zones placed on road grid with semi-transparent colored ColorRect nodes
+		if debug_enable_zone_color_overlay:
+			if tmap != null:
+				for child in tmap.get_children():
+					if child is ColorRect and child.name.begins_with("zone_preview_"):
+						child.queue_free()
+
+			for idx in range(zone_cells.size()):
+				var zone_value : int = zone_cells[idx]
+				if zone_value < 0:
+					continue
+
+				var zone_key : int = zone_value
+				if !debug_zone_colors.keys().has(zone_key):
+					continue
+
+				var zone_coord : Vector2i = index_to_coordinates(idx, road_grid_dimensions)
+				var preview_rect : ColorRect = ColorRect.new()
+				preview_rect.name = "zone_preview_%s" % [ZONE.keys()[zone_key]]
+				preview_rect.color = debug_zone_colors[zone_key]
+				preview_rect.size = Vector2(road_cell_size) * 16.0
+				preview_rect.position = (Vector2(zone_coord * road_cell_size) + Vector2(offset, 0)) * 16.0
+				preview_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+				tmap.add_child(preview_rect)
+
 #endregion
 
 #region Generate buildings
@@ -739,9 +824,14 @@ func get_value_at_2d_coordinates(array_1d, coord: Vector2i, dimensions: Vector2i
 	return array_1d[grid_get_index(dimensions, coord)]
 
 
+## sets a 1d array member at the index mapped from 2d coordinates.
+func grid_1d_set_value(coord: Vector2i, value: Variant, array_1d, array_dimensions: Vector2i) -> void:
+	array_1d[grid_get_index(array_dimensions, coord)] = value
+
+
 func is_next_to_highway(cellgroup : Array[Vector2i], highway_cells, grid_dimensions) -> bool:
 	for cell in cellgroup:
-		for c in get_neighboring_cells(cell, grid_dimensions):
+		for c in get_neighbor_coordinates(cell, grid_dimensions):
 			if highway_cells.has(c):
 				return true
 
@@ -817,7 +907,7 @@ func get_connected_cells(cell, map_dimensions, connections_grid) -> Array[Vector
 
 
 func get_connected_neighbors(cell, connections_grid, map_dimensions) -> Array[Vector2i]:
-	var neighbors = get_neighboring_cells(cell, map_dimensions)
+	var neighbors = get_neighbor_coordinates(cell, map_dimensions)
 	
 	var connected = neighbors.filter(
 		func(_c): return are_connected(cell, _c, connections_grid, map_dimensions)
@@ -827,7 +917,7 @@ func get_connected_neighbors(cell, connections_grid, map_dimensions) -> Array[Ve
 
 
 ## Returns cells in NSEW directions. Filters cells outside map bounds if map_dimensions are given
-func get_neighboring_cells(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Array[Vector2i]:
+func get_neighbor_coordinates(cell, map_dimensions : Vector2i = Vector2i(-1, -1)) -> Array[Vector2i]:
 	var ncs : Array[Vector2i] = [
 				cell + Vector2i(0, -1), # N
 				cell + Vector2i(0, 1), # S
@@ -868,7 +958,7 @@ func get_neighboring_cells_directions(cell, map_dimensions : Vector2i = Vector2i
 
 ## Returns true if cell_a and cell_b are connected in the given connections grid
 func are_connected(cell_a : Vector2i, cell_b : Vector2i, connections_grid : PackedByteArray, connections_grid_dimensions : Vector2i) -> bool:
-	var a_neighbours = get_neighboring_cells(cell_a)
+	var a_neighbours = get_neighbor_coordinates(cell_a)
 	var are_neighbours = a_neighbours.has(cell_b)
 	
 	if !are_neighbours:
