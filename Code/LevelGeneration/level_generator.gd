@@ -597,13 +597,13 @@ func generate():
 				]
 			)
 
-		# Distribute zones on map
+		# Distribute zones on map while ensuring each small-road cell is assigned exactly once.
 		## -1 == no zoned / no road 
 		var zone_cells : PackedByteArray = []
 		zone_cells.resize(road_grid_dimensions.x * road_grid_dimensions.y)
 		zone_cells.fill(-1)
 
-		# pre-step - fill all urban cells with dominant zone 
+		# pre-step - fill all urban cells with dominant zone, then reassign cells to their final zone.
 		for coord in small_road_cell_coords:
 			grid_1d_set_value(
 					coord,
@@ -613,72 +613,83 @@ func generate():
 			)
 
 		var free_cells : Array[Vector2i] = small_road_cell_coords.duplicate()
-
 		for _z : ZONE in zones:
-			var z_cluster_sizes : Array = cells_per_cluster[_z]
-			
+			var z_cluster_sizes : Array = cells_per_cluster.get(_z, [])
 			for cluster_size : int in z_cluster_sizes:
-				# set first cell in cluster
+				if free_cells.is_empty():
+					break
+
 				var cells_remaining : int = cluster_size
-				var start_cell : Vector2i= free_cells.pick_random()
+				var start_cell : Vector2i = free_cells.pick_random()
+				free_cells.erase(start_cell)
 				grid_1d_set_value(
 					start_cell,
 					_z,
 					zone_cells,
 					road_grid_dimensions
 				)
-				free_cells.erase(start_cell)
 				cells_remaining -= 1
 
-				var current_cell = start_cell
 				while cells_remaining > 0:
-					# pick next cell from neighboring small road cells
 					var neighboring_coordinates = get_neighbor_coordinates(start_cell, road_grid_dimensions)
-					neighboring_coordinates.filter(
-						func(coord : Vector2i): # filter only cells which are urban and dont already have this zone
+					neighboring_coordinates = neighboring_coordinates.filter(
+						func(coord : Vector2i) -> bool:
 							var is_urban = small_road_cell_coords.has(coord)
-							var not_this_zone = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions) != _z
-							return  is_urban and not_this_zone
+							var is_unassigned = free_cells.has(coord)
+							var cell_zone : int = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions)
+							return is_urban and is_unassigned and cell_zone == dominant_zone
 					)
 
-					if neighboring_coordinates.is_empty():# no neighboring urban cells left, create new cluster at a new coordinate
-						current_cell = free_cells.pick_random()
-						continue 
-				
-					current_cell = neighboring_coordinates.pick_random()
+					var next_cell : Vector2i
+					if neighboring_coordinates.is_empty():
+						if free_cells.is_empty():
+							break
+						next_cell = free_cells.pick_random()
+					else:
+						next_cell = neighboring_coordinates.pick_random()
+
+					free_cells.erase(next_cell)
 					grid_1d_set_value(
-						current_cell,
+						next_cell,
 						_z,
 						zone_cells,
 						road_grid_dimensions
 					)
-					free_cells.erase(current_cell)
 					cells_remaining -= 1
-		
+					start_cell = next_cell
+
+		var assigned_zone_count : int = 0
+		for coord in small_road_cell_coords:
+			if get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions) >= 0:
+				assigned_zone_count += 1
+		print('Assigned zones to %s / %s small road cells.' % [assigned_zone_count, small_road_cell_coords.size()])
+
 		# preview zones placed on road grid with semi-transparent colored ColorRect nodes
+		var rects_created = 0
 		if debug_enable_zone_color_overlay:
 			if tmap != null:
 				for child in tmap.get_children():
 					if child is ColorRect and child.name.begins_with("zone_preview_"):
 						child.queue_free()
 
-			for idx in range(zone_cells.size()):
-				var zone_value : int = zone_cells[idx]
-				if zone_value < 0:
+			for coord : Vector2i in small_road_cell_coords:
+				var zone : int = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions)
+				if zone < 0:
 					continue
 
-				var zone_key : int = zone_value
+				var zone_key : int = zone
 				if !debug_zone_colors.keys().has(zone_key):
 					continue
 
-				var zone_coord : Vector2i = index_to_coordinates(idx, road_grid_dimensions)
 				var preview_rect : ColorRect = ColorRect.new()
 				preview_rect.name = "zone_preview_%s" % [ZONE.keys()[zone_key]]
 				preview_rect.color = debug_zone_colors[zone_key]
 				preview_rect.size = Vector2(road_cell_size) * 16.0
-				preview_rect.position = (Vector2(zone_coord * road_cell_size) + Vector2(offset, 0)) * 16.0
+				preview_rect.position = (Vector2(coord * road_cell_size) + Vector2(offset, 0)) * 16.0
 				preview_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 				tmap.add_child(preview_rect)
+				rects_created += 1
+		print('Created %s preview rects for zones' % [rects_created])
 
 #endregion
 
