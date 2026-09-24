@@ -689,16 +689,30 @@ func generate():
 		var building_template_groups : Array[Dictionary] = [small_road_cell_templates, road_connector_cell_templates, highway_cell_templates]
 		var building_plot_count = 0
 		var buildings_placed_count = 0
+
 		for template_group in building_template_groups:
-			for coord in template_group.keys():
+
+			for coord : Vector2i in template_group.keys():
+
 				var template = template_group[coord]
+				var zone: ZONE = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions)
+
 				if template == null:
 					continue
 				for bp : BuildingPlot in template.building_plots:
 					building_plot_count += 1
-					var matching_buildings = rwg_cell_template_library.get_matching_buildings(bp.dimensions)
+					var matching_buildings : Array[BuildingTemplate] = rwg_cell_template_library.get_matching_buildings(bp.dimensions)
+
+					# Place only buildings which are suitable for this zone
+					matching_buildings = matching_buildings.filter(
+						func(bt : BuildingTemplate):
+							return bt.compatible_zones.has(zone)
+					)
+
 					if matching_buildings.is_empty():
+						push_warning('No suitable building found for a building plot in urban cell at coordinates %s' % [coord])
 						continue
+					
 					var building_position_on_tilemap = (coord * road_cell_size) + bp.position + Vector2i(offset, 0)
 					buildings[building_position_on_tilemap] = matching_buildings.pick_random()
 					buildings_placed_count += 1
