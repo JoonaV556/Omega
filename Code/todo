@@ -254,21 +254,24 @@ archive
         
         ✔ Render buildings with probably sprites (allows hiding them on demand) @done(26-09-19 01:46)
 
+    ✔ Zones @done(26-09-24 22:24)
+        ✔ way to define zones @done(26-09-23 18:21)
+        ✔ way to adjust zone weights in editor @done(26-09-23 18:23)
+        ✔ generate @done(26-09-24 00:23)
+            ✔ pick number of cells for each zone @done(26-09-23 18:45)
+            ✔ decide number of clusters for each zone @done(26-09-23 19:54)
+            ✔ decide number of cells for each cluster @done(26-09-23 19:54)
+            ✔ test by printing readable @done(26-09-23 23:30)
+            ✔ distribute zones on map @done(26-09-24 00:23)
 
-Zones
-    ✔ way to define zones @done(26-09-23 18:21)
-    ✔ way to adjust zone weights in editor @done(26-09-23 18:23)
-    ✔ generate @done(26-09-24 00:23)
-        ✔ pick number of cells for each zone @done(26-09-23 18:45)
-        ✔ decide number of clusters for each zone @done(26-09-23 19:54)
-        ✔ decide number of cells for each cluster @done(26-09-23 19:54)
-        ✔ test by printing readable @done(26-09-23 23:30)
-        ✔ distribute zones on map @done(26-09-24 00:23)
+        ✔ test with zones @done(26-09-24 22:24)
+            ✔ residential @done(26-09-24 22:24)
+            ✔ commercial @done(26-09-24 22:24)
+            ✔ place only buildings of matching zone type in template cell @done(26-09-24 22:24)
+                ✔ categorize buildings with zones @done(26-09-24 22:24)
+                ✔ pick only buildings compatible with current zone @done(26-09-24 22:24)
 
-    test with zones
-        residential 
-        commercial
-        place only buildings of matching zone type in template cell
+
         
 
 Wilderness pois (factories, bunkers)

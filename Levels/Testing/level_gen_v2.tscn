@@ -8,14 +8,14 @@
 [ext_resource type="Script" uid="uid://6cv66rqfwg6r" path="res://Code/LevelGeneration/util_road_cell_template_generator.gd" id="3_rdwxe"]
 [ext_resource type="Script" uid="uid://pmeam4p3q7d" path="res://Code/Other/move_with_wasd.gd" id="4_08qqg"]
 [ext_resource type="Script" uid="uid://crdnc0xgk5h0n" path="res://Code/LevelGeneration/road_connector_pattern_generator.gd" id="4_esal2"]
-[ext_resource type="Texture2D" uid="uid://bph7w4k0qj2h3" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
+[ext_resource type="Texture2D" uid="uid://bp67afwlhklkv" path="res://Assets_LICENSED/Sprites/blue.png" id="5_urxea"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="6_xcrlh"]
 [ext_resource type="Script" uid="uid://dm332oojpanf1" path="res://Code/LevelGeneration/road_pattern_generator.gd" id="7_ia673"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="8_5jm0d"]
 [ext_resource type="Script" uid="uid://b757lmigcfpbc" path="res://Code/LevelGeneration/util_building_template_group_generator.gd" id="11_tckok"]
-[ext_resource type="Texture2D" uid="uid://di5dgtcj85f21" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="12_d3cnt"]
+[ext_resource type="Texture2D" uid="uid://bfcdijubx70v1" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/7_Villas_16x16.png" id="12_d3cnt"]
 [ext_resource type="Script" uid="uid://cmhselqf2tden" path="res://Code/LevelGeneration/util_building_template_generator.gd" id="12_rdwxe"]
-[ext_resource type="Texture2D" uid="uid://bv6oabyyev4r6" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/22_Post_Office_16x16.png" id="14_du351"]
+[ext_resource type="Texture2D" uid="uid://dli01dibtpnh0" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/22_Post_Office_16x16.png" id="14_du351"]
 [ext_resource type="Script" uid="uid://dvqpxrvcslyyl" path="res://Code/LevelGeneration/util_road_connector_cell_template_generator.gd" id="15_17omf"]
 
 [sub_resource type="Gradient" id="Gradient_urxea"]
@@ -157,6 +157,7 @@ centered = false
 script = ExtResource("12_rdwxe")
 building_dimensions = Vector2i(8, 13)
 template_name = "suburb_house_1"
+zones = Array[int]([0])
 metadata/_custom_type_script = "uid://cmhselqf2tden"
 
 [node name="UtilBuildingTemplateGenerator2" type="Sprite2D" parent="BuildingTemplates" unique_id=597518691]
@@ -166,6 +167,7 @@ centered = false
 script = ExtResource("12_rdwxe")
 building_dimensions = Vector2i(8, 13)
 template_name = "post_office"
+zones = Array[int]([1])
 metadata/_custom_type_script = "uid://cmhselqf2tden"
 
 [node name="Road Cells - Highways" type="Node2D" parent="." unique_id=80211332 node_paths=PackedStringArray("tilemap", "output_library")]

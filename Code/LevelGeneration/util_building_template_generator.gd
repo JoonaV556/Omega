@@ -7,11 +7,13 @@ extends Sprite2D
 	set(name):
 		template_name = name
 		self.name = name
+@export var zones : Array[LevelGenerator.ZONE]
 
 func generate() -> BuildingTemplate:
 	var templ = BuildingTemplate.new()
 	templ.dimensions = building_dimensions
 	var atlas = texture as AtlasTexture
+	templ.compatible_zones = zones.duplicate()
 	if !atlas:
 		return null
 	templ.texture = atlas
