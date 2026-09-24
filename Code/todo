@@ -274,7 +274,10 @@ archive
 
         
 
-Wilderness pois (factories, bunkers)
+POIS (Special urban cells / buildings)
+    Spawned in wilderness
+    Varying sizes
+    Some are connected to existing road network
 
 Realistic terrain rendering (Terrain elevation)
 
