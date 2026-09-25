@@ -275,9 +275,30 @@ archive
         
 
 POIS (Special urban cells / buildings)
-    Spawned in wilderness
-    Varying sizes
-    Some are connected to existing road network
+    Specs
+        Placed before roads & urban cells
+        Varying sizes
+        Some are connected to existing road network
+        Consists of
+            Tilemap template
+            Building sprites
+    
+    todo
+        ✔ Lower terrain noise freq @done(26-09-25 20:14)
+
+        Add editor tools for creating POIS
+
+        Place pois - pre-small roads
+
+        Preview placed pois with debug visuals
+
+        Make compatible with road generation
+            Prevent placing small roads on pois
+        
+        
+        
+
+
 
 Realistic terrain rendering (Terrain elevation)
 
