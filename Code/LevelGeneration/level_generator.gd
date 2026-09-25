@@ -47,7 +47,7 @@ class_name LevelGenerator
 # Roads
 @export_group("Roads")
 ## Size of map road cells in tilemap tiles. 4x4 results in road cells sized 4x4 tiles, or 4x4 meters
-@export var road_cell_size : Vector2i = Vector2i(4, 4)
+@export var urban_cell_dimensions : Vector2i = Vector2i(64, 64)
 
 # Big roads
 @export_group("Big roads")
@@ -71,6 +71,12 @@ class_name LevelGenerator
 @export var debug_enable_zone_color_overlay = false
 @export var debug_zone_colors : Dictionary[ZONE, Color]
 
+# POIs (Points of Interest)
+@export_group("Points of Interest")
+@export var poi_template_source : UtilMapCellTemplateGroupGenerator
+@export var max_pois = 3
+@export var max_poi_grid_dimensions : Vector2i = Vector2i(3, 3)
+@export var debug_poi_placement_overlays = false
 
 enum tunneler_dir {N, S, E, W}
 
@@ -176,21 +182,21 @@ func generate():
 
 #region Generate Highways
 		# Generate big roads
-		var road_grid_dimensions : Vector2i = Vector2i(
-			int(float(w) / road_cell_size.x),
-			int(float(h) / road_cell_size.y)
+		var urban_grid_dimensions : Vector2i = Vector2i(
+			int(float(w) / urban_cell_dimensions.x),
+			int(float(h) / urban_cell_dimensions.y)
 		)
 
 		## Coordinates of each highway cell
 		var highway_cell_coordinates : Array[Vector2i] = Tunneler2D.branching_random_leap(
-			Vector2i(road_grid_dimensions.x, road_grid_dimensions.y), 
+			Vector2i(urban_grid_dimensions.x, urban_grid_dimensions.y), 
 			big_road_max_turns, 
 			big_road_min_walk_length,
 			big_road_max_branches
 			)
 		
 		var highway_cell_connections : PackedByteArray = []
-		highway_cell_connections.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		highway_cell_connections.resize(urban_grid_dimensions.x * urban_grid_dimensions.y)
 		highway_cell_connections.fill(0)
 
 		# Save big roads to road grid
@@ -208,19 +214,146 @@ func generate():
 				connections += R_CONNECTION_W
 
 			# Connect to map edge
-			var edge_connections = get_connections_to_map_edges(road_cell, road_grid_dimensions)
+			var edge_connections = get_connections_to_map_edges(road_cell, urban_grid_dimensions)
 			for connection in edge_connections:
 				connections = add_connection(connections, connection)
 				
-			highway_cell_connections[grid_get_index(Vector2i(road_grid_dimensions), road_cell)] = connections
+			highway_cell_connections[grid_get_index(Vector2i(urban_grid_dimensions), road_cell)] = connections
+#endregion
+
+#region Generate POIs
+
+		print('\nGenerating POIs with target of %s' % [max_pois])
+
+		# Map free cells usable for POI placement
+		var free_map_cells : Array[Vector2i]
+
+		for _y in range(urban_grid_dimensions.y):
+			for _x in range(urban_grid_dimensions.x):
+				free_map_cells.append(Vector2i(_x, _y))
+		for coord in highway_cell_coordinates:
+			free_map_cells.erase(coord)
+
+		# Generate POI templates 
+		var poi_templates : Array[MapCellTemplate] = poi_template_source.generate()
+
+		# Place pois
+		## Map cell templates and their position on tilemap
+		var poi_templates_cells : Dictionary[Vector2i, MapCellTemplate]
+		for poi in range(max_pois):
+			var rand_urban_grid_coordinate : Vector2i = free_map_cells.pick_random()
+			print('Picking and placing poi at urban grid coordinate %s' % [rand_urban_grid_coordinate])
+
+			# Check max poi size which fits this map cell. A cell fits only if it remains in the free cells list.
+			var max_poi_size : Vector2i = Vector2i(1, 1)
+			for height in range(1, max_poi_grid_dimensions.y + 1):
+				for width in range(1, max_poi_grid_dimensions.x + 1):
+					var fits = true
+					for _y in range(height):
+						for _x in range(width):
+							var grid_coord : Vector2i = rand_urban_grid_coordinate + Vector2i(_x, _y)
+							if !free_map_cells.has(grid_coord):
+								fits = false
+								break
+						if !fits:
+							break
+					if fits:
+						max_poi_size = Vector2i(width, height)
+
+			# Get poi templates
+			var templates = poi_templates.duplicate()
+			var template_count_pre_filter = templates.size()
+
+			# Filter out templates which dont fit
+			var filtered_count = 0
+			templates = templates.filter(
+				func(candidate_template : MapCellTemplate):
+					var size_in_grid_cells = Vector2i(
+						int(float(candidate_template.dimensions.x) / float(urban_cell_dimensions.x)),
+						int(float(candidate_template.dimensions.y) / float(urban_cell_dimensions.y))
+					)
+
+					var x_fits = size_in_grid_cells.x <= max_poi_size.x
+					var y_fits = size_in_grid_cells.y <= max_poi_size.y
+
+					var fits = x_fits and y_fits
+					if !fits:
+						filtered_count += 1
+
+					return fits
+			)
+			print('From %s POI tempalates, filtered %s tempaltes which dont fit this urban grid cell' % [template_count_pre_filter, filtered_count])
+
+			if templates.is_empty():
+				print('No fitting POI templates for urban grid coordinate %s. skipping...' % [rand_urban_grid_coordinate])
+				continue
+
+			# Pick random from fitting templates
+			var picked_poi_template : MapCellTemplate = templates.pick_random()
+
+			# Calculate consumed grid cells from the template footprint.
+			var consumed_coords : Array[Vector2i] = []
+			var template_grid_size : Vector2i = Vector2i(
+				max(1, int(float(picked_poi_template.dimensions.x) / float(urban_cell_dimensions.x))),
+				max(1, int(float(picked_poi_template.dimensions.y) / float(urban_cell_dimensions.y)))
+			)
+			for _y in range(template_grid_size.y):
+				for _x in range(template_grid_size.x):
+					var grid_coord : Vector2i = rand_urban_grid_coordinate + Vector2i(_x, _y)
+					consumed_coords.append(grid_coord)
+					free_map_cells.erase(grid_coord)
+
+			# Save template for rendering
+			poi_templates_cells[get_urban_cell_coord_on_tilemap(rand_urban_grid_coordinate)] = picked_poi_template
+
+		print('POI placement summary:')
+		for _poi_index in range(poi_templates_cells.size()):
+			var coord : Vector2i = poi_templates_cells.keys()[_poi_index]
+			var template : MapCellTemplate = poi_templates_cells[coord]
+			var template_size : Vector2i = Vector2i(
+				int(float(template.dimensions.x) / float(urban_cell_dimensions.x)),
+				int(float(template.dimensions.y) / float(urban_cell_dimensions.y))
+			)
+			print(
+				'- POI at tilemap=%s | template=%s | size=%sx%s' % [
+					coord,
+					template.name,
+					template_size.x,
+					template_size.y
+				]
+			)
+
+		# Draw debug visuals for poi placement
+		if debug_poi_placement_overlays:
+			if tmap != null:
+				for child in tmap.get_children():
+					if child is ColorRect and child.name.begins_with("poi_preview_"):
+						child.queue_free()
+
+				var idx = 0
+				for poi_coord : Vector2i in poi_templates_cells.keys():
+					var poi_template : MapCellTemplate = poi_templates_cells[poi_coord]
+					var poi_template_tilemap_dimensions : Vector2i = poi_template.dimensions
+
+					var preview_rect : ColorRect = ColorRect.new()
+					preview_rect.name = "poi_preview_%s %s" % [poi_template.name, idx]
+					preview_rect.color = Color.HOT_PINK
+					preview_rect.size = Vector2(poi_template_tilemap_dimensions) * 16.0
+					tmap.add_child(preview_rect)
+					preview_rect.position = (Vector2(poi_coord) + Vector2(offset, 0)) * 16.0
+					preview_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+					idx += 1
+		
+
 #endregion
 
 #region Generate Small Roads
+		print("\nGenerating small roads")
 		# Generate small roads
 		## Unprocessed array of small road cell coordinates produced by a generation algorithm. May contain duplicate cells due to how Random Walk and similar algorithms work.
 		var small_road_cell_coords_raw : Array[Vector2i]= generate_small_roads(
 			highway_cell_coordinates, 
-			road_grid_dimensions, 
+			urban_grid_dimensions, 
 			small_road_random_walk_length,
 			small_road_random_walk_turn_odds
 			)
@@ -232,14 +365,14 @@ func generate():
 
 		# Create 1D array for small road cells 
 		var small_road_connections : PackedByteArray = []
-		small_road_connections.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		small_road_connections.resize(urban_grid_dimensions.x * urban_grid_dimensions.y)
 		small_road_connections.fill(0)
 
 		# Randomize directional connections for small roads
 		for sr_cell in small_road_cell_coords_raw:
 			# Skip if cell already has connections (random walk produces duplicate cells)
-			var connections = small_road_connections[grid_get_index(road_grid_dimensions, sr_cell)]
-			var cell_index = grid_get_index(road_grid_dimensions, sr_cell)
+			var connections = small_road_connections[grid_get_index(urban_grid_dimensions, sr_cell)]
+			var cell_index = grid_get_index(urban_grid_dimensions, sr_cell)
 			if connections != 0:
 				continue
 
@@ -260,7 +393,7 @@ func generate():
 			var sr_connections = small_road_connections[n]
 			if sr_connections != 0:
 				small_road_cell_coords.append(
-					index_to_coordinates(n, road_grid_dimensions)
+					index_to_coordinates(n, urban_grid_dimensions)
 				)
 		
 		print('Generated %s small road cells' % [small_road_cell_coords.size()])
@@ -272,7 +405,7 @@ func generate():
 			var cellgroups = get_connected_cellgroups(
 				small_road_cell_coords,
 				small_road_connections,
-				road_grid_dimensions
+				urban_grid_dimensions
 			)
 
 			print('Found %s connected groups of small road cells' % [cellgroups.size()])
@@ -280,7 +413,7 @@ func generate():
 			# Stop connecting if all cellgroups are connected to highways
 			var cellgroups_not_connected_to_highways = 0
 			for cg in cellgroups:
-				if !is_next_to_highway(cg, highway_cell_coordinates, road_grid_dimensions):
+				if !is_next_to_highway(cg, highway_cell_coordinates, urban_grid_dimensions):
 					cellgroups_not_connected_to_highways += 1
 			if cellgroups_not_connected_to_highways == 0:
 				break
@@ -297,7 +430,7 @@ func generate():
 				# get each neighbor (group cell, direction)
 				for c in cg:
 					# Get neighboring cells
-					var neighbours : Dictionary[Vector2i, int] = get_neighboring_cells_directions(c, road_grid_dimensions)
+					var neighbours : Dictionary[Vector2i, int] = get_neighboring_cells_directions(c, urban_grid_dimensions)
 
 					# Pick cells with small roads, which are not connected to this group
 					for _c in neighbours.keys():
@@ -327,7 +460,7 @@ func generate():
 			while n < new_connections.size():
 				var cell = new_connections[n]
 				var dir = new_connections[n+1]
-				var c_idx = grid_get_index(road_grid_dimensions, cell)
+				var c_idx = grid_get_index(urban_grid_dimensions, cell)
 				small_road_connections[c_idx] = add_connection(
 					small_road_connections[c_idx],
 					dir
@@ -339,7 +472,7 @@ func generate():
 			cellgroups = get_connected_cellgroups(
 				small_road_cell_coords,
 				small_road_connections,
-				road_grid_dimensions
+				urban_grid_dimensions
 			)
 
 			print('Found %s cellsgroups after merging groups' % [cellgroups.size()])
@@ -350,7 +483,7 @@ func generate():
 
 		# Remove dead-end small road connections 
 		for cell : Vector2i in small_road_cell_coords:
-			var cell_index = grid_get_index(road_grid_dimensions, cell)
+			var cell_index = grid_get_index(urban_grid_dimensions, cell)
 			var connections : int = small_road_connections[cell_index]
 
 			for direction : int in possible_connections:
@@ -359,7 +492,7 @@ func generate():
 
 				# Erase connections to neighbours roads which don't return the connection (Connections pointing one way only)
 				var neighbour = get_cell_in_direction(cell, direction)
-				var neighbour_index = grid_get_index(road_grid_dimensions, neighbour)
+				var neighbour_index = grid_get_index(urban_grid_dimensions, neighbour)
 				var opposite_direction = opposite_connections[direction]
 				var neighbour_has_connection = (
 					small_road_cell_coords.has(neighbour)
@@ -376,7 +509,7 @@ func generate():
 		var small_road_islands = get_connected_cellgroups(
 			small_road_cell_coords,
 			small_road_connections,
-			road_grid_dimensions
+			urban_grid_dimensions
 		)
 		print("\nConnecting small roads to highways")
 		print('Found %s separate islands of connected small road cells' % [small_road_islands.size()])
@@ -397,7 +530,7 @@ func generate():
 			for _cell in island:
 				var neighbours = get_neighbor_coordinates(
 					_cell,
-					road_grid_dimensions
+					urban_grid_dimensions
 				)
 				connection_cell_candidates.append_array(
 					neighbours.filter(
@@ -418,15 +551,15 @@ func generate():
 			var connector_cell = RoadConnectorCell.new()
 			connector_cell.coordinate = _c
 			
-			var neighbour_cell_directions : Dictionary[Vector2i, int] = get_neighboring_cells_directions(_c, road_grid_dimensions)
+			var neighbour_cell_directions : Dictionary[Vector2i, int] = get_neighboring_cells_directions(_c, urban_grid_dimensions)
 			for _neighbour_cell : Vector2i in neighbour_cell_directions.keys():
 				
 				# Check if neighbour cell is a small road
 				if small_road_cell_coords.has(_neighbour_cell):
 					
 					# Connect small road to the connector
-					var connections = small_road_connections[grid_get_index(road_grid_dimensions, _neighbour_cell)]
-					small_road_connections[grid_get_index(road_grid_dimensions, _neighbour_cell)] = add_connection(
+					var connections = small_road_connections[grid_get_index(urban_grid_dimensions, _neighbour_cell)]
+					small_road_connections[grid_get_index(urban_grid_dimensions, _neighbour_cell)] = add_connection(
 						connections, 
 						opposite_connections[neighbour_cell_directions[_neighbour_cell]] # Get direction pointing from the small road cell towards us (the connector cell)
 						)
@@ -439,7 +572,7 @@ func generate():
 					)
 
 			# Connect connector to highway
-			connector_cell.highway_connections = highway_cell_connections[grid_get_index(road_grid_dimensions, _c)]
+			connector_cell.highway_connections = highway_cell_connections[grid_get_index(urban_grid_dimensions, _c)]
 			
 			connector_cells.append(connector_cell)
 		print('Connected %s small road cells to highway connectors.' % [connection_count])
@@ -460,7 +593,7 @@ func generate():
 				get_value_at_2d_coordinates(
 					small_road_connections,
 					_c,
-					road_grid_dimensions
+					urban_grid_dimensions
 				)
 			)
 			if templ:
@@ -479,7 +612,7 @@ func generate():
 				get_value_at_2d_coordinates(
 					highway_cell_connections,
 					_c,
-					road_grid_dimensions
+					urban_grid_dimensions
 				)
 			)
 			if templ:
@@ -600,7 +733,7 @@ func generate():
 		# Distribute zones on map while ensuring each small-road cell is assigned exactly once.
 		## -1 == no zoned / no road 
 		var zone_cells : PackedByteArray = []
-		zone_cells.resize(road_grid_dimensions.x * road_grid_dimensions.y)
+		zone_cells.resize(urban_grid_dimensions.x * urban_grid_dimensions.y)
 		zone_cells.fill(-1)
 
 		# pre-step - fill all urban cells with dominant zone, then reassign cells to their final zone.
@@ -609,7 +742,7 @@ func generate():
 					coord,
 					dominant_zone,
 					zone_cells,
-					road_grid_dimensions
+					urban_grid_dimensions
 			)
 
 		var free_cells : Array[Vector2i] = small_road_cell_coords.duplicate()
@@ -626,17 +759,17 @@ func generate():
 					start_cell,
 					_z,
 					zone_cells,
-					road_grid_dimensions
+					urban_grid_dimensions
 				)
 				cells_remaining -= 1
 
 				while cells_remaining > 0:
-					var neighboring_coordinates = get_neighbor_coordinates(start_cell, road_grid_dimensions)
+					var neighboring_coordinates = get_neighbor_coordinates(start_cell, urban_grid_dimensions)
 					neighboring_coordinates = neighboring_coordinates.filter(
 						func(coord : Vector2i) -> bool:
 							var is_urban = small_road_cell_coords.has(coord)
 							var is_unassigned = free_cells.has(coord)
-							var cell_zone : int = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions)
+							var cell_zone : int = get_value_at_2d_coordinates(zone_cells, coord, urban_grid_dimensions)
 							return is_urban and is_unassigned and cell_zone == dominant_zone
 					)
 
@@ -653,14 +786,14 @@ func generate():
 						next_cell,
 						_z,
 						zone_cells,
-						road_grid_dimensions
+						urban_grid_dimensions
 					)
 					cells_remaining -= 1
 					start_cell = next_cell
 
 		var assigned_zone_count : int = 0
 		for coord in small_road_cell_coords:
-			if get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions) >= 0:
+			if get_value_at_2d_coordinates(zone_cells, coord, urban_grid_dimensions) >= 0:
 				assigned_zone_count += 1
 		print('Assigned zones to %s / %s small road cells.' % [assigned_zone_count, small_road_cell_coords.size()])
 
@@ -673,7 +806,7 @@ func generate():
 						child.queue_free()
 
 			for coord : Vector2i in small_road_cell_coords:
-				var zone : int = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions)
+				var zone : int = get_value_at_2d_coordinates(zone_cells, coord, urban_grid_dimensions)
 				if zone < 0:
 					continue
 
@@ -684,8 +817,8 @@ func generate():
 				var preview_rect : ColorRect = ColorRect.new()
 				preview_rect.name = "zone_preview_%s" % [ZONE.keys()[zone_key]]
 				preview_rect.color = debug_zone_colors[zone_key]
-				preview_rect.size = Vector2(road_cell_size) * 16.0
-				preview_rect.position = (Vector2(coord * road_cell_size) + Vector2(offset, 0)) * 16.0
+				preview_rect.size = Vector2(urban_cell_dimensions) * 16.0
+				preview_rect.position = (Vector2(coord * urban_cell_dimensions) + Vector2(offset, 0)) * 16.0
 				preview_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 				tmap.add_child(preview_rect)
 				rects_created += 1
@@ -706,7 +839,7 @@ func generate():
 			for coord : Vector2i in template_group.keys():
 
 				var template = template_group[coord]
-				var zone: ZONE = get_value_at_2d_coordinates(zone_cells, coord, road_grid_dimensions)
+				var zone: ZONE = get_value_at_2d_coordinates(zone_cells, coord, urban_grid_dimensions)
 
 				if template == null:
 					continue
@@ -724,7 +857,7 @@ func generate():
 						push_warning('No suitable building found for a building plot in urban cell at coordinates %s' % [coord])
 						continue
 					
-					var building_position_on_tilemap = (coord * road_cell_size) + bp.position + Vector2i(offset, 0)
+					var building_position_on_tilemap = (coord * urban_cell_dimensions) + bp.position + Vector2i(offset, 0)
 					buildings[building_position_on_tilemap] = matching_buildings.pick_random()
 					buildings_placed_count += 1
 		print('Picked %s buildings for %s building plots found on road cells.' % [buildings_placed_count, building_plot_count])
@@ -776,7 +909,7 @@ func generate():
 #region Render Urban
 		# Render highways
 		for coord in highway_cell_coordinates:
-			var coordindate_on_tilemap : Vector2i = coord * road_cell_size
+			var coordindate_on_tilemap : Vector2i = coord * urban_cell_dimensions
 
 			# Retrieve a tile pattern with matching the connections
 			var r_pattern : TileMapPattern = highway_cell_templates[coord].tilemap_pattern
@@ -786,7 +919,7 @@ func generate():
 
 		# Render small roads
 		for coord in small_road_cell_coords:
-			var coordindate_on_tilemap : Vector2i = coord * road_cell_size
+			var coordindate_on_tilemap : Vector2i = coord * urban_cell_dimensions
 
 			# Retrieve a tile pattern with matching the connections
 			var r_pattern : TileMapPattern = small_road_cell_templates[coord].tilemap_pattern
@@ -796,7 +929,7 @@ func generate():
 
 		# Render road connectors 
 		for connector_cell in connector_cells:  
-			var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * road_cell_size
+			var coordindate_on_tilemap : Vector2i = connector_cell.coordinate * urban_cell_dimensions
 
 			# Retrieve a tile pattern with matching the connections
 			var r_pattern : TileMapPattern = road_connector_cell_templates[connector_cell.coordinate].tilemap_pattern
@@ -819,6 +952,10 @@ func generate():
 #endregion
 		print("x offset: %s" % [offset])
 		print("\n")
+
+
+func get_urban_cell_coord_on_tilemap(urban_grid_coord) -> Vector2i:
+	return Vector2i(urban_grid_coord * urban_cell_dimensions)
 
 
 func set_pattern_ignore_empty_tiles(tilemap: TileMapLayer, tilemap_coord: Vector2i, pattern: TileMapPattern) -> void:
@@ -1019,6 +1156,15 @@ func are_connected(cell_a : Vector2i, cell_b : Vector2i, connections_grid : Pack
 
 func grid_get_index(_grid_size : Vector2i, coords : Vector2i) -> int:
 	return _grid_size.x * coords.y + coords.x
+
+
+## Converts a flat 1D array index to an 2D grid coordinate.
+func get_2d_coord_from_1d_array(index : int, grid_dimensions : Vector2i) -> Vector2i:
+	if grid_dimensions.x <= 0 or grid_dimensions.y <= 0:
+		return Vector2i.ZERO
+	var y : int = int(float(index) / float(grid_dimensions.x))
+	var x : int = index - (y * grid_dimensions.x)
+	return Vector2i(x, y)
 
 
 ## Converts a flat 1D array index to an 2D grid coordinate
