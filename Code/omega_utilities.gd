@@ -1,6 +1,23 @@
 class_name OmegaUtils
 extends Object
 
+
+const tile_size_pixels : Vector2 = Vector2i(16.0, 16.0)
+
+
+static func draw_tilemap_preview_outline(tilemap_dimensions, tilemap, canvas_item, color, outline_tickness = -1.0):
+	if tilemap_dimensions == Vector2i.ZERO:
+		return
+
+	var pixels := Vector2(tilemap_dimensions.x, tilemap_dimensions.y) * tile_size_pixels
+	canvas_item.draw_rect(
+		Rect2(Vector2.ZERO, pixels),
+		color,
+		false,
+		outline_tickness
+	)
+
+
 static func roll_percentage_odds(percentage : float = 100.0) -> bool:
 	if percentage <	0.0001:
 		return false

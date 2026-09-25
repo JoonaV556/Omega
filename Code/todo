@@ -286,14 +286,30 @@ POIS (Special urban cells / buildings)
     todo
         ✔ Lower terrain noise freq @done(26-09-25 20:14)
 
-        Add editor tools for creating POIS
+        ✔ Add editor tools for creating POIS @done(26-09-25 22:59)
+            ✔ map cell template @done(26-09-25 22:21)
+                ✔ TileMapTemplate templ @done(26-09-25 22:21)
+                ✔ Node tempalate_nodes @done(26-09-25 22:21)
+                ✔ Vector2i cell_dimensions @done(26-09-25 22:21)
 
-        Place pois - pre-small roads
+            ✔ util map cell template generator (editor util) @done(26-09-25 22:59)
+                ✔ draw dimensions visualizer @done(26-09-25 22:59)
 
-        Preview placed pois with debug visuals
+            ✔ group generator @done(26-09-25 23:02)
+
+        ✔ Place pois - pre-small roads @done(26-09-26 00:49)
+            ✔ get random map cell @done(26-09-26 00:16)
+                ✔ check max poi size that can be placed in cell @done(26-09-26 00:16)
+                ✔ get pois with matching size or smaller @done(26-09-26 00:16)
+                ✔ place poi @done(26-09-26 00:16)
+
+            ✔ Preview placed pois with debug visuals @done(26-09-26 00:49)
+
+        Render pois with appropriate tilemap patterns and sprites
 
         Make compatible with road generation
             Prevent placing small roads on pois
+
         
         
         
