@@ -28,6 +28,7 @@ static func roll_percentage_odds(percentage : float = 100.0) -> bool:
 	var rand = randf()
 	return rand <= p_norm
 
+# Grid functions
 
 static func create_grid(w, h, fill_value = null) -> Array[Array]:
 	var grid : Array[Array] = []
@@ -38,6 +39,17 @@ static func create_grid(w, h, fill_value = null) -> Array[Array]:
 			row.fill(fill_value)
 		grid.append(row)
 	return grid
+
+
+# 1D Array functions
+
+static func array_1d_get_index_2d(_grid_size : Vector2i, coords : Vector2i) -> int:
+	return _grid_size.x * coords.y + coords.x
+
+
+## returns 1d array member at index mapped from 2d coordinates.
+static func array_1d_get_value_at_2d_coordinates(array_1d, coord: Vector2i, dimensions: Vector2i) -> Variant:
+	return array_1d[array_1d_get_index_2d(dimensions, coord)]
 
 
 ## Returns random int between two values using normal distribution. [br]
