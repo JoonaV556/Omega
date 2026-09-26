@@ -321,7 +321,26 @@ POIS (Special urban cells / buildings)
                 ✔ error probably with extracting pattern from tilemap coords @done(26-09-26 19:44)
 
         Make compatible with road generation
-            Prevent placing small roads on pois
+            
+            ✔ Prevent placing small roads on pois @done(26-09-27 02:24)
+            
+                ✔ <map grid class @done(26-09-27 02:23)
+
+                    ✔ <map grid cell @done(26-09-27 02:23)
+                        ✔ <is_occupied @done(26-09-27 02:23)
+
+                ✔ <mark pois in map grid @done(26-09-27 02:23)
+
+                ✔ <prevent placing small roads in occupied grid cells @done(26-09-27 02:23)
+                    ✔ map_grid.get_cell @done(26-09-27 02:23)
+            
+                ✔ test @done(26-09-27 02:23)
+            
+            randomize number of pois
+
+            prevent adding pois next to each other
+            
+            
 
         
         
