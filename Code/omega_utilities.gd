@@ -130,13 +130,13 @@ static func is_inside_bounds(cell, map_dimensions) -> bool:
 	return xin and yin
 
 
-static func get_pattern_from_cell(tilemap_layer: TileMapLayer, origin: Vector2i, size: Vector2i) -> TileMapPattern:
+static func get_pattern_from_cell(tilemap_layer: TileMapLayer, origin: Vector2i, pattern_dimensions: Vector2i) -> TileMapPattern:
 	if tilemap_layer == null:
 		return null
 
 	var pattern_cells: Array[Vector2i] = []
-	for y in range(size.y):
-		for x in range(size.x):
+	for y in range(pattern_dimensions.y):
+		for x in range(pattern_dimensions.x):
 			pattern_cells.append(origin + Vector2i(x, y))
 
 	return tilemap_layer.get_pattern(pattern_cells)

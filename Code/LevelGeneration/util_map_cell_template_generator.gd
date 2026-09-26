@@ -33,14 +33,21 @@ func generate(_tilemap : TileMapLayer) -> MapCellTemplate:
 	if !_tilemap:
 		_tilemap = tilemap
 
-	templ.tilemap_pattern = OmegaUtils.get_pattern_from_cell(
+	var pattern = OmegaUtils.get_pattern_from_cell(
 		tilemap,
-		Vector2i(self.global_position),
+		Vector2i(self.global_position / Vector2(16.0, 16.0)), # get self position on tilemap
 		template_dimensions
 	)
+	templ.tilemap_pattern = pattern
 
-	var nodes_parent = self.duplicate() as Node2D
+	# Create new clean Node2D parent for children sprites etc.
+	var children = get_children()
+	var nodes_parent = Node2D.new()
+	add_child(nodes_parent)
+	for c in children:
+		c.reparent(nodes_parent, true)
 	nodes_parent.name = StringName(template_name)
+
 	templ.nodes_parent = nodes_parent
 
 	templ.dimensions = template_dimensions
