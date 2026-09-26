@@ -305,7 +305,20 @@ POIS (Special urban cells / buildings)
 
             ✔ Preview placed pois with debug visuals @done(26-09-26 00:49)
 
-        Render pois with appropriate tilemap patterns and sprites
+        ✔ Render pois with appropriate tilemap patterns and sprites @done(26-09-26 19:44)
+            ✔ pattern @done(26-09-26 19:17)
+            ✔ sprites @done(26-09-26 19:17)
+
+            ✔ fix util @done(26-09-26 19:35)
+                ✔ get children nodes @done(26-09-26 19:35)
+                ✔ create new node2d as child @done(26-09-26 19:35)
+                ✔ move children under new node @done(26-09-26 19:35)
+                ✔ save new node @done(26-09-26 19:35)
+
+            ✔ fix pattern not working @done(26-09-26 19:44)
+                ✔ check if correct tilemap tiles are saved in pattern @done(26-09-26 19:44)
+                ✔ utility node does not save pattern correctly, extracted tiles are null or -1 coords @done(26-09-26 19:44)
+                ✔ error probably with extracting pattern from tilemap coords @done(26-09-26 19:44)
 
         Make compatible with road generation
             Prevent placing small roads on pois

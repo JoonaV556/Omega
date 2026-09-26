@@ -948,6 +948,26 @@ func generate():
 			tmap.add_sibling(sprite)
 			sprite.global_position = Vector2(tilemap_coord) * Vector2(16.0, 16.0)
 
+		# Render pois 
+		for poi_coord_on_tilemap : Vector2i in poi_templates_cells.keys():
+			var template = poi_templates_cells[poi_coord_on_tilemap]
+
+			var template_pattern_coords = template.tilemap_pattern.get_used_cells()		
+			print('poi template pattern has %s used cells' % [template_pattern_coords.size()])
+
+			# Render tilemap pattern
+			set_pattern_ignore_empty_tiles(
+				tmap,
+				poi_coord_on_tilemap + Vector2i(offset, 0),
+				template.tilemap_pattern
+			)
+
+			# Sprites
+			var template_node_root = template.nodes_parent.duplicate() as Node2D
+			tmap.add_child(template_node_root)
+			template_node_root.position = Vector2(poi_coord_on_tilemap) * Vector2(16.0, 16.0)
+
+
 #endregion
 #endregion
 		print("x offset: %s" % [offset])
