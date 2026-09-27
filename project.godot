@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="omega"
 config/version="0.1"
-run/main_scene="uid://xi7n0k01blu7"
+run/main_scene="uid://c71x5s0qm2dyy"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Assets_LICENSED/icon.svg"
 

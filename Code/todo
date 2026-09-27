@@ -273,99 +273,165 @@ archive
 
 
         
+Ground Layer
+    POIS (Special urban cells / buildings)
+        Specs
+            Placed before roads & urban cells
+            Varying sizes
+            Some are connected to existing road network
+            Consists of
+                Tilemap template
+                Building sprites
+        
+        todo
+            ✔ Lower terrain noise freq @done(26-09-25 20:14)
 
-POIS (Special urban cells / buildings)
-    Specs
-        Placed before roads & urban cells
-        Varying sizes
-        Some are connected to existing road network
-        Consists of
-            Tilemap template
-            Building sprites
-    
-    todo
-        ✔ Lower terrain noise freq @done(26-09-25 20:14)
+            ✔ Add editor tools for creating POIS @done(26-09-25 22:59)
+                ✔ map cell template @done(26-09-25 22:21)
+                    ✔ TileMapTemplate templ @done(26-09-25 22:21)
+                    ✔ Node tempalate_nodes @done(26-09-25 22:21)
+                    ✔ Vector2i cell_dimensions @done(26-09-25 22:21)
 
-        ✔ Add editor tools for creating POIS @done(26-09-25 22:59)
-            ✔ map cell template @done(26-09-25 22:21)
-                ✔ TileMapTemplate templ @done(26-09-25 22:21)
-                ✔ Node tempalate_nodes @done(26-09-25 22:21)
-                ✔ Vector2i cell_dimensions @done(26-09-25 22:21)
+                ✔ util map cell template generator (editor util) @done(26-09-25 22:59)
+                    ✔ draw dimensions visualizer @done(26-09-25 22:59)
 
-            ✔ util map cell template generator (editor util) @done(26-09-25 22:59)
-                ✔ draw dimensions visualizer @done(26-09-25 22:59)
+                ✔ group generator @done(26-09-25 23:02)
 
-            ✔ group generator @done(26-09-25 23:02)
+            ✔ Place pois - pre-small roads @done(26-09-26 00:49)
+                ✔ get random map cell @done(26-09-26 00:16)
+                    ✔ check max poi size that can be placed in cell @done(26-09-26 00:16)
+                    ✔ get pois with matching size or smaller @done(26-09-26 00:16)
+                    ✔ place poi @done(26-09-26 00:16)
 
-        ✔ Place pois - pre-small roads @done(26-09-26 00:49)
-            ✔ get random map cell @done(26-09-26 00:16)
-                ✔ check max poi size that can be placed in cell @done(26-09-26 00:16)
-                ✔ get pois with matching size or smaller @done(26-09-26 00:16)
-                ✔ place poi @done(26-09-26 00:16)
+                ✔ Preview placed pois with debug visuals @done(26-09-26 00:49)
 
-            ✔ Preview placed pois with debug visuals @done(26-09-26 00:49)
+            ✔ Render pois with appropriate tilemap patterns and sprites @done(26-09-26 19:44)
+                ✔ pattern @done(26-09-26 19:17)
+                ✔ sprites @done(26-09-26 19:17)
 
-        ✔ Render pois with appropriate tilemap patterns and sprites @done(26-09-26 19:44)
-            ✔ pattern @done(26-09-26 19:17)
-            ✔ sprites @done(26-09-26 19:17)
+                ✔ fix util @done(26-09-26 19:35)
+                    ✔ get children nodes @done(26-09-26 19:35)
+                    ✔ create new node2d as child @done(26-09-26 19:35)
+                    ✔ move children under new node @done(26-09-26 19:35)
+                    ✔ save new node @done(26-09-26 19:35)
 
-            ✔ fix util @done(26-09-26 19:35)
-                ✔ get children nodes @done(26-09-26 19:35)
-                ✔ create new node2d as child @done(26-09-26 19:35)
-                ✔ move children under new node @done(26-09-26 19:35)
-                ✔ save new node @done(26-09-26 19:35)
+                ✔ fix pattern not working @done(26-09-26 19:44)
+                    ✔ check if correct tilemap tiles are saved in pattern @done(26-09-26 19:44)
+                    ✔ utility node does not save pattern correctly, extracted tiles are null or -1 coords @done(26-09-26 19:44)
+                    ✔ error probably with extracting pattern from tilemap coords @done(26-09-26 19:44)
 
-            ✔ fix pattern not working @done(26-09-26 19:44)
-                ✔ check if correct tilemap tiles are saved in pattern @done(26-09-26 19:44)
-                ✔ utility node does not save pattern correctly, extracted tiles are null or -1 coords @done(26-09-26 19:44)
-                ✔ error probably with extracting pattern from tilemap coords @done(26-09-26 19:44)
+            Make compatible with road generation
+                
+                ✔ Prevent placing small roads on pois @done(26-09-27 02:24)
+                
+                    ✔ <map grid class @done(26-09-27 02:23)
 
-        Make compatible with road generation
-            
-            ✔ Prevent placing small roads on pois @done(26-09-27 02:24)
-            
-                ✔ <map grid class @done(26-09-27 02:23)
+                        ✔ <map grid cell @done(26-09-27 02:23)
+                            ✔ <is_occupied @done(26-09-27 02:23)
 
-                    ✔ <map grid cell @done(26-09-27 02:23)
-                        ✔ <is_occupied @done(26-09-27 02:23)
+                    ✔ <mark pois in map grid @done(26-09-27 02:23)
 
-                ✔ <mark pois in map grid @done(26-09-27 02:23)
+                    ✔ <prevent placing small roads in occupied grid cells @done(26-09-27 02:23)
+                        ✔ map_grid.get_cell @done(26-09-27 02:23)
+                
+                    ✔ test @done(26-09-27 02:23)
+                
+                ✔ randomize number of pois @done(26-09-27 02:36)
 
-                ✔ <prevent placing small roads in occupied grid cells @done(26-09-27 02:23)
-                    ✔ map_grid.get_cell @done(26-09-27 02:23)
-            
-                ✔ test @done(26-09-27 02:23)
-            
-            ✔ randomize number of pois @done(26-09-27 02:36)
+                ✔ prevent adding pois next to each other @done(26-09-27 03:26)
 
-            ✔ prevent adding pois next to each other @done(26-09-27 03:26)
-
-            Pivot to space opera
-
-
-            Connect pois to road network
-                Make some pois not connected
-            
-            
-
-Remove water beneath all urban cells        
-
-Realistic terrain rendering (Terrain elevation)
-
-Immersive lighting
-
-4 ensured map exits
-
-Fog of war 
-
-Emissions
-
-Dangerous weather effects
-
-Waterfalls....
+                Pivot to space opera
 
 
-    
+                Connect pois to road network
+                    Make some pois not connected
+                
+                
+
+    Remove water beneath all urban cells        
+
+    Realistic terrain rendering (Terrain elevation)
+
+    Immersive lighting
+
+    4 ensured map exits
+
+    Fog of war 
+
+    Emissions
+
+    Dangerous weather effects
+
+    Waterfalls....
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Space Layer
+    ☐ Plan core features
+        Persistent running background simulation
+
+        Endless explorable space
+
+        Civilizations
+            Autonomous expansion / warfare
+
+    ☐ Implement v0.1
+        View a cluster of galaxies on galaxy map 
+
+        View a cluster cluster of star systems on system map
+
+        Click on object to see object info
+
+        tasks
+            Implement universal map ui
+                <Show build version (Project version) 
+                <Implement universal map modes
+                <Switch between modes easily
+
+
+
+    ☐ Implement v0.2
+        Fly a spaceship in a local system
+
+        Interactive asteroids with physics 
+            Asteroid clusters
+
+        Shoot asteroids
+
+
+
+
+
+
+        

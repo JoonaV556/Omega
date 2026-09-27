@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://c71x5s0qm2dyy"]
+
+[ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="1_i3xd8"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="1_s576b"]
+[ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="2_72oam"]
+[ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="2_jj44g"]
+[ext_resource type="Script" uid="uid://dbc0s23kh7ime" path="res://Code/UI/map_ui.gd" id="3_noehm"]
+[ext_resource type="LabelSettings" uid="uid://m6hesa76v3ph" path="res://Resources/UI/label_settings_default.tres" id="4_mlluv"]
+[ext_resource type="Script" uid="uid://b706kl6oae8lx" path="res://Code/UI/label_map_mode.gd" id="6_7lmau"]
+[ext_resource type="ButtonGroup" uid="uid://c0w3mfit7bqoa" path="res://Resources/UI/button_group_map_mode.tres" id="6_md2p6"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jj44g"]
+
+[node name="Node3D" type="Node3D" unique_id=1969087262]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=843450860]
+
+[node name="CanvasLayer - Omega UI" type="CanvasLayer" parent="." unique_id=2103057905]
+
+[node name="Omega UI" type="Control" parent="CanvasLayer - Omega UI" unique_id=2058759365]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Label - Build Title" type="Label" parent="CanvasLayer - Omega UI/Omega UI" unique_id=382081108]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -60.0
+offset_right = 195.0
+offset_bottom = -38.0
+grow_vertical = 0
+text = "Omega Space Layer"
+label_settings = ExtResource("1_i3xd8")
+
+[node name="Label - Build Version" type="Label" parent="CanvasLayer - Omega UI/Omega UI" unique_id=735784430]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -33.0
+offset_right = 162.0
+offset_bottom = -11.0
+grow_vertical = 0
+text = "Build version "
+label_settings = ExtResource("1_i3xd8")
+script = ExtResource("2_jj44g")
+
+[node name="Map UI" type="Control" parent="CanvasLayer - Omega UI/Omega UI" unique_id=784735262]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_noehm")
+
+[node name="Label - Map Header" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1942234007]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 29.0
+text = "Map "
+label_settings = ExtResource("2_72oam")
+
+[node name="Label - Mode" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1890353453]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 119.0
+offset_bottom = 69.0
+text = "Mode: Galaxy"
+label_settings = ExtResource("4_mlluv")
+script = ExtResource("6_7lmau")
+
+[node name="Button - Galaxy" type="Button" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=468119307]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 140.0
+offset_right = 129.0
+offset_bottom = 167.0
+toggle_mode = true
+button_group = ExtResource("6_md2p6")
+text = "Galaxy Map "
+icon = SubResource("PlaceholderTexture2D_jj44g")
+
+[node name="Button - System" type="Button" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=378089824]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 180.0
+offset_right = 129.0
+offset_bottom = 207.0
+toggle_mode = true
+button_group = ExtResource("6_md2p6")
+text = "System Map
+"
+icon = SubResource("PlaceholderTexture2D_jj44g")
+
+[node name="DebugCloseApp" type="Node" parent="." unique_id=231628270]
+script = ExtResource("1_s576b")
+metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
+
+[connection signal="on_mode_changed" from="CanvasLayer - Omega UI/Omega UI/Map UI" to="CanvasLayer - Omega UI/Omega UI/Map UI/Label - Mode" method="set_mode"]
+[connection signal="pressed" from="CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="CanvasLayer - Omega UI/Omega UI/Map UI" method="set_mode_int" binds= [0]]
+[connection signal="pressed" from="CanvasLayer - Omega UI/Omega UI/Map UI/Button - System" to="CanvasLayer - Omega UI/Omega UI/Map UI" method="set_mode_int" binds= [1]]
