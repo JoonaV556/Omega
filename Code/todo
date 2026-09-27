@@ -336,17 +336,19 @@ POIS (Special urban cells / buildings)
             
                 ✔ test @done(26-09-27 02:23)
             
-            randomize number of pois
+            ✔ randomize number of pois @done(26-09-27 02:36)
 
-            prevent adding pois next to each other
+            ✔ prevent adding pois next to each other @done(26-09-27 03:26)
+
+            Pivot to space opera
+
+
+            Connect pois to road network
+                Make some pois not connected
             
             
 
-        
-        
-        
-
-
+Remove water beneath all urban cells        
 
 Realistic terrain rendering (Terrain elevation)
 
