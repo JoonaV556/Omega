@@ -310,6 +310,16 @@ func generate():
 					consumed_coords.append(grid_coord)
 					free_map_cells.erase(grid_coord)
 
+			# Consume also neighboring cells to prevent POIs being placed next to each other (allows corner touches)
+			for coord in consumed_coords:
+				for neighbour in [
+					coord + Vector2i(1, 0),
+					coord + Vector2i(-1, 0),
+					coord + Vector2i(0, 1),
+					coord + Vector2i(0, -1)
+				]:
+					free_map_cells.erase(neighbour)
+
 			# Save template for rendering
 			poi_templates_cells[get_urban_cell_coord_on_tilemap(poi_urban_grid_coordinate)] = picked_poi_template
 
