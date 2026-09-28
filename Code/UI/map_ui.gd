@@ -26,13 +26,18 @@ enum MODE {
 
 
 func _ready() -> void:
-	_object_selector = Selector.new()
-	add_child(_object_selector)
+	_object_selector = Selector.new(self)
 	_object_selector.on_selected.connect(on_object_selected)
+	_object_selector.register_unselector_control(self)
+	_object_selector.on_unselected.connect(on_object_unselected)
 
 
 func on_object_selected(new_selection : Node):
 	print('Selected %s' % [new_selection.name])
+
+
+func on_object_unselected():
+	print('Unselected')
 
 
 func set_mode_int(new_mode : int):

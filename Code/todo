@@ -505,13 +505,12 @@ Space Layer
 
                     - fix - map objects cannot be selected because map ui blocks input events
                         
-                implement unselection when clicked on empty space
-                    selector
-                        set_unselector(control)
-
-                        when unselector (map background is clicked, selection clears)
+                - implement unselection when clicked on empty space
                 
                 map mode change view to map layer
+                
+                show object info
+
                 
                 
 
