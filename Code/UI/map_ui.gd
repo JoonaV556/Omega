@@ -6,7 +6,7 @@ extends Control
 
 @export var galaxy_icon_scale : Vector2 = Vector2(1.0, 1.0)
 
-@export var objects_root : Control
+@export var objects_root : Node2D
 
 
 var mode : MODE
@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 func on_object_selected(new_selection : Control):
-	print('Selected map object %s' % [new_selection.name])
+	print('Selected %s' % [new_selection.name])
 
 
 func set_mode_int(new_mode : int):
@@ -52,6 +52,8 @@ func draw_galaxies(galaxies : Array[Galaxy]):
 		objects_root.add_child(tex)
 
 		tex.z_as_relative = false
+
+		tex.name = String('Map Object %s' % [gal.name])
 
 		tex.position = gal.local_coords
 

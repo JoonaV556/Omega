@@ -487,6 +487,17 @@ Space Layer
                 -         on focus changed
                 -             update selected
                 
+                Refactor map selection
+                    Use sprite2ds instead of controls
+
+                    select clicked map object
+
+                implement unselection when clicked on empty space
+                    selector
+                        set_unselector(control)
+
+                        when unselector (map background is clicked, selection clears)
+                
                 map ui 
                     create selector
                     register galaxy icons as selectables

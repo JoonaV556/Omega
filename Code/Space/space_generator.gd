@@ -14,7 +14,7 @@ class galaxy_cluster_params:
     var system_coords_max = Vector2(50.0, 50.0)
 
 
-static func _generate_random_name(prefix: String, rng: RandomNumberGenerator) -> String:
+static func _generate_random_name(rng: RandomNumberGenerator) -> String:
     var roots: Array = [
         "Aster", "Boreal", "Cinder", "Drift", "Eos", "Feral",
         "Gale", "Hallow", "Iris", "Juno", "Kite", "Lyra",
@@ -22,7 +22,7 @@ static func _generate_random_name(prefix: String, rng: RandomNumberGenerator) ->
         "Sol", "Talon", "Umbra", "Vega", "Warden", "Yara", "Zephyr"
     ]
     var suffix := rng.randi_range(1, 999)
-    return "%s %s %s" % [prefix, roots[rng.randi() % roots.size()], suffix]
+    return "%s %s" % [roots[rng.randi() % roots.size()], suffix]
 
 
 static func generate_galaxy_cluster(params : galaxy_cluster_params) -> Array[Galaxy]:
@@ -42,7 +42,7 @@ static func generate_galaxy_cluster(params : galaxy_cluster_params) -> Array[Gal
             rng.randf_range(params.gal_coords_min.x, params.gal_coords_max.x),
             rng.randf_range(params.gal_coords_min.y, params.gal_coords_max.y)
         )
-        var galaxy := Galaxy.new(galaxy_coords, _generate_random_name("Galaxy", rng))
+        var galaxy := Galaxy.new(galaxy_coords, _generate_random_name(rng))
         galaxy.systems = []
         galaxy.objects = []
 
@@ -56,7 +56,7 @@ static func generate_galaxy_cluster(params : galaxy_cluster_params) -> Array[Gal
                 rng.randf_range(params.system_coords_min.x, params.system_coords_max.x),
                 rng.randf_range(params.system_coords_min.y, params.system_coords_max.y)
             )
-            var system := StarSystem.new(system_coords, _generate_random_name("System", rng))
+            var system := StarSystem.new(system_coords, _generate_random_name(rng))
             galaxy.systems.append(system)
             galaxy.objects.append(system)
 
