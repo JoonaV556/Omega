@@ -1,4 +1,7 @@
+class_name Camera2DZoom
 extends Node2D
+
+
 # Allows zooming in closer and further away from target
 @export var camera: 	Camera2D
 @export var zoom_step: 	float 	= 0.3
@@ -7,6 +10,14 @@ extends Node2D
 
 
 func _process(_delta: float) -> void:
+	if !camera:
+		var parent = get_parent() as Camera2D
+		
+		if parent:
+			camera = parent
+		else:
+			return
+
 	if Input.is_action_just_pressed("ZoomIn"):
 		if not (camera.zoom.x + zoom_step) >= max_zoom.x:
 			camera.zoom.x += zoom_step

@@ -2,9 +2,22 @@ class_name MapUI
 extends Control
 
 
+@export var galaxy_icon_texture : Texture
+
+@export var galaxy_icon_scale : Vector2 = Vector2(1.0, 1.0)
+
+@export var objects_root : Control
+
+
 var mode : MODE
 
+var _galaxy_icons : Array[Control]
+
+var _object_selector : Selector
+
+
 signal on_mode_changed(new_mode : String)
+
 
 enum MODE {
 	Galaxy, 
@@ -12,10 +25,49 @@ enum MODE {
 	}
 
 
+func _ready() -> void:
+	_object_selector = Selector.new()
+	add_child(_object_selector)
+	_object_selector.on_selected.connect(on_object_selected)
+
+
+func on_object_selected(new_selection : Control):
+	print('Selected map object %s' % [new_selection.name])
+
+
 func set_mode_int(new_mode : int):
 	set_mode(new_mode as MODE)
+
 
 func set_mode(new_mode : MODE):
 	mode = new_mode
 	on_mode_changed.emit(MODE.keys()[mode])
 	print('Map mode changed to %s' % [MODE.keys()[mode]])
+
+
+func draw_galaxies(galaxies : Array[Galaxy]):
+	for gal in galaxies:
+		var tex = TextureRect.new()
+
+		objects_root.add_child(tex)
+
+		tex.z_as_relative = false
+
+		tex.position = gal.local_coords
+
+		tex.texture = galaxy_icon_texture
+
+		tex.pivot_offset_ratio = Vector2(0.5, 0.5)
+
+		tex.scale = galaxy_icon_scale
+
+		tex.focus_mode = Control.FOCUS_CLICK
+
+		_galaxy_icons.append(tex)
+
+		_object_selector.register_selectable_control(tex)
+
+
+func update_galaxy_icons_scale(new_scale):
+	for icon in _galaxy_icons:
+		icon.scale = scale

@@ -406,6 +406,24 @@ Space Layer
         Civilizations
             Autonomous expansion / warfare
 
+        Natural galactic events
+            Existential events & threats & disasters
+        
+        Grand scale real-time warfare
+
+        Ground-ship traversal
+
+        Atmospheric flight
+
+        Ground combat & survival
+            merge with omega lore
+
+
+
+
+
+
+
     ☐ Implement v0.1
         View a cluster of galaxies on galaxy map 
 
@@ -413,11 +431,79 @@ Space Layer
 
         Click on object to see object info
 
+        Randomized names for all objects
+
         tasks
-            Implement universal map ui
-                <Show build version (Project version) 
-                <Implement universal map modes
-                <Switch between modes easily
+            - Implement universal map ui
+            -    Show build version (Project version) 
+            -    Implement universal map modes
+            -    Switch between modes easily
+            
+
+            - galaxy_generator test script
+            -     generate cluster
+
+            - class StellarObject
+                - name
+                - arr objects
+                - local coords (used for measuring distances between stellar objects in addition to 2d placement)
+
+                - class Galaxy
+                    - arr systems
+                    - constructor
+
+                - class StarSystem
+                    - constructor
+
+            - SpaceGenerator
+            -     static func generate galaxy cluster(
+            -         num galaxies min,
+            -         num_galaxies max,
+            -         gal coords min, 
+            -         gal coords max, 
+            -         systems per galaxy min,
+            -         systems per galaxy max,
+            -         system coords min
+            -         system coords max 
+            -     )
+            
+            - show generated galaxies on screen
+            -     gen script signal
+            -     map ui render galaxies on signal
+
+            - add vignette
+
+            - adjust object icon scale
+
+            allow selecting objects and viewing their information
+                view name
+                view type
+
+                - selection framework
+                -     selector
+                -         signal on selected
+                -         selected selectable
+                -         register selectable control
+                -         on focus changed
+                -             update selected
+                
+                map ui 
+                    create selector
+                    register galaxy icons as selectables
+                    react to selection
+                
+                ui
+                
+                
+
+                
+
+
+            
+
+
+
+
 
 
 
