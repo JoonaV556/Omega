@@ -1,5 +1,5 @@
-class_name LabelMapMode
+class_name LabelMapLayer
 extends Label
 
-func set_mode(mode : String):
-	text = String('Mode: %s' % [mode])
+func set_layer(layer : String):
+	text = String('Layer: %s' % [layer])

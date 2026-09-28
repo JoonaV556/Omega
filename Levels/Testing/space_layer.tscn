@@ -9,8 +9,10 @@
 [ext_resource type="Shader" uid="uid://hwmgemocbhlx" path="res://Code/Shaders/color_rect_vignette.gdshader" id="5_vg3u4"]
 [ext_resource type="Script" uid="uid://b706kl6oae8lx" path="res://Code/UI/label_map_mode.gd" id="6_7lmau"]
 [ext_resource type="ButtonGroup" uid="uid://c0w3mfit7bqoa" path="res://Resources/UI/button_group_map_mode.tres" id="6_md2p6"]
+[ext_resource type="StyleBox" uid="uid://bcpnt4m5gw7ys" path="res://Resources/UI/style_box_panel_background.tres" id="7_86u60"]
 [ext_resource type="Texture2D" uid="uid://l77mirirfanb" path="res://Resources/UI/texture_stellar_object.tres" id="9_86u60"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="9_odrd7"]
+[ext_resource type="Texture2D" uid="uid://cmaqsrwp7qen0" path="res://Resources/UI/texture_selected_object_overlay.tres" id="9_ydmef"]
 [ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="12_vg3u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
@@ -31,7 +33,27 @@ anchor_mode = 0
 [node name="Omega UI" type="Node" parent="." unique_id=612238059]
 unique_name_in_owner = true
 
-[node name="Node2D Map Object Root" type="Node2D" parent="Omega UI" unique_id=957102548]
+[node name="Node2D" type="Node2D" parent="Omega UI" unique_id=1117094199]
+
+[node name="Node2D Map Object Root" type="Node2D" parent="Omega UI/Node2D" unique_id=957102548]
+
+[node name="TextureRect - Selection Overlay" type="TextureRect" parent="Omega UI/Node2D" unique_id=877614646]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1030.0
+offset_top = 390.0
+offset_right = 1042.0
+offset_bottom = 402.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset_ratio = Vector2(1, 1)
+texture = ExtResource("9_ydmef")
 
 [node name="CanvasLayer - Omega UI" type="CanvasLayer" parent="Omega UI" unique_id=2103057905]
 
@@ -47,7 +69,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root")]
+[node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +81,9 @@ mouse_filter = 1
 script = ExtResource("3_noehm")
 galaxy_icon_texture = ExtResource("9_86u60")
 galaxy_icon_scale = Vector2(3, 3)
-objects_root = NodePath("../../../Node2D Map Object Root")
+objects_root = NodePath("../../../Node2D/Node2D Map Object Root")
+object_info_label = NodePath("Label - Object Info")
+selection_overlay_node = NodePath("../../../Node2D/TextureRect - Selection Overlay")
 
 [node name="Vignette" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1234303527]
 material = SubResource("ShaderMaterial_86u60")
@@ -82,16 +106,38 @@ mouse_filter = 1
 text = "Map "
 label_settings = ExtResource("2_72oam")
 
-[node name="Label - Mode" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1890353453]
+[node name="Label - Layer" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1890353453]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 50.0
 offset_right = 119.0
 offset_bottom = 69.0
 mouse_filter = 1
-text = "Mode: Galaxy"
+text = "Layer: Galaxies"
 label_settings = ExtResource("4_mlluv")
 script = ExtResource("6_7lmau")
+
+[node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=2146746389]
+visible = false
+layout_mode = 1
+offset_left = 10.0
+offset_top = 300.0
+offset_right = 128.0
+offset_bottom = 360.0
+text = "Object Info
+ name: asd
+ type: Galaxy"
+label_settings = ExtResource("4_mlluv")
+
+[node name="Panel - bg" type="Panel" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Object Info" unique_id=336348233]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("7_86u60")
 
 [node name="Button - Galaxy" type="Button" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=468119307]
 layout_mode = 0
@@ -165,7 +211,7 @@ gal_coords_max = Vector2(1920, 1080)
 system_coords_min = Vector2(0, 0)
 system_coords_max = Vector2(1920, 1080)
 
-[connection signal="on_mode_changed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Mode" method="set_mode"]
-[connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_mode_int" binds= [0]]
-[connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - System" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_mode_int" binds= [1]]
+[connection signal="on_layer_changed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Layer" method="set_layer"]
+[connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [0]]
+[connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - System" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [1]]
 [connection signal="on_generated" from="space test" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="draw_galaxies"]

@@ -507,11 +507,24 @@ Space Layer
                         
                 - implement unselection when clicked on empty space
                 
-                map mode change view to map layer
+                - map mode change view to map layer
                 
-                show object info
+                - show object info
+                -     "selection
+                -         name: name
+                -         type: type"
+                -     when selected
+                -         update ifo
+                -         show info  
+                -     when unselected
+                -         hide info
 
+                - show overlay sprite over selection
                 
+                implement system map
+                    system map can be entered with context menu on galaxy map nodes
+
+
                 
 
                 
