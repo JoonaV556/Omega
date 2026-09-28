@@ -487,23 +487,31 @@ Space Layer
                 -         on focus changed
                 -             update selected
                 
-                Refactor map selection
-                    Use sprite2ds instead of controls
+                - Refactor map selection
+                    - Use sprite2ds instead of controls
 
-                    select clicked map object
+                    - select clicked map object
+                    -     selector
+                    -         register sprite2d selectable
+                    -             add selectable2d (area2d)
+                    -                 make pickable
+                    -                 add collisionshape2d
+                    -                     add circleshape2d
+                    -                         set radius to sprite2d texture2d size.x / 2.0
+                    -         detect clicks on selectables
+                    -             selectable2d
+                    -                 notify selector when clicked
+                    -     test
 
+                    - fix - map objects cannot be selected because map ui blocks input events
+                        
                 implement unselection when clicked on empty space
                     selector
                         set_unselector(control)
 
                         when unselector (map background is clicked, selection clears)
                 
-                map ui 
-                    create selector
-                    register galaxy icons as selectables
-                    react to selection
-                
-                ui
+                map mode change view to map layer
                 
                 
 

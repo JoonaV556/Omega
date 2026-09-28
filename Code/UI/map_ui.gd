@@ -11,7 +11,7 @@ extends Control
 
 var mode : MODE
 
-var _galaxy_icons : Array[Control]
+var _galaxy_icons : Array[Sprite2D]
 
 var _object_selector : Selector
 
@@ -31,7 +31,7 @@ func _ready() -> void:
 	_object_selector.on_selected.connect(on_object_selected)
 
 
-func on_object_selected(new_selection : Control):
+func on_object_selected(new_selection : Node):
 	print('Selected %s' % [new_selection.name])
 
 
@@ -47,27 +47,20 @@ func set_mode(new_mode : MODE):
 
 func draw_galaxies(galaxies : Array[Galaxy]):
 	for gal in galaxies:
-		var tex = TextureRect.new()
+		var map_object_sprite : Sprite2D = Sprite2D.new()
 
-		objects_root.add_child(tex)
+		objects_root.add_child(map_object_sprite)
 
-		tex.z_as_relative = false
+		map_object_sprite.z_as_relative = false
+		map_object_sprite.name = String('map_object_%s' % [gal.name])
+		map_object_sprite.position = gal.local_coords
+		map_object_sprite.texture = galaxy_icon_texture
+		map_object_sprite.scale = galaxy_icon_scale
 
-		tex.name = String('Map Object %s' % [gal.name])
+		_galaxy_icons.append(map_object_sprite)
 
-		tex.position = gal.local_coords
-
-		tex.texture = galaxy_icon_texture
-
-		tex.pivot_offset_ratio = Vector2(0.5, 0.5)
-
-		tex.scale = galaxy_icon_scale
-
-		tex.focus_mode = Control.FOCUS_CLICK
-
-		_galaxy_icons.append(tex)
-
-		_object_selector.register_selectable_control(tex)
+		# Make map object selectable
+		_object_selector.register_selectable_sprite2d(map_object_sprite)
 
 
 func update_galaxy_icons_scale(new_scale):

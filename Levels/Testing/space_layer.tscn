@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://c71x5s0qm2dyy"]
 
-[ext_resource type="Texture2D" uid="uid://j1mr6c2hhuf5" path="res://Assets_LICENSED/icon.svg" id="1_86u60"]
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="1_i3xd8"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="1_s576b"]
 [ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="2_72oam"]
@@ -22,9 +21,6 @@ shader_parameter/outer_radius = 1.37
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jj44g"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vg3u4"]
-radius = 3.0
-
 [node name="Node3D" type="Node3D" unique_id=1969087262]
 metadata/_edit_horizontal_guides_ = [1080.0]
 metadata/_edit_vertical_guides_ = [1920.0]
@@ -39,12 +35,6 @@ unique_name_in_owner = true
 
 [node name="CanvasLayer - Omega UI" type="CanvasLayer" parent="Omega UI" unique_id=2103057905]
 
-[node name="Node2D map obj root" type="Node2D" parent="Omega UI/CanvasLayer - Omega UI" unique_id=986432804]
-
-[node name="Sprite2D" type="Sprite2D" parent="Omega UI/CanvasLayer - Omega UI/Node2D map obj root" unique_id=368779771]
-position = Vector2(620, 350)
-texture = ExtResource("1_86u60")
-
 [node name="Omega UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI" unique_id=2058759365]
 layout_mode = 3
 anchors_preset = 15
@@ -54,6 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root")]
@@ -63,10 +54,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_noehm")
 galaxy_icon_texture = ExtResource("9_86u60")
 galaxy_icon_scale = Vector2(3, 3)
-objects_root = NodePath("")
+objects_root = NodePath("../../../Node2D Map Object Root")
 
 [node name="Vignette" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1234303527]
 material = SubResource("ShaderMaterial_86u60")
@@ -76,7 +68,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
 [node name="Label - Map Header" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1942234007]
@@ -85,6 +77,7 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 29.0
+mouse_filter = 1
 text = "Map "
 label_settings = ExtResource("2_72oam")
 
@@ -94,6 +87,7 @@ offset_left = 10.0
 offset_top = 50.0
 offset_right = 119.0
 offset_bottom = 69.0
+mouse_filter = 1
 text = "Mode: Galaxy"
 label_settings = ExtResource("4_mlluv")
 script = ExtResource("6_7lmau")
@@ -121,15 +115,6 @@ text = "System Map
 "
 icon = SubResource("PlaceholderTexture2D_jj44g")
 
-[node name="Sprite2D" type="Sprite2D" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1283460217]
-position = Vector2(650, 320)
-texture = ExtResource("9_86u60")
-
-[node name="Area2D" type="Area2D" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Sprite2D" unique_id=1402738169]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Sprite2D/Area2D" unique_id=1071208047]
-shape = SubResource("CircleShape2D_vg3u4")
-
 [node name="Label - Build Title" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=382081108]
 layout_mode = 1
 anchors_preset = 2
@@ -140,6 +125,7 @@ offset_top = -60.0
 offset_right = 195.0
 offset_bottom = -38.0
 grow_vertical = 0
+mouse_filter = 1
 text = "Omega Space Layer"
 label_settings = ExtResource("1_i3xd8")
 
