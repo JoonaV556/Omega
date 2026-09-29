@@ -539,6 +539,8 @@ Space Layer
                 -                                 when button pressed
                 -                                     load objects in galaxy
         build 
+            fix font issue
+                assign font for all label nodes
 
 
                 

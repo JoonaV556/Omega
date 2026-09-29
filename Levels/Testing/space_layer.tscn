@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c71x5s0qm2dyy"]
 
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="1_i3xd8"]
+[ext_resource type="Theme" uid="uid://bf1p3fspe0340" path="res://Resources/UI/theme_globa.tres" id="1_lmwhs"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="1_s576b"]
 [ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="2_72oam"]
 [ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="2_jj44g"]
@@ -9,11 +10,13 @@
 [ext_resource type="Shader" uid="uid://hwmgemocbhlx" path="res://Code/Shaders/color_rect_vignette.gdshader" id="5_vg3u4"]
 [ext_resource type="Script" uid="uid://b706kl6oae8lx" path="res://Code/UI/label_map_mode.gd" id="6_7lmau"]
 [ext_resource type="ButtonGroup" uid="uid://c0w3mfit7bqoa" path="res://Resources/UI/button_group_map_mode.tres" id="6_md2p6"]
+[ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="6_vmtbm"]
 [ext_resource type="StyleBox" uid="uid://bcpnt4m5gw7ys" path="res://Resources/UI/style_box_panel_background.tres" id="7_86u60"]
 [ext_resource type="Texture2D" uid="uid://l77mirirfanb" path="res://Resources/UI/texture_stellar_object.tres" id="9_86u60"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="9_odrd7"]
 [ext_resource type="Texture2D" uid="uid://cmaqsrwp7qen0" path="res://Resources/UI/texture_selected_object_overlay.tres" id="9_ydmef"]
 [ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="12_vg3u4"]
+[ext_resource type="Script" uid="uid://c86egcif28pn5" path="res://Code/editor/labels_set_font.gd" id="17_ocaoq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
 shader = ExtResource("5_vg3u4")
@@ -53,6 +56,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset_ratio = Vector2(1, 1)
+theme = ExtResource("1_lmwhs")
 texture = ExtResource("9_ydmef")
 
 [node name="CanvasLayer - Omega UI" type="CanvasLayer" parent="Omega UI" unique_id=2103057905]
@@ -67,6 +71,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
 metadata/_edit_use_anchors_ = true
 
 [node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "stellar_objects_parent_label")]
@@ -78,6 +83,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 1
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
 script = ExtResource("3_noehm")
 galaxy_icon_texture = ExtResource("9_86u60")
 galaxy_icon_scale = Vector2(3, 3)
@@ -94,6 +100,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lmwhs")
 
 [node name="Vignette" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1234303527]
 material = SubResource("ShaderMaterial_86u60")
@@ -104,6 +111,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
 color = Color(1, 1, 1, 0)
 
 [node name="Label - Map Header" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1942234007]
@@ -113,6 +121,8 @@ offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 29.0
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
+theme_override_fonts/font = ExtResource("6_vmtbm")
 text = "Map "
 label_settings = ExtResource("2_72oam")
 
@@ -123,6 +133,8 @@ offset_top = 50.0
 offset_right = 119.0
 offset_bottom = 69.0
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
+theme_override_fonts/font = ExtResource("6_vmtbm")
 text = "Layer: Galaxies"
 label_settings = ExtResource("4_mlluv")
 script = ExtResource("6_7lmau")
@@ -134,6 +146,8 @@ offset_top = 80.0
 offset_right = 146.0
 offset_bottom = 99.0
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
+theme_override_fonts/font = ExtResource("6_vmtbm")
 text = "Universe"
 label_settings = ExtResource("4_mlluv")
 script = ExtResource("6_7lmau")
@@ -145,6 +159,8 @@ offset_left = 10.0
 offset_top = 300.0
 offset_right = 128.0
 offset_bottom = 360.0
+theme = ExtResource("1_lmwhs")
+theme_override_fonts/font = ExtResource("6_vmtbm")
 text = "Object Info
  name: asd
  type: Galaxy"
@@ -158,6 +174,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lmwhs")
 theme_override_styles/panel = ExtResource("7_86u60")
 
 [node name="Button - Galaxy" type="Button" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=468119307]
@@ -167,6 +184,7 @@ offset_left = 10.0
 offset_top = 140.0
 offset_right = 129.0
 offset_bottom = 167.0
+theme = ExtResource("1_lmwhs")
 toggle_mode = true
 button_group = ExtResource("6_md2p6")
 text = "Galaxy Map "
@@ -179,6 +197,7 @@ offset_left = 10.0
 offset_top = 180.0
 offset_right = 129.0
 offset_bottom = 207.0
+theme = ExtResource("1_lmwhs")
 toggle_mode = true
 button_group = ExtResource("6_md2p6")
 text = "System Map
@@ -192,9 +211,11 @@ offset_left = 440.0
 offset_top = 330.0
 offset_right = 477.0
 offset_bottom = 357.0
+theme = ExtResource("1_lmwhs")
 
 [node name="Button" type="Button" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/VBoxContainer - ContextMenu" unique_id=1795079090]
 layout_mode = 2
+theme = ExtResource("1_lmwhs")
 text = "asd"
 
 [node name="Label - Build Title" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=382081108]
@@ -208,6 +229,8 @@ offset_right = 195.0
 offset_bottom = -38.0
 grow_vertical = 0
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
+theme_override_fonts/font = ExtResource("6_vmtbm")
 text = "Omega Space Layer"
 label_settings = ExtResource("1_i3xd8")
 
@@ -223,6 +246,8 @@ offset_bottom = -11.0
 grow_vertical = 0
 focus_mode = 1
 mouse_filter = 1
+theme = ExtResource("1_lmwhs")
+theme_override_fonts/font = ExtResource("6_vmtbm")
 text = "Build version "
 label_settings = ExtResource("1_i3xd8")
 script = ExtResource("2_jj44g")
@@ -245,6 +270,11 @@ gal_coords_min = Vector2(0, 0)
 gal_coords_max = Vector2(1920, 1080)
 system_coords_min = Vector2(0, 0)
 system_coords_max = Vector2(1920, 1080)
+
+[node name="Node" type="Node" parent="." unique_id=1407646015]
+script = ExtResource("17_ocaoq")
+label_font = ExtResource("6_vmtbm")
+control_theme = ExtResource("1_lmwhs")
 
 [connection signal="on_layer_changed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Layer" method="set_layer"]
 [connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [0]]

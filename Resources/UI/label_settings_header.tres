@@ -1,4 +1,7 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://bwlq0ljxbfwrg"]
 
+[ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="1_peepx"]
+
 [resource]
+font = ExtResource("1_peepx")
 font_size = 25

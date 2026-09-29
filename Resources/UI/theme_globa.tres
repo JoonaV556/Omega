@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://bf1p3fspe0340"]
+
+[ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="1_np5xq"]
+
+[resource]
+default_font = ExtResource("1_np5xq")

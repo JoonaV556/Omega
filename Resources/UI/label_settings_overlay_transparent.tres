@@ -1,5 +1,8 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://cfjb0jjtmfohv"]
 
+[ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="1_bptwe"]
+
 [resource]
+font = ExtResource("1_bptwe")
 font_size = 18
 font_color = Color(1, 1, 1, 0.5254902)
