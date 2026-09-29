@@ -399,32 +399,53 @@ Ground Layer
 
 Space Layer
     ☐ Plan core features
-        Persistent running background simulation
+        Endless explorable universe
+            Hazardous parts of space
+                One way trips only (maybe using drones)
+                Certain spaces must be terraformed on galactic level to make them accessible
+            Discovery system & rewards
+                Discoveries are used by civilizations
 
-        Endless explorable space
+        Starships
+            Fleet management & fleet warfare
+            Gigantic megaships
 
-        Civilizations
-            Autonomous expansion / warfare
+        Mega rare interstellar threats
+            Natural galactic events can cause disasters
+            Alien threats
+                Giga sized aliens
 
-        Natural galactic events
-            Existential events & threats & disasters
-        
-        Grand scale real-time warfare
+        Player can participate in universe & establish an independent civilization
 
-        Ground-ship traversal
+        Story mode
+            Impending disaster which drives exploration and warfare in story mode
 
-        Atmospheric flight
+        Galactic news network
+            Reports various events around universe
+                Reports about human losses in disasters and conflicts
+            Press ships fly around reporting 
 
-        Ground combat & survival
-            merge with omega lore
+        Autonomous civilizations
+            Epand and battle each other
+            React to player actions
+
+        Universe system
+            Player can play in universe with different characters and share with other characters
+
+        On-foot gameplay
+            Player can exit ships and traverse on foot on stations, planets etc.
+            On foot gameplay can offer lucrative benefits
+                Meet other characters face to face to gain charisma bonus
+                Assasinate important characters to influence politics and be rewarded
+
+        Terraforming & on ground installations
+
+        Background simulation
+            Universe can be run as a background process without window
+            Updates can be feeded to terminal session and over internet 
 
 
-
-
-
-
-
-    ☐ Implement v0.1
+    ✔ Implement v0.1 @done(26-09-29 23:02)
         View a cluster of galaxies on galaxy map 
 
         View a cluster cluster of star systems on system map
@@ -434,117 +455,117 @@ Space Layer
         Randomized names for all objects
 
         tasks
-            - Implement universal map ui
-            -    Show build version (Project version) 
-            -    Implement universal map modes
-            -    Switch between modes easily
+            ☐ Implement universal map ui
+               ☐ Show build version (Project version) 
+               ☐ Implement universal map modes
+               ☐ Switch between modes easily
             
 
-            - galaxy_generator test script
-            -     generate cluster
+            ☐ galaxy_generator test script
+                ☐ generate cluster
 
-            - class StellarObject
-                - name
-                - arr objects
-                - local coords (used for measuring distances between stellar objects in addition to 2d placement)
+            ☐ class StellarObject
+                ☐ name
+                ☐ arr objects
+                ☐ local coords (used for measuring distances between stellar objects in addition to 2d placement)
 
-                - class Galaxy
-                    - arr systems
-                    - constructor
+                ☐ class Galaxy
+                    ☐ arr systems
+                    ☐ constructor
 
-                - class StarSystem
-                    - constructor
+                ☐ class StarSystem
+                    ☐ constructor
 
-            - SpaceGenerator
-            -     static func generate galaxy cluster(
-            -         num galaxies min,
-            -         num_galaxies max,
-            -         gal coords min, 
-            -         gal coords max, 
-            -         systems per galaxy min,
-            -         systems per galaxy max,
-            -         system coords min
-            -         system coords max 
-            -     )
+            ☐ SpaceGenerator
+                ☐ static func generate galaxy cluster(
+                    ☐ num galaxies min,
+                    ☐ num_galaxies max,
+                    ☐ gal coords min, 
+                    ☐ gal coords max, 
+                    ☐ systems per galaxy min,
+                    ☐ systems per galaxy max,
+                    ☐ system coords min
+                    ☐ system coords max 
+                ☐ )
             
-            - show generated galaxies on screen
-            -     gen script signal
-            -     map ui render galaxies on signal
+            ☐ show generated galaxies on screen
+                ☐ gen script signal
+                ☐ map ui render galaxies on signal
 
-            - add vignette
+            ☐ add vignette
 
-            - adjust object icon scale
+            ☐ adjust object icon scale
 
-            - allow selecting objects and viewing their information
-                - view name
-                - view type
+            ☐ allow selecting objects and viewing their information
+                ☐ view name
+                ☐ view type
 
-                - selection framework
-                -     selector
-                -         signal on selected
-                -         selected selectable
-                -         register selectable control
-                -         on focus changed
-                -             update selected
+                ☐ selection framework
+                    ☐ selector
+                        ☐ signal on selected
+                        ☐ selected selectable
+                        ☐ register selectable control
+                        ☐ on focus changed
+                            ☐ update selected
                 
-                - Refactor map selection
-                    - Use sprite2ds instead of controls
+                ☐ Refactor map selection
+                    ☐ Use sprite2ds instead of controls
 
-                    - select clicked map object
-                    -     selector
-                    -         register sprite2d selectable
-                    -             add selectable2d (area2d)
-                    -                 make pickable
-                    -                 add collisionshape2d
-                    -                     add circleshape2d
-                    -                         set radius to sprite2d texture2d size.x / 2.0
-                    -         detect clicks on selectables
-                    -             selectable2d
-                    -                 notify selector when clicked
-                    -     test
+                    ☐ select clicked map object
+                        ☐ selector
+                            ☐ register sprite2d selectable
+                                ☐ add selectable2d (area2d)
+                                    ☐ make pickable
+                                    ☐ add collisionshape2d
+                                        ☐ add circleshape2d
+                                            ☐ set radius to sprite2d texture2d size.x / 2.0
+                            ☐ detect clicks on selectables
+                                ☐ selectable2d
+                                    ☐ notify selector when clicked
+                        ☐ test
 
-                    - fix - map objects cannot be selected because map ui blocks input events
+                    ☐ fix - map objects cannot be selected because map ui blocks input events
                         
-                - implement unselection when clicked on empty space
+                ☐ implement unselection when clicked on empty space
                 
-                - map mode change view to map layer
+                ☐ map mode change view to map layer
                 
-                - show object info
-                -     "selection
-                -         name: name
-                -         type: type"
-                -     when selected
-                -         update ifo
-                -         show info  
-                -     when unselected
-                -         hide info
+                ☐ show object info
+                    ☐ "selection
+                        ☐ name: name
+                        ☐ type: type"
+                    ☐ when selected
+                        ☐ update ifo
+                        ☐ show info  
+                    ☐ when unselected
+                        ☐ hide info
 
-                - show overlay sprite over selection
+                ☐ show overlay sprite over selection
                 
-                - implement system map
-                -     system map can be entered with context menu on galaxy map nodes
-                -     implement context menu
-                -         opens when rmb is pressed on map object
-                -     -        detect when map object is rmb clicked
-                -     -            test
-                -     -        map ui 
-                -     -            when selectable is rmb clicked
-                -                     if selectable is galaxy
-                -                         open context menu
-                -                             cm class
-                -                                 add_button(name)
-                -                                 butt
-                -                         cm
-                -                             add button enter map
-                -                                 when button pressed
-                -                                     load objects in galaxy
-                - implement viewing object hint
+                ☐ implement system map
+                    ☐ system map can be entered with context menu on galaxy map nodes
+                    ☐ implement context menu
+                        ☐ opens when rmb is pressed on map object
+                           detect when map object is rmb clicked
+                               test
+                           map ui 
+                               when selectable is rmb clicked
+                                    ☐ if selectable is galaxy
+                                        ☐ open context menu
+                                            ☐ cm class
+                                                ☐ add_button(name)
+                                                ☐ butt
+                                        ☐ cm
+                                            ☐ add button enter map
+                                                ☐ when button pressed
+                                                    ☐ load objects in galaxy
+                ☐ implement viewing object hint
 
-                - implement object path
-                -     show object path as text
-                -     allow swithching to path member local map by clicking on path member
+                ☐ implement object path
+                    ☐ show object path as text
+                    ☐ allow swithching to path member local map by clicking on path member
                 
-        build 
+        ☐ build 
 
 
 
@@ -563,11 +584,21 @@ Space Layer
 
     ☐ Implement v0.2
         Fly a spaceship in a local system
+            Stars visible in background (helps track movement)
 
         Interactive asteroids with physics 
             Asteroid clusters
 
         Shoot asteroids
+
+        Current location can be viewed on map
+
+        Keybinds helper
+
+        tasks
+            - toggle map with m
+            
+            fly spaceship
 
 
 

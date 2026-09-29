@@ -9,6 +9,8 @@ extends Node
 @export var system_coords_min = Vector2(-50.0, -50.0)
 @export var system_coords_max = Vector2(50.0, 50.0)
 
+@export var omega_ui : OmegaUI
+
 signal on_generated(object)
 
 func _ready() -> void:
@@ -25,4 +27,5 @@ func _ready() -> void:
 
 	var root : StellarObject = SpaceGenerator.generate_universe(params)
 
-	on_generated.emit(root)
+	var map_ui : MapUI = omega_ui.map_ui
+	map_ui.open_map_for_object(root)

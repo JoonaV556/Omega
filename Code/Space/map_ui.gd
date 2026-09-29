@@ -23,6 +23,8 @@ var _map_objects : Dictionary[Sprite2D, StellarObject]
 
 var _active_context_menu : ContextMenu
 
+var _active = true
+
 
 signal on_layer_changed(new_layer : String)
 
@@ -59,6 +61,25 @@ func _ready() -> void:
 	selection_overlay_node.hide()
 
 
+func activate():
+	self.show()
+	objects_root.get_parent().show()
+	_active = true
+
+
+func deactivate():
+	self.hide()
+	objects_root.get_parent().hide()
+	_active = false
+
+
+func toggle():
+	if _active:
+		deactivate()
+	else:
+		activate()
+
+
 func on_map_object_rmb_clicked(map_object_node : Node):
 	var sprite = map_object_node as Sprite2D
 	
@@ -84,6 +105,9 @@ func on_map_object_rmb_clicked(map_object_node : Node):
 
 
 func open_map_for_object(object : StellarObject):
+	if !_active:
+		activate()
+
 	unselect()
 
 	var layer = LAYER.Galaxies

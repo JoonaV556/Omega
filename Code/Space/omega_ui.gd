@@ -1,0 +1,13 @@
+class_name OmegaUI
+extends Node2D
+
+@export var map_ui : MapUI
+
+
+func _ready() -> void:
+	map_ui.deactivate()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ToggleMap"):
+		map_ui.toggle()
