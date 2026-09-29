@@ -9,20 +9,20 @@ extends Node
 @export var system_coords_min = Vector2(-50.0, -50.0)
 @export var system_coords_max = Vector2(50.0, 50.0)
 
-signal on_generated(galaxies)
+signal on_generated(object)
 
 func _ready() -> void:
-    # Generate cluster of galaxies
-    var params = SpaceGenerator.galaxy_cluster_params.new()
-    params.galaxies_min = galaxies_min
-    params.galaxies_max = galaxies_max
-    params.gal_coords_min = gal_coords_min
-    params.gal_coords_max = gal_coords_max
-    params.systems_per_galaxy_min = systems_per_galaxy_min
-    params.systems_per_galaxy_max = systems_per_galaxy_max
-    params.system_coords_min = system_coords_min
-    params.system_coords_max = system_coords_max
+	# Generate cluster of galaxies
+	var params = SpaceGenerator.universe_params.new()
+	params.galaxies_min = galaxies_min
+	params.galaxies_max = galaxies_max
+	params.gal_coords_min = gal_coords_min
+	params.gal_coords_max = gal_coords_max
+	params.systems_per_galaxy_min = systems_per_galaxy_min
+	params.systems_per_galaxy_max = systems_per_galaxy_max
+	params.system_coords_min = system_coords_min
+	params.system_coords_max = system_coords_max
 
-    var cluster = SpaceGenerator.generate_galaxy_cluster(params)
+	var root : StellarObject = SpaceGenerator.generate_universe(params)
 
-    on_generated.emit(cluster)
+	on_generated.emit(root)

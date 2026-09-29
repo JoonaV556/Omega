@@ -21,6 +21,7 @@ const SELECTOR_META : StringName = StringName("selector_id")
 
 
 signal on_selected(new_selection : Node)
+signal on_selectable_rmb_clicked(selectable : Node)
 signal on_unselected()
 
 
@@ -66,6 +67,10 @@ func _try_update_2d_selected(selectable : Selectable2D):
 
 	_select(selectable.get_parent())
 
+
+func _on_selectable_rmb_clicked(selectable : Selectable2D):
+	on_selectable_rmb_clicked.emit(selectable.get_parent())
+	
 
 func register_selectable_control(control : Control):
 	# Make the control focusable in viewport

@@ -69,7 +69,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node")]
+[node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "stellar_objects_parent_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,6 +84,16 @@ galaxy_icon_scale = Vector2(3, 3)
 objects_root = NodePath("../../../Node2D/Node2D Map Object Root")
 object_info_label = NodePath("Label - Object Info")
 selection_overlay_node = NodePath("../../../Node2D/TextureRect - Selection Overlay")
+stellar_objects_parent_label = NodePath("Label - ParentObject")
+
+[node name="ColorRect test bg" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=580264105]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Vignette" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1234303527]
 material = SubResource("ShaderMaterial_86u60")
@@ -117,6 +127,17 @@ text = "Layer: Galaxies"
 label_settings = ExtResource("4_mlluv")
 script = ExtResource("6_7lmau")
 
+[node name="Label - ParentObject" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=114375316]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 146.0
+offset_bottom = 99.0
+mouse_filter = 1
+text = "Universe"
+label_settings = ExtResource("4_mlluv")
+script = ExtResource("6_7lmau")
+
 [node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=2146746389]
 visible = false
 layout_mode = 1
@@ -140,6 +161,7 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("7_86u60")
 
 [node name="Button - Galaxy" type="Button" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=468119307]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 140.0
@@ -151,6 +173,7 @@ text = "Galaxy Map "
 icon = SubResource("PlaceholderTexture2D_jj44g")
 
 [node name="Button - System" type="Button" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=378089824]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 180.0
@@ -161,6 +184,18 @@ button_group = ExtResource("6_md2p6")
 text = "System Map
 "
 icon = SubResource("PlaceholderTexture2D_jj44g")
+
+[node name="VBoxContainer - ContextMenu" type="VBoxContainer" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=644658257]
+visible = false
+layout_mode = 0
+offset_left = 440.0
+offset_top = 330.0
+offset_right = 477.0
+offset_bottom = 357.0
+
+[node name="Button" type="Button" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/VBoxContainer - ContextMenu" unique_id=1795079090]
+layout_mode = 2
+text = "asd"
 
 [node name="Label - Build Title" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=382081108]
 layout_mode = 1
@@ -214,4 +249,4 @@ system_coords_max = Vector2(1920, 1080)
 [connection signal="on_layer_changed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Layer" method="set_layer"]
 [connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [0]]
 [connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - System" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [1]]
-[connection signal="on_generated" from="space test" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="draw_galaxies"]
+[connection signal="on_generated" from="space test" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="open_map_for_object"]

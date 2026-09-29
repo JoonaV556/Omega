@@ -12,6 +12,8 @@ extends Control
 
 @export var selection_overlay_node : TextureRect
 
+@export var stellar_objects_parent_label : Label
+
 
 var current_layer : LAYER
 
@@ -20,6 +22,8 @@ var _galaxy_icons : Array[Sprite2D]
 var _object_selector : Selector
 
 var _map_objects : Dictionary[Sprite2D, StellarObject]
+
+var _active_context_menu : ContextMenu
 
 
 signal on_layer_changed(new_layer : String)
@@ -48,10 +52,49 @@ func _ready() -> void:
 	_object_selector.on_selected.connect(on_object_selected)
 	_object_selector.register_unselector_control(self)
 	_object_selector.on_unselected.connect(on_object_unselected)
+	_object_selector.on_selectable_rmb_clicked.connect(on_map_object_rmb_clicked)
 
 	set_layer(LAYER.Galaxies)
 
 	selection_overlay_node.hide()
+
+
+func on_map_object_rmb_clicked(map_object_node : Node):
+	var sprite = map_object_node as Sprite2D
+	
+	if !sprite: 
+		return
+	
+	var map_object = _map_objects[sprite]
+
+	if !map_object:
+		return
+
+	if !map_object is Galaxy:
+		return
+
+	destroy_context_menu()
+
+	var cm : ContextMenu = ContextMenu.new(self, get_local_mouse_position())
+	cm.add_button("Enter map").connect(
+		open_map_for_object.bind(map_object)
+		)
+	_active_context_menu = cm
+	print('created context menu')
+
+
+func open_map_for_object(object : StellarObject):
+	unselect()
+
+	var layer = LAYER.Galaxies
+	if object is Galaxy:
+		layer = LAYER.Systems
+
+	draw_objects(object.objects, layer)
+
+	stellar_objects_parent_label.text = object.name
+	
+	print('Opened local map for stellar object %s. Local map contains %s stellar objects.' % [object.name, object.objects.size()])
 
 
 func on_object_selected(new_selection : Node):
@@ -79,7 +122,7 @@ func on_object_selected(new_selection : Node):
 	object_info_label.text = String(
 		"Object Info
 		\n\t name: %s
-		\n\t type: %s" % [object_type_str, selected_object.name]
+		\n\t type: %s" % [selected_object.name, object_type_str]
 	)
 	object_info_label.show()
 
@@ -89,9 +132,22 @@ func on_object_selected(new_selection : Node):
 
 func on_object_unselected():
 	print('Unselected')
-	object_info_label.hide()
+	unselect()
 
+
+func unselect():
+	object_info_label.hide()
 	selection_overlay_node.hide()
+
+	destroy_context_menu()
+
+
+func destroy_context_menu():
+	if !_active_context_menu:
+		return
+
+	_active_context_menu.hide()
+	_active_context_menu.queue_free()
 
 
 func set_layer_int(new_layer : int):
@@ -104,25 +160,32 @@ func set_layer(new_layer : LAYER):
 	print('Map layer changed to %s' % [LAYER.keys()[current_layer]])
 
 
-func draw_galaxies(galaxies : Array[Galaxy]):
-	for gal in galaxies:
+func draw_objects(objects : Array[StellarObject], objects_layer : int = LAYER.Galaxies):
+	_map_objects.clear()
+
+	for map_obj_sprite in objects_root.get_children():
+		map_obj_sprite.queue_free()
+	
+	for so in objects:
 		var map_object_sprite : Sprite2D = Sprite2D.new()
 
 		objects_root.add_child(map_object_sprite)
 
 		map_object_sprite.z_as_relative = false
-		map_object_sprite.name = String('map_object_%s' % [gal.name])
-		map_object_sprite.position = gal.local_coords
+		map_object_sprite.name = String('map_object_%s' % [so.name])
+		map_object_sprite.position = so.local_coords
 		map_object_sprite.texture = galaxy_icon_texture
 		map_object_sprite.scale = galaxy_icon_scale
 		map_object_sprite.centered = true
 
 		_galaxy_icons.append(map_object_sprite)
 
-		_map_objects[map_object_sprite] = gal
+		_map_objects[map_object_sprite] = so
 
 		# Make map object selectable
 		_object_selector.register_selectable_sprite2d(map_object_sprite)
+	
+	set_layer_int(objects_layer)
 
 
 func update_galaxy_icons_scale(new_scale):

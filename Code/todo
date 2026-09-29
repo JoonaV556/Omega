@@ -424,7 +424,7 @@ Space Layer
 
 
 
-    ☐ Implement v0.1
+    ✔ Implement v0.1 @done(26-09-29 03:13)
         View a cluster of galaxies on galaxy map 
 
         View a cluster cluster of star systems on system map
@@ -475,9 +475,9 @@ Space Layer
 
             - adjust object icon scale
 
-            allow selecting objects and viewing their information
-                view name
-                view type
+            - allow selecting objects and viewing their information
+                - view name
+                - view type
 
                 - selection framework
                 -     selector
@@ -521,8 +521,24 @@ Space Layer
 
                 - show overlay sprite over selection
                 
-                implement system map
-                    system map can be entered with context menu on galaxy map nodes
+                - implement system map
+                -     system map can be entered with context menu on galaxy map nodes
+                -     implement context menu
+                -         opens when rmb is pressed on map object
+                -     -        detect when map object is rmb clicked
+                -     -            test
+                -     -        map ui 
+                -     -            when selectable is rmb clicked
+                -                     if selectable is galaxy
+                -                         open context menu
+                -                             cm class
+                -                                 add_button(name)
+                -                                 butt
+                -                         cm
+                -                             add button enter map
+                -                                 when button pressed
+                -                                     load objects in galaxy
+        build 
 
 
                 

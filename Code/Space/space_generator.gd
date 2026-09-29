@@ -1,6 +1,6 @@
 class_name SpaceGenerator
 
-class galaxy_cluster_params:
+class universe_params:
 	var galaxies_min = 5
 	var galaxies_max = 30
 
@@ -25,12 +25,14 @@ static func _generate_random_name(rng: RandomNumberGenerator) -> String:
 	return "%s %s" % [roots[rng.randi() % roots.size()], suffix]
 
 
-static func generate_galaxy_cluster(params : galaxy_cluster_params) -> Array[Galaxy]:
-	var cluster : Array[Galaxy] = []
+static func generate_universe(params : universe_params) -> StellarObject:
+	var _obj_root : StellarObject = StellarObject.new(Vector2.ZERO, "universe")
+
+	var cluster : Array[StellarObject] = []
 	var rng := RandomNumberGenerator.new()
 
 	if params == null:
-		params = galaxy_cluster_params.new()
+		params = universe_params.new()
 
 	var galaxy_count_min: int = params.galaxies_min
 	var galaxy_count_max: int = params.galaxies_max
@@ -62,4 +64,5 @@ static func generate_galaxy_cluster(params : galaxy_cluster_params) -> Array[Gal
 
 		cluster.append(galaxy)
 
-	return cluster
+	_obj_root.objects = cluster
+	return _obj_root

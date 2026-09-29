@@ -13,4 +13,6 @@ func _ready() -> void:
 			if event is InputEventMouseButton:
 				if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 					selector._try_update_2d_selected(self)
+				if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+					selector._on_selectable_rmb_clicked(self)
 	)
