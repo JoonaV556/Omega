@@ -538,13 +538,14 @@ Space Layer
                 -                             add button enter map
                 -                                 when button pressed
                 -                                     load objects in galaxy
-                implement viewing object hint
+                - implement viewing object hint
 
-                implement object path
+                - implement object path
+                -     show object path as text
+                -     allow swithching to path member local map by clicking on path member
                 
         build 
-            fix font issue
-                assign font for all label nodes
+
 
 
                 

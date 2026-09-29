@@ -47,6 +47,7 @@ static func generate_universe(params : universe_params) -> StellarObject:
 		var galaxy := Galaxy.new(galaxy_coords, _generate_random_name(rng))
 		galaxy.systems = []
 		galaxy.objects = []
+		galaxy.so_parent = _obj_root
 
 		var system_count_min: int = params.systems_per_galaxy_min
 		var system_count_max: int = params.systems_per_galaxy_max
@@ -59,6 +60,7 @@ static func generate_universe(params : universe_params) -> StellarObject:
 				rng.randf_range(params.system_coords_min.y, params.system_coords_max.y)
 			)
 			var system := StarSystem.new(system_coords, _generate_random_name(rng))
+			system.so_parent = galaxy
 			galaxy.systems.append(system)
 			galaxy.objects.append(system)
 
