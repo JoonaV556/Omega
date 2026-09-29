@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="9_odrd7"]
 [ext_resource type="Texture2D" uid="uid://cmaqsrwp7qen0" path="res://Resources/UI/texture_selected_object_overlay.tres" id="9_ydmef"]
 [ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="12_vg3u4"]
-[ext_resource type="Script" uid="uid://c86egcif28pn5" path="res://Code/editor/labels_set_font.gd" id="17_ocaoq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
 shader = ExtResource("5_vg3u4")
@@ -270,11 +269,6 @@ gal_coords_min = Vector2(0, 0)
 gal_coords_max = Vector2(1920, 1080)
 system_coords_min = Vector2(0, 0)
 system_coords_max = Vector2(1920, 1080)
-
-[node name="Node" type="Node" parent="." unique_id=1407646015]
-script = ExtResource("17_ocaoq")
-label_font = ExtResource("6_vmtbm")
-control_theme = ExtResource("1_lmwhs")
 
 [connection signal="on_layer_changed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Layer" method="set_layer"]
 [connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [0]]
