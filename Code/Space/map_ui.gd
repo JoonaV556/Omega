@@ -12,6 +12,8 @@ extends Control
 
 @export var selection_overlay_node : TextureRect
 
+@export var map_ui_bg_root : CanvasLayer
+
 
 var current_layer : LAYER
 
@@ -64,11 +66,13 @@ func _ready() -> void:
 func activate():
 	self.show()
 	objects_root.get_parent().show()
+	map_ui_bg_root.show()
 	_active = true
 
 
 func deactivate():
 	self.hide()
+	map_ui_bg_root.hide()
 	objects_root.get_parent().hide()
 	_active = false
 

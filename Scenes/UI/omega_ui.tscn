@@ -26,10 +26,34 @@ shader_parameter/outer_radius = 1.37
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jj44g"]
 
-[node name="Omega UI" type="Node2D" unique_id=1645446355 node_paths=PackedStringArray("map_ui")]
+[node name="Omega UI" type="CanvasLayer" unique_id=239421514 node_paths=PackedStringArray("map_ui")]
 script = ExtResource("1_ymmqo")
 map_ui = NodePath("CanvasLayer - Omega UI/Omega UI/Map UI")
 metadata/_custom_type_script = "uid://dkiiopqap8m14"
+
+[node name="CanvasLayer MapUI BG" type="CanvasLayer" parent="." unique_id=1679328168]
+layer = -1
+
+[node name="Control" type="Control" parent="CanvasLayer MapUI BG" unique_id=1737514315]
+z_index = -1
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect - bg" type="ColorRect" parent="CanvasLayer MapUI BG/Control" unique_id=336010392]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Node2D - Map selection root" type="Node2D" parent="." unique_id=1805179537]
 
@@ -69,7 +93,7 @@ mouse_filter = 1
 theme = ExtResource("1_ay6ia")
 metadata/_edit_use_anchors_ = true
 
-[node name="Map UI" type="Control" parent="CanvasLayer - Omega UI/Omega UI" unique_id=306345336 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node")]
+[node name="Map UI" type="Control" parent="CanvasLayer - Omega UI/Omega UI" unique_id=306345336 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "map_ui_bg_root")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,6 +109,7 @@ galaxy_icon_scale = Vector2(3, 3)
 objects_root = NodePath("../../../Node2D - Map selection root/Node2D Map Object Root")
 object_info_label = NodePath("Label - Object Info")
 selection_overlay_node = NodePath("../../../Node2D - Map selection root/TextureRect - Selection Overlay")
+map_ui_bg_root = NodePath("../../../CanvasLayer MapUI BG")
 
 [node name="ColorRect test bg" type="ColorRect" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1767310853]
 visible = false
@@ -138,7 +163,7 @@ offset_top = 136.0
 offset_right = 290.0
 offset_bottom = 155.0
 theme = ExtResource("1_ay6ia")
-text = "Viewing local map for asd asd"
+text = "Viewing local map for unknown"
 label_settings = ExtResource("8_nndt0")
 script = ExtResource("10_s43mt")
 metadata/_custom_type_script = "uid://bodddbrxsfqf1"

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c71x5s0qm2dyy"]
 
-[ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="1_72oam"]
-[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="1_s576b"]
-[ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="12_vg3u4"]
+[ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="1_lvpni"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="2_33pml"]
+[ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="3_e7dqs"]
 
 [node name="Node3D" type="Node3D" unique_id=1969087262]
 metadata/_edit_horizontal_guides_ = [1080.0]
@@ -11,16 +11,16 @@ metadata/_edit_vertical_guides_ = [1920.0]
 [node name="Camera2D" type="Camera2D" parent="." unique_id=843450860]
 anchor_mode = 0
 
-[node name="Omega UI" parent="." unique_id=1538899963 instance=ExtResource("1_72oam")]
+[node name="Omega UI" parent="." unique_id=1538899963 instance=ExtResource("1_lvpni")]
 unique_name_in_owner = true
 
 [node name="DebugCloseApp" type="Node" parent="." unique_id=231628270]
-script = ExtResource("1_s576b")
+script = ExtResource("2_33pml")
 editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="space test" type="Node" parent="." unique_id=1297243136 node_paths=PackedStringArray("omega_ui")]
-script = ExtResource("12_vg3u4")
+script = ExtResource("3_e7dqs")
 galaxies_min = 30
 galaxies_max = 50
 gal_coords_min = Vector2(0, 0)

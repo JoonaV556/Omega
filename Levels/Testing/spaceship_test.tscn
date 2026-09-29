@@ -1,0 +1,860 @@
+[gd_scene format=3 uid="uid://co2f6vjgkfdmc"]
+
+[ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="1_npdgk"]
+[ext_resource type="Texture2D" uid="uid://c5ppqtii77ih6" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="2_i6rb2"]
+[ext_resource type="Texture2D" uid="uid://ituwd85ytlmm" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_2.png" id="2_ykpje"]
+[ext_resource type="Texture2D" uid="uid://lrls8fplpl5w" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Rock_2.png" id="3_1wip0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
+atlas = ExtResource("2_i6rb2")
+region = Rect2(0, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wip0"]
+atlas = ExtResource("2_i6rb2")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6rb2"]
+atlas = ExtResource("2_i6rb2")
+region = Rect2(32, 112, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pb00k"]
+size = Vector2(32, 57)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5jd2g"]
+radius = 8.0
+
+[node name="Node2D" type="Node2D" unique_id=1787844382]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=624978859]
+layer = -2
+follow_viewport_enabled = true
+
+[node name="Node2D - stars" type="Node2D" parent="CanvasLayer" unique_id=1582671042]
+position = Vector2(10, 88)
+
+[node name="Node2D asteroids" type="Node2D" parent="CanvasLayer/Node2D - stars" unique_id=69932088]
+modulate = Color(1, 1, 1, 0.53333336)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=1509170298]
+position = Vector2(32, -16)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=1585946055]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=1494361883]
+position = Vector2(-48, -40)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=819020639]
+position = Vector2(-144, -24)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=315092962]
+position = Vector2(-120, -112)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=982767633]
+position = Vector2(-64, 48)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=1133618651]
+position = Vector2(168, -224)
+rotation = -1.5707964
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D" unique_id=4609307]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D" unique_id=1002503107]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D" unique_id=1356190996]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D" unique_id=209149425]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D" unique_id=468169400]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D" unique_id=1131495250]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D2" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=268886210]
+position = Vector2(-128, -344)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D2" unique_id=427492267]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D2" unique_id=1967391448]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D2" unique_id=1545920802]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D2" unique_id=494713041]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D2" unique_id=2114253602]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D2" unique_id=1261030181]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D3" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=487569382]
+position = Vector2(-184, 152)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D3" unique_id=158684924]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D3" unique_id=353261051]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D3" unique_id=404908827]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D3" unique_id=298467305]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D3" unique_id=298129526]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D3" unique_id=1116095034]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D4" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=941971392]
+position = Vector2(624, -200)
+rotation = -4.712389
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D4" unique_id=2088051592]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D4" unique_id=1807925478]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D4" unique_id=1906789902]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D4" unique_id=1110049945]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D4" unique_id=62312259]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D4" unique_id=1322900843]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D5" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=28140915]
+position = Vector2(328, -320)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D5" unique_id=1163713776]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D5" unique_id=1540246880]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D5" unique_id=2004943564]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D5" unique_id=856957173]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D5" unique_id=2101469342]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D5" unique_id=545453654]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D6" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids" unique_id=629154496]
+position = Vector2(272, 176)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D6" unique_id=1963685721]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D6" unique_id=1528227276]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D6" unique_id=1930103696]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D6" unique_id=667787248]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D6" unique_id=1212894248]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids/Node2D6" unique_id=779900836]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D asteroids2" type="Node2D" parent="CanvasLayer/Node2D - stars" unique_id=280940994]
+modulate = Color(1, 1, 1, 0.53333336)
+position = Vector2(-664, 16)
+rotation = 1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1478381796]
+position = Vector2(32, -16)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1194013143]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1284821691]
+position = Vector2(-48, -40)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1127502114]
+position = Vector2(-144, -24)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=916076087]
+position = Vector2(-120, -112)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=14581722]
+position = Vector2(-64, 48)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1988245141]
+position = Vector2(168, -224)
+rotation = -1.5707964
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D" unique_id=99748812]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D" unique_id=1847344717]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D" unique_id=32900496]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D" unique_id=1620081554]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D" unique_id=848286480]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D" unique_id=835832276]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D2" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=868757140]
+position = Vector2(-128, -344)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D2" unique_id=525061795]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D2" unique_id=46797124]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D2" unique_id=766239932]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D2" unique_id=6036676]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D2" unique_id=323806408]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D2" unique_id=167056962]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D3" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=916054590]
+position = Vector2(-184, 152)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D3" unique_id=1317211692]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D3" unique_id=6785158]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D3" unique_id=1470451687]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D3" unique_id=1634413704]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D3" unique_id=238911086]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D3" unique_id=338976820]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D4" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1226355041]
+position = Vector2(624, -200)
+rotation = -4.712389
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D4" unique_id=1551466332]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D4" unique_id=913458465]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D4" unique_id=1560676745]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D4" unique_id=1001056586]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D4" unique_id=1445942362]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D4" unique_id=1830826867]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D5" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=186975259]
+position = Vector2(328, -320)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D5" unique_id=1447940882]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D5" unique_id=1363383926]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D5" unique_id=1362353049]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D5" unique_id=1515589297]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D5" unique_id=851484297]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D5" unique_id=137140454]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D6" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2" unique_id=1659117734]
+position = Vector2(272, 176)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D6" unique_id=1356326885]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D6" unique_id=333739632]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D6" unique_id=1948389477]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D6" unique_id=320225377]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D6" unique_id=884650087]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids2/Node2D6" unique_id=1544807700]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D asteroids3" type="Node2D" parent="CanvasLayer/Node2D - stars" unique_id=427918555]
+modulate = Color(1, 1, 1, 0.53333336)
+position = Vector2(-160, -912)
+rotation = 1.5707964
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=751816401]
+position = Vector2(32, -16)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=1190946400]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=918299268]
+position = Vector2(-48, -40)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=79733638]
+position = Vector2(-144, -24)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=759648456]
+position = Vector2(-120, -112)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=1838722218]
+position = Vector2(-64, 48)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=1927694753]
+position = Vector2(168, -224)
+rotation = -1.5707964
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D" unique_id=2142307002]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D" unique_id=970103876]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D" unique_id=1751998027]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D" unique_id=557977589]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D" unique_id=710624880]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D" unique_id=277009982]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D2" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=1321446494]
+position = Vector2(-128, -344)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D2" unique_id=165424330]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D2" unique_id=1064260911]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D2" unique_id=81599691]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D2" unique_id=723279842]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D2" unique_id=1983342152]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D2" unique_id=457878397]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D3" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=437604456]
+position = Vector2(-184, 152)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D3" unique_id=561370839]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D3" unique_id=1037857653]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D3" unique_id=1340529846]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D3" unique_id=1717063779]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D3" unique_id=442906033]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D3" unique_id=857452141]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D4" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=153362320]
+position = Vector2(624, -200)
+rotation = -4.712389
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D4" unique_id=2071279886]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D4" unique_id=472415951]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D4" unique_id=840194506]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D4" unique_id=733963830]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D4" unique_id=281893203]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D4" unique_id=112469693]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D5" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=1544011351]
+position = Vector2(328, -320)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D5" unique_id=56821926]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D5" unique_id=284519142]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D5" unique_id=1895444551]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D5" unique_id=515925682]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D5" unique_id=1472232985]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D5" unique_id=138129066]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D6" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3" unique_id=1002992593]
+position = Vector2(272, 176)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D6" unique_id=1873685075]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D6" unique_id=1783379829]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D6" unique_id=1339102307]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D6" unique_id=1637955093]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D6" unique_id=1163537478]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids3/Node2D6" unique_id=2045233016]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D asteroids4" type="Node2D" parent="CanvasLayer/Node2D - stars" unique_id=1236363143]
+modulate = Color(1, 1, 1, 0.53333336)
+position = Vector2(672, 240)
+rotation = -3.1415925
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=565000524]
+position = Vector2(32, -16)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=1234566522]
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=743724871]
+position = Vector2(-48, -40)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=247798059]
+position = Vector2(-144, -24)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=853444067]
+position = Vector2(-120, -112)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=813275717]
+position = Vector2(-64, 48)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=1940811837]
+position = Vector2(168, -224)
+rotation = -1.5707964
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D" unique_id=2112922764]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D" unique_id=1084489400]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D" unique_id=1219144222]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D" unique_id=100571432]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D" unique_id=871148819]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D" unique_id=1437439365]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D2" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=1847996350]
+position = Vector2(-128, -344)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D2" unique_id=515500243]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D2" unique_id=1496263534]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D2" unique_id=1327793542]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D2" unique_id=1484168407]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D2" unique_id=159703517]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D2" unique_id=963141138]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D3" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=288847703]
+position = Vector2(-184, 152)
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D3" unique_id=830413141]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D3" unique_id=2068904984]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D3" unique_id=473555529]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D3" unique_id=291642354]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D3" unique_id=836811108]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D3" unique_id=768228543]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D4" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=1407993260]
+position = Vector2(624, -200)
+rotation = -4.712389
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D4" unique_id=2015944724]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D4" unique_id=1911131991]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D4" unique_id=588431133]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D4" unique_id=542632528]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D4" unique_id=89241087]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D4" unique_id=1381782580]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D5" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=670757300]
+position = Vector2(328, -320)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D5" unique_id=497854934]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D5" unique_id=83607388]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D5" unique_id=511653706]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D5" unique_id=753906437]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D5" unique_id=1740563085]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D5" unique_id=1992978311]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Node2D6" type="Node2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4" unique_id=111859600]
+position = Vector2(272, 176)
+rotation = -3.1415927
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D6" unique_id=1065095737]
+position = Vector2(72, 0)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D6" unique_id=521225395]
+position = Vector2(40, 8)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D6" unique_id=225950092]
+position = Vector2(-8, -24)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D6" unique_id=1617127274]
+position = Vector2(-104, -8)
+texture = SubResource("AtlasTexture_ykpje")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D6" unique_id=118539946]
+position = Vector2(-80, -96)
+texture = SubResource("AtlasTexture_1wip0")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/Node2D - stars/Node2D asteroids4/Node2D6" unique_id=1190680835]
+position = Vector2(-24, 64)
+texture = SubResource("AtlasTexture_i6rb2")
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer" unique_id=1197669881]
+
+[node name="Ship" type="Sprite2D" parent="CanvasLayer" unique_id=1509812839]
+texture = ExtResource("2_ykpje")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Ship" unique_id=1388224770]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Ship/RigidBody2D" unique_id=488211328]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_pb00k")
+
+[node name="Asteroid" type="Sprite2D" parent="CanvasLayer" unique_id=1357422769]
+position = Vector2(34, -141)
+texture = ExtResource("3_1wip0")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid" unique_id=1933122904]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid/RigidBody2D" unique_id=260342431]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Asteroid2" type="Sprite2D" parent="CanvasLayer" unique_id=870512013]
+position = Vector2(-46, -149)
+texture = ExtResource("3_1wip0")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid2" unique_id=61009006]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid2/RigidBody2D" unique_id=53439588]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Asteroid3" type="Sprite2D" parent="CanvasLayer" unique_id=1584143211]
+position = Vector2(-14, -193)
+texture = ExtResource("3_1wip0")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid3" unique_id=208150564]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid3/RigidBody2D" unique_id=2075878045]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Asteroid4" type="Sprite2D" parent="CanvasLayer" unique_id=449728365]
+position = Vector2(-6, -123)
+texture = ExtResource("3_1wip0")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid4" unique_id=1712791200]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid4/RigidBody2D" unique_id=1074297718]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("1_npdgk")]

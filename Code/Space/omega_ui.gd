@@ -1,5 +1,5 @@
 class_name OmegaUI
-extends Node2D
+extends CanvasLayer
 
 @export var map_ui : MapUI
 
