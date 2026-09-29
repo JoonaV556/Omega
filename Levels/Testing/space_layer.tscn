@@ -5,16 +5,17 @@
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="1_s576b"]
 [ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="2_72oam"]
 [ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="2_jj44g"]
-[ext_resource type="Script" uid="uid://dbc0s23kh7ime" path="res://Code/UI/map_ui.gd" id="3_noehm"]
+[ext_resource type="Script" uid="uid://dbc0s23kh7ime" path="res://Code/Space/map_ui.gd" id="3_noehm"]
 [ext_resource type="LabelSettings" uid="uid://m6hesa76v3ph" path="res://Resources/UI/label_settings_default.tres" id="4_mlluv"]
 [ext_resource type="Shader" uid="uid://hwmgemocbhlx" path="res://Code/Shaders/color_rect_vignette.gdshader" id="5_vg3u4"]
-[ext_resource type="Script" uid="uid://b706kl6oae8lx" path="res://Code/UI/label_map_mode.gd" id="6_7lmau"]
+[ext_resource type="Script" uid="uid://b706kl6oae8lx" path="res://Code/Space/label_map_mode.gd" id="6_7lmau"]
 [ext_resource type="ButtonGroup" uid="uid://c0w3mfit7bqoa" path="res://Resources/UI/button_group_map_mode.tres" id="6_md2p6"]
 [ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="6_vmtbm"]
 [ext_resource type="StyleBox" uid="uid://bcpnt4m5gw7ys" path="res://Resources/UI/style_box_panel_background.tres" id="7_86u60"]
 [ext_resource type="Texture2D" uid="uid://l77mirirfanb" path="res://Resources/UI/texture_stellar_object.tres" id="9_86u60"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="9_odrd7"]
 [ext_resource type="Texture2D" uid="uid://cmaqsrwp7qen0" path="res://Resources/UI/texture_selected_object_overlay.tres" id="9_ydmef"]
+[ext_resource type="Script" uid="uid://bodddbrxsfqf1" path="res://Code/Space/label_viewed_object_hint.gd" id="10_vmtbm"]
 [ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="12_vg3u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
@@ -73,7 +74,7 @@ mouse_filter = 1
 theme = ExtResource("1_lmwhs")
 metadata/_edit_use_anchors_ = true
 
-[node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "stellar_objects_parent_label")]
+[node name="Map UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=784735262 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -89,7 +90,6 @@ galaxy_icon_scale = Vector2(3, 3)
 objects_root = NodePath("../../../Node2D/Node2D Map Object Root")
 object_info_label = NodePath("Label - Object Info")
 selection_overlay_node = NodePath("../../../Node2D/TextureRect - Selection Overlay")
-stellar_objects_parent_label = NodePath("Label - ParentObject")
 
 [node name="ColorRect test bg" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=580264105]
 visible = false
@@ -138,18 +138,18 @@ text = "Layer: Galaxies"
 label_settings = ExtResource("4_mlluv")
 script = ExtResource("6_7lmau")
 
-[node name="Label - ParentObject" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=114375316]
+[node name="ViewedObejctHint" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=368319194]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 80.0
-offset_right = 146.0
+offset_right = 290.0
 offset_bottom = 99.0
-mouse_filter = 1
 theme = ExtResource("1_lmwhs")
-theme_override_fonts/font = ExtResource("6_vmtbm")
-text = "Universe"
+text = "Viewing local map for asd asd"
 label_settings = ExtResource("4_mlluv")
-script = ExtResource("6_7lmau")
+script = ExtResource("10_vmtbm")
+metadata/_custom_type_script = "uid://bodddbrxsfqf1"
 
 [node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=2146746389]
 visible = false
@@ -271,6 +271,7 @@ system_coords_min = Vector2(0, 0)
 system_coords_max = Vector2(1920, 1080)
 
 [connection signal="on_layer_changed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Label - Layer" method="set_layer"]
+[connection signal="on_map_opened_for_object" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/ViewedObejctHint" method="set_hint"]
 [connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - Galaxy" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [0]]
 [connection signal="pressed" from="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI/Button - System" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="set_layer_int" binds= [1]]
 [connection signal="on_generated" from="space test" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" method="open_map_for_object"]

@@ -424,7 +424,7 @@ Space Layer
 
 
 
-    ✔ Implement v0.1 @done(26-09-29 03:13)
+    ☐ Implement v0.1
         View a cluster of galaxies on galaxy map 
 
         View a cluster cluster of star systems on system map
@@ -538,6 +538,10 @@ Space Layer
                 -                             add button enter map
                 -                                 when button pressed
                 -                                     load objects in galaxy
+                implement viewing object hint
+
+                implement object path
+                
         build 
             fix font issue
                 assign font for all label nodes

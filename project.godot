@@ -84,6 +84,7 @@ window/vsync/vsync_mode=0
 
 [gui]
 
+theme/custom="uid://bf1p3fspe0340"
 theme/custom_font="uid://b7oqoud6rsq4t"
 
 [input]

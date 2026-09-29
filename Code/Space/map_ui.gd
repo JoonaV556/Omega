@@ -12,8 +12,6 @@ extends Control
 
 @export var selection_overlay_node : TextureRect
 
-@export var stellar_objects_parent_label : Label
-
 
 var current_layer : LAYER
 
@@ -27,6 +25,8 @@ var _active_context_menu : ContextMenu
 
 
 signal on_layer_changed(new_layer : String)
+
+signal on_map_opened_for_object(stellar_object : StellarObject)
 
 
 enum LAYER {
@@ -91,9 +91,8 @@ func open_map_for_object(object : StellarObject):
 		layer = LAYER.Systems
 
 	draw_objects(object.objects, layer)
-
-	stellar_objects_parent_label.text = object.name
 	
+	on_map_opened_for_object.emit(object)
 	print('Opened local map for stellar object %s. Local map contains %s stellar objects.' % [object.name, object.objects.size()])
 
 
