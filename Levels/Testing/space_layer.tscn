@@ -249,6 +249,7 @@ script = ExtResource("2_jj44g")
 
 [node name="DebugCloseApp" type="Node" parent="." unique_id=231628270]
 script = ExtResource("1_s576b")
+editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="draw grid" type="Node2D" parent="." unique_id=1107548298]
