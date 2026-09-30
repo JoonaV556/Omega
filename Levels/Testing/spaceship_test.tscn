@@ -829,9 +829,6 @@ metadata/_custom_type_script = "uid://bk5sryhfug4dp"
 [node name="Ship" type="RigidBody2D" parent="CanvasLayer" unique_id=38539155]
 gravity_scale = 0.0
 script = ExtResource("2_pb00k")
-max_speed = 50.0
-strafing_thruster_force = 300.0
-braking_force = 200.0
 metadata/_custom_type_script = "uid://cchvsnfh6tt62"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Ship" unique_id=488211328]
