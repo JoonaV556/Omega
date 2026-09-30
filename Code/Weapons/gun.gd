@@ -1,6 +1,10 @@
 class_name Gun
 extends Node2D
 
+## USAGE
+## Assign bullet prefab - must inherit from bullet
+
+
 signal on_shot_fired(fire_dir)
 signal on_shot_fired_e
 signal on_reload_start
@@ -8,37 +12,44 @@ signal on_reload_complete
 signal on_dry_fire
 signal on_ammo_updated(ammo, max_ammo)
 
+@export_category("Bullets")
 @export var bullet_prefab: PackedScene
-
-@export var magazine_size:int = 12
-@export var bullets_start:int = 12
 ## velocity in pixels per second. 16px ~= 1 meter
-@export var bullets_velocity:float = 0.1
-@export var bullet_spawn_pivot: Node2D
+@export var bullets_velocity:				float = 0.1
+@export var bullet_spawn_pivot: 			Node2D
+
+@export_category("Recoil")
 ## degrees
-@export var max_bullet_spread_angle: float = 5.0
+@export var max_bullet_spread_angle: 		float = 5.0
 ## seconds
-@export var recoil_cooldown_duration: float = 1.0
+@export var recoil_cooldown_duration: 		float = 1.0
 @export var recoil_alpha_increase_per_shot: float = 0.07
+
+@export_category("Reloading & Ammmo")
 ## seconds
 @export var reload_duration: float = 1.0
-## rounds per minute. changing at runtime not yet supported
-@export var rpm: int = 600
-@export var start_firemode: FireMode = FireMode.SEMI
+@export var magazine_size:					int = 12
+@export var bullets_start:					int = 12
+@export var infinite_ammo : 				bool = false
 
-var bullets_in_chamber:int
+@export_category("Rate of fire & Firemode")
+## rounds per minute
+@export var rpm: 							int = 600
+@export var start_firemode: 				FireMode = FireMode.SEMI
 
-var reloading = false
+var bullets_in_chamber:		int
 
-var current_fire_mode: FireMode = FireMode.SEMI
+var reloading : 			bool = false
 
-var time_between_shots: float
+var current_fire_mode: 		FireMode = FireMode.SEMI
 
-var secs_since_last_shot: float = 99999.0
+var time_between_shots: 	float
 
-var bullet_spread_alpha: float = 0.0
+var secs_since_last_shot: 	float = 99999.0
 
-var rng: RandomNumberGenerator
+var bullet_spread_alpha: 	float = 0.0
+
+var rng: 					RandomNumberGenerator
 
 enum FireMode {SEMI, FULL, BURST}
 
@@ -88,7 +99,6 @@ func fire():
 	var _bullet_node = bullet_prefab.instantiate()
 	get_tree().current_scene.add_child(_bullet_node)
 	get_tree().current_scene.move_child(_bullet_node, -1)
-	
 	
 	# fire projectile
 	var _bullet := _bullet_node as Bullet

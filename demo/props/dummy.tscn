@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cltutcxjx8jnl" path="res://demo/assets/dummy.png" id="1_vdhcl"]
 [ext_resource type="Texture2D" uid="uid://dwhhxj5557qrb" path="res://demo/assets/shadow.png" id="2_535g7"]
 [ext_resource type="Script" uid="uid://dq5h6yydckjc1" path="res://demo/agents/scripts/hurtbox.gd" id="4_pkfnd"]
-[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://demo/agents/scripts/health.gd" id="5_8qcls"]
+[ext_resource type="Script" uid="uid://5byn62y1oa76" path="res://demo/agents/scripts/limbo_health.gd" id="5_8qcls"]
 
 [sub_resource type="Animation" id="Animation_1o3gy"]
 length = 0.001

@@ -583,13 +583,13 @@ Space Layer
 
 
     ☐ Implement v0.2
-        Fly a spaceship in a local system
-            Stars visible in background (helps track movement)
+        - Fly a spaceship in a local system
+        -     Stars visible in background (helps track movement)
 
-        Interactive asteroids with physics 
-            Asteroid clusters
+        - Interactive asteroids with physics 
+        -     Asteroid clusters
 
-        Shoot asteroids
+        - Shoot asteroids
 
         Current location can be viewed on map
 
@@ -606,10 +606,16 @@ Space Layer
             -         medium horizontal steering thrusters
             -             with keyboard a d
 
-            Shoot asteroids
-                projectiles push asteroids back
-                    when asteroid is damaged enough, explodes into smaller bit
+            - Shoot asteroids
+            -     projectiles push asteroids back
+            -         impacteffect resource
+            -             receives impact data from bullet2d (hitresult)
+            -         refactor damage into an impacteffect
+            -         add knockback impacteffect
+                
+            - when asteroid is damaged enough, explodes
 
+            - fix - bullets oriented wrong
 
 
 

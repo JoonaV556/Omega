@@ -12,11 +12,13 @@ var health: 				float
 
 var is_dead: bool = false
 
+
 func _ready() -> void:
 	health = start_health
 	is_dead = false
 
 	on_hp_updated.emit(health, max_health)
+
 
 func deal_damage(amount: float):
 	if is_dead:
@@ -30,6 +32,7 @@ func deal_damage(amount: float):
 		health -= amount
 
 	on_hp_updated.emit(health, max_health)
+
 
 func revive():
 	is_dead = false
