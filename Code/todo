@@ -598,7 +598,13 @@ Space Layer
         tasks
             - toggle map with m
             
-            fly spaceship
+            - fly spaceship
+            -     simulate individual thrusters
+            -         powerful forward thruster
+            -             dir forward
+            -         weak backward / stopping thruster
+            -         medium horizontal steering thrusters
+            -             with keyboard a d
 
 
 

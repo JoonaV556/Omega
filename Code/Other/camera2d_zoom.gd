@@ -1,10 +1,12 @@
 class_name Camera2DZoom
-extends Node2D
+extends Node
 
 
 # Allows zooming in closer and further away from target
 @export var camera: 	Camera2D
+
 @export var zoom_step: 	float 	= 0.3
+
 @export var min_zoom: 	Vector2 = Vector2(1.0, 1.0)
 @export var max_zoom: 	Vector2 = Vector2(5.0, 5.0)
 

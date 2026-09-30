@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://co2f6vjgkfdmc"]
 
 [ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="1_npdgk"]
+[ext_resource type="Script" path="res://Code/Space/camera2d_follow_target.gd" id="2_5jd2g"]
 [ext_resource type="Texture2D" uid="uid://c5ppqtii77ih6" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="2_i6rb2"]
-[ext_resource type="Texture2D" uid="uid://ituwd85ytlmm" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_2.png" id="2_ykpje"]
+[ext_resource type="Script" uid="uid://cchvsnfh6tt62" path="res://Code/Space/spaceship_controller.gd" id="2_pb00k"]
 [ext_resource type="Texture2D" uid="uid://lrls8fplpl5w" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Rock_2.png" id="3_1wip0"]
+[ext_resource type="Texture2D" uid="uid://iu4dco8fmhb7" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_1.png" id="3_5jd2g"]
+[ext_resource type="Script" uid="uid://bk5sryhfug4dp" path="res://Code/Other/camera2d_zoom.gd" id="3_edapj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("2_i6rb2")
@@ -812,49 +815,75 @@ texture = SubResource("AtlasTexture_i6rb2")
 
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer" unique_id=1197669881]
 
-[node name="Ship" type="Sprite2D" parent="CanvasLayer" unique_id=1509812839]
-texture = ExtResource("2_ykpje")
+[node name="Camera2DFollowTarget" type="Node" parent="CanvasLayer/Camera2D" unique_id=377611598 node_paths=PackedStringArray("target")]
+script = ExtResource("2_5jd2g")
+target = NodePath("../../Ship")
+metadata/_custom_type_script = "uid://bdxr1200utaxm"
 
-[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Ship" unique_id=1388224770]
+[node name="Camera2DZoom" type="Node" parent="CanvasLayer/Camera2D" unique_id=1483938491 node_paths=PackedStringArray("camera")]
+script = ExtResource("3_edapj")
+camera = NodePath("..")
+min_zoom = Vector2(0.1, 0.1)
+metadata/_custom_type_script = "uid://bk5sryhfug4dp"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Ship/RigidBody2D" unique_id=488211328]
-position = Vector2(0, 2.5)
+[node name="Ship" type="RigidBody2D" parent="CanvasLayer" unique_id=38539155]
+gravity_scale = 0.0
+script = ExtResource("2_pb00k")
+max_speed = 50.0
+strafing_thruster_force = 300.0
+braking_force = 200.0
+metadata/_custom_type_script = "uid://cchvsnfh6tt62"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Ship" unique_id=488211328]
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_pb00k")
 
-[node name="Asteroid" type="Sprite2D" parent="CanvasLayer" unique_id=1357422769]
-position = Vector2(34, -141)
-texture = ExtResource("3_1wip0")
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Ship" unique_id=1262590524]
+position = Vector2(0, -3)
+texture = ExtResource("3_5jd2g")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid" unique_id=1933122904]
+[node name="Asteroid" type="RigidBody2D" parent="CanvasLayer" unique_id=1422362850]
+position = Vector2(32, -152)
+mass = 3.0
+gravity_scale = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid/RigidBody2D" unique_id=260342431]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid" unique_id=260342431]
 shape = SubResource("CircleShape2D_5jd2g")
 
-[node name="Asteroid2" type="Sprite2D" parent="CanvasLayer" unique_id=870512013]
-position = Vector2(-46, -149)
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Asteroid" unique_id=1553594612]
 texture = ExtResource("3_1wip0")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid2" unique_id=61009006]
+[node name="Asteroid2" type="RigidBody2D" parent="CanvasLayer" unique_id=1291630345]
+position = Vector2(-46, -160)
+mass = 3.0
+gravity_scale = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid2/RigidBody2D" unique_id=53439588]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid2" unique_id=506581651]
 shape = SubResource("CircleShape2D_5jd2g")
 
-[node name="Asteroid3" type="Sprite2D" parent="CanvasLayer" unique_id=1584143211]
-position = Vector2(-14, -193)
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Asteroid2" unique_id=67844231]
 texture = ExtResource("3_1wip0")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid3" unique_id=208150564]
+[node name="Asteroid3" type="RigidBody2D" parent="CanvasLayer" unique_id=1399753770]
+position = Vector2(32, -112)
+mass = 3.0
+gravity_scale = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid3/RigidBody2D" unique_id=2075878045]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid3" unique_id=1680811945]
 shape = SubResource("CircleShape2D_5jd2g")
 
-[node name="Asteroid4" type="Sprite2D" parent="CanvasLayer" unique_id=449728365]
-position = Vector2(-6, -123)
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Asteroid3" unique_id=1636613828]
 texture = ExtResource("3_1wip0")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="CanvasLayer/Asteroid4" unique_id=1712791200]
+[node name="Asteroid4" type="RigidBody2D" parent="CanvasLayer" unique_id=678993971]
+position = Vector2(-24, -112)
+mass = 3.0
+gravity_scale = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid4/RigidBody2D" unique_id=1074297718]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Asteroid4" unique_id=88063852]
 shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Asteroid4" unique_id=1473968395]
+texture = ExtResource("3_1wip0")
 
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("1_npdgk")]
