@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://co2f6vjgkfdmc"]
 
 [ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="1_npdgk"]
-[ext_resource type="Script" path="res://Code/Space/camera2d_follow_target.gd" id="2_5jd2g"]
+[ext_resource type="Script" uid="uid://bdxr1200utaxm" path="res://Code/Space/camera2d_follow_target.gd" id="2_5jd2g"]
 [ext_resource type="Texture2D" uid="uid://c5ppqtii77ih6" path="res://Assets_LICENSED/Sprites/modern_interiors/4_User_Interface_Elements/UI_16x16.png" id="2_i6rb2"]
 [ext_resource type="Script" uid="uid://cchvsnfh6tt62" path="res://Code/Space/spaceship_controller.gd" id="2_pb00k"]
 [ext_resource type="Texture2D" uid="uid://lrls8fplpl5w" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Rock_2.png" id="3_1wip0"]
@@ -829,6 +829,8 @@ metadata/_custom_type_script = "uid://bk5sryhfug4dp"
 [node name="Ship" type="RigidBody2D" parent="CanvasLayer" unique_id=38539155]
 gravity_scale = 0.0
 script = ExtResource("2_pb00k")
+forward_thruster_force = 300.0
+backward_thruster_force = 150.0
 metadata/_custom_type_script = "uid://cchvsnfh6tt62"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Ship" unique_id=488211328]
@@ -881,6 +883,100 @@ gravity_scale = 0.0
 shape = SubResource("CircleShape2D_5jd2g")
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Asteroid4" unique_id=1473968395]
+texture = ExtResource("3_1wip0")
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer" unique_id=1982691841]
+position = Vector2(-134, 80)
+
+[node name="Asteroid5" type="RigidBody2D" parent="CanvasLayer/Node2D" unique_id=1816818192]
+position = Vector2(32, -152)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D/Asteroid5" unique_id=1517042715]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D/Asteroid5" unique_id=559460188]
+texture = ExtResource("3_1wip0")
+
+[node name="Asteroid6" type="RigidBody2D" parent="CanvasLayer/Node2D" unique_id=1742783925]
+position = Vector2(-46, -160)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D/Asteroid6" unique_id=1499521551]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D/Asteroid6" unique_id=1128229560]
+texture = ExtResource("3_1wip0")
+
+[node name="Asteroid7" type="RigidBody2D" parent="CanvasLayer/Node2D" unique_id=1464397785]
+position = Vector2(32, -112)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D/Asteroid7" unique_id=588786273]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D/Asteroid7" unique_id=1295577828]
+texture = ExtResource("3_1wip0")
+
+[node name="Asteroid8" type="RigidBody2D" parent="CanvasLayer/Node2D" unique_id=1308357755]
+position = Vector2(-24, -112)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D/Asteroid8" unique_id=634132251]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D/Asteroid8" unique_id=1581733513]
+texture = ExtResource("3_1wip0")
+
+[node name="Node2D2" type="Node2D" parent="CanvasLayer" unique_id=439576127]
+position = Vector2(195, 72)
+
+[node name="Asteroid5" type="RigidBody2D" parent="CanvasLayer/Node2D2" unique_id=819377047]
+position = Vector2(32, -152)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D2/Asteroid5" unique_id=1260844092]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D2/Asteroid5" unique_id=1336360605]
+texture = ExtResource("3_1wip0")
+
+[node name="Asteroid6" type="RigidBody2D" parent="CanvasLayer/Node2D2" unique_id=305622997]
+position = Vector2(-46, -160)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D2/Asteroid6" unique_id=1326137477]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D2/Asteroid6" unique_id=97418112]
+texture = ExtResource("3_1wip0")
+
+[node name="Asteroid7" type="RigidBody2D" parent="CanvasLayer/Node2D2" unique_id=1611765873]
+position = Vector2(32, -112)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D2/Asteroid7" unique_id=588357793]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D2/Asteroid7" unique_id=1689244167]
+texture = ExtResource("3_1wip0")
+
+[node name="Asteroid8" type="RigidBody2D" parent="CanvasLayer/Node2D2" unique_id=1263728477]
+position = Vector2(-24, -112)
+mass = 3.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Node2D2/Asteroid8" unique_id=452801700]
+shape = SubResource("CircleShape2D_5jd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Node2D2/Asteroid8" unique_id=645757485]
 texture = ExtResource("3_1wip0")
 
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("1_npdgk")]

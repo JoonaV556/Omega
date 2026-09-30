@@ -34,7 +34,8 @@ func _physics_process(delta: float) -> void:
 	# Forward & backwards thrust
 	var thrust_input := Input.get_axis("MoveDown", "MoveUp")
 	if thrust_input != 0.0:
-		apply_central_force(Vector2.UP.rotated(rotation) * forward_thruster_force * thrust_input)
+		var force = forward_thruster_force if thrust_input > 0.0 else backward_thruster_force
+		apply_central_force(Vector2.UP.rotated(rotation) * force * thrust_input)
 
 	# Strafing
 	var strafe_input := Input.get_axis("MoveLeft", "MoveRight")

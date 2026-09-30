@@ -606,6 +606,9 @@ Space Layer
             -         medium horizontal steering thrusters
             -             with keyboard a d
 
+            Shoot asteroids
+                projectiles push asteroids back
+                    when asteroid is damaged enough, explodes into smaller bit
 
 
 
