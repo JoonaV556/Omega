@@ -54,4 +54,3 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if linear_velocity.length() / 16.0 > max_speed:
 		var limited = linear_velocity.normalized() * max_speed * 16
 		linear_velocity = limited
-		print('limiting to %s' % [limited.length()])

@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cpavo3ekcpqo3" path="res://Code/Space/impact_effect.gd" id="10_2riwb"]
 [ext_resource type="Script" uid="uid://dyg4xmu08exn" path="res://Code/Space/impact_effect_deal_damage.gd" id="11_tkbk4"]
 [ext_resource type="Script" uid="uid://dyk6ysv3eokqt" path="res://Code/Space/impact_effect_deal_knockback.gd" id="12_huytb"]
+[ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_17350"]
 [ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="15_huytb"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="16_lhnto"]
 
@@ -48,6 +49,8 @@ metadata/_custom_type_script = "uid://dyk6ysv3eokqt"
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp573"]
 atlas = ExtResource("9_6a1c1")
 region = Rect2(418, 146, 1, 14)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_wruqb"]
 
 [node name="Node2D" type="Node2D" unique_id=1787844382]
 
@@ -1025,6 +1028,30 @@ texture = SubResource("AtlasTexture_yp573")
 
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("1_npdgk")]
 
+[node name="Button - Galaxy" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="7" unique_id=1631048499]
+button_group = SubResource("ButtonGroup_wruqb")
+
+[node name="Button - System" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="8" unique_id=47228492]
+button_group = SubResource("ButtonGroup_wruqb")
+
+[node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" parent_id_path=PackedInt32Array(1645446355, 1519125427) index="3" unique_id=1866705300]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 768.0
+offset_right = 444.0
+offset_bottom = 1015.0
+text = "Controls:
+ Fly spaceship - WASD
+ Steer spaceship - Mouse
+ Shoot lasers - LMB
+ Zoom camera - Mouse Scroll
+ Map:
+  Open Map - M
+  Open context menu for map object - RMB
+ Close application - ESC
+  "
+label_settings = ExtResource("15_17350")
+
 [node name="Node" type="Node" parent="." unique_id=265683358 node_paths=PackedStringArray("omega_ui")]
 script = ExtResource("15_huytb")
 galaxies_min = 1
@@ -1051,3 +1078,5 @@ metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid7/Health" to="CanvasLayer/Node2D asteroids/Asteroid7" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid8/Health" to="CanvasLayer/Node2D asteroids/Asteroid8" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid9/Health" to="CanvasLayer/Node2D asteroids/Asteroid9" method="queue_free"]
+
+[editable path="Omega UI"]
