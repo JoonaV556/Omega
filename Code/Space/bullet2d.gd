@@ -9,6 +9,8 @@ extends Projectile2D
 
 @export var impact_effects: Array[ImpactEffect]
 
+@export var bullet_velocity: float = 30 * 16
+
 var _velocity : Vector2
 
 var _fly = false
@@ -24,7 +26,7 @@ signal on_hit(position : Vector2, hit_obj : Node)
 
 
 ## Velocity == Fly direction and muzzle velocity in pixels per second
-func fire(velocity_direction : Vector2, attach_to : Node, velocity_speed : float = 10.0 * 16.0, max_fly_distance : float = _max_fly_distance):
+func fire(velocity_direction: Vector2, attach_to: Node, velocity_speed: float = bullet_velocity, max_fly_distance: float = _max_fly_distance):
 	_velocity = velocity_direction.normalized() * velocity_speed
 	_start_pos = global_position
 	_max_fly_distance_squared = max_fly_distance * max_fly_distance
