@@ -11,6 +11,8 @@ extends Node
 
 @export var omega_ui : OmegaUI
 
+@export var open_map_auto = true
+
 signal on_generated(object)
 
 func _ready() -> void:
@@ -28,4 +30,4 @@ func _ready() -> void:
 	var root : StellarObject = SpaceGenerator.generate_universe(params)
 
 	var map_ui : MapUI = omega_ui.map_ui
-	map_ui.open_map_for_object(root)
+	map_ui.open_map_for_object(root, open_map_auto)

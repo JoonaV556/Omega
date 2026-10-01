@@ -108,8 +108,8 @@ func on_map_object_rmb_clicked(map_object_node : Node):
 	print('created context menu')
 
 
-func open_map_for_object(object : StellarObject):
-	if !_active:
+func open_map_for_object(object : StellarObject, show_map: bool = false):
+	if !_active and show_map:
 		activate()
 
 	unselect()

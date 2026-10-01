@@ -591,7 +591,8 @@ Space Layer
 
         - Shoot asteroids
 
-        Current location can be viewed on map
+        View map
+            View current location on map
 
         Keybinds helper
 
@@ -616,6 +617,10 @@ Space Layer
             - when asteroid is damaged enough, explodes
 
             - fix - bullets oriented wrong
+
+            - view map
+
+            view current location on map & in-game ui
 
 
 
