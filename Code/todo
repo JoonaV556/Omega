@@ -582,7 +582,7 @@ Space Layer
 
 
 
-    ☐ Implement v0.2
+    ✔ Implement v0.2 @done(26-10-02 01:07)
         - Fly a spaceship in a local system
         -     Stars visible in background (helps track movement)
 
@@ -594,10 +594,10 @@ Space Layer
         - View map
         -     View current location on map
 
-        Keybinds helper
-            ship controls
-            map
-            close app
+        - Keybinds helper
+        -     ship controls
+        -     map
+        -     close app
 
         tasks
             - toggle map with m
@@ -630,8 +630,11 @@ Space Layer
             -     space test
             -         create char 
             -         set char location info
-
-
+Implement v0.3
+    Exploration / Intergalactic travel
+        Jumps? Elite D
+        Gates? X4
+        Seamless? Grid
 
 
         
