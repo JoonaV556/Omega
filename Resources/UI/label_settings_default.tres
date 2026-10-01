@@ -3,5 +3,6 @@
 [ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="1_igobl"]
 
 [resource]
+line_spacing = 1.0
 font = ExtResource("1_igobl")
 font_size = 15

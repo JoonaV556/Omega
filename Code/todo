@@ -591,8 +591,8 @@ Space Layer
 
         - Shoot asteroids
 
-        View map
-            View current location on map
+        - View map
+        -     View current location on map
 
         Keybinds helper
 
@@ -620,7 +620,13 @@ Space Layer
 
             - view map
 
-            view current location on map & in-game ui
+            - view current location on map
+            -     class character
+            -         current location : StellarObject       
+            -     func set character location info()
+            -     space test
+            -         create char 
+            -         set char location info
 
 
 

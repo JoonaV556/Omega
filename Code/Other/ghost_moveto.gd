@@ -1,7 +1,7 @@
 class_name GhostMoveTo
 extends Node
 
-@export var imitation_target: Character
+@export var imitation_target: Character2D
 @export var move_speed: float = 2*16.0
 @export var target_pos: Vector2
 @export var target_pos_anchor: Node2D

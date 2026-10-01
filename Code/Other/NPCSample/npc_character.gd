@@ -1,5 +1,5 @@
 class_name NpcCharacter
-extends Character
+extends Character2D
 
 @export var nav_agent: NavigationAgent2D
 

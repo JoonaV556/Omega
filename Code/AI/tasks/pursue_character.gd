@@ -12,13 +12,13 @@ class_name TPursueCharacter
 
 @export var pursue_character_position: bool = false
 
-var trg_c: Character
+var trg_c: Character2D
 
 var pre_fail = false
 
 
 func _generate_name() -> String:
-	return "Pursue Character"
+	return "Pursue Character2D"
 
 func _enter() -> void:
 	super._enter()

@@ -21,7 +21,7 @@ func _body_entered(body: Node2D):
 		ignore = RID()
 		return
 
-	if body is Character:
+	if body is Character2D:
 		# send to trans. in other level
 		if target == null:
 			call_deferred("move_to_level", body)

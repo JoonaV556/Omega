@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dyg4xmu08exn" path="res://Code/Space/impact_effect_deal_damage.gd" id="11_tkbk4"]
 [ext_resource type="Script" uid="uid://dyk6ysv3eokqt" path="res://Code/Space/impact_effect_deal_knockback.gd" id="12_huytb"]
 [ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="15_huytb"]
+[ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="16_lhnto"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("2_i6rb2")
@@ -1035,6 +1036,11 @@ system_coords_min = Vector2(953.35, 534.02)
 system_coords_max = Vector2(969.785, 548.655)
 omega_ui = NodePath("../Omega UI")
 open_map_auto = false
+
+[node name="DebugCloseApp" type="Node" parent="." unique_id=595993975]
+script = ExtResource("16_lhnto")
+editor_only = false
+metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid/Health" to="CanvasLayer/Node2D asteroids/Asteroid" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid2/Health" to="CanvasLayer/Node2D asteroids/Asteroid2" method="queue_free"]

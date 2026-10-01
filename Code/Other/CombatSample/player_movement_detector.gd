@@ -1,7 +1,7 @@
 class_name CharacterMovementDetector
 extends Node
 
-@export var character: Character
+@export var character: Character2D
 
 var moved_last_frame: bool = false
 

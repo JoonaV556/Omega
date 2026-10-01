@@ -1,4 +1,4 @@
-class_name Character
+class_name Character2D
 extends CharacterBody2D
 
 ## pixels per second

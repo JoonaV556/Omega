@@ -2,11 +2,11 @@
 class_name SEImpairMovement
 extends StatusEffect
 
-var character: Character
+var character: Character2D
 
 func _start():
     # get char
-    var _char := receiver.get_parent() as Character
+    var _char := receiver.get_parent() as Character2D
     if _char:
         character = _char
 

@@ -14,6 +14,8 @@ extends Control
 
 @export var map_ui_bg_root : CanvasLayer
 
+@export var character_location_info_label: Label
+
 
 var current_layer : LAYER
 
@@ -46,8 +48,8 @@ enum OBJECT_TYPE {
 
 
 var object_type_strings : Dictionary = {
-	Galaxy: "Galaxy",
-	StarSystem: "Star System",
+	OBJECT_TYPE.Galaxy: "Galaxy",
+	OBJECT_TYPE.StarSystem: "Star System",
 }
 
 
@@ -124,6 +126,25 @@ func open_map_for_object(object : StellarObject, show_map: bool = false):
 	print('Opened local map for stellar object %s. Local map contains %s stellar objects.' % [object.name, object.objects.size()])
 
 
+func set_character_location_info(character: Character):
+
+	var type_str = object_type_strings[get_object_type_enum(character.location)] 
+
+	character_location_info_label.text = String(
+		"Character %s
+		\n\t Flying in %s %s" % [character.name, type_str, character.location.name]
+	)
+	character_location_info_label.show()
+
+
+func get_object_type_enum(object: StellarObject) -> OBJECT_TYPE:
+	if object is Galaxy:
+		return OBJECT_TYPE.Galaxy
+	if object is StarSystem:
+		return OBJECT_TYPE.StarSystem
+	return OBJECT_TYPE.Galaxy
+
+
 func on_object_selected(new_selection : Node):
 	if !new_selection is Sprite2D:
 		return
@@ -139,9 +160,9 @@ func on_object_selected(new_selection : Node):
 	var object_type_str : String = "unknown"
 
 	if selected_object is Galaxy:
-		object_type_str = object_type_strings[Galaxy]
+		object_type_str = object_type_strings[OBJECT_TYPE.Galaxy]
 	if selected_object is StarSystem:
-		object_type_str = object_type_strings[StarSystem]
+		object_type_str = object_type_strings[OBJECT_TYPE.StarSystem]
 		
 	
 	print('Selected %s' % [new_selection.name])

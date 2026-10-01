@@ -1,5 +1,5 @@
 class_name Player
-extends Character
+extends Character2D
 
 const BeachBall = preload("res://Scenes/Inventory/Items/BeachBall.tscn")
 const Shell = preload("res://Scenes/Inventory/Items/Shell.tscn")

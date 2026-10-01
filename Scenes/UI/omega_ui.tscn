@@ -93,7 +93,7 @@ mouse_filter = 1
 theme = ExtResource("1_ay6ia")
 metadata/_edit_use_anchors_ = true
 
-[node name="Map UI" type="Control" parent="CanvasLayer - Omega UI/Omega UI" unique_id=306345336 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "map_ui_bg_root")]
+[node name="Map UI" type="Control" parent="CanvasLayer - Omega UI/Omega UI" unique_id=306345336 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "map_ui_bg_root", "character_location_info_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,6 +110,7 @@ objects_root = NodePath("../../../Node2D - Map selection root/Node2D Map Object 
 object_info_label = NodePath("Label - Object Info")
 selection_overlay_node = NodePath("../../../Node2D - Map selection root/TextureRect - Selection Overlay")
 map_ui_bg_root = NodePath("../../../CanvasLayer MapUI BG")
+character_location_info_label = NodePath("Label - Character location info")
 
 [node name="ColorRect test bg" type="ColorRect" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1767310853]
 visible = false
@@ -136,20 +137,20 @@ color = Color(1, 1, 1, 0)
 
 [node name="Label - MapHeader" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1665649443]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 55.0
-offset_bottom = 38.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 61.0
+offset_bottom = 46.0
 theme = ExtResource("1_ay6ia")
 text = "Map"
 label_settings = ExtResource("6_24gdk")
 
 [node name="Label - Layer" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1284885731]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 106.0
-offset_right = 146.0
-offset_bottom = 125.0
+offset_left = 16.0
+offset_top = 104.0
+offset_right = 152.0
+offset_bottom = 123.0
 mouse_filter = 1
 theme = ExtResource("1_ay6ia")
 theme_override_fonts/font = ExtResource("7_mem8m")
@@ -159,9 +160,9 @@ script = ExtResource("9_7jg08")
 
 [node name="ViewedObejctHint" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1520663654]
 layout_mode = 0
-offset_left = 10.0
+offset_left = 16.0
 offset_top = 136.0
-offset_right = 290.0
+offset_right = 296.0
 offset_bottom = 155.0
 theme = ExtResource("1_ay6ia")
 text = "Viewing local map for unknown"
@@ -172,10 +173,10 @@ metadata/_custom_type_script = "uid://bodddbrxsfqf1"
 [node name="Label - Object Info" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1066397522]
 visible = false
 layout_mode = 1
-offset_left = 10.0
-offset_top = 300.0
-offset_right = 128.0
-offset_bottom = 360.0
+offset_left = 16.0
+offset_top = 288.0
+offset_right = 134.0
+offset_bottom = 348.0
 theme = ExtResource("1_ay6ia")
 theme_override_fonts/font = ExtResource("7_mem8m")
 text = "Object Info
@@ -193,6 +194,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ay6ia")
 theme_override_styles/panel = ExtResource("11_wp587")
+
+[node name="Label - Character location info" type="Label" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1342585561]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 192.0
+offset_right = 251.0
+offset_bottom = 231.0
+theme = ExtResource("1_ay6ia")
+text = "Character Clarius
+Flying in system Nitra 663"
+label_settings = ExtResource("8_nndt0")
 
 [node name="Button - Galaxy" type="Button" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=1631048499]
 visible = false
@@ -223,10 +236,10 @@ icon = SubResource("PlaceholderTexture2D_jj44g")
 
 [node name="StellarObjectPathUI" type="HBoxContainer" parent="CanvasLayer - Omega UI/Omega UI/Map UI" unique_id=857113421]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 48.0
-offset_right = 48.0
-offset_bottom = 88.0
+offset_left = 16.0
+offset_top = 56.0
+offset_right = 56.0
+offset_bottom = 96.0
 script = ExtResource("13_t2fiu")
 _theme = ExtResource("14_xp781")
 _label_settings = ExtResource("8_nndt0")
