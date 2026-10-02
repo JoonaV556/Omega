@@ -664,11 +664,15 @@ Space Layer
                     generate_chunk(chunk_seed)
     
     Tasks
-        ☐ refactors
+        ✔ refactors @done(26-10-03 01:49)
             ✔ rename starsystem to system @done(26-10-03 01:32)
-            ☐ ditch hierarchical stellar architecture
-                ☐ rename previous classes
-                ☐ reimplement with non hierarchical structure
+            ✔ ditch hierarchical stellar architecture @done(26-10-03 01:49)
+                ✔ rename previous classes @done(26-10-03 01:49)
+                ✔ reimplement with non hierarchical structure @done(26-10-03 01:49)
+                ✔ system @done(26-10-03 01:49)
+                    ✔ name @done(26-10-03 01:49)
+                    ✔ objects[[]] objects[n][0] = object, objects[n][0] = object.local_position @done(26-10-03 01:49)
+                    
         ☐ Allow seamless travel between systems
             ☐ Show systems withing render distance & hide systems outside
                 ✔ how to translate 2d pixel coords to in slc-coords? @done(26-10-02 21:29)

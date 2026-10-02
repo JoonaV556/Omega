@@ -25,10 +25,10 @@ static func _generate_random_name(rng: RandomNumberGenerator) -> String:
 	return "%s %s" % [roots[rng.randi() % roots.size()], suffix]
 
 
-static func generate_universe(params : universe_params) -> StellarObject:
-	var _obj_root : StellarObject = StellarObject.new(Vector2.ZERO, "universe")
+static func generate_universe(params : universe_params) -> HStellarObject:
+	var _obj_root : HStellarObject = HStellarObject.new(Vector2.ZERO, "universe")
 
-	var cluster : Array[StellarObject] = []
+	var cluster : Array[HStellarObject] = []
 	var rng := RandomNumberGenerator.new()
 
 	if params == null:
@@ -44,7 +44,7 @@ static func generate_universe(params : universe_params) -> StellarObject:
 			rng.randf_range(params.gal_coords_min.x, params.gal_coords_max.x),
 			rng.randf_range(params.gal_coords_min.y, params.gal_coords_max.y)
 		)
-		var galaxy := Galaxy.new(galaxy_coords, _generate_random_name(rng))
+		var galaxy := HGalaxy.new(galaxy_coords, _generate_random_name(rng))
 		galaxy.systems = []
 		galaxy.objects = []
 		galaxy.so_parent = _obj_root
@@ -59,7 +59,7 @@ static func generate_universe(params : universe_params) -> StellarObject:
 				rng.randf_range(params.system_coords_min.x, params.system_coords_max.x),
 				rng.randf_range(params.system_coords_min.y, params.system_coords_max.y)
 			)
-			var system := System.new(system_coords, _generate_random_name(rng))
+			var system := HSystem.new(system_coords, _generate_random_name(rng))
 			system.so_parent = galaxy
 			galaxy.systems.append(system)
 			galaxy.objects.append(system)

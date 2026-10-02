@@ -23,7 +23,7 @@ var _galaxy_icons : Array[Sprite2D]
 
 var _object_selector : Selector
 
-var _map_objects : Dictionary[Sprite2D, StellarObject]
+var _map_objects : Dictionary[Sprite2D, HStellarObject]
 
 var _active_context_menu : ContextMenu
 
@@ -32,7 +32,7 @@ var _active = true
 
 signal on_layer_changed(new_layer : String)
 
-signal on_map_opened_for_object(stellar_object : StellarObject)
+signal on_map_opened_for_object(stellar_object : HStellarObject)
 
 
 enum LAYER {
@@ -42,14 +42,14 @@ enum LAYER {
 
 
 enum OBJECT_TYPE {
-	Galaxy,
-	System
+	HGalaxy,
+	HSystem
 }
 
 
 var object_type_strings : Dictionary = {
-	OBJECT_TYPE.Galaxy: "Galaxy",
-	OBJECT_TYPE.System: "Star System",
+	OBJECT_TYPE.HGalaxy: "HGalaxy",
+	OBJECT_TYPE.HSystem: "Star HSystem",
 }
 
 
@@ -97,7 +97,7 @@ func on_map_object_rmb_clicked(map_object_node : Node):
 	if !map_object:
 		return
 
-	if !map_object is Galaxy:
+	if !map_object is HGalaxy:
 		return
 
 	destroy_context_menu()
@@ -110,14 +110,14 @@ func on_map_object_rmb_clicked(map_object_node : Node):
 	print('created context menu')
 
 
-func open_map_for_object(object : StellarObject, show_map: bool = false):
+func open_map_for_object(object : HStellarObject, show_map: bool = false):
 	if !_active and show_map:
 		activate()
 
 	unselect()
 
 	var layer = LAYER.Galaxies
-	if object is Galaxy:
+	if object is HGalaxy:
 		layer = LAYER.Systems
 
 	draw_objects(object.objects, layer)
@@ -137,12 +137,12 @@ func set_character_location_info(character: Character):
 	character_location_info_label.show()
 
 
-func get_object_type_enum(object: StellarObject) -> OBJECT_TYPE:
-	if object is Galaxy:
-		return OBJECT_TYPE.Galaxy
-	if object is System:
-		return OBJECT_TYPE.System
-	return OBJECT_TYPE.Galaxy
+func get_object_type_enum(object: HStellarObject) -> OBJECT_TYPE:
+	if object is HGalaxy:
+		return OBJECT_TYPE.HGalaxy
+	if object is HSystem:
+		return OBJECT_TYPE.HSystem
+	return OBJECT_TYPE.HGalaxy
 
 
 func on_object_selected(new_selection : Node):
@@ -155,14 +155,14 @@ func on_object_selected(new_selection : Node):
 		return
 
 	# Update object info ui
-	var selected_object : StellarObject = _map_objects[selected_sprite]
+	var selected_object : HStellarObject = _map_objects[selected_sprite]
 
 	var object_type_str : String = "unknown"
 
-	if selected_object is Galaxy:
-		object_type_str = object_type_strings[OBJECT_TYPE.Galaxy]
-	if selected_object is System:
-		object_type_str = object_type_strings[OBJECT_TYPE.System]
+	if selected_object is HGalaxy:
+		object_type_str = object_type_strings[OBJECT_TYPE.HGalaxy]
+	if selected_object is HSystem:
+		object_type_str = object_type_strings[OBJECT_TYPE.HSystem]
 		
 	
 	print('Selected %s' % [new_selection.name])
@@ -208,7 +208,7 @@ func set_layer(new_layer : LAYER):
 	print('Map layer changed to %s' % [LAYER.keys()[current_layer]])
 
 
-func draw_objects(objects : Array[StellarObject], objects_layer : int = LAYER.Galaxies):
+func draw_objects(objects : Array[HStellarObject], objects_layer : int = LAYER.Galaxies):
 	_map_objects.clear()
 
 	for map_obj_sprite in objects_root.get_children():

@@ -27,7 +27,7 @@ func _ready() -> void:
 	params.system_coords_min = system_coords_min
 	params.system_coords_max = system_coords_max
 
-	var root : StellarObject = SpaceGenerator.generate_universe(params)
+	var root : HStellarObject = SpaceGenerator.generate_universe(params)
 
 	var char = Character.new()
 	char.name = "Clarius Merck"

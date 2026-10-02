@@ -1058,6 +1058,7 @@ galaxies_min = 1
 galaxies_max = 1
 gal_coords_min = Vector2(953.35, 534.02)
 gal_coords_max = Vector2(969.785, 548.655)
+systems_per_galaxy_min = null
 systems_per_galaxy_max = 1
 system_coords_min = Vector2(953.35, 534.02)
 system_coords_max = Vector2(969.785, 548.655)

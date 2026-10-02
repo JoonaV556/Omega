@@ -5,19 +5,19 @@ extends HBoxContainer
 @export var _label_settings : LabelSettings
 
 
-signal on_path_button_pressed_for_stellar_object(object : StellarObject)
+signal on_path_button_pressed_for_stellar_object(object : HStellarObject)
 
 
-func show_path_for_object(_object : StellarObject):
+func show_path_for_object(_object : HStellarObject):
 	for c in get_children():
 		c.queue_free()
 
 	self._theme = _theme
 
-	var path : Array[StellarObject] = [_object]
+	var path : Array[HStellarObject] = [_object]
 	path.append_array(_object.get_parents_recursive())
 
-	for obj : StellarObject in path:
+	for obj : HStellarObject in path:
 		var btn : Button = Button.new()
 		btn.text = obj.name
 		btn.flat = true
