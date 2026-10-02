@@ -1,4 +1,5 @@
 @tool
+class_name DebugDrawGrid
 extends Node2D
 
 ## Size of each grid cell in pixels
@@ -16,6 +17,7 @@ extends Node2D
 @export var grid_extent_pixels : Vector2 = Vector2(16*256, 16*256)
 
 @export var editor_only : bool = true
+
 
 func _draw() -> void:
 	if editor_only and !Engine.is_editor_hint():

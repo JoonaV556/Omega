@@ -15,8 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://dponu0tksyqpk" path="res://Assets_LICENSED/Sprites/tileset_placeholder_three-step-gradient_30x30.png" id="13_gtru1"]
 [ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="14_7matp"]
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_551uo"]
-[ext_resource type="Script" uid="uid://c8lg1buj8iypl" path="res://Code/Space/space_test.gd" id="16_gu1vu"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="17_gsxhu"]
+[ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="18_83a0a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -849,7 +849,7 @@ metadata/_custom_type_script = "uid://bdxr1200utaxm"
 [node name="Camera2DZoom" type="Node" parent="CanvasLayer/Camera2D" unique_id=1483938491 node_paths=PackedStringArray("camera")]
 script = ExtResource("3_pk6eb")
 camera = NodePath("..")
-min_zoom = Vector2(0.1, 0.1)
+min_zoom = Vector2(0.001, 0.001)
 metadata/_custom_type_script = "uid://bk5sryhfug4dp"
 
 [node name="Ship" type="RigidBody2D" parent="CanvasLayer" unique_id=38539155]
@@ -1056,22 +1056,26 @@ text = "Controls:
   "
 label_settings = ExtResource("15_551uo")
 
-[node name="Node" type="Node" parent="." unique_id=265683358 node_paths=PackedStringArray("omega_ui")]
-script = ExtResource("16_gu1vu")
-galaxies_min = 1
-galaxies_max = 1
-gal_coords_min = Vector2(953.35, 534.02)
-gal_coords_max = Vector2(969.785, 548.655)
-systems_per_galaxy_max = 1
-system_coords_min = Vector2(953.35, 534.02)
-system_coords_max = Vector2(969.785, 548.655)
-omega_ui = NodePath("../Omega UI")
-open_map_auto = false
-
 [node name="DebugCloseApp" type="Node" parent="." unique_id=595993975]
 script = ExtResource("17_gsxhu")
 editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
+
+[node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
+position = Vector2(-1592, -1608)
+script = ExtResource("18_83a0a")
+grid_size = Vector2(100, 100)
+grid_extent_pixels = Vector2(3200, 3200)
+editor_only = false
+metadata/_custom_type_script = "uid://rd1dchgc0l82"
+
+[node name="DebugDrawGrid 100000x100000" type="Node2D" parent="." unique_id=1566970246]
+position = Vector2(-52368, -47656)
+script = ExtResource("18_83a0a")
+grid_size = Vector2(100000, 100000)
+grid_extent_pixels = Vector2(100000, 100000)
+editor_only = false
+metadata/_custom_type_script = "uid://rd1dchgc0l82"
 
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid/Health" to="CanvasLayer/Node2D asteroids/Asteroid" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid2/Health" to="CanvasLayer/Node2D asteroids/Asteroid2" method="queue_free"]

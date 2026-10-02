@@ -128,7 +128,7 @@ func open_map_for_object(object : StellarObject, show_map: bool = false):
 
 func set_character_location_info(character: Character):
 
-	var type_str = object_type_strings[get_object_type_enum(character.location)] 
+	var type_str = object_type_strings[get_object_type_enum(character.location_object)] 
 
 	character_location_info_label.text = String(
 		"Character %s
