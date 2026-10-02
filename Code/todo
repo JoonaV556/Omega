@@ -630,45 +630,52 @@ Space Layer
             -     space test
             -         create char 
             -         set char location info
-Implement v0.3
-    Naming - rename starsystem to system (more abstract and gives more freedom)
-    Inter-system travel 
-        Player can fly seamlessly between systems, across empty space
-        Systems are generated with a chunk-based grid system
-        Systems consist of at least 1 planet, star, or other stellar object
-        Planets
+☐ Implement v0.3
+    ☐ Naming - rename starsystem to system (more abstract and gives more freedom)
+    ☐ Inter-system travel 
+        ☐ Player can fly seamlessly between systems, across empty space
+        ☐ Systems are generated with a chunk-based grid system
+        ☐ Systems consist of at least 1 planet, star, or other stellar object
+        ☐ Planets
 
-    QOL features
-        Local click-to-travel / Autopilot
-        Map-based click-to-travel / autopilot
+    ☐ QOL features
+        ☐ Local click-to-travel / Autopilot
+        ☐ Map-based click-to-travel / autopilot
 
-    How are initial surrounding systems & galaxies generated? 
-        Initially generate both number of surrounding systems
-        and
-        number of surrounding galaxies
+    ☐ world origin shifting
+        do when player has moved over 800 000 - 1 000 000 pixels away from origin
 
-    How large are systems and galaxies? 
-        A System-level chunk (SLC) = 100 000 x 100 000 px / 6250 x 6250 km2
+    notes
+        How are initial surrounding systems & galaxies generated? 
+            Initially generate both number of surrounding systems
+            and
+            number of surrounding galaxies
 
-        Galaxy-level chunk (GLC) = 32x32 grid of system-level-chunks
+        How large are systems and galaxies? 
+            A System-level chunk (SLC) = 100 000 x 100 000 px / 6250 x 6250 km2
+
+            Galaxy-level chunk (GLC) = 32x32 grid of system-level-chunks
     
     Tasks
-        Allow seamless travel between systems
-            Show systems withing render distance
-                how to translate 2d pixel coords to in slc-coords?
-                    pick start position inside slc track local coordinate inside the slc
-            
-                space travel test
-                    create player
-                    track player position
-                    send player position to chunk generator
-                    draw systems within distance
-                    undraw systems outside distance
-                    do originshift
+        ☐ Allow seamless travel between systems
+            ☐ Show systems withing render distance
+                ✔ how to translate 2d pixel coords to in slc-coords? @done(26-10-02 21:29)
+                    ✔ pick start position inside slc track local coordinate inside the slc @done(26-10-02 21:29)
+                ✔ stellar position tracker @done(26-10-02 21:29)
+                    ✔ tracked node2d @done(26-10-02 21:29)
+                    ✔ if node i empty @done(26-10-02 21:29)
+                    ✔ start pos @done(26-10-02 21:29)
+                        ✔ stellar @done(26-10-02 21:29)
+                        ✔ local @done(26-10-02 21:29)
+                    ✔ tracks objects stellar position in stellar chunk grid scg @done(26-10-02 21:29)
+                    ✔ tracks objects system local position inside current slc @done(26-10-02 21:29)
+                    ✔ update @done(26-10-02 21:29)
+                       ✔ track moved distance since last frame @done(26-10-02 21:29)
+                        ✔ track chunks moved since last frame @done(26-10-02 21:29)
+                        ✔ update chunk @done(26-10-02 21:29)
+                        ✔ update local position inside new chunk @done(26-10-02 21:29)
                 
-                space chunk generator
-                    update position
-                    get_objects_around_coords
+            ☐ hide chunks outside render distance
 
 
 
