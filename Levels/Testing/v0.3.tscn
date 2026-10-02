@@ -1067,10 +1067,9 @@ editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
-visible = false
-position = Vector2(-1592, -1608)
+position = Vector2(-1504, -1504)
 script = ExtResource("18_83a0a")
-grid_size = Vector2(100, 100)
+grid_size = Vector2(200, 200)
 grid_extent_pixels = Vector2(3200, 3200)
 editor_only = false
 metadata/_custom_type_script = "uid://rd1dchgc0l82"

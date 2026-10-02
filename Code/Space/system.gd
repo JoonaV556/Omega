@@ -1,3 +1,3 @@
-class_name StarSystem
+class_name System
 extends StellarObject
 

@@ -7,7 +7,7 @@ func set_hint(object : StellarObject):
 	
 	if object is Galaxy:
 		type = "galaxy"
-	if object is StarSystem:
+	if object is System:
 		type = "star system"
 	
 	text = String("Viewing local map for %s %s" % [type, object.name])

@@ -43,13 +43,13 @@ enum LAYER {
 
 enum OBJECT_TYPE {
 	Galaxy,
-	StarSystem
+	System
 }
 
 
 var object_type_strings : Dictionary = {
 	OBJECT_TYPE.Galaxy: "Galaxy",
-	OBJECT_TYPE.StarSystem: "Star System",
+	OBJECT_TYPE.System: "Star System",
 }
 
 
@@ -132,7 +132,7 @@ func set_character_location_info(character: Character):
 
 	character_location_info_label.text = String(
 		"Character %s
-		\n\t Flying in %s %s" % [character.name, type_str, character.location.name]
+		\n\t Flying in %s %s" % [character.name, type_str, character.location_object.name]
 	)
 	character_location_info_label.show()
 
@@ -140,8 +140,8 @@ func set_character_location_info(character: Character):
 func get_object_type_enum(object: StellarObject) -> OBJECT_TYPE:
 	if object is Galaxy:
 		return OBJECT_TYPE.Galaxy
-	if object is StarSystem:
-		return OBJECT_TYPE.StarSystem
+	if object is System:
+		return OBJECT_TYPE.System
 	return OBJECT_TYPE.Galaxy
 
 
@@ -161,8 +161,8 @@ func on_object_selected(new_selection : Node):
 
 	if selected_object is Galaxy:
 		object_type_str = object_type_strings[OBJECT_TYPE.Galaxy]
-	if selected_object is StarSystem:
-		object_type_str = object_type_strings[OBJECT_TYPE.StarSystem]
+	if selected_object is System:
+		object_type_str = object_type_strings[OBJECT_TYPE.System]
 		
 	
 	print('Selected %s' % [new_selection.name])

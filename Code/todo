@@ -655,10 +655,22 @@ Space Layer
             A System-level chunk (SLC) = 100 000 x 100 000 px / 6250 x 6250 km2
 
             Galaxy-level chunk (GLC) = 32x32 grid of system-level-chunks
+
+        how to ensure each chunk stays same with same seed
+            chunk generator
+                get_chunk(x, y, world_seed)
+                    #create hash by combining world seed with chunk coords
+                    var chunk_seed = hash(Vector3i(x, y, world_seed))
+                    generate_chunk(chunk_seed)
     
     Tasks
+        ☐ refactors
+            ✔ rename starsystem to system @done(26-10-03 01:32)
+            ☐ ditch hierarchical stellar architecture
+                ☐ rename previous classes
+                ☐ reimplement with non hierarchical structure
         ☐ Allow seamless travel between systems
-            ☐ Show systems withing render distance
+            ☐ Show systems withing render distance & hide systems outside
                 ✔ how to translate 2d pixel coords to in slc-coords? @done(26-10-02 21:29)
                     ✔ pick start position inside slc track local coordinate inside the slc @done(26-10-02 21:29)
                 ✔ stellar position tracker @done(26-10-02 21:29)
@@ -675,7 +687,9 @@ Space Layer
                         ✔ update chunk @done(26-10-02 21:29)
                         ✔ update local position inside new chunk @done(26-10-02 21:29)
                 
-            ☐ hide chunks outside render distance
+                track loaded chunk coords
+                generate initial surrounding chunks from chunk generator
+                generate new chunks as player chunk changes
 
 
 
