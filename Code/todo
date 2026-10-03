@@ -694,26 +694,45 @@ Space Layer
                             ✔ update chunk @done(26-10-02 21:29)
                             ✔ update local position inside new chunk @done(26-10-02 21:29)
                 
-                stellar position tracker 
-                    ✔ signal on_init(chunk_pos, local_pos, real_pos) @done(26-10-03 02:48)
-                    ✔ signal on_chunk_changed(chunk_pos, local_pos, real_pos) @done(26-10-03 02:48)
-                    sends player chunk coords to space generator
+                ✔ stellar position tracker @done(26-10-04 02:35)
+                    ✔ signal on_init(chunk_pos, local_pos, real_pos) @done(26-10-04 02:35)
+                    ✔ signal on_chunk_changed(chunk_pos, local_pos, real_pos) @done(26-10-04 02:35)
+                    ✔ sends player chunk coords to space generator @done(26-10-04 02:35)
 
-                space generator
+                ✔ space generator @done(26-10-04 02:35)
+                    ✔ configurable odds for chunk having a system init @done(26-10-03 23:38)
                     ✔ use initial real local position as chunk node pivot @done(26-10-03 04:12)
-                    generate initial surrounding chunks from chunk generator
-                        generate_chunk()
-                            num_planets_min
-                            num_planets_max
-                            num_planets
+                    ✔ generate initial surrounding chunks from chunk generator @done(26-10-03 23:38)
+                        ✔ generate_chunk() @done(26-10-03 23:25)
+                            ✔ set name @done(26-10-03 21:03)
+                            ✔ generate planets @done(26-10-03 23:25)
+                                ✔ data @done(26-10-03 21:03)
+                    ✔ refactor to chunk class @done(26-10-04 01:42)
+                        ✔ type stellarobject @done(26-10-04 01:42)
+                        ✔ objects dictionary[stellarobject, localposition] @done(26-10-04 01:42)
+                    ✔ generate new chunks as player chunk changes @done(26-10-04 02:35)
+                    ✔ unload chunks as player moves away from them @done(26-10-04 02:35)
 
-                            for planet in num planets
-                                planet = new 
-                                planet.position = random
-                                place planet in position
-                    generate new chunks as player chunk changes
+                space chunk renderer
+                    render planets
+                        use a clean as possible architecture for rendering space objects 
+
+                        render(StellarObject)
+
+                            if planet
+                                render_planet()
+                            
+                            if star
+                                render_star()
 
 ☐ implement v0.4
-    Allow inter-galactic travel seamlessly
+    Allow intergalactic travel seamlessly
+
+    Refactors:
+        Split space chunk loading and generation logic
+            space_chunk_loader
+            space_chunk_generator
+        
+        Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler
 
         

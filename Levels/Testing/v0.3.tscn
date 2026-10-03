@@ -16,9 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://dponu0tksyqpk" path="res://Assets_LICENSED/Sprites/tileset_placeholder_three-step-gradient_30x30.png" id="13_gtru1"]
 [ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="14_7matp"]
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_551uo"]
+[ext_resource type="Texture2D" uid="uid://br1gsdax5swfr" path="res://Assets_LICENSED/Sprites/space_sprites_1.png" id="15_nwgxt"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="17_gsxhu"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="18_83a0a"]
-[ext_resource type="Script" uid="uid://df1pt71808fxv" path="res://Code/Space/space_chunk_generator.gd" id="19_pk6eb"]
+[ext_resource type="Script" uid="uid://df1pt71808fxv" path="res://Code/Space/space_chunk_loader.gd" id="19_pk6eb"]
+[ext_resource type="Script" uid="uid://xqg8f0pthhor" path="res://Code/Space/space_chunk_renderer.gd" id="21_f43e3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -52,7 +54,14 @@ metadata/_custom_type_script = "uid://dyk6ysv3eokqt"
 atlas = ExtResource("13_gtru1")
 region = Rect2(418, 146, 1, 14)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_pk6eb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_f43e3"]
+atlas = ExtResource("15_nwgxt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kytk"]
+radius = 17.029387
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_f43e3"]
 
 [node name="Node2D" type="Node2D" unique_id=1787844382]
 
@@ -1035,13 +1044,22 @@ texture = SubResource("AtlasTexture_yp573")
 
 [node name="Chunks Parent" type="Node2D" parent="CanvasLayer" unique_id=752525633]
 
+[node name="planet" type="Sprite2D" parent="CanvasLayer" unique_id=748606204]
+position = Vector2(-214, -217)
+texture = SubResource("AtlasTexture_f43e3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasLayer/planet" unique_id=791390233]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/planet/StaticBody2D" unique_id=386263811]
+shape = SubResource("CircleShape2D_1kytk")
+
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("14_7matp")]
 
 [node name="Button - Galaxy" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="7" unique_id=1631048499]
-button_group = SubResource("ButtonGroup_pk6eb")
+button_group = SubResource("ButtonGroup_f43e3")
 
 [node name="Button - System" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="8" unique_id=47228492]
-button_group = SubResource("ButtonGroup_pk6eb")
+button_group = SubResource("ButtonGroup_f43e3")
 
 [node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" parent_id_path=PackedInt32Array(1645446355, 1519125427) index="3" unique_id=1866705300]
 layout_mode = 1
@@ -1086,12 +1104,22 @@ grid_extent_pixels = Vector2(100000, 100000)
 editor_only = false
 metadata/_custom_type_script = "uid://rd1dchgc0l82"
 
-[node name="SpaceChunkGenerator" type="Node" parent="." unique_id=2114528760 node_paths=PackedStringArray("chunk_nodes_parent")]
+[node name="SpaceChunkLoader" type="Node" parent="." unique_id=2114528760]
 script = ExtResource("19_pk6eb")
-chunk_nodes_parent = NodePath("../CanvasLayer/Chunks Parent")
+chunk_has_system_odds = 0.1
+planet_radius_min = 10.0
+planet_radius_max = 100.0
 metadata/_custom_type_script = "uid://df1pt71808fxv"
 
-[connection signal="on_init" from="CanvasLayer/Ship/StellarPositionTracker" to="SpaceChunkGenerator" method="init"]
+[node name="SpaceChunkRenderer" type="Node" parent="." unique_id=1874235251 node_paths=PackedStringArray("chunk_nodes_parent")]
+script = ExtResource("21_f43e3")
+chunk_nodes_parent = NodePath("../CanvasLayer/Chunks Parent")
+debug_draw_chunk_bounds = true
+metadata/_custom_type_script = "uid://xqg8f0pthhor"
+
+[connection signal="on_chunk_changed" from="CanvasLayer/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
+[connection signal="on_init" from="CanvasLayer/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
+[connection signal="on_init" from="CanvasLayer/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid/Health" to="CanvasLayer/Node2D asteroids/Asteroid" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid2/Health" to="CanvasLayer/Node2D asteroids/Asteroid2" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid3/Health" to="CanvasLayer/Node2D asteroids/Asteroid3" method="queue_free"]
@@ -1101,5 +1129,7 @@ metadata/_custom_type_script = "uid://df1pt71808fxv"
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid7/Health" to="CanvasLayer/Node2D asteroids/Asteroid7" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid8/Health" to="CanvasLayer/Node2D asteroids/Asteroid8" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid9/Health" to="CanvasLayer/Node2D asteroids/Asteroid9" method="queue_free"]
+[connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]
+[connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]
 
 [editable path="Omega UI"]

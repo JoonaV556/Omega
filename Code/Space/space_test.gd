@@ -29,10 +29,10 @@ func _ready() -> void:
 
 	var root : HStellarObject = HSpaceGenerator.generate_universe(params)
 
-	var char = Character.new()
-	char.name = "Clarius Merck"
-	char.location_object = root.objects[0].objects[0]
+	var _char = Character.new()
+	_char.name = "Clarius Merck"
+	_char.location_object = root.objects[0].objects[0]
 
 	var map_ui : MapUI = omega_ui.map_ui
-	map_ui.set_character_location_info(char)
+	map_ui.set_character_location_info(_char)
 	map_ui.open_map_for_object(root, open_map_auto)

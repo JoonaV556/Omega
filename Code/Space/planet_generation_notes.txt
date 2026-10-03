@@ -1,0 +1,25 @@
+Implement an algorithm for placing planets and other objects in a square shaped chunk. Chunk dimensions are defined by SpaceGlobals.chunk_size
+
+Notes:
+    While implementing the algorithm, divide it into simple reusable functions / methods so the generate_chunk() method is not cluttered
+
+    For generating the planets use the Planet class. DO NOT CREATE ANY ACTUAL 2D NODES in the scene tree, this is done in a separate step afterwards.
+    
+    Try not to modify any preceding logic in the generate_chunk() function.
+
+    Output generated planet data into an dictionary[Planet (class), position_in_chunk Vector2]
+
+General steps:
+- Divide the chunk into configurable sized grid (vector2i)
+
+- for each planet, pick a free cell in the grid
+    - 'consume' the cell so it wont be picked for other cells
+
+- for each planet, assign a random size defined by radius in pixels (min rad, max rad,)
+    - Ensure the planet fits the chunk bounds by limiting max_rad parameter
+    - While picking the radius, allow the planet size to extend outside the bounds of its grid cell, but afterwards, consume all surrounding grid cells the planet covers.
+    - Because each planet can consume multiple grid cells, ensure the radius of the planet does not extend over consumed grid cells by limiting max_radius
+    
+Afternote: 
+    If you feel some steps are overly complex, or the same result could be achieved with a simpler approach, feel free to suggest diversing methods.
+    
