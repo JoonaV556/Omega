@@ -15,8 +15,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Omega Space Layer"
-config/version="0.1"
-run/main_scene="uid://co2f6vjgkfdmc"
+config/version="0.3"
+run/main_scene="uid://bthemp3ifyxsj"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Assets_LICENSED/icon.svg"
 

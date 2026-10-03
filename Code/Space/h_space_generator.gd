@@ -1,4 +1,4 @@
-class_name SpaceGenerator
+class_name HSpaceGenerator
 
 class universe_params:
 	var galaxies_min = 5

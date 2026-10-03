@@ -17,7 +17,7 @@ signal on_generated(object)
 
 func _ready() -> void:
 	# Generate cluster of galaxies
-	var params = SpaceGenerator.universe_params.new()
+	var params = HSpaceGenerator.universe_params.new()
 	params.galaxies_min = galaxies_min
 	params.galaxies_max = galaxies_max
 	params.gal_coords_min = gal_coords_min
@@ -27,7 +27,7 @@ func _ready() -> void:
 	params.system_coords_min = system_coords_min
 	params.system_coords_max = system_coords_max
 
-	var root : HStellarObject = SpaceGenerator.generate_universe(params)
+	var root : HStellarObject = HSpaceGenerator.generate_universe(params)
 
 	var char = Character.new()
 	char.name = "Clarius Merck"

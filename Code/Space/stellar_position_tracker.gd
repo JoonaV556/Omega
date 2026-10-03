@@ -1,13 +1,14 @@
 class_name StellarPositionTracker
 extends Node
 
-const chunk_size_pixels: Vector2 = Vector2(100000.0, 100000.0)
-
 @export var tracked_override: Node2D
 
 @export var start_stellar_position: Vector2i = Vector2i(1000, 1000)
 
 @export var start_local_position: Vector2 = Vector2(50000.0, 50000.0)
+
+signal on_init(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
+signal on_chunk_changed(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
 
 var tracked_stellar_pos: Vector2i
 
@@ -46,6 +47,8 @@ func _ready() -> void:
 
 	_tracked_last_real_position = _tracked.global_position
 
+	on_init.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)
+
 
 func _process(delta: float) -> void:
 	if !_tracked:
@@ -60,6 +63,7 @@ func _process(delta: float) -> void:
 	tracked_local_chunk_position += _amount_moved_since_last_frame
 
 	# Update position in stellar chunk space
+	var chunk_size_pixels := SpaceGlobals.chunk_size_pixels
 	while tracked_local_chunk_position.x >= chunk_size_pixels.x:
 		tracked_local_chunk_position.x -= chunk_size_pixels.x
 		tracked_stellar_pos.x += 1
@@ -74,6 +78,7 @@ func _process(delta: float) -> void:
 		tracked_stellar_pos.y -= 1
 
 	if tracked_stellar_pos != old_chunk:
+		on_chunk_changed.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)
 		print('Moved to stellar chunk %s (local %s)' % [tracked_stellar_pos, tracked_local_chunk_position])
 
 

@@ -18,6 +18,7 @@
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_551uo"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="17_gsxhu"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="18_83a0a"]
+[ext_resource type="Script" uid="uid://df1pt71808fxv" path="res://Code/Space/space_chunk_generator.gd" id="19_pk6eb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -877,6 +878,7 @@ metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
 
 [node name="StellarPositionTracker" type="Node" parent="CanvasLayer/Ship" unique_id=1280718680]
 script = ExtResource("7_83a0a")
+start_local_position = Vector2(100, 100)
 metadata/_custom_type_script = "uid://pvt88xa50146"
 
 [node name="Node2D asteroids" type="Node2D" parent="CanvasLayer" unique_id=1346626024]
@@ -1031,6 +1033,8 @@ metadata/_custom_type_script = "uid://svhubkh86bxl"
 position = Vector2(0, 7)
 texture = SubResource("AtlasTexture_yp573")
 
+[node name="Chunks Parent" type="Node2D" parent="CanvasLayer" unique_id=752525633]
+
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("14_7matp")]
 
 [node name="Button - Galaxy" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="7" unique_id=1631048499]
@@ -1082,6 +1086,12 @@ grid_extent_pixels = Vector2(100000, 100000)
 editor_only = false
 metadata/_custom_type_script = "uid://rd1dchgc0l82"
 
+[node name="SpaceChunkGenerator" type="Node" parent="." unique_id=2114528760 node_paths=PackedStringArray("chunk_nodes_parent")]
+script = ExtResource("19_pk6eb")
+chunk_nodes_parent = NodePath("../CanvasLayer/Chunks Parent")
+metadata/_custom_type_script = "uid://df1pt71808fxv"
+
+[connection signal="on_init" from="CanvasLayer/Ship/StellarPositionTracker" to="SpaceChunkGenerator" method="init"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid/Health" to="CanvasLayer/Node2D asteroids/Asteroid" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid2/Health" to="CanvasLayer/Node2D asteroids/Asteroid2" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer/Node2D asteroids/Asteroid3/Health" to="CanvasLayer/Node2D asteroids/Asteroid3" method="queue_free"]

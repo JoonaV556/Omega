@@ -631,19 +631,21 @@ Space Layer
             -         create char 
             -         set char location info
 ☐ Implement v0.3
-    ☐ Naming - rename starsystem to system (more abstract and gives more freedom)
+    ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-03 02:38)
+
     ☐ Inter-system travel 
         ☐ Player can fly seamlessly between systems, across empty space
         ☐ Systems are generated with a chunk-based grid system
         ☐ Systems consist of at least 1 planet, star, or other stellar object
         ☐ Planets
+        ☐ world origin shifting
+
+    ☐ Rework Map for chunk-based space
 
     ☐ QOL features
         ☐ Local click-to-travel / Autopilot
         ☐ Map-based click-to-travel / autopilot
-
-    ☐ world origin shifting
-        do when player has moved over 800 000 - 1 000 000 pixels away from origin
+  
 
     notes
         How are initial surrounding systems & galaxies generated? 
@@ -672,29 +674,46 @@ Space Layer
                 ✔ system @done(26-10-03 01:49)
                     ✔ name @done(26-10-03 01:49)
                     ✔ objects[[]] objects[n][0] = object, objects[n][0] = object.local_position @done(26-10-03 01:49)
-                    
+
         ☐ Allow seamless travel between systems
             ☐ Show systems withing render distance & hide systems outside
-                ✔ how to translate 2d pixel coords to in slc-coords? @done(26-10-02 21:29)
-                    ✔ pick start position inside slc track local coordinate inside the slc @done(26-10-02 21:29)
-                ✔ stellar position tracker @done(26-10-02 21:29)
-                    ✔ tracked node2d @done(26-10-02 21:29)
-                    ✔ if node i empty @done(26-10-02 21:29)
-                    ✔ start pos @done(26-10-02 21:29)
-                        ✔ stellar @done(26-10-02 21:29)
-                        ✔ local @done(26-10-02 21:29)
-                    ✔ tracks objects stellar position in stellar chunk grid scg @done(26-10-02 21:29)
-                    ✔ tracks objects system local position inside current slc @done(26-10-02 21:29)
-                    ✔ update @done(26-10-02 21:29)
-                       ✔ track moved distance since last frame @done(26-10-02 21:29)
-                        ✔ track chunks moved since last frame @done(26-10-02 21:29)
-                        ✔ update chunk @done(26-10-02 21:29)
-                        ✔ update local position inside new chunk @done(26-10-02 21:29)
+                ✔ stellar position tracker @done(26-10-03 01:51)
+                    ✔ how to translate 2d pixel coords to in slc-coords? @done(26-10-02 21:29)
+                        ✔ pick start position inside slc track local coordinate inside the slc @done(26-10-02 21:29)
+                    ✔ stellar position tracker @done(26-10-02 21:29)
+                        ✔ tracked node2d @done(26-10-02 21:29)
+                        ✔ if node i empty @done(26-10-02 21:29)
+                        ✔ start pos @done(26-10-02 21:29)
+                            ✔ stellar @done(26-10-02 21:29)
+                            ✔ local @done(26-10-02 21:29)
+                        ✔ tracks objects stellar position in stellar chunk grid scg @done(26-10-02 21:29)
+                        ✔ tracks objects system local position inside current slc @done(26-10-02 21:29)
+                        ✔ update @done(26-10-02 21:29)
+                        ✔ track moved distance since last frame @done(26-10-02 21:29)
+                            ✔ track chunks moved since last frame @done(26-10-02 21:29)
+                            ✔ update chunk @done(26-10-02 21:29)
+                            ✔ update local position inside new chunk @done(26-10-02 21:29)
                 
-                track loaded chunk coords
-                generate initial surrounding chunks from chunk generator
-                generate new chunks as player chunk changes
+                stellar position tracker 
+                    ✔ signal on_init(chunk_pos, local_pos, real_pos) @done(26-10-03 02:48)
+                    ✔ signal on_chunk_changed(chunk_pos, local_pos, real_pos) @done(26-10-03 02:48)
+                    sends player chunk coords to space generator
 
+                space generator
+                    ✔ use initial real local position as chunk node pivot @done(26-10-03 04:12)
+                    generate initial surrounding chunks from chunk generator
+                        generate_chunk()
+                            num_planets_min
+                            num_planets_max
+                            num_planets
 
+                            for planet in num planets
+                                planet = new 
+                                planet.position = random
+                                place planet in position
+                    generate new chunks as player chunk changes
+
+☐ implement v0.4
+    Allow inter-galactic travel seamlessly
 
         
