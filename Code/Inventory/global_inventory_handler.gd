@@ -1,3 +1,4 @@
+class_name GlobalInventoryHandler
 extends Node
 
 const SingleInventoryUIInstance = preload("res://Scenes/Inventory/SingleInventoryUI.tscn")

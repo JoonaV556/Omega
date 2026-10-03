@@ -6,8 +6,8 @@ extends CanvasLayer
 
 func _ready() -> void:
 	visible = false
-	GlobalEventBus.on_level_transition_started.connect(fade_in)
-	GlobalEventBus.on_level_transition_ended.connect(fade_out)
+	#GlobalEventBus.on_level_transition_started.connect(fade_in)
+	#GlobalEventBus.on_level_transition_ended.connect(fade_out)
 
 func fade_in(level_name: String):
 	var anchor = get_child(0) as Control

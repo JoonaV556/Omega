@@ -8,6 +8,8 @@ const Shell = preload("res://Scenes/Inventory/Items/Shell.tscn")
 
 var additional_impulses: Vector2 = Vector2.ZERO
 
+var inv_handler: GlobalInventoryHandler
+
 var inventory: Inventory
 var journal: Journal
 
@@ -39,7 +41,7 @@ func add_impulse(impulse: Vector2):
 	
 func _input(_event):
 	if Input.is_action_just_released("Open Inventory"):
-		GlobalInventoryHandler.open_single_inventory(inventory)
+		inv_handler.open_single_inventory(inventory)
 
 
 func _on_health_on_depleted() -> void:

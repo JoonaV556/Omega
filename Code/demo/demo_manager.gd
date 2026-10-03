@@ -31,7 +31,7 @@ func _ready() -> void:
 	
 	# start dialogue 
 	intro_dialogue.start()
-	await Dialogic.timeline_ended
+	#await Dialogic.timeline_ended
 	cutscene_bg.hide()
 
 	# spawn house level and place player in the house

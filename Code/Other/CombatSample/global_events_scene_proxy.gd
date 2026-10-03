@@ -4,8 +4,9 @@ extends Node
 signal gesp_on_bullet_landed(pos)
 
 func _ready():
-	GlobalEventBus.on_bullet_landed.connect(geb_on_bullet_land)
-	GlobalEventBus.on_melee_attack.connect(geb_on_bullet_land)
+	#GlobalEventBus.on_bullet_landed.connect(geb_on_bullet_land)
+	#GlobalEventBus.on_melee_attack.connect(geb_on_bullet_land)
+	pass
 
 func geb_on_bullet_land(_pos):
 	gesp_on_bullet_landed.emit(_pos)

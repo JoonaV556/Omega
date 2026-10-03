@@ -78,7 +78,8 @@ func attack_in_direction(target_pos: Vector2) -> bool:
 
 		# fire event for sfx. etc.
 		if dealt_dmg:
-			GlobalEventBus.on_melee_attack.emit(hit_collider.global_position)
+			#GlobalEventBus.on_melee_attack.emit(hit_collider.global_position)
+			pass
 
 	# Release the shape when done with physics queries.
 	PhysicsServer2D.free_rid(shape_rid)

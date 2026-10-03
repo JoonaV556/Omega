@@ -14,20 +14,20 @@ signal on_dialogue_ended
 var layout: Node
 
 func start():
-	if Dialogic.current_timeline != null:
-		return
+	#if Dialogic.current_timeline != null:
+		#return
 
-	Dialogic.signal_event.connect(on_dialogic_signal_event)
+	#Dialogic.signal_event.connect(on_dialogic_signal_event)
 
-	layout = Dialogic.start(timeline)
+	#layout = Dialogic.start(timeline)
 	
 	on_dialogue_started.emit()
 	
-	await Dialogic.timeline_ended
+	#await Dialogic.timeline_ended
 	
 	on_dialogue_ended.emit()
 
-	Dialogic.signal_event.disconnect(on_dialogic_signal_event)
+	#Dialogic.signal_event.disconnect(on_dialogic_signal_event)
 
 
 func on_dialogic_signal_event(args):

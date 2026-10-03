@@ -52,7 +52,7 @@ metadata/_custom_type_script = "uid://dyk6ysv3eokqt"
 atlas = ExtResource("13_gtru1")
 region = Rect2(418, 146, 1, 14)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_rw14f"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_pk6eb"]
 
 [node name="Node2D" type="Node2D" unique_id=1787844382]
 
@@ -1038,10 +1038,10 @@ texture = SubResource("AtlasTexture_yp573")
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("14_7matp")]
 
 [node name="Button - Galaxy" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="7" unique_id=1631048499]
-button_group = SubResource("ButtonGroup_rw14f")
+button_group = SubResource("ButtonGroup_pk6eb")
 
 [node name="Button - System" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="8" unique_id=47228492]
-button_group = SubResource("ButtonGroup_rw14f")
+button_group = SubResource("ButtonGroup_pk6eb")
 
 [node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" parent_id_path=PackedInt32Array(1645446355, 1519125427) index="3" unique_id=1866705300]
 layout_mode = 1

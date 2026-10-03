@@ -9,6 +9,6 @@ extends Test
 
 func run():
 	print("getting relations ")
-	print(str(GlobalGameData.faction_relations.get_relation(fac_1, fac_2)))
-	print(str(GlobalGameData.faction_relations.get_relation(fac_3, fac_4)))
-	print(str(GlobalGameData.faction_relations.get_relation(fac_5, fac_6)))
+	#print(str(GlobalGameData.faction_relations.get_relation(fac_1, fac_2)))
+	#print(str(GlobalGameData.faction_relations.get_relation(fac_3, fac_4)))
+	#print(str(GlobalGameData.faction_relations.get_relation(fac_5, fac_6)))

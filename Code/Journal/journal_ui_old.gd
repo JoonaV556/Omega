@@ -15,8 +15,8 @@ func _ready():
 	
 	if not Engine.is_editor_hint() and _is_debug():
 		var test_journal = Journal.new()
-		test_journal.add_quest(preload("res://Resources/Quests/fuck_around.tres"))
-		test_journal.add_quest(preload("res://Resources/Quests/find_out.tres"))
+		#test_journal.add_quest(preload("res://Resources/Quests/fuck_around.tres"))
+		#test_journal.add_quest(preload("res://Resources/Quests/find_out.tres"))
 		
 		load_journal(test_journal)
 	
