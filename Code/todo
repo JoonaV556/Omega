@@ -634,10 +634,10 @@ Space Layer
     ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-03 02:38)
 
     ☐ Inter-system travel 
-        ☐ Player can fly seamlessly between systems, across empty space
-        ☐ Systems are generated with a chunk-based grid system
+        ✔ Player can fly seamlessly between systems, across empty space @done(26-10-05 03:37)
+        ✔ Systems are generated with a chunk-based grid system @done(26-10-05 03:37)
         ☐ Systems consist of at least 1 planet, star, or other stellar object
-        ☐ Planets
+        ✔ Planets @done(26-10-05 03:37)
         ☐ world origin shifting
 
     ☐ Rework Map for chunk-based space
@@ -675,8 +675,8 @@ Space Layer
                     ✔ name @done(26-10-03 01:49)
                     ✔ objects[[]] objects[n][0] = object, objects[n][0] = object.local_position @done(26-10-03 01:49)
 
-        ☐ Allow seamless travel between systems
-            ☐ Show systems withing render distance & hide systems outside
+        ✔ Allow seamless travel between systems @done(26-10-05 03:36)
+            ✔ Show systems withing render distance & hide systems outside @done(26-10-05 03:36)
                 ✔ stellar position tracker @done(26-10-03 01:51)
                     ✔ how to translate 2d pixel coords to in slc-coords? @done(26-10-02 21:29)
                         ✔ pick start position inside slc track local coordinate inside the slc @done(26-10-02 21:29)
@@ -713,17 +713,25 @@ Space Layer
                     ✔ generate new chunks as player chunk changes @done(26-10-04 02:35)
                     ✔ unload chunks as player moves away from them @done(26-10-04 02:35)
 
-                space chunk renderer
-                    render planets
-                        use a clean as possible architecture for rendering space objects 
+                ✔ space chunk renderer @done(26-10-05 03:36)
+                    ✔ render planets @done(26-10-05 03:36)
+                        ✔ render(StellarObject) @done(26-10-05 03:36)
+                            ✔ if planet @done(26-10-05 03:36)
+                                ✔ render_planet() @done(26-10-05 03:36)
+                            ✔ if star @done(26-10-05 03:36)
+                                ✔ render_star() @done(26-10-05 03:36)
 
-                        render(StellarObject)
+        impl. origin shifting
 
-                            if planet
-                                render_planet()
-                            
-                            if star
-                                render_star()
+        impl. Systems consist of at least 1 planet, 1 star
+
+        Rework map ui for chunk based space
+
+        impl. QOL features
+            Local click-to-travel / Autopilot
+            Map-based click-to-travel / autopilot
+
+        Increase chunk planet grid size so planet positions are not so easily predictable
 
 ☐ implement v0.4
     Allow intergalactic travel seamlessly

@@ -4,6 +4,8 @@ extends Node
 
 @export var chunk_nodes_parent: Node
 
+@export var planet_2d_scene: PackedScene
+
 @export_category("Debug")
 @export var debug_draw_chunk_bounds: bool = false:
 	set(value):
@@ -56,12 +58,16 @@ func render_chunk(chunk: SpaceChunk):
 	if chunk.stellar_type and chunk.stellar_type is System:
 		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.stellar_type.name]
 
+
+	# Render objects in the chunk 
+	for object in chunk.stellar_objects.keys():
+		render_stellar_object(object, chunk_root, chunk.stellar_objects[object])
+
 	_draw_debug_visuals(chunk, chunk_root)
 
 	_rendered_chunks[chunk] = chunk_root
 
 	print('Rendered chunk %s' % [chunk.coordinates])
-
 
 
 func unrender_chunk(chunk: SpaceChunk):
@@ -76,6 +82,30 @@ func unrender_chunk(chunk: SpaceChunk):
 	
 	print('Unrendered chunk %s' % [chunk.coordinates])
 	
+
+func render_stellar_object(object, parent, local_position) -> Node2D:
+	var rendered: Node2D
+	
+	if object is Planet:
+		rendered = render_planet(object)
+
+
+	parent.add_child(rendered)
+	rendered.position = local_position
+
+	return rendered
+
+
+func render_planet(planet) -> Node2D:
+	var _planet := planet as Planet
+
+	var radius = _planet.radius_pixels
+
+	var planet_node := planet_2d_scene.instantiate() as CollidableStellarObject2D
+
+	planet_node.set_radius_pixels(radius)
+
+	return planet_node
 
 func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 	if !debug_draw_chunk_bounds:
