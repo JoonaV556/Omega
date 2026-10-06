@@ -854,6 +854,7 @@ metadata/_custom_type_script = "uid://bdxr1200utaxm"
 [node name="Camera2DZoom" type="Node" parent="CanvasLayer - Gameworld/Camera2D" unique_id=1483938491 node_paths=PackedStringArray("camera")]
 script = ExtResource("3_pk6eb")
 camera = NodePath("..")
+zoom_step = 0.2
 min_zoom = Vector2(0.001, 0.001)
 metadata/_custom_type_script = "uid://bk5sryhfug4dp"
 
@@ -1083,6 +1084,7 @@ editor_only = false
 metadata/_custom_type_script = "uid://rd1dchgc0l82"
 
 [node name="DebugDrawGrid 100000x100000" type="Node2D" parent="." unique_id=1566970246]
+visible = false
 position = Vector2(-52368, -47656)
 script = ExtResource("18_83a0a")
 grid_size = Vector2(100000, 100000)
@@ -1122,6 +1124,7 @@ metadata/_custom_type_script = "uid://bvjhuttqbicme"
 [connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
+[connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
 [connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]
 [connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]

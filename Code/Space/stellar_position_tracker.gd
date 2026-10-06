@@ -10,6 +10,7 @@ extends Node
 signal on_init(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
 signal on_chunk_changed(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
 signal on_origin_shift_position_treshold_exceeded(_tracked: Node2D)
+signal on_origin_shift(current_chunk_coords: Vector2i, local_chunk_position: Vector2, world_position)
 
 var tracked_stellar_pos: Vector2i
 
@@ -70,7 +71,7 @@ func _physics_process(delta: float) -> void:
 		_exceeded_position_limit_last_frame = false ## reset flag
 
 	if x_exceeded or y_exceeded:
-		print('Exceeded o-shift pos limit treshold')
+		print('Exceeded o-o_shift pos limit treshold')
 		on_origin_shift_position_treshold_exceeded.emit(_tracked) # Moved too far away
 		_exceeded_position_limit_last_frame = true
 
@@ -78,10 +79,12 @@ func _physics_process(delta: float) -> void:
 	_amount_moved_since_last_frame = _tracked.global_position - _tracked_last_real_position
 
 	# Account origin shifts
+	var o_shift = false
 	if _last_origin_shift_version != SpaceGlobals.origin_shift_version:
 		_amount_moved_since_last_frame -= SpaceGlobals.origin_shift_amount
 		_last_origin_shift_version = SpaceGlobals.origin_shift_version
-		print('Origin shift detected')
+		o_shift = true
+		print('Origin o_shift detected')
 
 	_tracked_last_real_position = _tracked.global_position
 
@@ -103,6 +106,10 @@ func _physics_process(delta: float) -> void:
 	while tracked_local_chunk_position.y < 0.0:
 		tracked_local_chunk_position.y += chunk_size_pixels.y
 		tracked_stellar_pos.y -= 1
+
+	# Inform others of origin shift
+	if o_shift:
+		on_origin_shift.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked.global_position)
 
 	if tracked_stellar_pos != old_chunk:
 		on_chunk_changed.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)

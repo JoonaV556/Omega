@@ -721,7 +721,7 @@ Space Layer
                             ✔ if star @done(26-10-05 03:36)
                                 ✔ render_star() @done(26-10-05 03:36)
 
-        impl. origin shifting
+        ✔ impl. origin shifting @done(26-10-06 04:34)
             ✔ space_chunk_renderer @done(26-10-06 00:15)
                 ✔ When player position exceeds limits @done(26-10-06 00:15)
                     ✔ Move set objects back to around 0,0 @done(26-10-06 00:15)
@@ -729,7 +729,7 @@ Space Layer
                         ✔ Origin shift targets parents (every object under parent, like chunks) @done(26-10-06 00:15)
                     ✔ Move player and every chunk individually back to 0,0 @done(26-10-06 00:15)
 
-            Issues
+            ✔ Issues @done(26-10-06 04:33)
                 ✔ Player ship StellarObjectTracker interprets origin shift as player movement, and 'thinks' player has returned back to origin chunk. @done(26-10-06 03:38)
                     ✔ Fix steps @done(26-10-06 03:38)
                         ✔ Move position limit exceed checking to StellarPositionTracker @done(26-10-06 00:44)
@@ -780,8 +780,8 @@ Space Layer
 
                             ✔ Make SpaceGlobals autoload node @done(26-10-06 03:38)
                                 ✔ add signal on_originshift(shift amount) @done(26-10-06 03:38)
-                                
-                After origin shift, new chunks are rendered in old position near position limits
+
+                ✔ After origin shift, new chunks are rendered in old position near position limits @done(26-10-06 04:33)
 
         impl. Systems consist of at least 1 planet, 1 star
 

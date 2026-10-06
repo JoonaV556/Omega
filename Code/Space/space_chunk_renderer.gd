@@ -31,6 +31,12 @@ func init(player_initial_chunk_coords: Vector2i, player_initial_local_position: 
 	_player_initial_local_position = player_initial_local_position
 
 
+func update_render_origin(chunk_coords: Vector2, local_chunk_coords: Vector2, world_position: Vector2):
+	_origin_chunk_coords = chunk_coords
+	_player_initial_local_position = local_chunk_coords
+	_world_origin_global_position = world_position
+
+
 func render_chunk(chunk: SpaceChunk):
 	# Decide under which node objects are placed
 	var chunk_parent: Node
