@@ -1,0 +1,35 @@
+☐ Implement v0.3
+    ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-06 23:32)
+
+    ✔ Inter-system travel @done(26-10-06 23:32)
+        ✔ Player can fly seamlessly between systems, across empty space @done(26-10-06 23:32)
+        ✔ Systems are generated with a chunk-based grid system @done(26-10-06 23:32)
+        ✔ Planets @done(26-10-06 23:32)
+        ✔ world origin shifting @done(26-10-06 23:32)
+
+    ☐ Rework Map for chunk-based space
+
+    ☐ Personal space discovery system
+
+    ☐ In-game HUD which displays current stellar position
+        ☐ System, no galaxy "System Knox 311, deep space"
+
+    ☐ QOL features
+        ☐ Local click-to-travel / Autopilot
+        ☐ Map-based click-to-travel / autopilot
+
+
+☐ implement v0.4
+    Allow intergalactic travel seamlessly
+        Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds?
+        Space map changes?
+
+    ☐ Introduce new stellar objects
+        ☐ Stars
+        ☐ Asteroid clouds
+
+    ☐ Refactors
+        ☐ Split space chunk loading and generation logic
+            ☐ space_chunk_loader
+            ☐ space_chunk_generator
+        ☐ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler

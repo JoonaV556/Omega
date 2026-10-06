@@ -398,13 +398,15 @@ Ground Layer
 
 
 Space Layer
-    ☐ Plan core features
-        Endless explorable universe
-            Hazardous parts of space
-                One way trips only (maybe using drones)
-                Certain spaces must be terraformed on galactic level to make them accessible
-            Discovery system & rewards
-                Discoveries are used by civilizations
+    core features
+        DONE Endless explorable universe
+        
+        Hazardous parts of space
+            One way trips only (maybe using drones)
+            Certain spaces must be terraformed on galactic level to make them accessible
+
+        Discovery system & rewards
+            Discoveries are used by civilizations
 
         Starships
             Fleet management & fleet warfare
@@ -631,24 +633,6 @@ Space Layer
             -         create char 
             -         set char location info
 ☐ Implement v0.3
-    ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-03 02:38)
-
-    ✔ Inter-system travel @done(26-10-06 04:39)
-        ✔ Player can fly seamlessly between systems, across empty space @done(26-10-05 03:37)
-        ✔ Systems are generated with a chunk-based grid system @done(26-10-05 03:37)
-        ✔ Planets @done(26-10-05 03:37)
-        ✔ world origin shifting @done(26-10-06 04:35)
-
-    ☐ Rework Map for chunk-based space
-
-    ☐ In-game HUD which displays current stellar position
-        ☐ System, no galaxy "System Knox 311, deep space"
-
-    ☐ QOL features
-        ☐ Local click-to-travel / Autopilot
-        ☐ Map-based click-to-travel / autopilot
-  
-
     notes
         How are initial surrounding systems & galaxies generated? 
             Initially generate both number of surrounding systems
@@ -785,14 +769,19 @@ Space Layer
 
                 ✔ After origin shift, new chunks are rendered in old position near position limits @done(26-10-06 04:33)
 
-        Adjust params to more realistic values
-            Raise chunk size 
-            Raise planet size
-            Raise origin shift treshold
+        ✔ Adjust params to more realistic values @done(26-10-06 23:42)
+            ✔ Raise chunk size @done(26-10-06 23:42)
+            ✔ Raise planet size @done(26-10-06 23:42)
+            ✔ Raise origin shift treshold @done(26-10-06 23:42)
+
+        Rework Map for chunk-based space
+            Personal space discovery system 
+            
+                When player enters chunk, it is discovered
+
+            Rework map 
 
         In-game HUD which displays current stellar position and name 
-
-        Rework map ui for chunk based space
 
         impl. QOL features
             Local click-to-travel / Autopilot
@@ -800,19 +789,5 @@ Space Layer
 
         Increase chunk planet grid size so planet positions are not so easily predictable
 
-☐ implement v0.4
-    Allow intergalactic travel seamlessly
-        Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds?
-        Space map changes?
-
-    ☐ Introduce new stellar objects
-        ☐ Stars
-        ☐ Asteroid clouds
-
-    ☐ Refactors
-        ☐ Split space chunk loading and generation logic
-            ☐ space_chunk_loader
-            ☐ space_chunk_generator
-        ☐ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler
 
         

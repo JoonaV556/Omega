@@ -55,7 +55,7 @@ region = Rect2(418, 146, 1, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pb00k"]
 size = Vector2(32, 57)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_f43e3"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_1kytk"]
 
 [node name="Node2D" type="Node2D" unique_id=1787844382]
 
@@ -1034,7 +1034,7 @@ metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
 
 [node name="StellarPositionTracker" type="Node" parent="CanvasLayer - Gameworld/Ship" unique_id=1280718680]
 script = ExtResource("7_83a0a")
-start_local_position = Vector2(100, 100)
+start_local_position = Vector2(2500, 2500)
 metadata/_custom_type_script = "uid://pvt88xa50146"
 
 [node name="Chunks Parent" type="Node2D" parent="CanvasLayer - Gameworld" unique_id=752525633]
@@ -1042,10 +1042,10 @@ metadata/_custom_type_script = "uid://pvt88xa50146"
 [node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("14_7matp")]
 
 [node name="Button - Galaxy" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="7" unique_id=1631048499]
-button_group = SubResource("ButtonGroup_f43e3")
+button_group = SubResource("ButtonGroup_1kytk")
 
 [node name="Button - System" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="8" unique_id=47228492]
-button_group = SubResource("ButtonGroup_f43e3")
+button_group = SubResource("ButtonGroup_1kytk")
 
 [node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" parent_id_path=PackedInt32Array(1645446355, 1519125427) index="3" unique_id=1866705300]
 layout_mode = 1
@@ -1075,6 +1075,7 @@ editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
+visible = false
 position = Vector2(-1504, -1504)
 script = ExtResource("18_83a0a")
 grid_size = Vector2(200, 200)
@@ -1095,8 +1096,8 @@ metadata/_custom_type_script = "uid://rd1dchgc0l82"
 [node name="SpaceChunkLoader" type="Node" parent="." unique_id=2114528760]
 script = ExtResource("19_pk6eb")
 chunk_has_system_odds = 0.1
-planet_radius_min = 10.0
-planet_radius_max = 100.0
+planets_per_system_max = 15
+planet_radius_max = 2000.0
 metadata/_custom_type_script = "uid://df1pt71808fxv"
 
 [node name="SpaceChunkRenderer" type="Node" parent="." unique_id=1874235251 node_paths=PackedStringArray("chunk_nodes_parent")]
