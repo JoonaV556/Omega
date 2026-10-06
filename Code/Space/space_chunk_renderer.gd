@@ -22,7 +22,7 @@ var _player_initial_local_position: Vector2
 
 var _rendered_chunks: Dictionary[SpaceChunk, Node2D]
 
-var _debug_chunk_bounds: Dictionary[SpaceChunk, Line2D]
+var _debug_chunk_bounds: Dictionary[SpaceChunk, Node2D]
 
 
 func init(player_initial_chunk_coords: Vector2i, player_initial_local_position: Vector2, player_initial_world_position: Vector2):
@@ -58,7 +58,6 @@ func render_chunk(chunk: SpaceChunk):
 	if chunk.stellar_type and chunk.stellar_type is System:
 		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.stellar_type.name]
 
-
 	# Render objects in the chunk 
 	for object in chunk.stellar_objects.keys():
 		render_stellar_object(object, chunk_root, chunk.stellar_objects[object])
@@ -74,9 +73,7 @@ func unrender_chunk(chunk: SpaceChunk):
 	var node := _rendered_chunks[chunk]
 	_rendered_chunks.erase(chunk)
 
-	# erase debug visuals
-	if debug_draw_chunk_bounds:
-		_debug_chunk_bounds.erase(chunk)
+	_debug_chunk_bounds.erase(chunk)
 
 	node.queue_free()
 	
@@ -107,9 +104,15 @@ func render_planet(planet) -> Node2D:
 
 	return planet_node
 
+
 func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 	if !debug_draw_chunk_bounds:
 		return
+
+	var debug_visuals := Node2D.new()
+	debug_visuals.name = "Debug visuals"
+	debug_visuals.z_index = 100
+	chunk_root.add_child(debug_visuals)
 
 	var chunk_bounds := Line2D.new()
 	chunk_bounds.name = "Debug chunk bounds"
@@ -122,5 +125,15 @@ func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 	chunk_bounds.closed = true
 	chunk_bounds.width = 2.0
 	chunk_bounds.default_color = Color.GREEN
-	chunk_root.add_child(chunk_bounds)
-	_debug_chunk_bounds[chunk] = chunk_bounds
+	debug_visuals.add_child(chunk_bounds)
+
+	var chunk_coordinates := Label.new()
+	chunk_coordinates.name = "Debug chunk coordinates"
+	chunk_coordinates.position = Vector2(8.0, 8.0)
+	chunk_coordinates.text = "%s" % [chunk.coordinates]
+	chunk_coordinates.add_theme_color_override("font_color", Color.WHITE)
+	chunk_coordinates.add_theme_color_override("font_outline_color", Color.BLACK)
+	chunk_coordinates.add_theme_constant_override("outline_size", 2)
+	debug_visuals.add_child(chunk_coordinates)
+
+	_debug_chunk_bounds[chunk] = debug_visuals

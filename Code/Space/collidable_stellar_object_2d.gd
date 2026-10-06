@@ -2,8 +2,8 @@ class_name CollidableStellarObject2D
 extends StellarObjectSprite2D
 
 
-func set_radius_pixels(radius_pixels: float) -> void:
-    super(radius_pixels)
+func set_radius_pixels(_radius_pixels: float) -> void:
+    super(_radius_pixels)
 
     var shape := get_node("%CollisionShape2D") as CollisionShape2D
 

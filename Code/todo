@@ -722,6 +722,66 @@ Space Layer
                                 ✔ render_star() @done(26-10-05 03:36)
 
         impl. origin shifting
+            ✔ space_chunk_renderer @done(26-10-06 00:15)
+                ✔ When player position exceeds limits @done(26-10-06 00:15)
+                    ✔ Move set objects back to around 0,0 @done(26-10-06 00:15)
+                        ✔ Origin shift individual targets (Individual objects like ships) @done(26-10-06 00:15)
+                        ✔ Origin shift targets parents (every object under parent, like chunks) @done(26-10-06 00:15)
+                    ✔ Move player and every chunk individually back to 0,0 @done(26-10-06 00:15)
+
+            Issues
+                ✔ Player ship StellarObjectTracker interprets origin shift as player movement, and 'thinks' player has returned back to origin chunk. @done(26-10-06 03:38)
+                    ✔ Fix steps @done(26-10-06 03:38)
+                        ✔ Move position limit exceed checking to StellarPositionTracker @done(26-10-06 00:44)
+                        ✔ SPT @done(26-10-06 00:44)
+                            ✔ signal on_position_treshold_exceeded @done(26-10-06 00:44)
+
+                        ✔ connect sig to SCR origin_shift() @done(26-10-06 00:44)
+                        ✔ test @done(26-10-06 00:44)
+
+                    ✔ SOT still interprets origin shift as player movement @done(26-10-06 03:38)
+                        ✔ order: @done(26-10-06 03:38)
+                            ✔ 1. out of bounds -> call originshift @done(26-10-06 03:38)
+                            ✔ 2. react to shift @done(26-10-06 03:38)
+                            ✔ 3. reset flag @done(26-10-06 03:38)
+                        
+                        ✔ SpaceGlobals @done(26-10-06 02:16)
+                            ✔ origin shift performed last frame @done(26-10-06 02:16)
+                            ✔ origin shift amount @done(26-10-06 02:16)
+
+                        ✔ OriginShifter Node (useful for all kinds of endless scenes, not only space) @done(26-10-06 02:27)
+                            ✔ physics prio 10 so physics process is called after SPT @done(26-10-06 02:24)
+
+                            ✔ move shifting logic from SpaceChunkGenerator @done(26-10-06 02:24)
+
+                            ✔ OriginShift() @done(26-10-06 02:27)
+                                    ✔ update SpaceGlobals flags @done(26-10-06 02:27)
+
+                            ✔ process @done(26-10-06 02:27)
+                                ✔ reset flags @done(26-10-06 02:27)
+                        
+                        ✔ Stellar position tracker @done(26-10-06 02:32)
+                            ✔ move tracking logic to physics process @done(26-10-06 02:32)
+
+                            ✔ if SG oshift last frame @done(26-10-06 02:32)
+                                ✔ movement -= SG.shift amount @done(26-10-06 02:32)
+
+                        ✔ connect signals @done(26-10-06 02:59)
+
+                        ✔ test call order with prints @done(26-10-06 02:59)
+
+                        ✔ use signals @done(26-10-06 03:38)
+                            ✔ os @done(26-10-06 03:38)
+                                ✔ remove flags logic @done(26-10-06 03:38)
+                                ✔ emit SG signal @done(26-10-06 03:38)
+
+                            ✔ spt @done(26-10-06 03:38)
+                                ✔ notify limit exceed BEFORE moevement check @done(26-10-06 03:38)
+
+                            ✔ Make SpaceGlobals autoload node @done(26-10-06 03:38)
+                                ✔ add signal on_originshift(shift amount) @done(26-10-06 03:38)
+                                
+                After origin shift, new chunks are rendered in old position near position limits
 
         impl. Systems consist of at least 1 planet, 1 star
 

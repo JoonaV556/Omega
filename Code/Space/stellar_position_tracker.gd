@@ -9,6 +9,7 @@ extends Node
 
 signal on_init(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
 signal on_chunk_changed(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
+signal on_origin_shift_position_treshold_exceeded(_tracked: Node2D)
 
 var tracked_stellar_pos: Vector2i
 
@@ -16,11 +17,13 @@ var tracked_stellar_pos: Vector2i
 var tracked_local_chunk_position: Vector2
 
 var _tracked: Node2D
-
 ## Position of the tracked inside the actual 2D world
 var _tracked_last_real_position: Vector2
+var _last_origin_shift_version: int
 
 var _amount_moved_since_last_frame: Vector2
+
+var _exceeded_position_limit_last_frame: bool = false
 
 
 func _ready() -> void:
@@ -46,16 +49,40 @@ func _ready() -> void:
 
 
 	_tracked_last_real_position = _tracked.global_position
+	_last_origin_shift_version = SpaceGlobals.origin_shift_version
+
+	_exceeded_position_limit_last_frame = false
 
 	on_init.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !_tracked:
 		return
 
-	# Check movement delta in real 2d space
+	# Check if tracked has moved too far away from world center
+	var global_pos := _tracked.global_position
+	var treshold := SpaceGlobals.global_position_origin_shift_treshold
+	var x_exceeded = global_pos.x > treshold.x or global_pos.x < -treshold.x
+	var y_exceeded = global_pos.y > treshold.y or global_pos.y < -treshold.y
+
+	if _exceeded_position_limit_last_frame and (!x_exceeded and !y_exceeded):
+		_exceeded_position_limit_last_frame = false ## reset flag
+
+	if x_exceeded or y_exceeded:
+		print('Exceeded o-shift pos limit treshold')
+		on_origin_shift_position_treshold_exceeded.emit(_tracked) # Moved too far away
+		_exceeded_position_limit_last_frame = true
+
+	# Check movement delta in real 2d space, taking into account origin shifts
 	_amount_moved_since_last_frame = _tracked.global_position - _tracked_last_real_position
+
+	# Account origin shifts
+	if _last_origin_shift_version != SpaceGlobals.origin_shift_version:
+		_amount_moved_since_last_frame -= SpaceGlobals.origin_shift_amount
+		_last_origin_shift_version = SpaceGlobals.origin_shift_version
+		print('Origin shift detected')
+
 	_tracked_last_real_position = _tracked.global_position
 
 	# Update position in virtual chunk space
@@ -80,6 +107,5 @@ func _process(delta: float) -> void:
 	if tracked_stellar_pos != old_chunk:
 		on_chunk_changed.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)
 		print('Moved to stellar chunk %s (local %s)' % [tracked_stellar_pos, tracked_local_chunk_position])
-
-
+	
 	
