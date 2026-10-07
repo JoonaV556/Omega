@@ -6,12 +6,12 @@ extends StellarObject
 ## objects[n][1] = object.local_position: [class Vector2] [br]
 var objects: Array[Array]
 
-var pivot_object: StellarObject
+var master_object: StellarObject
 
 
 func _init(_name: String, _pivot_object: StellarObject) -> void:
 	name = _name
-	pivot_object = _pivot_object
+	master_object = _pivot_object
 
 
 

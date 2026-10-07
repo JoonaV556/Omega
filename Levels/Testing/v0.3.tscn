@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cmaqsrwp7qen0" path="res://Resources/UI/texture_selected_object_overlay.tres" id="17_vt7fa"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="18_83a0a"]
 [ext_resource type="Script" uid="uid://c7yhanfund7dm" path="res://Code/Space/map_ui.gd" id="18_w03s2"]
+[ext_resource type="Texture2D" uid="uid://l77mirirfanb" path="res://Resources/UI/texture_stellar_object.tres" id="19_gsxhu"]
 [ext_resource type="Shader" uid="uid://hwmgemocbhlx" path="res://Code/Shaders/color_rect_vignette.gdshader" id="19_l8f3a"]
 [ext_resource type="Script" uid="uid://df1pt71808fxv" path="res://Code/Space/space_chunk_loader.gd" id="19_pk6eb"]
 [ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="20_l3iv5"]
@@ -1096,8 +1097,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 1030.0
 offset_top = 390.0
-offset_right = 1042.0
-offset_bottom = 402.0
+offset_right = 1047.0
+offset_bottom = 407.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -1120,7 +1121,7 @@ mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 metadata/_edit_use_anchors_ = true
 
-[node name="MapUI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1105360851 node_paths=PackedStringArray("background_root")]
+[node name="MapUI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1105360851 node_paths=PackedStringArray("background_root", "map_nodes_parent", "map_node_template")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1129,7 +1130,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("18_w03s2")
 background_root = NodePath("../../../CanvasLayer MapUI BG")
+map_nodes_parent = NodePath("../../../Node2D - Map selection root/Node2D Map Object Root")
+map_node_template = NodePath("template objects/map_node")
 metadata/_custom_type_script = "uid://c7yhanfund7dm"
+
+[node name="template objects" type="Node2D" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1009981484]
+visible = false
+
+[node name="map_node" type="Sprite2D" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/template objects" unique_id=934224252]
+position = Vector2(926, 554)
+scale = Vector2(4.78, 4.78)
+texture = ExtResource("19_gsxhu")
 
 [node name="ColorRect test bg" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=733912660]
 visible = false
@@ -1245,13 +1256,6 @@ text = "Controls:
   "
 label_settings = ExtResource("15_551uo")
 
-[node name="DebugDrawGrid" type="Node2D" parent="Omega UI" unique_id=1404666936]
-position = Vector2(-160, -150)
-script = ExtResource("18_83a0a")
-grid_size = Vector2(200, 200)
-grid_extent_pixels = Vector2(2500, 2500)
-metadata/_custom_type_script = "uid://rd1dchgc0l82"
-
 [node name="DebugCloseApp" type="Node" parent="." unique_id=595993975]
 script = ExtResource("17_gsxhu")
 editor_only = false
@@ -1261,7 +1265,6 @@ metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 visible = false
 position = Vector2(-1504, -1504)
 script = ExtResource("18_83a0a")
-grid_size = Vector2(250, 250)
 line_color = Color(1, 1, 1, 0.14117648)
 grid_extent_pixels = Vector2(3200, 3200)
 editor_only = false
@@ -1271,7 +1274,6 @@ metadata/_custom_type_script = "uid://rd1dchgc0l82"
 visible = false
 position = Vector2(-52368, -47656)
 script = ExtResource("18_83a0a")
-grid_size = Vector2(100000, 100000)
 grid_extent_pixels = Vector2(100000, 100000)
 editor_only = false
 metadata/_custom_type_script = "uid://rd1dchgc0l82"
@@ -1311,10 +1313,11 @@ metadata/_custom_type_script = "uid://c2dcn87ckklk3"
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid9/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid9" method="queue_free"]
 [connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
+[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="set_origin_chunk" unbinds=2]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
 [connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
 [connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]
-[connection signal="on_chunk_loaded_at_coords" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
+[connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
 [connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]
-[connection signal="on_chunk_discovered" from="DiscoveryAgent" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="render_chunk"]
+[connection signal="on_chunk_discovered" from="DiscoveryAgent" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="create_map_node"]

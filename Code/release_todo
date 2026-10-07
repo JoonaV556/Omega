@@ -1,3 +1,51 @@
+core features
+        ✔ Endless explorable universe @done(26-10-07 03:20)
+        
+        Hazardous parts of space
+            One way trips only (maybe using drones)
+            Certain spaces must be terraformed on galactic level to make them accessible
+
+        Discovery system & rewards
+            Discoveries are used by civilizations
+
+        Starships
+            Fleet management & fleet warfare
+            Gigantic megaships
+
+        Mega rare interstellar threats
+            Natural galactic events can cause disasters
+            Alien threats
+                Giga sized aliens
+
+        Player can participate in universe & establish an independent civilization
+
+        Story mode
+            Impending disaster which drives exploration and warfare in story mode
+
+        Galactic news network
+            Reports various events around universe
+                Reports about human losses in disasters and conflicts
+            Press ships fly around reporting 
+
+        Autonomous civilizations
+            Epand and battle each other
+            React to player actions
+
+        Universe system
+            Player can play in universe with different characters and share with other characters
+
+        On-foot gameplay
+            Player can exit ships and traverse on foot on stations, planets etc.
+            On foot gameplay can offer lucrative benefits
+                Meet other characters face to face to gain charisma bonus
+                Assasinate important characters to influence politics and be rewarded
+
+        Terraforming & on ground installations
+
+        Background simulation
+            Universe can be run as a background process without window
+            Updates can be feeded to terminal session and over internet 
+
 ☐ Implement v0.3
     ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-06 23:32)
 
@@ -9,7 +57,7 @@
 
     ☐ Rework Map for chunk-based space
 
-    ☐ Personal space discovery system
+    ✔ Personal space discovery system @done(26-10-07 03:21)
 
     ☐ In-game HUD which displays current stellar position
         ☐ System, no galaxy "System Knox 311, deep space"
@@ -27,6 +75,8 @@
     ☐ Introduce new stellar objects
         ☐ Stars
         ☐ Asteroid clouds
+
+    ☐ Move map by dragging (endless map)
 
     ☐ Refactors
         ☐ Split space chunk loading and generation logic

@@ -788,7 +788,7 @@ Space Layer
             ✔ System @done(26-10-07 01:34)
                 ✔ assign an object as the system center (Random planet) @done(26-10-07 01:34)
 
-            Show discovered systems on map when opened
+            ✔ Show discovered systems on map when opened @done(26-10-08 00:16)
                 ✔ new mapui class @done(26-10-07 02:02)
 
                 ✔ calculate center chunk position 2d @done(26-10-07 02:12)
@@ -797,12 +797,12 @@ Space Layer
 
                 ✔ connect chunk_discovered to mapui.render_chunk @done(26-10-07 02:39)
 
-                mapui 
+                ✔ mapui @done(26-10-07 20:28)
                     ✔ rendered chunks dict @done(26-10-07 02:37)
 
                     ✔ rework to use chunk coordinates instead of objects @done(26-10-07 02:45)
 
-                    func render chunk
+                    ✔ func render chunk @done(26-10-07 20:28)
                         ✔ if ! rendered chunks has chunk @done(26-10-07 02:37)
                             ✔ rendered chnks add chunk @done(26-10-07 02:37)
                         
@@ -813,7 +813,27 @@ Space Layer
                         ✔ super @done(26-10-07 02:39)
                         ✔ render all chunks @done(26-10-07 02:39)
 
-            Drag to move map
+                ✔ Mapui @done(26-10-08 00:16)
+                    ✔ origin chunk @done(26-10-07 22:47)
+
+                    ✔ func set origin chunk @done(26-10-07 22:47)
+
+                    ✔ connect spt init to set origin chunk @done(26-10-07 22:48)
+
+                    ✔ Discoverer @done(26-10-07 23:32)
+                        ✔ also track discovered chunk objects @done(26-10-07 23:32)
+                        ✔ signal on_discovered chunk, send chuk obj too @done(26-10-07 23:32)
+                    
+                    ✔ connect to  mapui render chunk @done(26-10-07 23:36)
+
+                    ✔ func render chunk @done(26-10-08 00:16)
+                        ✔ get chunk from discoverer @done(26-10-07 23:41)
+
+                        ✔ create map node @done(26-10-07 22:54)
+
+                        ✔ chunk 2d offset = (chunk coords - origin chunk coords) * map chunk size pixels @done(26-10-08 00:16)
+                        ✔ pivot local relative offset = pivot local chunk pos / (map chunk size pixels / global chunk size pixels) @done(26-10-08 00:16)
+                        ✔ map node position = origin chunk 2d pos +  chunk 2d offset + pivot local relative offset @done(26-10-08 00:16)
             
             In-game HUD which displays current stellar position and name 
                 Also visible in Map

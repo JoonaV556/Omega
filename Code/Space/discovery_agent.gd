@@ -1,17 +1,17 @@
 class_name DiscoveryAgent
 extends Node
 
-var discovered: Dictionary[Vector2i, bool]
+var discovered_chunk_coords: Dictionary[Vector2i, bool]
 
 
-signal on_chunk_discovered(chunk_coords: Vector2i)
+signal on_chunk_discovered(chunk: SpaceChunk)
 
 
-func discover(chunk_coords):
-	if discovered.has(chunk_coords):
+func discover(chunk: SpaceChunk):
+	if discovered_chunk_coords.has(chunk.coordinates):
 		return
 
-	discovered[chunk_coords] = true
+	discovered_chunk_coords[chunk.coordinates] = true
 
-	print('Discovered chunk %s.' % [chunk_coords])
-	on_chunk_discovered.emit(chunk_coords)
+	print('Discovered chunk %s.' % [chunk.coordinates])
+	on_chunk_discovered.emit(chunk)

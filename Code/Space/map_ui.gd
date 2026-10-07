@@ -3,13 +3,19 @@ extends UI
 
 @export var background_root: CanvasLayer
 
+@export var map_nodes_parent: Node2D
 
-var chunks_to_render: Dictionary[Vector2i, bool]
+@export var map_node_template: Node2D
 
 
-var _map_chunk_size_pixels: Vector2 = Vector2(200.0, 200.0)
+var chunks_to_render: Dictionary[SpaceChunk, bool]
+
+
+var _map_chunk_size_pixels: Vector2 = Vector2(100.0, 100.0)
 
 var _origin_chunk_2d_position: Vector2
+
+var _origin_chunk_coords: Vector2i
 
 
 func _ready() -> void:
@@ -20,24 +26,55 @@ func _ready() -> void:
 	print(center)
 
 
-func _render_all_chunks():
-	for chunk_coord: Vector2i in chunks_to_render.keys():
-		render_chunk(chunk_coord)
+func _create_map_nodes():
+	for chunk in chunks_to_render.keys():
+		create_map_node(chunk)
 
 
-func render_chunk(chunk_coords: Vector2i):
-	if !chunks_to_render.has(chunk_coords):
-		chunks_to_render[chunk_coords] = true
+func _destroy_map_nodes():
+	for c in map_nodes_parent.get_children():
+		c.queue_free()
+
+
+func set_origin_chunk(coords: Vector2i):
+	_origin_chunk_coords = coords
+
+
+func create_map_node(chunk: SpaceChunk):
+	if !chunks_to_render.has(chunk):
+		chunks_to_render[chunk] = true
 
 	if !_active:
 		return
+
+	if chunk.stellar_type is not System:
+		return
+
+	var map_node  := map_node_template.duplicate() as Sprite2D
+
+	map_nodes_parent.add_child(map_node)
+
+	map_node.show()
+	map_node.z_as_relative = false
+	map_node.name = String('map node %s' % [chunk.stellar_type.name])
+
+	# Calculate where the map node is placed
+	var chunk_2d_offset := Vector2(chunk.coordinates - _origin_chunk_coords) * _map_chunk_size_pixels
+	var system := chunk.stellar_type as System
+	var master_local_pos := chunk.stellar_objects[system.master_object]
+	var chunk_master_offset := master_local_pos * (_map_chunk_size_pixels / SpaceGlobals.chunk_size_pixels)
+
+	map_node.position = _origin_chunk_2d_position + chunk_2d_offset + chunk_master_offset
+	map_node.centered = true
 
 
 func activate():
 	super()
 	background_root.show()
+	_create_map_nodes()
 
 
 func deactivate():
 	super()
 	background_root.hide()
+	_destroy_map_nodes()

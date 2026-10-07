@@ -3,9 +3,9 @@ class_name DebugDrawGrid
 extends Node2D
 
 ## Size of each grid cell in pixels
-@export var grid_size: Vector2 = Vector2(64, 64):
+@export var grid_cell_size: Vector2 = Vector2(64, 64):
 	set(value):
-		grid_size = value
+		grid_cell_size = value
 		queue_redraw()
 
 ## Color of the grid lines
@@ -26,19 +26,19 @@ func _draw() -> void:
 	# Get the viewport visible rectangle
 	var points := PackedVector2Array()
 
-	# Vertical lines
-	var x := 0.0
+	# Center the grid on the node pivot and extend it equally in all directions.
+	var x := -grid_extent_pixels.x
 	while x <= grid_extent_pixels.x:
-		points.append(Vector2(x, 0))
+		points.append(Vector2(x, -grid_extent_pixels.y))
 		points.append(Vector2(x, grid_extent_pixels.y))
-		x += grid_size.x
+		x += grid_cell_size.x
 
 	# Horizontal lines
-	var y := 0.0
+	var y := -grid_extent_pixels.y
 	while y <= grid_extent_pixels.y:
-		points.append(Vector2(0, y))
+		points.append(Vector2(-grid_extent_pixels.x, y))
 		points.append(Vector2(grid_extent_pixels.x, y))
-		y += grid_size.y
+		y += grid_cell_size.y
 
 	# Draw all line segments at once
 	if points.size() > 0:

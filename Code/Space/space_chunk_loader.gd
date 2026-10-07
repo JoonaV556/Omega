@@ -2,7 +2,7 @@ class_name SpaceChunkGenerator
 extends Node
 
 
-@export var world_seed: int = 123
+const world_seed: int = 123
 
 ## Radius of (1,1) means chunks in 3x3 square are generated around player. (2, 2) means 5x5 square
 @export var chunk_generation_radius: Vector2i = Vector2i(1, 1)
@@ -75,7 +75,7 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 	
 	if has_system:
 		# create planets data
-		var planets_data := _generate_planets_data(chunk_rng)
+		var planets_data := _generate_planets(chunk_rng)
 
 		# Stupid middle step because typed dicts are strictly typed
 		var chunk_objects : Dictionary[StellarObject, Vector2]
@@ -99,12 +99,51 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 			var position = planets_data[planet]
 			print("\t - %s: radius=%s, position=%s" % [planet.name, planet.radius_pixels, position])
 
+	# Load the chunk
 	loaded_chunks[chunk.coordinates] = chunk
-	
-	print('Loaded chunk %s' % [chunk_coords])
 
 	on_chunk_loaded.emit(chunk)
 	on_chunk_loaded_at_coords.emit(chunk_coords)
+
+	return chunk
+
+
+func generate_chunk(chunk_coords: Vector2i, _has_system_odds: float) -> SpaceChunk:
+	# Ensure chunk stays same across platforms with same seed
+	var chunk_rng := RandomNumberGenerator.new()
+	var chunk_hash = hash(Vector3i(chunk_coords.x, chunk_coords.y, world_seed))
+	chunk_rng.seed = chunk_hash
+
+	var chunk := SpaceChunk.new(chunk_coords)
+
+	# Decide if system
+	var has_system = chunk_rng.randf() <= _has_system_odds
+	
+	if has_system:
+		# create planets data
+		var planets_data := _generate_planets(chunk_rng)
+
+		# Stupid middle step because typed dicts are strictly typed
+		var chunk_objects : Dictionary[StellarObject, Vector2]
+		for planet: Planet in planets_data.keys():
+			chunk_objects[planet as StellarObject] = planets_data[planet]
+
+		# Generate system ...
+		# create system with random name
+		var pivot_idx = chunk_rng.randi_range(0, planets_data.keys().size() - 1)
+		var pivot_planet = planets_data.keys()[pivot_idx]
+		var system := System.new(_generate_random_name(chunk_rng), pivot_planet)
+		chunk.stellar_type = system
+		chunk.stellar_objects = chunk_objects
+
+		for planet in planets_data.keys():
+			system.objects.append([planet, planets_data[planet]])
+
+		# Print descriptive summary of generated planets
+		print("\nChunk %s generated with system: %s. Chunk has %s planet(s):" % [chunk_coords, system.name, planets_data.size()])
+		for planet in planets_data.keys():
+			var position = planets_data[planet]
+			print("\t - %s: radius=%s, position=%s" % [planet.name, planet.radius_pixels, position])
 
 	return chunk
 
@@ -127,7 +166,6 @@ func unload_chunk(chunk_coords: Vector2i) -> void:
 		
 	var chunk := loaded_chunks[chunk_coords] as SpaceChunk
 	loaded_chunks.erase(chunk_coords)
-	print('Unloaded chunk %s.' % [chunk_coords])
 	on_chunk_unloaded.emit(chunk)
 
 
@@ -136,7 +174,7 @@ func is_loaded(chunk_coords: Vector2i):
 
 
 ## Returns a dictionary of planets and their theoretical positions inside the chunk
-func _generate_planets_data(chunk_rng: RandomNumberGenerator) -> Dictionary[Planet, Vector2]:
+func _generate_planets(chunk_rng: RandomNumberGenerator) -> Dictionary[Planet, Vector2]:
 	var num_planets := chunk_rng.randi_range(planets_per_system_min, planets_per_system_max)
 	var grid_size := _pick_planet_grid_size(num_planets)
 	var chunk_size := SpaceGlobals.chunk_size_pixels
@@ -182,20 +220,20 @@ func _generate_planets_data(chunk_rng: RandomNumberGenerator) -> Dictionary[Plan
 	return planets_data
 
 
-func _pick_planet_grid_size(num_planets: int) -> Vector2i:
+static func _pick_planet_grid_size(num_planets: int) -> Vector2i:
 	var columns := int(ceil(sqrt(float(maxi(1, num_planets)))))
 	var rows := int(ceil(float(maxi(1, num_planets)) / float(columns)))
 	return _clamp_grid_size(Vector2i(columns, rows))
 
 
-func _clamp_grid_size(grid_size: Vector2i) -> Vector2i:
+static func _clamp_grid_size(grid_size: Vector2i) -> Vector2i:
 	return Vector2i(
 		maxi(1, grid_size.x),
 		maxi(1, grid_size.y)
 	)
 
 
-func _consume_cells_for_radius(
+static func _consume_cells_for_radius(
 	occupied_cells: Dictionary,
 	position: Vector2,
 	radius: float,
@@ -223,7 +261,7 @@ func _consume_cells_for_radius(
 			occupied_cells[cell] = true
 
 
-func _get_max_radius_for_position(
+static func _get_max_radius_for_position(
 	position: Vector2,
 	chunk_size: Vector2,
 	occupied_cells: Dictionary,
@@ -252,7 +290,7 @@ func _get_max_radius_for_position(
 	return max_radius
 
 
-func _clamp_point_to_rect(point: Vector2, rect_min: Vector2, rect_max: Vector2) -> Vector2:
+static func _clamp_point_to_rect(point: Vector2, rect_min: Vector2, rect_max: Vector2) -> Vector2:
 	return Vector2(
 		clampf(point.x, rect_min.x, rect_max.x),
 		clampf(point.y, rect_min.y, rect_max.y)
