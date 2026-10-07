@@ -14,14 +14,24 @@
 [ext_resource type="Script" uid="uid://dyg4xmu08exn" path="res://Code/Space/impact_effect_deal_damage.gd" id="11_ekjiw"]
 [ext_resource type="Script" uid="uid://dyk6ysv3eokqt" path="res://Code/Space/impact_effect_deal_knockback.gd" id="12_s6nm1"]
 [ext_resource type="Texture2D" uid="uid://dponu0tksyqpk" path="res://Assets_LICENSED/Sprites/tileset_placeholder_three-step-gradient_30x30.png" id="13_gtru1"]
-[ext_resource type="PackedScene" uid="uid://cj66jlxx6psbf" path="res://Scenes/UI/omega_ui.tscn" id="14_7matp"]
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_551uo"]
+[ext_resource type="Script" uid="uid://dkiiopqap8m14" path="res://Code/Space/omega_ui.gd" id="15_gu1vu"]
+[ext_resource type="Theme" uid="uid://bf1p3fspe0340" path="res://Resources/UI/theme_globa.tres" id="16_gsxhu"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="17_gsxhu"]
 [ext_resource type="PackedScene" uid="uid://cshuce513ed8u" path="res://Scenes/Space/collidable_stellar_object_2d_planet_generic.tscn" id="17_mqia6"]
+[ext_resource type="Texture2D" uid="uid://cmaqsrwp7qen0" path="res://Resources/UI/texture_selected_object_overlay.tres" id="17_vt7fa"]
 [ext_resource type="Script" uid="uid://rd1dchgc0l82" path="res://Code/test/debug_draw_grid.gd" id="18_83a0a"]
+[ext_resource type="Script" uid="uid://c7yhanfund7dm" path="res://Code/Space/map_ui.gd" id="18_w03s2"]
+[ext_resource type="Shader" uid="uid://hwmgemocbhlx" path="res://Code/Shaders/color_rect_vignette.gdshader" id="19_l8f3a"]
 [ext_resource type="Script" uid="uid://df1pt71808fxv" path="res://Code/Space/space_chunk_loader.gd" id="19_pk6eb"]
+[ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="20_l3iv5"]
 [ext_resource type="Script" uid="uid://xqg8f0pthhor" path="res://Code/Space/space_chunk_renderer.gd" id="21_f43e3"]
+[ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="21_i2a4i"]
 [ext_resource type="Script" uid="uid://bvjhuttqbicme" path="res://Code/Space/origin_shifter.gd" id="22_1kytk"]
+[ext_resource type="LabelSettings" uid="uid://m6hesa76v3ph" path="res://Resources/UI/label_settings_default.tres" id="22_5ohbi"]
+[ext_resource type="StyleBox" uid="uid://bcpnt4m5gw7ys" path="res://Resources/UI/style_box_panel_background.tres" id="23_28gtx"]
+[ext_resource type="Script" uid="uid://c2dcn87ckklk3" path="res://Code/Space/discovery_agent.gd" id="23_mqia6"]
+[ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="25_yxer7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -55,7 +65,11 @@ region = Rect2(418, 146, 1, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pb00k"]
 size = Vector2(32, 57)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_1kytk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
+shader = ExtResource("19_l8f3a")
+shader_parameter/alpha = 1.0
+shader_parameter/inner_radius = 0.565
+shader_parameter/outer_radius = 1.37
 
 [node name="Node2D" type="Node2D" unique_id=1787844382]
 
@@ -1039,15 +1053,177 @@ metadata/_custom_type_script = "uid://pvt88xa50146"
 
 [node name="Chunks Parent" type="Node2D" parent="CanvasLayer - Gameworld" unique_id=752525633]
 
-[node name="Omega UI" parent="." unique_id=1645446355 instance=ExtResource("14_7matp")]
+[node name="Omega UI" type="CanvasLayer" parent="." unique_id=1645446355 node_paths=PackedStringArray("map_ui")]
+script = ExtResource("15_gu1vu")
+map_ui = NodePath("CanvasLayer - Omega UI/Omega UI/MapUI")
+metadata/_custom_type_script = "uid://dkiiopqap8m14"
 
-[node name="Button - Galaxy" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="7" unique_id=1631048499]
-button_group = SubResource("ButtonGroup_1kytk")
+[node name="CanvasLayer MapUI BG" type="CanvasLayer" parent="Omega UI" unique_id=1679328168]
+layer = -1
 
-[node name="Button - System" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Map UI" parent_id_path=PackedInt32Array(1645446355, 306345336) index="8" unique_id=47228492]
-button_group = SubResource("ButtonGroup_1kytk")
+[node name="Control" type="Control" parent="Omega UI/CanvasLayer MapUI BG" unique_id=1737514315]
+z_index = -1
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" parent_id_path=PackedInt32Array(1645446355, 1519125427) index="3" unique_id=1866705300]
+[node name="ColorRect - bg" type="ColorRect" parent="Omega UI/CanvasLayer MapUI BG/Control" unique_id=336010392]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7019608)
+
+[node name="Node2D - Map selection root" type="Node2D" parent="Omega UI" unique_id=1805179537]
+
+[node name="Node2D Map Object Root" type="Node2D" parent="Omega UI/Node2D - Map selection root" unique_id=1518433234]
+
+[node name="TextureRect - Selection Overlay" type="TextureRect" parent="Omega UI/Node2D - Map selection root" unique_id=84465707]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1030.0
+offset_top = 390.0
+offset_right = 1042.0
+offset_bottom = 402.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset_ratio = Vector2(1, 1)
+theme = ExtResource("16_gsxhu")
+texture = ExtResource("17_vt7fa")
+
+[node name="CanvasLayer - Omega UI" type="CanvasLayer" parent="Omega UI" unique_id=2115897058]
+
+[node name="Omega UI" type="Control" parent="Omega UI/CanvasLayer - Omega UI" unique_id=1519125427]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme = ExtResource("16_gsxhu")
+metadata/_edit_use_anchors_ = true
+
+[node name="MapUI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1105360851 node_paths=PackedStringArray("background_root")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_w03s2")
+background_root = NodePath("../../../CanvasLayer MapUI BG")
+metadata/_custom_type_script = "uid://c7yhanfund7dm"
+
+[node name="ColorRect test bg" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=733912660]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("16_gsxhu")
+color = Color(1, 1, 1, 0.5019608)
+
+[node name="Vignette" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=592705060]
+material = SubResource("ShaderMaterial_86u60")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("16_gsxhu")
+color = Color(1, 1, 1, 0)
+
+[node name="Label - MapHeader" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1099202648]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 61.0
+offset_bottom = 46.0
+theme = ExtResource("16_gsxhu")
+text = "Map"
+label_settings = ExtResource("20_l3iv5")
+
+[node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1038073668]
+visible = false
+layout_mode = 1
+offset_left = 16.0
+offset_top = 288.0
+offset_right = 134.0
+offset_bottom = 348.0
+theme = ExtResource("16_gsxhu")
+theme_override_fonts/font = ExtResource("21_i2a4i")
+text = "Object Info
+ name: asd
+ type: Galaxy"
+label_settings = ExtResource("22_5ohbi")
+
+[node name="Panel - bg" type="Panel" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" unique_id=97841822]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("16_gsxhu")
+theme_override_styles/panel = ExtResource("23_28gtx")
+
+[node name="Label - Build Title" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=120518261]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -60.0
+offset_right = 195.0
+offset_bottom = -38.0
+grow_vertical = 0
+mouse_filter = 1
+theme = ExtResource("16_gsxhu")
+theme_override_fonts/font = ExtResource("21_i2a4i")
+text = "Omega Space Layer"
+label_settings = ExtResource("15_551uo")
+
+[node name="Label - Build Version" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1046479637]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -33.0
+offset_right = 162.0
+offset_bottom = -11.0
+grow_vertical = 0
+focus_mode = 1
+mouse_filter = 1
+theme = ExtResource("16_gsxhu")
+theme_override_fonts/font = ExtResource("21_i2a4i")
+text = "Build version "
+label_settings = ExtResource("15_551uo")
+script = ExtResource("25_yxer7")
+
+[node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1866705300]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1069,6 +1245,13 @@ text = "Controls:
   "
 label_settings = ExtResource("15_551uo")
 
+[node name="DebugDrawGrid" type="Node2D" parent="Omega UI" unique_id=1404666936]
+position = Vector2(-160, -150)
+script = ExtResource("18_83a0a")
+grid_size = Vector2(200, 200)
+grid_extent_pixels = Vector2(2500, 2500)
+metadata/_custom_type_script = "uid://rd1dchgc0l82"
+
 [node name="DebugCloseApp" type="Node" parent="." unique_id=595993975]
 script = ExtResource("17_gsxhu")
 editor_only = false
@@ -1078,7 +1261,7 @@ metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 visible = false
 position = Vector2(-1504, -1504)
 script = ExtResource("18_83a0a")
-grid_size = Vector2(200, 200)
+grid_size = Vector2(250, 250)
 line_color = Color(1, 1, 1, 0.14117648)
 grid_extent_pixels = Vector2(3200, 3200)
 editor_only = false
@@ -1113,6 +1296,10 @@ origin_shift_individual_targets = [NodePath("../CanvasLayer - Gameworld/Ship")]
 origin_shift_target_parents = [NodePath("../CanvasLayer - Gameworld/Chunks Parent")]
 metadata/_custom_type_script = "uid://bvjhuttqbicme"
 
+[node name="DiscoveryAgent" type="Node" parent="." unique_id=1755377438]
+script = ExtResource("23_mqia6")
+metadata/_custom_type_script = "uid://c2dcn87ckklk3"
+
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid2/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid2" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid3/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid3" method="queue_free"]
@@ -1128,6 +1315,6 @@ metadata/_custom_type_script = "uid://bvjhuttqbicme"
 [connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
 [connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]
+[connection signal="on_chunk_loaded_at_coords" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
 [connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]
-
-[editable path="Omega UI"]
+[connection signal="on_chunk_discovered" from="DiscoveryAgent" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="render_chunk"]

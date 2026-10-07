@@ -774,14 +774,49 @@ Space Layer
             ✔ Raise planet size @done(26-10-06 23:42)
             ✔ Raise origin shift treshold @done(26-10-06 23:42)
 
+        ✔ Personal space discovery system @done(26-10-07 00:05)
+            ✔ When player enters chunk, it is discovered @done(26-10-07 00:05)
+
+            ✔ discoveryagent @done(26-10-07 00:01)
+                ✔ discovered dict[Vector2i, bool] @done(26-10-07 00:01)
+                ✔ func discover chunk @done(26-10-07 00:01)
+
+            ✔ connect loader on chunk discovered to discover() @done(26-10-07 00:06)
+
         Rework Map for chunk-based space
-            Personal space discovery system 
+
+            ✔ System @done(26-10-07 01:34)
+                ✔ assign an object as the system center (Random planet) @done(26-10-07 01:34)
+
+            Show discovered systems on map when opened
+                ✔ new mapui class @done(26-10-07 02:02)
+
+                ✔ calculate center chunk position 2d @done(26-10-07 02:12)
+
+                ✔ make omega ui local in game scene @done(26-10-07 02:34)
+
+                ✔ connect chunk_discovered to mapui.render_chunk @done(26-10-07 02:39)
+
+                mapui 
+                    ✔ rendered chunks dict @done(26-10-07 02:37)
+
+                    ✔ rework to use chunk coordinates instead of objects @done(26-10-07 02:45)
+
+                    func render chunk
+                        ✔ if ! rendered chunks has chunk @done(26-10-07 02:37)
+                            ✔ rendered chnks add chunk @done(26-10-07 02:37)
+                        
+                        ✔ if !active @done(26-10-07 02:37)
+                            ✔ return @done(26-10-07 02:37)
+                    
+                    ✔ func activate @done(26-10-07 02:39)
+                        ✔ super @done(26-10-07 02:39)
+                        ✔ render all chunks @done(26-10-07 02:39)
+
+            Drag to move map
             
-                When player enters chunk, it is discovered
-
-            Rework map 
-
-        In-game HUD which displays current stellar position and name 
+            In-game HUD which displays current stellar position and name 
+                Also visible in Map
 
         impl. QOL features
             Local click-to-travel / Autopilot

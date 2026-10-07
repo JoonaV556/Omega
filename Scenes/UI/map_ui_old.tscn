@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://cd2e62wg6nxel"]
+
+[ext_resource type="Theme" uid="uid://bf1p3fspe0340" path="res://Resources/UI/theme_globa.tres" id="1_8g6ik"]
+[ext_resource type="Script" uid="uid://dbc0s23kh7ime" path="res://Code/Space/old_map_ui.gd" id="2_o1wpt"]
+[ext_resource type="Texture2D" uid="uid://l77mirirfanb" path="res://Resources/UI/texture_stellar_object.tres" id="3_p1bad"]
+[ext_resource type="Shader" uid="uid://hwmgemocbhlx" path="res://Code/Shaders/color_rect_vignette.gdshader" id="4_3d6ej"]
+[ext_resource type="LabelSettings" uid="uid://bwlq0ljxbfwrg" path="res://Resources/UI/label_settings_header.tres" id="5_nwexp"]
+[ext_resource type="FontFile" uid="uid://b7oqoud6rsq4t" path="res://Resources/VerilySerifMono.otf" id="6_0eeis"]
+[ext_resource type="LabelSettings" uid="uid://m6hesa76v3ph" path="res://Resources/UI/label_settings_default.tres" id="7_b7oom"]
+[ext_resource type="Script" uid="uid://b706kl6oae8lx" path="res://Code/Space/label_map_mode.gd" id="8_dp6kw"]
+[ext_resource type="Script" uid="uid://bodddbrxsfqf1" path="res://Code/Space/label_viewed_object_hint.gd" id="9_hqdt8"]
+[ext_resource type="StyleBox" uid="uid://bcpnt4m5gw7ys" path="res://Resources/UI/style_box_panel_background.tres" id="10_6rq8b"]
+[ext_resource type="ButtonGroup" uid="uid://c0w3mfit7bqoa" path="res://Resources/UI/button_group_map_mode.tres" id="11_tjyo3"]
+[ext_resource type="Script" uid="uid://c53wwkr465ffx" path="res://Code/Space/object_path_ui.gd" id="12_rfdum"]
+[ext_resource type="Theme" uid="uid://boqtjf88xcpu4" path="res://demo/assets/ui.theme" id="13_alqxt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
+shader = ExtResource("4_3d6ej")
+shader_parameter/alpha = 1.0
+shader_parameter/inner_radius = 0.565
+shader_parameter/outer_radius = 1.37
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jj44g"]
+
+[node name="Map UI - Old" type="Control" unique_id=1539972143 node_paths=PackedStringArray("objects_root", "object_info_label", "selection_overlay_node", "map_ui_bg_root", "character_location_info_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+mouse_filter = 1
+theme = ExtResource("1_8g6ik")
+script = ExtResource("2_o1wpt")
+galaxy_icon_texture = ExtResource("3_p1bad")
+galaxy_icon_scale = Vector2(3, 3)
+objects_root = NodePath("")
+object_info_label = NodePath("Label - Object Info")
+selection_overlay_node = NodePath("")
+map_ui_bg_root = NodePath("")
+character_location_info_label = NodePath("Label - Character location info")
+
+[node name="ColorRect test bg" type="ColorRect" parent="." unique_id=733912660]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8g6ik")
+color = Color(1, 1, 1, 0.5019608)
+
+[node name="Vignette" type="ColorRect" parent="." unique_id=592705060]
+material = SubResource("ShaderMaterial_86u60")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_8g6ik")
+color = Color(1, 1, 1, 0)
+
+[node name="Label - MapHeader" type="Label" parent="." unique_id=1099202648]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 61.0
+offset_bottom = 46.0
+theme = ExtResource("1_8g6ik")
+text = "Map"
+label_settings = ExtResource("5_nwexp")
+
+[node name="Label - Layer" type="Label" parent="." unique_id=514294836]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 104.0
+offset_right = 152.0
+offset_bottom = 123.0
+mouse_filter = 1
+theme = ExtResource("1_8g6ik")
+theme_override_fonts/font = ExtResource("6_0eeis")
+text = "Layer: Galaxies"
+label_settings = ExtResource("7_b7oom")
+script = ExtResource("8_dp6kw")
+
+[node name="ViewedObejctHint" type="Label" parent="." unique_id=21793341]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 136.0
+offset_right = 296.0
+offset_bottom = 155.0
+theme = ExtResource("1_8g6ik")
+text = "Viewing local map for unknown"
+label_settings = ExtResource("7_b7oom")
+script = ExtResource("9_hqdt8")
+metadata/_custom_type_script = "uid://bodddbrxsfqf1"
+
+[node name="Label - Object Info" type="Label" parent="." unique_id=1038073668]
+visible = false
+layout_mode = 1
+offset_left = 16.0
+offset_top = 288.0
+offset_right = 134.0
+offset_bottom = 348.0
+theme = ExtResource("1_8g6ik")
+theme_override_fonts/font = ExtResource("6_0eeis")
+text = "Object Info
+ name: asd
+ type: Galaxy"
+label_settings = ExtResource("7_b7oom")
+
+[node name="Panel - bg" type="Panel" parent="Label - Object Info" unique_id=97841822]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8g6ik")
+theme_override_styles/panel = ExtResource("10_6rq8b")
+
+[node name="Label - Character location info" type="Label" parent="." unique_id=1645097700]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 192.0
+offset_right = 251.0
+offset_bottom = 231.0
+theme = ExtResource("1_8g6ik")
+text = "Character Clarius
+Flying in system Nitra 663"
+label_settings = ExtResource("7_b7oom")
+
+[node name="Button - Galaxy" type="Button" parent="." unique_id=2146688115]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 140.0
+offset_right = 129.0
+offset_bottom = 167.0
+theme = ExtResource("1_8g6ik")
+toggle_mode = true
+button_group = ExtResource("11_tjyo3")
+text = "Galaxy Map "
+icon = SubResource("PlaceholderTexture2D_jj44g")
+
+[node name="Button - System" type="Button" parent="." unique_id=682991287]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 180.0
+offset_right = 129.0
+offset_bottom = 207.0
+theme = ExtResource("1_8g6ik")
+toggle_mode = true
+button_group = ExtResource("11_tjyo3")
+text = "System Map
+"
+icon = SubResource("PlaceholderTexture2D_jj44g")
+
+[node name="StellarObjectPathUI" type="HBoxContainer" parent="." unique_id=742548093]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 56.0
+offset_right = 56.0
+offset_bottom = 96.0
+script = ExtResource("12_rfdum")
+_theme = ExtResource("13_alqxt")
+_label_settings = ExtResource("7_b7oom")
+metadata/_custom_type_script = "uid://c53wwkr465ffx"
+
+[connection signal="on_layer_changed" from="." to="Label - Layer" method="set_layer"]
+[connection signal="on_map_opened_for_object" from="." to="ViewedObejctHint" method="set_hint"]
+[connection signal="on_map_opened_for_object" from="." to="StellarObjectPathUI" method="show_path_for_object"]
+[connection signal="pressed" from="Button - Galaxy" to="." method="set_layer_int" binds= [0]]
+[connection signal="pressed" from="Button - System" to="." method="set_layer_int" binds= [1]]
+[connection signal="on_path_button_pressed_for_stellar_object" from="StellarObjectPathUI" to="." method="open_map_for_object"]

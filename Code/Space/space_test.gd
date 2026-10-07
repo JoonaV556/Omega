@@ -33,6 +33,6 @@ func _ready() -> void:
 	_char.name = "Clarius Merck"
 	_char.location_object = root.objects[0].objects[0]
 
-	var map_ui : MapUI = omega_ui.map_ui
+	var map_ui : OldMapUI = omega_ui.map_ui
 	map_ui.set_character_location_info(_char)
 	map_ui.open_map_for_object(root, open_map_auto)

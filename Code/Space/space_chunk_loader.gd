@@ -18,7 +18,7 @@ extends Node
 
 signal on_chunk_loaded(chunk: SpaceChunk)
 signal on_chunk_unloaded(chunk: SpaceChunk)
-
+signal on_chunk_loaded_at_coords(chunk_coords: Vector2i)
 
 var loaded_chunks: Dictionary[Vector2i, Chunk]
 
@@ -74,11 +74,6 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 	var has_system = chunk_rng.randf() <= chunk_has_system_odds
 	
 	if has_system:
-		# Generate system ...
-		# create system with random name
-		var system := System.new(_generate_random_name(chunk_rng))
-		chunk.stellar_type = system
-
 		# create planets data
 		var planets_data := _generate_planets_data(chunk_rng)
 
@@ -87,6 +82,12 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 		for planet: Planet in planets_data.keys():
 			chunk_objects[planet as StellarObject] = planets_data[planet]
 
+		# Generate system ...
+		# create system with random name
+		var pivot_idx = chunk_rng.randi_range(0, planets_data.keys().size() - 1)
+		var pivot_planet = planets_data.keys()[pivot_idx]
+		var system := System.new(_generate_random_name(chunk_rng), pivot_planet)
+		chunk.stellar_type = system
 		chunk.stellar_objects = chunk_objects
 
 		for planet in planets_data.keys():
@@ -103,6 +104,7 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 	print('Loaded chunk %s' % [chunk_coords])
 
 	on_chunk_loaded.emit(chunk)
+	on_chunk_loaded_at_coords.emit(chunk_coords)
 
 	return chunk
 

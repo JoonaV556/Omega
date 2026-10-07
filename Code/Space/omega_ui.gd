@@ -1,7 +1,7 @@
 class_name OmegaUI
 extends CanvasLayer
 
-@export var map_ui : MapUI
+@export var map_ui : UI
 
 
 func _ready() -> void:

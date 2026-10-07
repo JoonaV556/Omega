@@ -5,3 +5,13 @@ extends StellarObject
 ## objects[n][0] = object: [class StellarObject], [br] 
 ## objects[n][1] = object.local_position: [class Vector2] [br]
 var objects: Array[Array]
+
+var pivot_object: StellarObject
+
+
+func _init(_name: String, _pivot_object: StellarObject) -> void:
+	name = _name
+	pivot_object = _pivot_object
+
+
+
