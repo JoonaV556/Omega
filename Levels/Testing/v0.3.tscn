@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cchvsnfh6tt62" path="res://Code/Space/spaceship_controller.gd" id="4_nwgxt"]
 [ext_resource type="Texture2D" uid="uid://iu4dco8fmhb7" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_1.png" id="5_f43e3"]
 [ext_resource type="Script" uid="uid://dvptk1jbvxb5i" path="res://Code/Space/gun2d.gd" id="6_1kytk"]
-[ext_resource type="Script" path="res://Code/Space/stellar_position_tracker_2d.gd" id="7_83a0a"]
+[ext_resource type="Script" uid="uid://pvt88xa50146" path="res://Code/Space/stellar_position_tracker_2d.gd" id="7_83a0a"]
 [ext_resource type="Texture2D" uid="uid://lrls8fplpl5w" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/ME_Theme_Sorter_16x16/11_Camping_Singles_16x16/ME_Singles_Camping_16x16_Rock_2.png" id="7_mqia6"]
 [ext_resource type="Script" uid="uid://d106ew175y1va" path="res://Code/Other/health.gd" id="8_dfv01"]
 [ext_resource type="Script" uid="uid://svhubkh86bxl" path="res://Code/Space/bullet2d.gd" id="9_7xh2p"]
@@ -1049,7 +1049,6 @@ metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
 
 [node name="StellarPositionTracker" type="Node" parent="CanvasLayer - Gameworld/Ship" unique_id=1280718680]
 script = ExtResource("7_83a0a")
-start_local_position = Vector2(2500, 2500)
 metadata/_custom_type_script = "uid://pvt88xa50146"
 
 [node name="Chunks Parent" type="Node2D" parent="CanvasLayer - Gameworld" unique_id=752525633]

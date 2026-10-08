@@ -35,22 +35,25 @@ func set_position(chunk_coords: Vector2i, local_pos: Vector2):
 
 func move(movement_delta_pixels: Vector2):
 	# Update position
-	current_local_position += movement_delta_pixels
+	var new_local_position := current_local_position + movement_delta_pixels
+	var new_chunk_coordinates := current_chunk_coordinates
 
 	# Update on x axis
-	while current_local_position.x >= chunk_size_pixels.x:
-		current_local_position.x -= chunk_size_pixels.x
-		current_chunk_coordinates.x += 1
+	while new_local_position.x >= chunk_size_pixels.x:
+		new_local_position.x -= chunk_size_pixels.x
+		new_chunk_coordinates.x += 1
 
-	while current_local_position.x < 0.0:
-		current_local_position.x += chunk_size_pixels.x
-		current_chunk_coordinates.x -= 1
+	while new_local_position.x < 0.0:
+		new_local_position.x += chunk_size_pixels.x
+		new_chunk_coordinates.x -= 1
 
 	# Update on y axis
-	while current_local_position.y >= chunk_size_pixels.y:
-		current_local_position.y -= chunk_size_pixels.y
-		current_chunk_coordinates.y += 1
+	while new_local_position.y >= chunk_size_pixels.y:
+		new_local_position.y -= chunk_size_pixels.y
+		new_chunk_coordinates.y += 1
 
-	while current_local_position.y < 0.0:
-		current_local_position.y += chunk_size_pixels.y
-		current_chunk_coordinates.y -= 1
+	while new_local_position.y < 0.0:
+		new_local_position.y += chunk_size_pixels.y
+		new_chunk_coordinates.y -= 1
+
+	set_position(new_chunk_coordinates, new_local_position)

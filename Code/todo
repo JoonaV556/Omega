@@ -834,31 +834,33 @@ Space Layer
                         ✔ chunk 2d offset = (chunk coords - origin chunk coords) * map chunk size pixels @done(26-10-08 00:16)
                         ✔ pivot local relative offset = pivot local chunk pos / (map chunk size pixels / global chunk size pixels) @done(26-10-08 00:16)
                         ✔ map node position = origin chunk 2d pos +  chunk 2d offset + pivot local relative offset @done(26-10-08 00:16)
-                    Infinite scrollable map
+                    
+                    
                         ✔ Scroll input = mouse delta @done(26-10-08 18:29)
+                        ✔ Refactor @done(26-10-08 19:22)
+                            ✔ New stp base class @done(26-10-08 18:55)
+                                ✔ current chunk coords @done(26-10-08 18:47)
+                                ✔ current chunk local pos @done(26-10-08 18:47)
 
+                                ✔ ready @done(26-10-08 18:47)
+                                    ✔ init @done(26-10-08 18:47)
+
+                                ✔ func set position (chunk, local) @done(26-10-08 18:47)
+
+                                ✔ Func move_position(movement delta) @done(26-10-08 18:47)
+
+                            ✔ Stp2d @done(26-10-08 19:22)
+                                ✔ Inherits from base @done(26-10-08 19:10)
+
+                                ✔ init position @done(26-10-08 19:10)
+                                ✔ init chunk size @done(26-10-08 19:10)
+
+                                ✔ update position with move() @done(26-10-08 19:22)
+
+                            ✔ Test @done(26-10-08 19:22)
+                    
+                    Infinite scrollable map
                         Track map center position in space using stellarpositiontracker
-                            Refactor
-                                ✔ New stp base class @done(26-10-08 18:55)
-                                    ✔ current chunk coords @done(26-10-08 18:47)
-                                    ✔ current chunk local pos @done(26-10-08 18:47)
-
-                                    ✔ ready @done(26-10-08 18:47)
-                                        ✔ init @done(26-10-08 18:47)
-
-                                    ✔ func set position (chunk, local) @done(26-10-08 18:47)
-
-                                    ✔ Func move_position(movement delta) @done(26-10-08 18:47)
-
-                                Stp2d
-                                    Inherits from base
-
-                                    init position
-                                    init chunk size
-
-                                    update position with move()
-
-                                Test
 
                         Track origin chunk = stp current chunk
 

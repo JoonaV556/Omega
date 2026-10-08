@@ -1,28 +1,21 @@
 class_name StellarPositionTracker2D
-extends Node
+extends StellarPositionTracker
 
 @export var tracked_override: Node2D
 
-@export var start_stellar_position: Vector2i = Vector2i(1000, 1000)
-
-@export var start_local_position: Vector2 = Vector2(50000.0, 50000.0)
-
-signal on_init(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
-signal on_chunk_changed(chunk_position: Vector2i, local_position: Vector2, world_positon: Vector2)
+signal on_init(chunk_position: Vector2i, local_position: Vector2, world_position: Vector2)
+signal on_chunk_changed(chunk_position: Vector2i, local_position: Vector2, world_position: Vector2)
 signal on_origin_shift_position_treshold_exceeded(_tracked: Node2D)
 signal on_origin_shift(current_chunk_coords: Vector2i, local_chunk_position: Vector2, world_position)
 
-var tracked_stellar_pos: Vector2i
-
-## Position of the tracked object inside a chunk local space, in pixels
-var tracked_local_chunk_position: Vector2
-
 var _tracked: Node2D
+
 ## Position of the tracked inside the actual 2D world
 var _tracked_last_real_position: Vector2
+
 var _last_origin_shift_version: int
 
-var _amount_moved_since_last_frame: Vector2
+var movement_delta_since_last_tick: Vector2
 
 var _exceeded_position_limit_last_frame: bool = false
 
@@ -44,17 +37,19 @@ func _ready() -> void:
 		push_error("No node to track")
 		return
 	
-	# Set initial position in virtual space coords
-	tracked_stellar_pos = start_stellar_position
-	tracked_local_chunk_position = start_local_position
+	# Init chunk size
+	set_chunk_size(SpaceGlobals.chunk_size_pixels)
 
+	# Init position
+	set_position(start_chunk_coords, start_local_position)
 
+	# Init needed 2d values
 	_tracked_last_real_position = _tracked.global_position
 	_last_origin_shift_version = SpaceGlobals.origin_shift_version
 
 	_exceeded_position_limit_last_frame = false
 
-	on_init.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)
+	on_init.emit(current_chunk_coordinates, current_local_position, _tracked_last_real_position)
 
 
 func _physics_process(delta: float) -> void:
@@ -75,43 +70,29 @@ func _physics_process(delta: float) -> void:
 		_exceeded_position_limit_last_frame = true
 
 	# Check movement delta in real 2d space, taking into account origin shifts
-	_amount_moved_since_last_frame = _tracked.global_position - _tracked_last_real_position
+	movement_delta_since_last_tick = _tracked.global_position - _tracked_last_real_position
 
 	# Account origin shifts
 	var o_shift = false
 	if _last_origin_shift_version != SpaceGlobals.origin_shift_version:
-		_amount_moved_since_last_frame -= SpaceGlobals.origin_shift_amount
+		movement_delta_since_last_tick -= SpaceGlobals.origin_shift_amount
 		_last_origin_shift_version = SpaceGlobals.origin_shift_version
 		o_shift = true
 		print('Origin o_shift detected')
 
 	_tracked_last_real_position = _tracked.global_position
 
-	# Update position in virtual chunk space
-	var old_chunk := tracked_stellar_pos
-	tracked_local_chunk_position += _amount_moved_since_last_frame
+	var old_chunk := current_chunk_coordinates
 
-	# Update position in stellar chunk space
-	var chunk_size_pixels := SpaceGlobals.chunk_size_pixels
-	while tracked_local_chunk_position.x >= chunk_size_pixels.x:
-		tracked_local_chunk_position.x -= chunk_size_pixels.x
-		tracked_stellar_pos.x += 1
-	while tracked_local_chunk_position.x < 0.0:
-		tracked_local_chunk_position.x += chunk_size_pixels.x
-		tracked_stellar_pos.x -= 1
-	while tracked_local_chunk_position.y >= chunk_size_pixels.y:
-		tracked_local_chunk_position.y -= chunk_size_pixels.y
-		tracked_stellar_pos.y += 1
-	while tracked_local_chunk_position.y < 0.0:
-		tracked_local_chunk_position.y += chunk_size_pixels.y
-		tracked_stellar_pos.y -= 1
+	# Update position in virtual chunk space
+	move(movement_delta_since_last_tick)
 
 	# Inform others of origin shift
 	if o_shift:
-		on_origin_shift.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked.global_position)
+		on_origin_shift.emit(current_chunk_coordinates, current_local_position, _tracked.global_position)
 
-	if tracked_stellar_pos != old_chunk:
-		on_chunk_changed.emit(tracked_stellar_pos, tracked_local_chunk_position, _tracked_last_real_position)
-		print('Moved to stellar chunk %s (local %s)' % [tracked_stellar_pos, tracked_local_chunk_position])
+	if current_chunk_coordinates != old_chunk:
+		on_chunk_changed.emit(current_chunk_coordinates, current_local_position, _tracked_last_real_position)
+		print('Moved to stellar chunk %s (local %s)' % [current_chunk_coordinates, current_local_position])
 	
 	
