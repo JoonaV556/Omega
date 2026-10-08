@@ -26,6 +26,19 @@ func _ready() -> void:
 	print(center)
 
 
+func _input(event: InputEvent) -> void:
+	var m_event := event as InputEventMouseMotion
+
+	if !m_event: 
+		return
+	
+	move_map(m_event.relative)
+
+
+func move_map(move_delta_pixels: Vector2):
+	pass
+
+
 func _create_map_nodes():
 	for chunk in chunks_to_render.keys():
 		create_map_node(chunk)
