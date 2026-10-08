@@ -858,10 +858,29 @@ Space Layer
                                 ✔ update position with move() @done(26-10-08 19:22)
 
                             ✔ Test @done(26-10-08 19:22)
+
+                    ✔ init @done(26-10-08 23:34)
+                        ✔ move to default pos @done(26-10-08 23:34)
+                    ✔ func set_default_pos @done(26-10-08 23:34)
+                    ✔ func move_to_map_pos @done(26-10-08 23:34)
                     
                     Infinite scrollable map
-                        Track map center position in space using stellarpositiontracker
+                        ✔ Track map center position in space using stellarpositiontracker @done(26-10-08 23:45)
+                            ✔ Move when mouse right is held down @done(26-10-08 23:45)
+                            ✔ test @done(26-10-08 23:45)
 
+                        ✔ Implement chunkloader base class @done(26-10-09 00:18)
+                            ✔ does nothing else than track loaded and unloaded chunk coordinates @done(26-10-09 00:18)
+
+                        ✔ Load map chunks with chunkloader @done(26-10-09 02:15)
+                            ✔ Load surrounding map chunks when map is opened @done(26-10-09 01:43)
+                                ✔ When map opened, load chunks with chunkloader and spt position @done(26-10-09 01:43)
+
+                            ✔ if active @done(26-10-09 01:50)
+                                ✔ Update map chunks when spt position changes @done(26-10-09 01:50)
+
+                            ✔ test @done(26-10-09 02:15)
+                        
                         Track origin chunk = stp current chunk
 
                         Render systems in radius

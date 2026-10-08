@@ -1261,7 +1261,6 @@ editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
-visible = false
 position = Vector2(-1504, -1504)
 script = ExtResource("18_83a0a")
 line_color = Color(1, 1, 1, 0.14117648)
@@ -1319,4 +1318,3 @@ metadata/_custom_type_script = "uid://c2dcn87ckklk3"
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
 [connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]
-[connection signal="on_chunk_discovered" from="DiscoveryAgent" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="create_map_node"]

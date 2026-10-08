@@ -38,7 +38,7 @@ func _ready() -> void:
 		return
 	
 	# Init chunk size
-	set_chunk_size(SpaceGlobals.chunk_size_pixels)
+	set_chunk_size_pixels(SpaceGlobals.chunk_size_pixels)
 
 	# Init position
 	set_position(start_chunk_coords, start_local_position)

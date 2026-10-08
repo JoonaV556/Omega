@@ -7,6 +7,9 @@ extends UI
 
 @export var map_node_template: Node2D
 
+@export_category("Map chunk settings")
+@export var render_chunks_in_radius: int = 2
+
 
 var chunks_to_render: Dictionary[SpaceChunk, bool]
 
@@ -18,30 +21,127 @@ var _origin_chunk_2d_position: Vector2
 var _origin_chunk_coords: Vector2i
 
 
+# Position tracker
+var _map_pos_tracker: StellarPositionTracker
+
+var _chunk_loader: ChunkLoader
+
+
+# Default position
+var _default_chunk: Vector2i = Vector2i(1000, 1000)
+
+var _default_local_pos: Vector2 = Vector2(2500, 2500)
+
+
+var _map_nodes: Dictionary[Vector2i, Sprite2D]
+
+
 func _ready() -> void:
+	_initialize()
+
+
+func _initialize():
 	var visible_size := get_viewport().get_visible_rect().size
 	var center := visible_size / 2.0
 	_origin_chunk_2d_position = center - (_map_chunk_size_pixels / 2.0)
 
+	# init map position tracker
+	_map_pos_tracker = StellarPositionTracker.new()
+	add_child(_map_pos_tracker)
+	_map_pos_tracker.set_chunk_size_pixels(_map_chunk_size_pixels)
+	_map_pos_tracker.on_current_chunk_changed.connect(_update_map_nodes.unbind(1)) # update map nodes when chunk changes
+	
+	# Move map to default position
+	set_map_default_chunk_position(Vector2i(1000, 1000), Vector2(2500, 2500))
+	move_to_map_position(_default_chunk, _default_local_pos)
+
+	# Init chunk loader 
+	_chunk_loader = ChunkLoader.new()
+	_chunk_loader.chunk_loading_radius = Vector2i(render_chunks_in_radius, render_chunks_in_radius)
+	_chunk_loader.init(_default_chunk)
+	add_child(_chunk_loader)
+
 	print(center)
 
 
+func set_map_default_chunk_position(chunk: Vector2i, local_pos: Vector2):
+	_default_chunk = chunk
+	_default_local_pos = local_pos
+
+
+func move_to_map_position(chunk: Vector2i, local_pos: Vector2):
+	_map_pos_tracker.set_position(chunk, local_pos)
+
+
 func _input(event: InputEvent) -> void:
+	if !_active:
+		return
+
+	move_map_with_mouse(event)
+
+
+func move_map_with_mouse(event: InputEvent):
 	var m_event := event as InputEventMouseMotion
 
 	if !m_event: 
+		return
+
+	var rmb_pressed_down := Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+
+	if !rmb_pressed_down:
 		return
 	
 	move_map(m_event.relative)
 
 
 func move_map(move_delta_pixels: Vector2):
-	pass
+	_map_pos_tracker.move(move_delta_pixels)
 
 
 func _create_map_nodes():
-	for chunk in chunks_to_render.keys():
-		create_map_node(chunk)
+	_chunk_loader.update_chunks(_map_pos_tracker.current_chunk_coordinates)
+	var chunks := _chunk_loader.loaded_chunks
+
+	var created: Array[Vector2i] = []
+
+	for chunk in chunks.keys():
+		if !_map_nodes.has(chunk):
+			var node := create_map_node(chunk)
+			_map_nodes[chunk] = node
+			created.append(chunk)
+
+	print('Created %s map nodes:' % [created.size()])
+	for coord in created:
+		print('\t%s' % [coord])
+
+
+func _update_map_nodes():
+	# Delete nodes outside range
+	_delete_nodes_outside_range()
+
+	# Create nodes for new chunks
+	_create_map_nodes()
+
+
+func _delete_nodes_outside_range():
+	var chunks := _chunk_loader.loaded_chunks
+
+	var deleted: Array[Vector2i] = []
+
+	for coord in _map_nodes.keys():
+		if !chunks.has(coord):
+			var node := _map_nodes[coord]
+			
+			_map_nodes.erase(coord)
+
+			deleted.append(coord)
+
+			if node:
+				node.queue_free() 
+
+	print('Deleted %s map nodes:' % [deleted.size()])
+	for coord in deleted:
+		print('\t%s' % [coord])
 
 
 func _destroy_map_nodes():
@@ -53,32 +153,8 @@ func set_origin_chunk(coords: Vector2i):
 	_origin_chunk_coords = coords
 
 
-func create_map_node(chunk: SpaceChunk):
-	if !chunks_to_render.has(chunk):
-		chunks_to_render[chunk] = true
-
-	if !_active:
-		return
-
-	if chunk.stellar_type is not System:
-		return
-
-	var map_node  := map_node_template.duplicate() as Sprite2D
-
-	map_nodes_parent.add_child(map_node)
-
-	map_node.show()
-	map_node.z_as_relative = false
-	map_node.name = String('map node %s' % [chunk.stellar_type.name])
-
-	# Calculate where the map node is placed
-	var chunk_2d_offset := Vector2(chunk.coordinates - _origin_chunk_coords) * _map_chunk_size_pixels
-	var system := chunk.stellar_type as System
-	var master_local_pos := chunk.stellar_objects[system.master_object]
-	var chunk_master_offset := master_local_pos * (_map_chunk_size_pixels / SpaceGlobals.chunk_size_pixels)
-
-	map_node.position = _origin_chunk_2d_position + chunk_2d_offset + chunk_master_offset
-	map_node.centered = true
+func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
+	return null
 
 
 func activate():
