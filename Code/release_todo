@@ -79,7 +79,5 @@ core features
     ☐ Move map by dragging (endless map)
 
     ☐ Refactors
-        ☐ Split space chunk loading and generation logic
-            ☐ space_chunk_loader
-            ☐ space_chunk_generator
+        ☐ Refactor space chunk loader to utilize new static generator class
         ☐ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler

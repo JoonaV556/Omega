@@ -61,8 +61,8 @@ func render_chunk(chunk: SpaceChunk):
 	chunk_root.global_position = chunk_world_position
 
 	# If chunk is system, add name to chunk root's name as suffix
-	if chunk.stellar_type and chunk.stellar_type is System:
-		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.stellar_type.name]
+	if chunk.system and chunk.system is System:
+		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.system.name]
 
 	# Render objects in the chunk 
 	for object in chunk.stellar_objects.keys():

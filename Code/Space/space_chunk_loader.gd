@@ -1,4 +1,4 @@
-class_name SpaceChunkGenerator
+class_name SpaceChunkLoader
 extends Node
 
 
@@ -87,7 +87,7 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 		var pivot_idx = chunk_rng.randi_range(0, planets_data.keys().size() - 1)
 		var pivot_planet = planets_data.keys()[pivot_idx]
 		var system := System.new(_generate_random_name(chunk_rng), pivot_planet)
-		chunk.stellar_type = system
+		chunk.system = system
 		chunk.stellar_objects = chunk_objects
 
 		for planet in planets_data.keys():
@@ -133,11 +133,10 @@ func generate_chunk(chunk_coords: Vector2i, _has_system_odds: float) -> SpaceChu
 		var pivot_idx = chunk_rng.randi_range(0, planets_data.keys().size() - 1)
 		var pivot_planet = planets_data.keys()[pivot_idx]
 		var system := System.new(_generate_random_name(chunk_rng), pivot_planet)
-		chunk.stellar_type = system
+		chunk.system = system
 		chunk.stellar_objects = chunk_objects
 
-		for planet in planets_data.keys():
-			system.objects.append([planet, planets_data[planet]])
+		system.objects = planets_data.keys()
 
 		# Print descriptive summary of generated planets
 		print("\nChunk %s generated with system: %s. Chunk has %s planet(s):" % [chunk_coords, system.name, planets_data.size()])

@@ -4,14 +4,14 @@ extends StellarObject
 
 ## objects[n][0] = object: [class StellarObject], [br] 
 ## objects[n][1] = object.local_position: [class Vector2] [br]
-var objects: Array[Array]
+var objects: Array[StellarObject]
 
-var master_object: StellarObject
+var primary_object: StellarObject
 
 
-func _init(_name: String, _pivot_object: StellarObject) -> void:
+func _init(_name: String, _pivot_object: StellarObject = null) -> void:
 	name = _name
-	master_object = _pivot_object
+	primary_object = _pivot_object
 
 
 

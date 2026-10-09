@@ -864,6 +864,18 @@ Space Layer
                     ✔ func set_default_pos @done(26-10-08 23:34)
                     ✔ func move_to_map_pos @done(26-10-08 23:34)
                     
+                    static class SpaceChunkGenerator
+                        ✔ enum generation_detail @done(26-10-09 04:31)
+                            ✔ low  # returns chunk without any object data, but tells if it has system in it @done(26-10-09 04:31)
+                            ✔ medium # Returns a chunk. If chunk has a system, objects will contain the primary object and its position in the system @done(26-10-09 04:31)
+                            ✔ full # Returns a chunk with complete object information (type, location, size etc.) @done(26-10-09 04:31)
+
+                        ✔ func generate_chunk(coords, generation_detail) -> chunk @done(26-10-09 04:31)
+
+                        func _generate_objects
+
+
+
                     Infinite scrollable map
                         ✔ Track map center position in space using stellarpositiontracker @done(26-10-08 23:45)
                             ✔ Move when mouse right is held down @done(26-10-08 23:45)
@@ -880,10 +892,13 @@ Space Layer
                                 ✔ Update map chunks when spt position changes @done(26-10-09 01:50)
 
                             ✔ test @done(26-10-09 02:15)
-                        
-                        Track origin chunk = stp current chunk
 
                         Render systems in radius
+                            ChunkGenerator refactor
+
+                            get chunk from chunk generator
+
+                            render sys
 
                         Make systems selectable & show info when clicked
 
