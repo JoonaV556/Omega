@@ -1251,7 +1251,7 @@ text = "Controls:
  Zoom camera - Mouse Scroll
  Map:
   Open Map - M
-  Open context menu for map object - RMB
+  Pan / Move map - Drag mouse while holding RMB
  Close application - ESC
   "
 label_settings = ExtResource("15_551uo")
