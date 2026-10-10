@@ -1131,6 +1131,7 @@ script = ExtResource("18_w03s2")
 background_root = NodePath("../../../CanvasLayer MapUI BG")
 map_nodes_parent = NodePath("../../../Node2D - Map selection root/Node2D Map Object Root")
 map_node_template = NodePath("template objects/map_node")
+render_chunks_in_radius = 3
 metadata/_custom_type_script = "uid://c7yhanfund7dm"
 
 [node name="template objects" type="Node2D" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1009981484]
@@ -1261,9 +1262,9 @@ editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
-visible = false
-position = Vector2(-1504, -1504)
+position = Vector2(-1104, -1563)
 script = ExtResource("18_83a0a")
+grid_cell_size = Vector2(200, 200)
 line_color = Color(1, 1, 1, 0.14117648)
 grid_extent_pixels = Vector2(3200, 3200)
 editor_only = false

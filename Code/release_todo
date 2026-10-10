@@ -76,7 +76,8 @@ core features
         ☐ Stars
         ☐ Asteroid clouds
 
-    ☐ Move map by dragging (endless map)
+    ☐ Space map
+        ☐ Show only discovered systems on map
 
     ☐ Refactors
         ☐ Refactor space chunk loader to utilize new static generator class

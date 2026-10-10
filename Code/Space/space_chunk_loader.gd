@@ -91,7 +91,7 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 		chunk.stellar_objects = chunk_objects
 
 		for planet in planets_data.keys():
-			system.objects.append([planet, planets_data[planet]])
+			system.objects.append(planet)
 
 		# Print descriptive summary of generated planets
 		print("\nChunk %s generated with system: %s. Chunk has %s planet(s):" % [chunk_coords, system.name, planets_data.size()])

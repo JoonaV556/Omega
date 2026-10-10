@@ -41,8 +41,7 @@ func _ready() -> void:
 
 
 func _initialize():
-	var visible_size := get_viewport().get_visible_rect().size
-	var center := visible_size / 2.0
+	var center := get_viewport_center_pos()
 	_origin_chunk_2d_position = center - (_map_chunk_size_pixels / 2.0)
 
 	# init map position tracker
@@ -95,7 +94,11 @@ func move_map_with_mouse(event: InputEvent):
 
 
 func move_map(move_delta_pixels: Vector2):
-	_map_pos_tracker.move(move_delta_pixels)
+	_map_pos_tracker.move(-move_delta_pixels)
+
+	for map_node in map_nodes_parent.get_children():
+		if map_node is Node2D:
+			map_node.position += move_delta_pixels
 
 
 func _create_map_nodes():
@@ -104,11 +107,11 @@ func _create_map_nodes():
 
 	var created: Array[Vector2i] = []
 
-	for chunk in chunks.keys():
-		if !_map_nodes.has(chunk):
-			var node := create_map_node(chunk)
-			_map_nodes[chunk] = node
-			created.append(chunk)
+	for chunk_coords in chunks.keys():
+		if !_map_nodes.has(chunk_coords):
+			var node := create_map_node(chunk_coords)
+			_map_nodes[chunk_coords] = node
+			created.append(chunk_coords)
 
 	print('Created %s map nodes:' % [created.size()])
 	for coord in created:
@@ -154,8 +157,41 @@ func set_origin_chunk(coords: Vector2i):
 
 
 func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
-	return null
+	# Get chunk info 
+	var params := SpaceChunkGenerator.generator_params.new()
+	params.chunk_size_pixels = SpaceGlobals.chunk_size_pixels
+	var chunk := SpaceChunkGenerator.generate_chunk(
+		chunk_coords,
+		SpaceChunkGenerator.ChunkDetailLevel.MEDIUM
+	)
 
+	# Create node only for chunks with a system innit
+	if chunk.system == null:
+		return null
+
+	var node := map_node_template.duplicate()
+	map_nodes_parent.add_child(node)
+
+	node.show()
+
+	node.name = String("Map chunk node %s" % [chunk.system.name])
+
+	var system := chunk.system as System
+	var primary_object := system.primary_object
+
+	# Calculate and position map node according to its primary object position
+	var screen_center := get_viewport_center_pos()
+	var current_chunk_pos := screen_center - _map_pos_tracker.current_local_position
+	var chunk_offset := Vector2(chunk_coords - _map_pos_tracker.current_chunk_coordinates) * _map_chunk_size_pixels
+	var primary_object_offset := (_map_chunk_size_pixels / SpaceGlobals.chunk_size_pixels) * chunk.stellar_objects[primary_object]
+	node.position = current_chunk_pos + chunk_offset + primary_object_offset
+
+	return node
+
+
+func get_viewport_center_pos() -> Vector2:
+	return get_viewport().get_visible_rect().size / 2.0
+	
 
 func activate():
 	super()

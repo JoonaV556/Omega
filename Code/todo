@@ -864,7 +864,7 @@ Space Layer
                     ✔ func set_default_pos @done(26-10-08 23:34)
                     ✔ func move_to_map_pos @done(26-10-08 23:34)
                     
-                    static class SpaceChunkGenerator
+                    ✔ static class SpaceChunkGenerator @done(26-10-09 17:19)
                         ✔ enum generation_detail @done(26-10-09 04:31)
                             ✔ low  # returns chunk without any object data, but tells if it has system in it @done(26-10-09 04:31)
                             ✔ medium # Returns a chunk. If chunk has a system, objects will contain the primary object and its position in the system @done(26-10-09 04:31)
@@ -872,11 +872,11 @@ Space Layer
 
                         ✔ func generate_chunk(coords, generation_detail) -> chunk @done(26-10-09 04:31)
 
-                        func _generate_objects
+                        ✔ func _generate_objects @done(26-10-09 17:19)
 
 
 
-                    Infinite scrollable map
+                    ✔ Infinite scrollable map @done(26-10-10 03:20)
                         ✔ Track map center position in space using stellarpositiontracker @done(26-10-08 23:45)
                             ✔ Move when mouse right is held down @done(26-10-08 23:45)
                             ✔ test @done(26-10-08 23:45)
@@ -893,20 +893,19 @@ Space Layer
 
                             ✔ test @done(26-10-09 02:15)
 
-                        Render systems in radius
-                            ChunkGenerator refactor
+                        ✔ Render systems in radius @done(26-10-10 03:19)
+                            ✔ create node @done(26-10-10 03:19)
+                                ✔ get chunk from chunk generator @done(26-10-10 03:19)
 
-                            get chunk from chunk generator
+                            ✔ move nodes with spt when active @done(26-10-10 03:19)
 
-                            render sys
+        map -  Make systems selectable & show info when clicked
 
-                        Make systems selectable & show info when clicked
-
-                    Zoom
-                        Adjust scale of map nodes parent
+        Zoom
+            Adjust scale of map nodes parent
             
-            In-game HUD which displays current stellar position and name 
-                Also visible in Map
+        In-game HUD which displays current stellar position and name 
+            Also visible in Map
 
         impl. QOL features
             Local click-to-travel / Autopilot

@@ -2,8 +2,6 @@
 class_name System
 extends StellarObject
 
-## objects[n][0] = object: [class StellarObject], [br] 
-## objects[n][1] = object.local_position: [class Vector2] [br]
 var objects: Array[StellarObject]
 
 var primary_object: StellarObject
