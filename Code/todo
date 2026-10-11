@@ -932,12 +932,14 @@ Space Layer
             ✔ when clicked on empty @done(26-10-11 22:24)
                 ✔ hide info @done(26-10-11 22:24)
 
-            test
+            ✔ test @done(26-10-11 22:26)
             
+
+        ✔ Disable game zoom while map is open @done(26-10-12 02:36)
 
         Zoom
             Adjust scale of map nodes parent
-            
+
         In-game HUD which displays current stellar position and name 
             Also visible in Map
 

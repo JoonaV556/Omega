@@ -1316,6 +1316,8 @@ metadata/_custom_type_script = "uid://c2dcn87ckklk3"
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
 [connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
 [connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
+[connection signal="on_activated" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="CanvasLayer - Gameworld/Camera2D/Camera2DZoom" method="set_process_input" binds= [false]]
+[connection signal="on_deactivated" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="CanvasLayer - Gameworld/Camera2D/Camera2DZoom" method="set_process_input" binds= [true]]
 [connection signal="on_object_selected" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" method="show_info"]
 [connection signal="on_unselected" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" method="hide"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]

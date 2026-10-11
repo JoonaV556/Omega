@@ -11,7 +11,7 @@ extends Node
 @export var max_zoom: 	Vector2 = Vector2(5.0, 5.0)
 
 
-func _process(_delta: float) -> void:
+func _input(event: InputEvent) -> void:
 	if !camera:
 		var parent = get_parent() as Camera2D
 		
@@ -20,11 +20,13 @@ func _process(_delta: float) -> void:
 		else:
 			return
 
-	if Input.is_action_just_pressed("ZoomIn"):
+	if event.is_action_pressed("ZoomIn"):
 		if not (camera.zoom.x + zoom_step) >= max_zoom.x:
 			camera.zoom.x += zoom_step
 			camera.zoom.y += zoom_step
-	if Input.is_action_just_pressed("ZoomOut"):
+	if event.is_action_pressed("ZoomOut"):
 		if not (camera.zoom.x - zoom_step) <= min_zoom.x:
 			camera.zoom.x -= zoom_step
 			camera.zoom.y -= zoom_step
+
+	
