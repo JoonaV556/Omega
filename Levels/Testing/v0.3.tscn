@@ -1059,7 +1059,6 @@ map_ui = NodePath("CanvasLayer - Omega UI/Omega UI/MapUI")
 metadata/_custom_type_script = "uid://dkiiopqap8m14"
 
 [node name="CanvasLayer MapUI BG" type="CanvasLayer" parent="Omega UI" unique_id=1679328168]
-layer = -1
 
 [node name="Control" type="Control" parent="Omega UI/CanvasLayer MapUI BG" unique_id=1737514315]
 z_index = -1
@@ -1070,6 +1069,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="ColorRect - bg" type="ColorRect" parent="Omega UI/CanvasLayer MapUI BG/Control" unique_id=336010392]
 z_index = -1
@@ -1080,6 +1080,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 0.7019608)
 
 [node name="Node2D - Map selection root" type="Node2D" parent="Omega UI" unique_id=1805179537]
@@ -1133,7 +1134,7 @@ background_root = NodePath("../../../CanvasLayer MapUI BG")
 map_nodes_parent = NodePath("../../../Node2D - Map selection root/Node2D Map Object Root")
 map_node_template = NodePath("template objects/map_node")
 selected_overlay_gui = NodePath("../../../Node2D - Map selection root/TextureRect - Selection Overlay")
-map_nodes_background = NodePath("../../../CanvasLayer MapUI BG/Control/ColorRect - bg")
+map_nodes_background = NodePath("Vignette")
 render_chunks_in_radius = 4
 metadata/_custom_type_script = "uid://c7yhanfund7dm"
 
@@ -1144,17 +1145,6 @@ visible = false
 position = Vector2(926, 554)
 scale = Vector2(3, 3)
 texture = ExtResource("19_gsxhu")
-
-[node name="ColorRect test bg" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=733912660]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("16_gsxhu")
-color = Color(1, 1, 1, 0.5019608)
 
 [node name="Vignette" type="ColorRect" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=592705060]
 material = SubResource("ShaderMaterial_86u60")
@@ -1174,17 +1164,18 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 61.0
 offset_bottom = 46.0
+mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 text = "Map"
 label_settings = ExtResource("20_l3iv5")
 
 [node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1038073668]
-visible = false
 layout_mode = 1
 offset_left = 16.0
 offset_top = 288.0
 offset_right = 134.0
 offset_bottom = 348.0
+mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 theme_override_fonts/font = ExtResource("21_i2a4i")
 text = "Object Info
@@ -1200,6 +1191,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 theme_override_styles/panel = ExtResource("23_28gtx")
 
@@ -1247,6 +1239,7 @@ offset_top = -304.0
 offset_right = 442.0
 offset_bottom = -57.0
 grow_vertical = 0
+mouse_filter = 1
 text = "Controls:
  Fly spaceship - WASD
  Steer spaceship - Mouse

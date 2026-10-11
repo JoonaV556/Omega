@@ -917,6 +917,8 @@ Space Layer
 
             ✔ unselect @done(26-10-11 21:20)
 
+            signal on system 
+
             when node selected 
                 show info
 
