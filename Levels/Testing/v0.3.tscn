@@ -32,6 +32,7 @@
 [ext_resource type="LabelSettings" uid="uid://m6hesa76v3ph" path="res://Resources/UI/label_settings_default.tres" id="22_5ohbi"]
 [ext_resource type="StyleBox" uid="uid://bcpnt4m5gw7ys" path="res://Resources/UI/style_box_panel_background.tres" id="23_28gtx"]
 [ext_resource type="Script" uid="uid://c2dcn87ckklk3" path="res://Code/Space/discovery_agent.gd" id="23_mqia6"]
+[ext_resource type="Script" uid="uid://b8524337d5kmn" path="res://Code/Space/object_info_label.gd" id="24_vt7fa"]
 [ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="25_yxer7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
@@ -1169,7 +1170,7 @@ theme = ExtResource("16_gsxhu")
 text = "Map"
 label_settings = ExtResource("20_l3iv5")
 
-[node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1038073668]
+[node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1012108420]
 layout_mode = 1
 offset_left = 16.0
 offset_top = 288.0
@@ -1182,6 +1183,8 @@ text = "Object Info
  name: asd
  type: Galaxy"
 label_settings = ExtResource("22_5ohbi")
+script = ExtResource("24_vt7fa")
+metadata/_custom_type_script = "uid://b8524337d5kmn"
 
 [node name="Panel - bg" type="Panel" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" unique_id=97841822]
 z_index = -1
@@ -1313,6 +1316,8 @@ metadata/_custom_type_script = "uid://c2dcn87ckklk3"
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
 [connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
 [connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
+[connection signal="on_object_selected" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" method="show_info"]
+[connection signal="on_unselected" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" method="hide"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="render_chunk"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
 [connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]

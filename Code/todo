@@ -917,13 +917,20 @@ Space Layer
 
             ✔ unselect @done(26-10-11 21:20)
 
-            signal on system 
+            ✔ class object info label @done(26-10-11 22:13)
+                ✔ func show_info(object: StellarObject) @done(26-10-11 22:13)
+            
+            ✔ mapui @done(26-10-11 22:24)
+                ✔ signal on_object_selected(object: SO) @done(26-10-11 22:24)
+                ✔ signal on_unselect() @done(26-10-11 22:24)
 
-            when node selected 
-                show info
+            ✔ connect signals @done(26-10-11 22:24)
+            
+            ✔ when node selected @done(26-10-11 22:24)
+                ✔ show info @done(26-10-11 22:24)
 
-            when clicked on empty 
-                hide info
+            ✔ when clicked on empty @done(26-10-11 22:24)
+                ✔ hide info @done(26-10-11 22:24)
 
             test
             

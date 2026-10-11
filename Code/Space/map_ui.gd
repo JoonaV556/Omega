@@ -15,6 +15,10 @@ extends UI
 @export var render_chunks_in_radius: int = 2
 
 
+signal on_object_selected(obj: StellarObject)
+signal on_unselected()
+
+
 var chunks_to_render: Dictionary[SpaceChunk, bool]
 
 
@@ -84,9 +88,13 @@ func _select_map_node(selected: Node):
 
 	show_selected_overlay_gui(sel_2d.position)
 
+	var obj := _map_nodes_chunks[sel_2d].system
+	on_object_selected.emit(obj)
+
 
 func _unselect():
 	hide_selected_overlay_gui()
+	on_unselected.emit()
 
 
 func _input(event: InputEvent) -> void:
@@ -133,8 +141,10 @@ func _delete_nodes_outside_range():
 			
 			# Unlink from chunk coords
 			_map_nodes.erase(coord)
+			
 			# Unlink from chunk info
-			_map_nodes_chunks.erase(node)
+			if _map_nodes_chunks.has(node):
+				_map_nodes_chunks.erase(node)
 
 			deleted.append(coord)
 
@@ -147,13 +157,16 @@ func _delete_nodes_outside_range():
 
 
 func _destroy_map_nodes():
+	_map_nodes.clear()
+	_map_nodes_chunks.clear()
 	for c in map_nodes_parent.get_children():
 		c.queue_free()
 
 
-func show_selected_overlay_gui(position):
+func show_selected_overlay_gui(_position):
 	selected_overlay_gui.show()
-	selected_overlay_gui.position = position
+	selected_overlay_gui.position = _position
+
 
 func hide_selected_overlay_gui():
 	selected_overlay_gui.hide()
@@ -252,4 +265,5 @@ func activate():
 func deactivate():
 	super()
 	background_root.hide()
+	hide_selected_overlay_gui()
 	_destroy_map_nodes()
