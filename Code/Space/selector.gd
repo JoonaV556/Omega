@@ -88,6 +88,7 @@ func register_selectable_sprite2d(sprite : Sprite2D):
 	var collision_shape : CollisionShape2D = CollisionShape2D.new()
 	var circle = CircleShape2D.new()
 	var sprite_texture_half_width = sprite.texture.get_width() / 2.0
+	
 	circle.radius = sprite_texture_half_width
 	collision_shape.shape = circle
 

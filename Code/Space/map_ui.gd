@@ -7,6 +7,10 @@ extends UI
 
 @export var map_node_template: Node2D
 
+@export var selected_overlay_gui: Control
+
+@export var map_nodes_background: Control
+
 @export_category("Map chunk settings")
 @export var render_chunks_in_radius: int = 2
 
@@ -26,6 +30,8 @@ var _map_pos_tracker: StellarPositionTracker
 
 var _chunk_loader: ChunkLoader
 
+var _map_node_selector: Selector
+
 
 # Default position
 var _default_chunk: Vector2i = Vector2i(1000, 1000)
@@ -35,6 +41,8 @@ var _default_local_pos: Vector2 = Vector2(2500, 2500)
 
 var _map_nodes: Dictionary[Vector2i, Sprite2D]
 
+var _map_nodes_chunks: Dictionary[Sprite2D, SpaceChunk]
+
 
 func _ready() -> void:
 	_initialize()
@@ -43,6 +51,14 @@ func _ready() -> void:
 func _initialize():
 	var center := get_viewport_center_pos()
 	_origin_chunk_2d_position = center - (_map_chunk_size_pixels / 2.0)
+
+	# Init selector
+	_map_node_selector = Selector.new(self)
+	_map_node_selector.register_unselector_control(map_nodes_background) # When map BG is clicked, unselect.
+	_map_node_selector.on_selected.connect(_select_map_node) # Update selection
+	_map_node_selector.on_unselected.connect(_unselect)
+
+	hide_selected_overlay_gui()
 
 	# init map position tracker
 	_map_pos_tracker = StellarPositionTracker.new()
@@ -63,42 +79,21 @@ func _initialize():
 	print(center)
 
 
-func set_map_default_chunk_position(chunk: Vector2i, local_pos: Vector2):
-	_default_chunk = chunk
-	_default_local_pos = local_pos
+func _select_map_node(selected: Node):
+	var sel_2d = selected as Sprite2D
+
+	show_selected_overlay_gui(sel_2d.position)
 
 
-func move_to_map_position(chunk: Vector2i, local_pos: Vector2):
-	_map_pos_tracker.set_position(chunk, local_pos)
+func _unselect():
+	hide_selected_overlay_gui()
 
 
 func _input(event: InputEvent) -> void:
 	if !_active:
 		return
 
-	move_map_with_mouse(event)
-
-
-func move_map_with_mouse(event: InputEvent):
-	var m_event := event as InputEventMouseMotion
-
-	if !m_event: 
-		return
-
-	var rmb_pressed_down := Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
-
-	if !rmb_pressed_down:
-		return
-	
-	move_map(m_event.relative)
-
-
-func move_map(move_delta_pixels: Vector2):
-	_map_pos_tracker.move(-move_delta_pixels)
-
-	for map_node in map_nodes_parent.get_children():
-		if map_node is Node2D:
-			map_node.position += move_delta_pixels
+	pan_map_with_mouse(event)
 
 
 func _create_map_nodes():
@@ -109,8 +104,9 @@ func _create_map_nodes():
 
 	for chunk_coords in chunks.keys():
 		if !_map_nodes.has(chunk_coords):
+
 			var node := create_map_node(chunk_coords)
-			_map_nodes[chunk_coords] = node
+			
 			created.append(chunk_coords)
 
 	print('Created %s map nodes:' % [created.size()])
@@ -135,7 +131,10 @@ func _delete_nodes_outside_range():
 		if !chunks.has(coord):
 			var node := _map_nodes[coord]
 			
+			# Unlink from chunk coords
 			_map_nodes.erase(coord)
+			# Unlink from chunk info
+			_map_nodes_chunks.erase(node)
 
 			deleted.append(coord)
 
@@ -150,6 +149,48 @@ func _delete_nodes_outside_range():
 func _destroy_map_nodes():
 	for c in map_nodes_parent.get_children():
 		c.queue_free()
+
+
+func show_selected_overlay_gui(position):
+	selected_overlay_gui.show()
+	selected_overlay_gui.position = position
+
+func hide_selected_overlay_gui():
+	selected_overlay_gui.hide()
+
+
+func set_map_default_chunk_position(chunk: Vector2i, local_pos: Vector2):
+	_default_chunk = chunk
+	_default_local_pos = local_pos
+
+
+func move_to_map_position(chunk: Vector2i, local_pos: Vector2):
+	_map_pos_tracker.set_position(chunk, local_pos)
+
+
+func pan_map_with_mouse(event: InputEvent):
+	var m_event := event as InputEventMouseMotion
+
+	if !m_event: 
+		return
+
+	var rmb_pressed_down := Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+
+	if !rmb_pressed_down:
+		return
+	
+	pan_map(m_event.relative)
+
+
+func pan_map(move_delta_pixels: Vector2):
+	_map_pos_tracker.move(-move_delta_pixels)
+
+	for map_node in map_nodes_parent.get_children():
+		if map_node is Node2D:
+			map_node.position += move_delta_pixels
+
+	# move selection overlay along with map nodes
+	selected_overlay_gui.position += move_delta_pixels
 
 
 func set_origin_chunk(coords: Vector2i):
@@ -169,15 +210,24 @@ func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
 	if chunk.system == null:
 		return null
 
-	var node := map_node_template.duplicate()
+	var node := map_node_template.duplicate() as Sprite2D
 	map_nodes_parent.add_child(node)
 
-	node.show()
+	# Link the node to its coordinates - required for chunk tracking
+	_map_nodes[chunk_coords] = node
 
+	# Link the node to its chunk - required for chunk tracking
+	_map_nodes_chunks[node] = chunk
+
+	# Initialize the node
+	node.show()
 	node.name = String("Map chunk node %s" % [chunk.system.name])
 
 	var system := chunk.system as System
 	var primary_object := system.primary_object
+
+	# Make the node selectable
+	_map_node_selector.register_selectable_sprite2d(node)
 
 	# Calculate and position map node according to its primary object position
 	var screen_center := get_viewport_center_pos()

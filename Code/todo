@@ -900,6 +900,31 @@ Space Layer
                             ✔ move nodes with spt when active @done(26-10-10 03:19)
 
         map -  Make systems selectable & show info when clicked
+            ✔ link nodes to its system object @done(26-10-11 20:04)
+            ✔ unlink when node is destroyed @done(26-10-11 20:04)
+
+            ✔ register nodes as selectable @done(26-10-11 20:10)
+
+            ✔ when node selected @done(26-10-11 21:11)
+                ✔ show selection overlay @done(26-10-11 21:11)
+
+            ✔ when clicked on empty @done(26-10-11 21:11)
+                ✔ unselect @done(26-10-11 21:11)
+
+            ✔ test @done(26-10-11 21:11)
+
+            ✔ move overlay with map nodes @done(26-10-11 21:17)
+
+            ✔ unselect @done(26-10-11 21:20)
+
+            when node selected 
+                show info
+
+            when clicked on empty 
+                hide info
+
+            test
+            
 
         Zoom
             Adjust scale of map nodes parent
