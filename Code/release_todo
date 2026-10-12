@@ -55,12 +55,12 @@ core features
         ✔ Planets @done(26-10-06 23:32)
         ✔ world origin shifting @done(26-10-06 23:32)
 
-    ☐ Rework Map for chunk-based space
+    ✔ Rework Map for chunk-based space @done(26-10-12 03:26)
 
     ✔ Personal space discovery system @done(26-10-07 03:21)
 
-    ☐ In-game HUD which displays current stellar position
-        ☐ System, no galaxy "System Knox 311, deep space"
+    ✔ In-game HUD which displays current stellar position @done(26-10-12 03:26)
+        ✔ System, no galaxy "System Knox 311, deep space" @done(26-10-12 03:26)
 
     ☐ QOL features
         ☐ Local click-to-travel / Autopilot

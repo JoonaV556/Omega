@@ -899,7 +899,7 @@ Space Layer
 
                             ✔ move nodes with spt when active @done(26-10-10 03:19)
 
-        map -  Make systems selectable & show info when clicked
+        ✔ map -  Make systems selectable & show info when clicked @done(26-10-12 03:26)
             ✔ link nodes to its system object @done(26-10-11 20:04)
             ✔ unlink when node is destroyed @done(26-10-11 20:04)
 
@@ -941,8 +941,11 @@ Space Layer
             ✔ Adjust scale of map nodes parent @done(26-10-12 02:59)
                 ✔ Move map nodes parent to screen center @done(26-10-12 02:59)
 
-        In-game HUD which displays current stellar position and name 
-            Also visible in Map
+        ✔ In-game HUD which displays current stellar position and name @done(26-10-12 03:25)
+            ✔ Also visible in Map @done(26-10-12 03:25)
+            ✔ in system @done(26-10-12 03:25)
+                ✔ "In system asd33, @done(26-10-12 03:25)
+            ✔ empty space @done(26-10-12 03:25)
 
         impl. QOL features
             Local click-to-travel / Autopilot
