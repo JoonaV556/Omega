@@ -74,6 +74,11 @@ shader_parameter/alpha = 1.0
 shader_parameter/inner_radius = 0.565
 shader_parameter/outer_radius = 1.37
 
+[sub_resource type="LabelSettings" id="LabelSettings_w03s2"]
+font = ExtResource("21_i2a4i")
+font_size = 15
+font_color = Color(1, 1, 1, 0.5254902)
+
 [node name="Node2D" type="Node2D" unique_id=1787844382]
 
 [node name="CanvasLayer - Gameworld" type="CanvasLayer" parent="." unique_id=624978859]
@@ -1256,9 +1261,8 @@ text = "Controls:
   Pan / Move map - Drag mouse while holding RMB
   Zoom map - Mouse Scroll
   Select map objects - LMB
- Close application - ESC
-  "
-label_settings = ExtResource("15_551uo")
+ Close application - ESC"
+label_settings = SubResource("LabelSettings_w03s2")
 
 [node name="Panel" type="Panel" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Keybinds3" unique_id=2005579608]
 z_index = -1
@@ -1267,9 +1271,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -10.0
-offset_top = -10.0
+offset_top = -4.0
 offset_right = 10.0
-offset_bottom = 10.0
+offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
 

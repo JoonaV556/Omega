@@ -3,9 +3,9 @@ extends RefCounted
 
 
 enum ChunkDetailLevel {
-	LOW, # Returns chunk without any object data, but contains system (if any) and its name
-	MEDIUM, # Returns a chunk. If chunk has a system, contains primary object and its position in the system.
-	FULL # Returns a chunk with complete object information (type, location, size etc.)
+	LOW, ## Returns chunk without any object data, but contains system (if any) and its name
+	MEDIUM, ## Returns a chunk. If chunk has a system, contains primary object and its position in the system.
+	FULL ## Returns a chunk with complete object information (type, location, size etc.)
 }
 
 
@@ -30,7 +30,7 @@ class generator_params:
 static func generate_chunk(
 	coords: Vector2i, 
 	detail_level: ChunkDetailLevel = ChunkDetailLevel.FULL,
-	params: generator_params = generator_params.new()
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()
 	) -> SpaceChunk:
 
 	# Ensure chunk stays same across platforms with same seed

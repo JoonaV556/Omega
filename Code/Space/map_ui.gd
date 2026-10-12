@@ -221,12 +221,7 @@ func set_origin_chunk(coords: Vector2i):
 
 func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
 	# Get chunk info 
-	var params := SpaceChunkGenerator.generator_params.new()
-	params.chunk_size_pixels = SpaceGlobals.chunk_size_pixels
-	var chunk := SpaceChunkGenerator.generate_chunk(
-		chunk_coords,
-		SpaceChunkGenerator.ChunkDetailLevel.MEDIUM
-	)
+	var chunk := SpaceChunkGenerator.generate_chunk(chunk_coords, SpaceChunkGenerator.ChunkDetailLevel.MEDIUM)
 
 	# Create node only for chunks with a system innit
 	if chunk.system == null:

@@ -947,10 +947,15 @@ Space Layer
                 ✔ "In system asd33, @done(26-10-12 03:25)
             ✔ empty space @done(26-10-12 03:25)
 
-Refactors
+✔ Refactors @done(26-10-12 23:29)
     ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-12 22:45)
         ✔ test @done(26-10-12 22:45)
-    Make all chunk requesters use same global params to prevent issues 
+
+    ✔ Make all chunk requesters use same global params to prevent issues @done(26-10-12 23:29)
+        ✔ space globals @done(26-10-12 23:29)
+            ✔ static generator params @done(26-10-12 23:29)
+        
+        ✔ make all classes use same params @done(26-10-12 23:29)
   
 Allow intergalactic travel
     ✔ gather ref images & plan @done(26-10-12 22:31)

@@ -64,14 +64,7 @@ func load_chunks_in_radius(chunk_coords: Vector2i, radius: Vector2i) -> Array[Ve
 
 func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 	# Generate chunk
-	var params := SpaceChunkGenerator.generator_params.new()
-	params.chunk_size_pixels = SpaceGlobals.chunk_size_pixels
-	
-	var chunk := SpaceChunkGenerator.generate_chunk(
-		chunk_coords,
-		SpaceChunkGenerator.ChunkDetailLevel.FULL,
-		params
-		)
+	var chunk := SpaceChunkGenerator.generate_chunk(chunk_coords, SpaceChunkGenerator.ChunkDetailLevel.FULL)
 
 	# Load the chunk
 	loaded_chunks[chunk.coordinates] = chunk
