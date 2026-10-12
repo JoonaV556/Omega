@@ -1235,26 +1235,30 @@ text = "Build version "
 label_settings = ExtResource("15_551uo")
 script = ExtResource("25_yxer7")
 
-[node name="Label - Keybinds" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1866705300]
+[node name="Label - Keybinds3" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1822991726]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -304.0
-offset_right = 442.0
-offset_bottom = -57.0
-grow_vertical = 0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -530.0
+offset_top = 40.0
+offset_right = -20.0
+offset_bottom = 337.0
+grow_horizontal = 0
+grow_vertical = 2
 mouse_filter = 1
-text = "Controls:
- Fly spaceship - WASD
- Steer spaceship - Mouse
- Shoot lasers - LMB
- Zoom camera - Mouse Scroll
+text = "Controls: 
+  Fly spaceship - WASD
+  Steer spaceship - Mouse
+  Shoot lasers - LMB
+  Zoom camera - Mouse Scroll
  Map:
   Open Map - M
   Pan / Move map - Drag mouse while holding RMB
   Zoom map - Mouse Scroll
+  Select map objects - LMB
  Close application - ESC
   "
 label_settings = ExtResource("15_551uo")
@@ -1283,6 +1287,7 @@ editor_only = false
 metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
+visible = false
 position = Vector2(-1104, -1563)
 script = ExtResource("18_83a0a")
 grid_cell_size = Vector2(200, 200)
@@ -1310,7 +1315,6 @@ metadata/_custom_type_script = "uid://df1pt71808fxv"
 script = ExtResource("21_f43e3")
 chunk_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 planet_2d_scene = ExtResource("17_mqia6")
-debug_draw_chunk_bounds = true
 metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
 [node name="OriginShifter" type="Node" parent="." unique_id=1746782482 node_paths=PackedStringArray("origin_shift_individual_targets", "origin_shift_target_parents")]
@@ -1336,8 +1340,8 @@ metadata/_custom_type_script = "uid://c2dcn87ckklk3"
 [connection signal="on_current_chunk_changed" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location"]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="set_origin_chunk" unbinds=2]
-[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
 [connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location" unbinds=2]
+[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
 [connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
 [connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
 [connection signal="on_activated" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="CanvasLayer - Gameworld/Camera2D/Camera2DZoom" method="set_process_input" binds= [false]]

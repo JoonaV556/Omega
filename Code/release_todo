@@ -62,10 +62,7 @@ core features
     ✔ In-game HUD which displays current stellar position @done(26-10-12 03:26)
         ✔ System, no galaxy "System Knox 311, deep space" @done(26-10-12 03:26)
 
-    ☐ QOL features
-        ☐ Local click-to-travel / Autopilot
-        ☐ Map-based click-to-travel / autopilot
-
+    ☐ build & release
 
 ☐ implement v0.4
     Allow intergalactic travel seamlessly
@@ -78,6 +75,7 @@ core features
 
     ☐ Space map
         ☐ Show only discovered systems on map
+        ☐ Toggleable grid overlay 
 
     ☐ Refactors
         ☐ Refactor space chunk loader to utilize new static generator class

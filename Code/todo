@@ -947,11 +947,9 @@ Space Layer
                 ✔ "In system asd33, @done(26-10-12 03:25)
             ✔ empty space @done(26-10-12 03:25)
 
-        impl. QOL features
-            Local click-to-travel / Autopilot
-            Map-based click-to-travel / autopilot
+        Disable debug overlays 
 
-        Increase chunk planet grid size so planet positions are not so easily predictable
+        Build & release
 
 
         
