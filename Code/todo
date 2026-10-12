@@ -992,7 +992,10 @@ Space Layer
     ✔ Track current galaxy-space coordinates @done(26-10-13 01:55)
     ✔ emit signal when galaxy chunk changes @done(26-10-13 01:55)
 
-Show current galaxy in current location info
+✔ Show current galaxy in current location info @done(26-10-13 02:10)
+    ✔ label @done(26-10-13 02:10)
+        ✔ if galaxy @done(26-10-13 02:10)
+            ✔ show galaxy on first line @done(26-10-13 02:10)
 
 Realistic system generation
     Stellar objects generate in orbits around each other

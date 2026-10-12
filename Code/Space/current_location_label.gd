@@ -6,13 +6,20 @@ func set_location(coords: Vector2i):
 	var chunk := SpaceChunkGenerator.generate_chunk(coords, SpaceChunkGenerator.ChunkDetailLevel.LOW)
 	var system := chunk.system as System
 
-	var _loc_str
+	var gal_loc_str
+
+	if chunk.galaxy:
+		gal_loc_str = "Galaxy: %s" % [chunk.galaxy.name]
+	else:
+		gal_loc_str = "Deep Space."
+
+	var _sys_loc_str
 
 	if system:
-		_loc_str = String("system %s." % [system.name])
+		_sys_loc_str = String("system %s." % [system.name])
 	else:
-		_loc_str = "empty space."
+		_sys_loc_str = "empty space pocket."
 
-	var full := String("Flying in %s\nCoordinates: %s." % [_loc_str, coords])
+	var full := String("%s\nFlying in %s\nCoordinates: %s." % [gal_loc_str,_sys_loc_str, coords])
 
 	text = full
