@@ -46,7 +46,7 @@ core features
             Universe can be run as a background process without window
             Updates can be feeded to terminal session and over internet 
 
-☐ Implement v0.3
+✔ Implement v0.3 @done(26-10-12 19:42)
     ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-06 23:32)
 
     ✔ Inter-system travel @done(26-10-06 23:32)
@@ -62,16 +62,14 @@ core features
     ✔ In-game HUD which displays current stellar position @done(26-10-12 03:26)
         ✔ System, no galaxy "System Knox 311, deep space" @done(26-10-12 03:26)
 
-    ☐ build & release
+    ✔ build & release @done(26-10-12 19:42)
 
 ☐ implement v0.4
-    Allow intergalactic travel seamlessly
-        Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds?
-        Space map changes?
+    ☐ Allow intergalactic travel seamlessly
+        ☐ Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds?
 
-    ☐ Introduce new stellar objects
-        ☐ Stars
-        ☐ Asteroid clouds
+    ☐ Realistic system generation
+        ☐ Stellar objects generate in orbits around each other
 
     ☐ Space map
         ☐ Show only discovered systems on map
@@ -80,3 +78,17 @@ core features
     ☐ Refactors
         ☐ Refactor space chunk loader to utilize new static generator class
         ☐ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler
+
+☐ v0.5
+    Discovery system
+
+    Autonomous NPC ships
+
+    Autonomous NPC fleets
+
+    Autopilot 
+        Click to automatically fly to a position in space
+            Target can be set in game view
+            Target can be set in map view
+
+    New map features

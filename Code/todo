@@ -947,9 +947,27 @@ Space Layer
                 ✔ "In system asd33, @done(26-10-12 03:25)
             ✔ empty space @done(26-10-12 03:25)
 
-        Disable debug overlays 
+Refactors
+    Refactor space chunk loader to utilize new static generator class
+    Make all chunk requesters use same global params to prevent issues 
+  
+Allow intergalactic travel
+    ✔ gather ref images & plan @done(26-10-12 22:31)
+    stellaroject galaxy 
 
-        Build & release
+    func generate chunk
+        get galaxy coords 
+
+Chunks without a galaxy very rarely contain systems & planets
+
+Realistic system generation
+    Stellar objects generate in orbits around each other
+
+Space map
+    Show only discovered systems on map
+    Toggleable grid overlay 
+
+
 
 
         
