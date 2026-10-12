@@ -1098,8 +1098,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 1030.0
 offset_top = 390.0
-offset_right = 1047.0
-offset_bottom = 407.0
+offset_right = 1042.0
+offset_bottom = 402.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -1122,7 +1122,7 @@ mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 metadata/_edit_use_anchors_ = true
 
-[node name="MapUI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1105360851 node_paths=PackedStringArray("background_root", "map_nodes_parent", "map_node_template", "selected_overlay_gui", "map_nodes_background")]
+[node name="MapUI" type="Control" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1105360851 node_paths=PackedStringArray("background_root", "map_nodes_parent", "map_node_template", "selected_overlay_gui", "map_nodes_background", "map_selection_root_node")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1136,6 +1136,8 @@ map_nodes_parent = NodePath("../../../Node2D - Map selection root/Node2D Map Obj
 map_node_template = NodePath("template objects/map_node")
 selected_overlay_gui = NodePath("../../../Node2D - Map selection root/TextureRect - Selection Overlay")
 map_nodes_background = NodePath("Vignette")
+map_selection_root_node = NodePath("../../../Node2D - Map selection root")
+zoom_step = 0.1
 render_chunks_in_radius = 4
 metadata/_custom_type_script = "uid://c7yhanfund7dm"
 

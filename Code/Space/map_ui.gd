@@ -11,6 +11,10 @@ extends UI
 
 @export var map_nodes_background: Control
 
+@export var map_selection_root_node: Node2D
+
+@export var zoom_step: float = 0.05
+
 @export_category("Map chunk settings")
 @export var render_chunks_in_radius: int = 2
 
@@ -55,6 +59,9 @@ func _ready() -> void:
 func _initialize():
 	var center := get_viewport_center_pos()
 	_origin_chunk_2d_position = center - (_map_chunk_size_pixels / 2.0)
+
+	# Move map selection root node to screen center to allow even zoom scaling
+	map_selection_root_node.position = get_viewport_center_pos()
 
 	# Init selector
 	_map_node_selector = Selector.new(self)
@@ -102,6 +109,8 @@ func _input(event: InputEvent) -> void:
 		return
 
 	pan_map_with_mouse(event)
+
+	zoom_with_input(event)
 
 
 func _create_map_nodes():
@@ -247,7 +256,8 @@ func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
 	var current_chunk_pos := screen_center - _map_pos_tracker.current_local_position
 	var chunk_offset := Vector2(chunk_coords - _map_pos_tracker.current_chunk_coordinates) * _map_chunk_size_pixels
 	var primary_object_offset := (_map_chunk_size_pixels / SpaceGlobals.chunk_size_pixels) * chunk.stellar_objects[primary_object]
-	node.position = current_chunk_pos + chunk_offset + primary_object_offset
+	var selection_root_offset := map_selection_root_node.position
+	node.position = current_chunk_pos + chunk_offset + primary_object_offset - selection_root_offset
 
 	return node
 
@@ -255,6 +265,29 @@ func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
 func get_viewport_center_pos() -> Vector2:
 	return get_viewport().get_visible_rect().size / 2.0
 	
+
+func zoom_with_input(event: InputEvent):
+	if event.is_action_pressed("ZoomIn"):
+		zoom_in()
+	if event.is_action_pressed("ZoomOut"):
+		zoom_out()
+
+
+func zoom_out():
+	map_selection_root_node.scale += Vector2(
+		-zoom_step,
+		-zoom_step
+	)
+	map_selection_root_node.scale.clamp(Vector2.ZERO, Vector2(100.0, 100.0))
+
+
+func zoom_in():
+	map_selection_root_node.scale += Vector2(
+		zoom_step,
+		zoom_step
+	)
+	map_selection_root_node.scale.clamp(Vector2.ZERO, Vector2(100.0, 100.0))
+
 
 func activate():
 	super()
