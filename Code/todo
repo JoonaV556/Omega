@@ -957,14 +957,39 @@ Space Layer
         
         ✔ make all classes use same params @done(26-10-12 23:29)
   
-Allow intergalactic travel
+✔ Allow intergalactic travel @done(26-10-13 00:34)
     ✔ gather ref images & plan @done(26-10-12 22:31)
-    stellaroject galaxy 
 
-    func generate chunk
-        get galaxy coords 
+    ✔ spaceglobals @done(26-10-12 23:45)
+        ✔ galaxy_cell_dimensions # How many chunks fit in a galaxy cell @done(26-10-12 23:45)
 
-Chunks without a galaxy very rarely contain systems & planets
+    ✔ stellarobject galaxy @done(26-10-12 23:46)
+
+    ✔ spacechunk @done(26-10-12 23:47)
+        ✔ galaxy @done(26-10-12 23:47)
+
+    
+
+    ✔ chunk generator @done(26-10-13 00:34)
+        ✔ params @done(26-10-12 23:51)
+            ✔ has system odds outside galaxy @done(26-10-12 23:51)
+
+        ✔ func generate chunk @done(26-10-13 00:34)
+            ✔ var galaxy = generate galaxy @done(26-10-13 00:34)
+            ✔ chunk.galaxy  = galaxy @done(26-10-13 00:34)
+
+            ✔ change system odds if chunk is in galaxy @done(26-10-13 00:34)
+        
+        ✔ func generate galaxy(chunk coords) @done(26-10-13 00:21)
+
+✔ fix - Every chunk now contains planets (is system) @done(26-10-13 01:39)
+    ✔ test @done(26-10-13 01:39)
+
+StellarPositionTracker
+    Track current galaxy-space coordinates
+    emit signal when galaxy chunk changes
+
+Show current galaxy in current location info
 
 Realistic system generation
     Stellar objects generate in orbits around each other

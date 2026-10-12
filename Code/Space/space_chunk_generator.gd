@@ -3,7 +3,7 @@ extends RefCounted
 
 
 enum ChunkDetailLevel {
-	LOW, ## Returns chunk without any object data, but contains system (if any) and its name
+	LOW, ## Returns chunk without any object data. Contains parent galaxy (if any) and system (if any).
 	MEDIUM, ## Returns a chunk. If chunk has a system, contains primary object and its position in the system.
 	FULL ## Returns a chunk with complete object information (type, location, size etc.)
 }
@@ -15,8 +15,11 @@ const _default_system_odds: float = 0.2
 
 
 class generator_params:
-	var has_system_odds: float = 0.2
-	
+	var chunk_belongs_to_galaxy_odds: float = 0.3
+
+	var has_system_odds_in_galaxy: float = 0.2
+	var has_system_odds_no_galaxy: float = 0.05
+
 	var planets_per_system_min: int = 1 
 	var planets_per_system_max: int = 10
 
@@ -40,8 +43,19 @@ static func generate_chunk(
 
 	var chunk := SpaceChunk.new(coords)
 
+	# Decide if chunk belongs to a galaxy
+	var gal := _generate_galaxy(coords, params.chunk_belongs_to_galaxy_odds)
+
+	if gal:
+		chunk.galaxy = gal
+
 	# Decide if has system
-	var has_system = chunk_rng.randf() <= params.has_system_odds
+	var system_odds: float = params.has_system_odds_no_galaxy
+
+	if gal:
+		system_odds = params.has_system_odds_in_galaxy
+
+	var has_system = chunk_rng.randf() <= system_odds
 	
 	# Generate empty system
 	if has_system:
@@ -53,15 +67,37 @@ static func generate_chunk(
 		return chunk
 
 	# Generate objects for the chunk
-	var objects := _generate_objects(chunk_rng, detail_level, params)
-	chunk.stellar_objects = objects
+	if has_system:
+		var objects := _generate_objects(chunk_rng, detail_level, params)
+		chunk.stellar_objects = objects
 
-	if has_system: # Update objects for system too
+		# Update objects for system too
 		var system := chunk.system as System
 		system.objects = objects.keys()
 		system.primary_object = objects.keys()[0] # Pick primary object for the system
 
 	return chunk
+
+
+## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).
+static func _generate_galaxy(chunk_coords: Vector2i, galaxy_odds: float) -> Galaxy:
+	# Decide if chunk has galaxy 
+	var gal_coords := Vector2i(
+		floori(float(chunk_coords.x) / SpaceGlobals.galaxy_cell_size.x),
+		floori(float(chunk_coords.y) / SpaceGlobals.galaxy_cell_size.y)
+	)
+	var gal_seed := hash(Vector4i(gal_coords.x, gal_coords.y, _seed, 1))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = gal_seed
+	
+	var has_galaxy := rng.randf() <= galaxy_odds
+
+	if !has_galaxy:
+		return null
+
+	var gal := Galaxy.new(_generate_random_name(rng))
+
+	return gal
 
 
 static func _generate_objects(

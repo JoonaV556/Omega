@@ -1,20 +1,9 @@
 class_name SpaceChunkLoader
 extends Node
 
-
-const world_seed: int = 123
-
 ## Radius of (1,1) means chunks in 3x3 square are generated around player. (2, 2) means 5x5 square
 @export var chunk_generation_radius: Vector2i = Vector2i(1, 1)
 
-@export_category("System generator params")
-@export var chunk_has_system_odds: float = 0.2
-@export var planets_per_system_min = 1
-@export var planets_per_system_max = 10
-## Minimum radius of generated planets in pixels
-@export var planet_radius_min = 100.0
-## Maximum radius of generated planets in pixels
-@export var planet_radius_max = 30000.0
 
 signal on_chunk_loaded(chunk: SpaceChunk)
 signal on_chunk_unloaded(chunk: SpaceChunk)
@@ -27,7 +16,7 @@ var origin_chunk_coords: Vector2i
 
 func init(initial_chunk_coords: Vector2i):
 	# init rng
-	seed(world_seed)
+	seed(SpaceChunkGenerator._seed)
 
 	# Generate initial chunks
 	load_chunks_in_radius(initial_chunk_coords, chunk_generation_radius)

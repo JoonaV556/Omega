@@ -1320,9 +1320,6 @@ metadata/_custom_type_script = "uid://rd1dchgc0l82"
 
 [node name="SpaceChunkLoader" type="Node" parent="." unique_id=2114528760]
 script = ExtResource("19_pk6eb")
-chunk_has_system_odds = 0.1
-planets_per_system_max = 15
-planet_radius_max = 2000.0
 metadata/_custom_type_script = "uid://df1pt71808fxv"
 
 [node name="SpaceChunkRenderer" type="Node" parent="." unique_id=1874235251 node_paths=PackedStringArray("chunk_nodes_parent")]
