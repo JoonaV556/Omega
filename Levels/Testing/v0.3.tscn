@@ -1237,17 +1237,14 @@ script = ExtResource("25_yxer7")
 
 [node name="Label - Keybinds3" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1822991726]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
 offset_left = -530.0
-offset_top = 40.0
+offset_top = 20.0
 offset_right = -20.0
-offset_bottom = 337.0
+offset_bottom = 317.0
 grow_horizontal = 0
-grow_vertical = 2
 mouse_filter = 1
 text = "Controls: 
   Fly spaceship - WASD
@@ -1262,6 +1259,19 @@ text = "Controls:
  Close application - ESC
   "
 label_settings = ExtResource("15_551uo")
+
+[node name="Panel" type="Panel" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Keybinds3" unique_id=2005579608]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label - Current Location" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=1814835985]
 layout_mode = 1
@@ -1315,6 +1325,7 @@ metadata/_custom_type_script = "uid://df1pt71808fxv"
 script = ExtResource("21_f43e3")
 chunk_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 planet_2d_scene = ExtResource("17_mqia6")
+debug_draw_chunk_bounds = true
 metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
 [node name="OriginShifter" type="Node" parent="." unique_id=1746782482 node_paths=PackedStringArray("origin_shift_individual_targets", "origin_shift_target_parents")]

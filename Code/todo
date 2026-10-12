@@ -948,7 +948,8 @@ Space Layer
             ✔ empty space @done(26-10-12 03:25)
 
 Refactors
-    Refactor space chunk loader to utilize new static generator class
+    ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-12 22:45)
+        ✔ test @done(26-10-12 22:45)
     Make all chunk requesters use same global params to prevent issues 
   
 Allow intergalactic travel

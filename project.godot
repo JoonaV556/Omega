@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Omega Space Layer"
-config/version="0.3"
+config/version="0.4"
 run/main_scene="uid://bthemp3ifyxsj"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://Assets_LICENSED/icon.svg"
@@ -26,7 +26,6 @@ buses/default_bus_layout="res://other/default_bus_layout.tres"
 
 [debug]
 
-gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
 
 [dialogic]
