@@ -10,7 +10,10 @@ extends Node
 
 
 signal on_current_chunk_changed(new_chunk: Vector2i)
+signal on_galaxy_cell_changed(new_galaxy_cell: Vector2i)
 
+
+var current_galaxy_cell_coordinates: Vector2i
 
 var current_chunk_coordinates: Vector2i
 
@@ -20,6 +23,8 @@ var current_local_position: Vector2
 func _ready() -> void:
 	# Initialize
 	set_position(start_chunk_coords, start_local_position)
+	on_current_chunk_changed.emit(current_chunk_coordinates)
+	on_galaxy_cell_changed.emit(current_galaxy_cell_coordinates)
 
 
 func set_chunk_size_pixels(new_size: Vector2):
@@ -30,6 +35,7 @@ func set_chunk_size_pixels(new_size: Vector2):
 
 
 func set_position(chunk_coords: Vector2i, local_pos: Vector2):
+	current_galaxy_cell_coordinates = SpaceUtils.get_galaxy_space_coords(chunk_coords)
 	current_chunk_coordinates = chunk_coords
 	current_local_position = local_pos.clamp(
 		Vector2.ZERO,
@@ -43,6 +49,8 @@ func move(movement_delta_pixels: Vector2):
 	var new_chunk_coordinates := current_chunk_coordinates
 
 	var old_chunk := current_chunk_coordinates
+
+	var old_gal_cell_coords := current_galaxy_cell_coordinates
 
 	# Update on x axis
 	while new_local_position.x >= chunk_size_pixels.x:
@@ -63,6 +71,9 @@ func move(movement_delta_pixels: Vector2):
 		new_chunk_coordinates.y -= 1
 
 	set_position(new_chunk_coordinates, new_local_position)
+
+	if old_gal_cell_coords != current_galaxy_cell_coordinates:
+		on_galaxy_cell_changed.emit(current_galaxy_cell_coordinates)
 
 	if old_chunk != current_chunk_coordinates:
 		on_current_chunk_changed.emit(current_chunk_coordinates)

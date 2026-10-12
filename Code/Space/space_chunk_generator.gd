@@ -82,10 +82,7 @@ static func generate_chunk(
 ## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).
 static func _generate_galaxy(chunk_coords: Vector2i, galaxy_odds: float) -> Galaxy:
 	# Decide if chunk has galaxy 
-	var gal_coords := Vector2i(
-		floori(float(chunk_coords.x) / SpaceGlobals.galaxy_cell_size.x),
-		floori(float(chunk_coords.y) / SpaceGlobals.galaxy_cell_size.y)
-	)
+	var gal_coords := SpaceUtils.get_galaxy_space_coords(chunk_coords)
 	var gal_seed := hash(Vector4i(gal_coords.x, gal_coords.y, _seed, 1))
 	var rng := RandomNumberGenerator.new()
 	rng.seed = gal_seed

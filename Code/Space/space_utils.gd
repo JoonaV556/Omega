@@ -11,3 +11,10 @@ static func get_object_type_string(object: StellarObject) -> String:
         return "Planet"
 
     return "Unknown"
+
+
+static func get_galaxy_space_coords(chunk_coords) -> Vector2i:
+    return Vector2i(
+		floori(float(chunk_coords.x) / SpaceGlobals.galaxy_cell_size.x),
+		floori(float(chunk_coords.y) / SpaceGlobals.galaxy_cell_size.y)
+	)
