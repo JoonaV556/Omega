@@ -250,7 +250,7 @@ func create_map_node(chunk_coords: Vector2i) -> Sprite2D:
 	var screen_center := get_viewport_center_pos()
 	var current_chunk_pos := screen_center - _map_pos_tracker.current_local_position
 	var chunk_offset := Vector2(chunk_coords - _map_pos_tracker.current_chunk_coordinates) * _map_chunk_size_pixels
-	var primary_object_offset := (_map_chunk_size_pixels / SpaceGlobals.chunk_size_pixels) * chunk.stellar_objects[primary_object]
+	var primary_object_offset := (_map_chunk_size_pixels / SpaceGlobals.chunk_size_pixels) * chunk.objects[primary_object]
 	var selection_root_offset := map_selection_root_node.position
 	node.position = current_chunk_pos + chunk_offset + primary_object_offset - selection_root_offset
 

@@ -8,4 +8,4 @@ var system: SpaceObject
 var galaxy: Galaxy
 
 ## dict where [object: SpaceObject, ]
-var stellar_objects: Dictionary[SpaceObject, Vector2]
+var objects: Dictionary[SpaceObject, Vector2]

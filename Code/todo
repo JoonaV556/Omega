@@ -999,38 +999,57 @@ Space Layer
 
 ✔ Rename StellarObject to SpaceObject @done(26-10-13 03:55)
 
+-----Realistic space rework
+Specs
+    Objects orbit each other 
+    Objects spin around
 
+Class structure
+    ✔ space object: @done(26-10-13 04:50)
+        ✔ name @done(26-10-13 04:50)
+        ✔ space body: @done(26-10-13 04:50)
+            ✔ spins around its center @done(26-10-13 04:50)
 
+            ✔ if has a orbit parent @done(26-10-13 04:50)
+                    ✔ moves along the orbit of its parent @done(26-10-13 04:50)
+                        ✔ move speed is directly defined by parents spin speed @done(26-10-13 04:50)
 
+            ✔ spin_speed # degrees per second @done(26-10-13 04:50)
 
+            ✔ orbit_parent @done(26-10-13 04:50)
 
+            ✔ orbit children @done(26-10-13 04:50)
 
+            ✔ parent_orbit_radius # pixels @done(26-10-13 04:50)
 
+            ✔ physical body: @done(26-10-13 04:50)
+                ✔ has a size defined in radius @done(26-10-13 04:50)
 
+                ✔ radius @done(26-10-13 04:50)
 
+✔ implement new classes @done(26-10-13 04:53)
 
-
-
-
-
-Stellar objects generate in orbits around each other
-    Rename StellarObject to SpaceObject
-
+implement scg new generate_chunk function with new classes
     Data step
-        Pick number of bodies 
+            Pick number of bodies 
 
-        Pick number of primary orbiters (bodies which share the same orbit origin)
-            Normal distro, prefer values of 1 or close to 1
+            Pick number of primary orbiters (bodies which share the same orbit origin)
+                Normal distro, prefer values of 1 or close to 1
 
-        For each body left after primaries
-            Pick orbit parent (body which the body orbits around)
-            Prefer primary orbiters
+            For each body left after primaries
+                Pick orbit parent (body which the body orbits around)
+                Prefer primary orbiters
 
     2D step (can be left optional for classes which dont need position data)
         Pick orbit radiuses for each body
         Pick sizes for each body
 
+replace old func with new func
 
+replace / refactor old classes to fit the new class structure
 
+reimplement chunk drawing
+
+remove old / unused properties
 
         

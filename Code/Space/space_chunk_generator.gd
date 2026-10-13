@@ -69,7 +69,7 @@ static func generate_chunk(
 	# Generate objects for the chunk
 	if has_system:
 		var objects := _generate_objects(chunk_rng, detail_level, params)
-		chunk.stellar_objects = objects
+		chunk.objects = objects
 
 		# Update objects for system too
 		var system := chunk.system as System

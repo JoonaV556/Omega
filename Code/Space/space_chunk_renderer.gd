@@ -65,8 +65,8 @@ func render_chunk(chunk: SpaceChunk):
 		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.system.name]
 
 	# Render objects in the chunk 
-	for object in chunk.stellar_objects.keys():
-		render_stellar_object(object, chunk_root, chunk.stellar_objects[object])
+	for object in chunk.objects.keys():
+		render_stellar_object(object, chunk_root, chunk.objects[object])
 
 	_draw_debug_visuals(chunk, chunk_root)
 
