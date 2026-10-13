@@ -1,4 +1,4 @@
-class_name StellarObject
+class_name SpaceObject
 extends RefCounted
 
 var name: String

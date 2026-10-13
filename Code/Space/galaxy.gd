@@ -1,2 +1,2 @@
 class_name Galaxy
-extends StellarObject
+extends SpaceObject

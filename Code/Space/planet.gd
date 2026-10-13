@@ -1,5 +1,5 @@
 class_name Planet
-extends StellarObject
+extends SpaceObject
 
 
 var radius_pixels: float

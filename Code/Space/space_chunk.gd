@@ -2,10 +2,10 @@ class_name SpaceChunk
 extends Chunk
 
 ## System in this galaxy. may be null
-var system: StellarObject
+var system: SpaceObject
 
 ## Which galaxy this chunk belongs to. may be null 
 var galaxy: Galaxy
 
-## dict where [object: StellarObject, ]
-var stellar_objects: Dictionary[StellarObject, Vector2]
+## dict where [object: SpaceObject, ]
+var stellar_objects: Dictionary[SpaceObject, Vector2]

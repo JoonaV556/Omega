@@ -65,19 +65,15 @@ core features
     ✔ build & release @done(26-10-12 19:42)
 
 ☐ implement v0.4
-    ☐ Allow intergalactic travel seamlessly
-        ☐ Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds?
+    ✔ Allow intergalactic travel seamlessly @done(26-10-13 02:12)
+        ✔ Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds? @done(26-10-13 02:12)
 
     ☐ Realistic system generation
         ☐ Stellar objects generate in orbits around each other
 
-    ☐ Space map
-        ☐ Show only discovered systems on map
-        ☐ Toggleable grid overlay 
-
-    ☐ Refactors
-        ☐ Refactor space chunk loader to utilize new static generator class
-        ☐ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler
+    ✔ Refactors @done(26-10-13 02:12)
+        ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-13 02:12)
+        ✔ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler @done(26-10-13 02:12)
 
 ☐ v0.5
     Discovery system

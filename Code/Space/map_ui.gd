@@ -19,7 +19,7 @@ extends UI
 @export var render_chunks_in_radius: int = 2
 
 
-signal on_object_selected(obj: StellarObject)
+signal on_object_selected(obj: SpaceObject)
 signal on_unselected()
 
 

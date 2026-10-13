@@ -997,12 +997,38 @@ Space Layer
         ✔ if galaxy @done(26-10-13 02:10)
             ✔ show galaxy on first line @done(26-10-13 02:10)
 
-Realistic system generation
-    Stellar objects generate in orbits around each other
+✔ Rename StellarObject to SpaceObject @done(26-10-13 03:55)
 
-Space map
-    Show only discovered systems on map
-    Toggleable grid overlay 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Stellar objects generate in orbits around each other
+    Rename StellarObject to SpaceObject
+
+    Data step
+        Pick number of bodies 
+
+        Pick number of primary orbiters (bodies which share the same orbit origin)
+            Normal distro, prefer values of 1 or close to 1
+
+        For each body left after primaries
+            Pick orbit parent (body which the body orbits around)
+            Prefer primary orbiters
+
+    2D step (can be left optional for classes which dont need position data)
+        Pick orbit radiuses for each body
+        Pick sizes for each body
 
 
 

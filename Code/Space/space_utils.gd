@@ -2,7 +2,7 @@ class_name SpaceUtils
 extends RefCounted
 
 
-static func get_object_type_string(object: StellarObject) -> String:
+static func get_object_type_string(object: SpaceObject) -> String:
 
     if object is System:
         return "System"

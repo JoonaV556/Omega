@@ -101,9 +101,9 @@ static func _generate_objects(
 	rng: RandomNumberGenerator, 
 	detail_level: ChunkDetailLevel, 
 	params: generator_params = generator_params.new()
-	) -> Dictionary[StellarObject, Vector2]:
+	) -> Dictionary[SpaceObject, Vector2]:
 
-	var objects: Dictionary[StellarObject, Vector2]
+	var objects: Dictionary[SpaceObject, Vector2]
 
 	## TODO - Anything past this line should be reworked once new stellar objects other than planets are introduced, and in case if chunk generation requires rework
 	# Generate planets by dividing the chunk into a grid and picking a cell for each object
@@ -150,7 +150,7 @@ static func _generate_objects(
 		var planet_name := _generate_random_name(rng)
 		var planet: Planet = Planet.new(planet_name, planet_radius)
 
-		objects[planet as StellarObject] = candidate_position
+		objects[planet as SpaceObject] = candidate_position
 		
 		# Mark the grid cell occupied so it wont be picked for other planets
 		occupied_cells[cell] = true

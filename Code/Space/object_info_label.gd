@@ -6,7 +6,7 @@ func _ready() -> void:
 	hide()
 
 
-func show_info(obj: StellarObject):
+func show_info(obj: SpaceObject):
 	show()
 	var _str := String("Object Info 
 	\n\t type: %s

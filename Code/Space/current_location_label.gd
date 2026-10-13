@@ -18,7 +18,7 @@ func set_location(coords: Vector2i):
 	if system:
 		_sys_loc_str = String("system %s." % [system.name])
 	else:
-		_sys_loc_str = "empty space pocket."
+		_sys_loc_str = "empty pocket."
 
 	var full := String("%s\nFlying in %s\nCoordinates: %s." % [gal_loc_str,_sys_loc_str, coords])
 
