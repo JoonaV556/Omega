@@ -1029,20 +1029,37 @@ Class structure
 
 ✔ implement new classes @done(26-10-13 04:53)
 
-implement scg new generate_chunk function with new classes
-    Data step
-            Pick number of bodies 
+generation func
 
-            Pick number of primary orbiters (bodies which share the same orbit origin)
-                Normal distro, prefer values of 1 or close to 1
+✔ create orbital structure (which planets orbit which) @done(26-10-17 01:02)
+    ✔ Start structure from a single body @done(26-10-17 01:02)
+    ✔ (might not be physical if system has multiple primary bodies orbiting a shared position) @done(26-10-17 01:02)
 
-            For each body left after primaries
-                Pick orbit parent (body which the body orbits around)
-                Prefer primary orbiters
+    ✔ bodies are more likely to orbit around secondary bodies rather than centre @done(26-10-17 01:02)
 
-    2D step (can be left optional for classes which dont need position data)
-        Pick orbit radiuses for each body
-        Pick sizes for each body
+✔ Pick chunk center position (The position which all bodies orbit around) @done(26-10-17 01:25)
+
+- pick orbit radiuses for all orbital bodies
+    start from center body -> ascend orbit levels towards outer rim
+
+    center body
+        doesnt have orbit radius (doesnt have parent to orbit)
+
+    first level body
+        body radius max = free distance / 2 
+        (in center bodys case free distance = distance towards closest edge)
+
+    other bodies
+        body radius max = pick_smaller(distance towards edge, parents radius ) / 2
+        
+        if multiple bodies with bodys parent
+            body radius has a chance to be same as its sibling
+
+- pick sizes for all orbital bodies
+    calculate distance from center to closest chunk edge 
+
+    assign radiuses for bodies starting from origin body, ascending towards the body furthest away from origin
+
 
 replace old func with new func
 

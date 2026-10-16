@@ -7,5 +7,5 @@ var system: SpaceObject
 ## Which galaxy this chunk belongs to. may be null 
 var galaxy: Galaxy
 
-## dict where [object: SpaceObject, ]
+## dict where [object: SpaceObject, local position]
 var objects: Dictionary[SpaceObject, Vector2]

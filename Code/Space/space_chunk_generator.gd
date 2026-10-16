@@ -29,6 +29,13 @@ class generator_params:
 	
 	var chunk_size_pixels: Vector2 = Vector2(5000.0, 5000.0)
 
+	var orbit_around_empty_center_odds: float = 0.5
+
+	## Odds for a body to orbit around the center (root) body. Lower values introduce more complex orbits.
+	var secondary_body_orbit_around_center_odds: float = 0.1
+	
+	var orbital_center_grid_size: Vector2i = Vector2i(3, 3)
+
 
 static func generate_chunk(
 	coords: Vector2i, 
@@ -77,6 +84,149 @@ static func generate_chunk(
 		system.primary_object = objects.keys()[0] # Pick primary object for the system
 
 	return chunk
+
+
+static func generate_chunk_realistic(
+	coords: Vector2i, 
+	detail_level: ChunkDetailLevel = ChunkDetailLevel.FULL,
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()
+	) -> SpaceChunk:
+
+	# Ensure chunk stays same across platforms with same seed
+	var chunk_rng := RandomNumberGenerator.new()
+	var chunk_hash = hash(Vector3i(coords.x, coords.y, _seed))
+	chunk_rng.seed = chunk_hash
+	
+	var chunk := SpaceChunk.new(coords)
+
+	# Generate orbital structure (strictly data, which bodies orbit which etc.)
+	var bodies_orbital_structure := generate_bodies_orbital_structure(chunk_hash, params)
+
+	_print_orbital_structure(bodies_orbital_structure)
+
+	# Decide orbital center position (Position in chunk where bodies orbit around)
+	var _orbital_center_position := _pick_random_grid_cell_center(
+		chunk_rng,
+		params.chunk_size_pixels,
+		params.orbital_center_grid_size
+	)
+
+	# Decide sizes of orbits
+	var bodies_with_radiuses = generate_orbit_radiuses(
+		bodies_orbital_structure,
+		 _orbital_center_position, 
+		 params
+		 )
+	
+	# Decide sizes of the bodies
+
+	return chunk
+
+
+static func generate_orbit_radiuses(
+	root: OrbitalBody,
+	orbital_center_position: Vector2,
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()
+	) -> OrbitalBody:
+		
+	# The root has a radius of 0.0 because it is the center
+	root.parent_orbit_radius = 0.0
+
+	# Calulate distance to closest chunk edge
+	var _center_edge_distance := _get_distance_to_closest_chunk_edge(
+		orbital_center_position,
+		params.chunk_size_pixels
+	)
+
+
+
+
+	return root
+
+
+## Generates an orbital structure (orbital bodies orbiting each other). Returns the root body other bodies orbit around
+static func generate_bodies_orbital_structure(
+	bodies_seed: int, 
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()
+	) -> OrbitalBody:
+
+	# Ensure bodies stay consistent
+	var rng := RandomNumberGenerator.new()
+	rng.seed = bodies_seed
+
+	# Decide number of bodies
+	var bodies_to_generate := rng.randi_range(params.planets_per_system_min, params.planets_per_system_max)
+
+	# No bodies
+	if bodies_to_generate <= 0:
+		return null
+
+	# Decide if bodies orbit each other around an empty center, or if the center is a physical body 
+	var empty_center := rng.randf() <= params.orbit_around_empty_center_odds
+
+	var root: OrbitalBody
+
+	var bodies_left := bodies_to_generate
+
+	var generated_bodies: Array[OrbitalBody] = []
+
+	# Create root
+	if empty_center:
+		root = OrbitalBody.new(
+			_generate_random_name(rng)
+		)
+	else:
+		root = PhysicalBody.new(
+			_generate_random_name(rng)
+		)
+		bodies_left -=1
+	generated_bodies.append(root)
+
+	# Generate rest of the bodies
+	for body_idx: int in range(bodies_left):
+		# Calc correct body index
+		var correct_body_idx := body_idx if empty_center else body_idx + 1
+
+		# Create body
+		## TODO - randomize body type here in future to introduce new types (stars, planets, gas giants etc.)
+		var body := PhysicalBody.new(
+			_generate_random_name(rng)
+		)
+
+		var parent_candidates = generated_bodies.duplicate()
+
+		# Make secondary bodies less likely to orbit around center
+		var orbit_around_center := rng.randf() <= params.secondary_body_orbit_around_center_odds
+
+		if !orbit_around_center and parent_candidates.size() > 1:
+			parent_candidates.remove_at(0)
+
+		# Decide which object the body orbits around
+		body.orbit_parent = parent_candidates[
+			rng.randi_range(0, parent_candidates.size() - 1)
+		]
+		body.orbit_parent.orbiting_children.append(body)
+
+		generated_bodies.append(body)
+
+	return root
+
+
+static func _print_orbital_structure(root: OrbitalBody) -> void:
+	if root == null:
+		print("\nOrbital structure: no bodies generated")
+		return
+
+	print("\nPrinting orbital structure:")
+	print("Orbital structure root: %s" % [root.name])
+	_print_orbital_children(root, 1)
+
+
+static func _print_orbital_children(parent: OrbitalBody, depth: int) -> void:
+	for body: OrbitalBody in parent.orbiting_children:
+		var indentation := "  ".repeat(depth)
+		print("%sSecondary body: %s orbits %s" % [indentation, body.name, parent.name])
+		_print_orbital_children(body, depth + 1)
 
 
 ## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).
@@ -137,8 +287,7 @@ static func _generate_objects(
 		free_cells.remove_at(cell_index) # Consume the cell so other planets cannot pick it
 
 		# Place the planet in the center of the grid cell
-		var cell_min := Vector2(cell.x * cell_size.x, cell.y * cell_size.y)
-		var candidate_position := cell_min + (cell_size * 0.5)
+		var candidate_position := _get_grid_cell_center(cell, chunk_size, grid_size)
 
 		# Limit the radius of the planet so it doesnt extend over the chunk boundaries or occupied planet grid cells
 		var max_radius := _get_max_radius_for_position(candidate_position, chunk_size, occupied_cells, cell_size, grid_size)
@@ -176,6 +325,27 @@ static func _pick_planet_grid_size(num_planets: int) -> Vector2i:
 	return _clamp_grid_size(Vector2i(columns, rows))
 
 
+## Divides chunk into a grid and returns a centered position inside a randomly picked grid cell. Useful for randomizing positions inside chunks while preventing objects from being too close to chunk edges.
+static func _pick_random_grid_cell_center(
+	rng: RandomNumberGenerator,
+	chunk_size: Vector2,
+	grid_size: Vector2i
+) -> Vector2:
+	var cell := Vector2i(
+		rng.randi_range(0, grid_size.x - 1),
+		rng.randi_range(0, grid_size.y - 1)
+	)
+	return _get_grid_cell_center(cell, chunk_size, grid_size)
+
+
+static func _get_grid_cell_center(cell: Vector2i, chunk_size: Vector2, grid_size: Vector2i) -> Vector2:
+	var cell_size := Vector2(
+		chunk_size.x / float(grid_size.x),
+		chunk_size.y / float(grid_size.y)
+	)
+	return (Vector2(cell) + Vector2(0.5, 0.5)) * cell_size
+
+
 static func _clamp_grid_size(grid_size: Vector2i) -> Vector2i:
 	return Vector2i(
 		maxi(1, grid_size.x),
@@ -190,14 +360,7 @@ static func _get_max_radius_for_position(
 	cell_size: Vector2,
 	grid_size: Vector2i
 ) -> float:
-	var max_radius: float = min(
-		position.x,
-		chunk_size.x - position.x,
-		position.y,
-		chunk_size.y - position.y
-	)
-	if max_radius < 0.0:
-		return 0.0
+	var max_radius := _get_distance_to_closest_chunk_edge(position, chunk_size)
 
 	for cell_key in occupied_cells.keys():
 		var cell := cell_key as Vector2i
@@ -210,6 +373,13 @@ static func _get_max_radius_for_position(
 			max_radius = allowed_radius
 
 	return max_radius
+
+
+static func _get_distance_to_closest_chunk_edge(position: Vector2, chunk_size: Vector2) -> float:
+	return minf(
+		minf(absf(position.x), absf(chunk_size.x - position.x)),
+		minf(absf(position.y), absf(chunk_size.y - position.y))
+	)
 
 
 static func _clamp_point_to_rect(point: Vector2, rect_min: Vector2, rect_max: Vector2) -> Vector2:

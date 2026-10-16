@@ -1,5 +1,5 @@
 class_name PhysicalBody
-extends SpaceBody
+extends OrbitalBody
 
 
 ## Radius of the body in pixels

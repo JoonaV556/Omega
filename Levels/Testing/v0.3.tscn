@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://b8524337d5kmn" path="res://Code/Space/object_info_label.gd" id="24_vt7fa"]
 [ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="25_yxer7"]
 [ext_resource type="Script" uid="uid://bk15b854bjoo5" path="res://Code/Space/current_location_label.gd" id="28_w03s2"]
+[ext_resource type="Script" uid="uid://dprsbqewgld7c" path="res://Code/Space/testing/orbital_structure_test.gd" id="36_l8f3a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -1340,6 +1341,9 @@ metadata/_custom_type_script = "uid://bvjhuttqbicme"
 [node name="DiscoveryAgent" type="Node" parent="." unique_id=1755377438]
 script = ExtResource("23_mqia6")
 metadata/_custom_type_script = "uid://c2dcn87ckklk3"
+
+[node name="orbit structure test" type="Node" parent="." unique_id=527429995]
+script = ExtResource("36_l8f3a")
 
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid2/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid2" method="queue_free"]
