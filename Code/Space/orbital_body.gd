@@ -9,11 +9,50 @@ var spin_speed: float
 ## The body this body orbits around, may be null if primary etc.
 var orbit_parent: OrbitalBody
 
-## Radius of the orbit circle the body orbits around its parent.
-var parent_orbit_radius: float 
+## How far apart the body orbits around its parent
+var orbit_radius: float 
 
 ## Children bodies orbiting this body
 var orbiting_children: Array[OrbitalBody]
+
+
+## Returns the sum of orbit radiuses of the body and all of its hierarchical parents in the orbital tree.
+func get_accumulated_orbit_radius() -> float:
+    var accumulated_radius := orbit_radius
+
+    if orbit_parent != null:
+        accumulated_radius += orbit_parent.get_accumulated_orbit_radius()
+
+    return accumulated_radius
+
+
+func get_siblings() -> Array[OrbitalBody]:
+    var sibs: Array[OrbitalBody] = []
+
+    if orbit_parent == null:
+        return sibs
+
+    sibs = orbit_parent.orbiting_children.duplicate()
+    sibs.erase(self) 
+
+    return sibs
+
+
+func get_siblings_with_set_radiuses(min_orbit_radius: float) -> Array[OrbitalBody]:
+    var sibs_s: Array[OrbitalBody] = [] 
+
+    sibs_s = get_siblings()
+
+    if !sibs_s.is_empty():
+        sibs_s = sibs_s.filter(
+            func(body: OrbitalBody): return body.orbit_radius > min_orbit_radius
+        )
+
+    return sibs_s
+
+
+func has_orbit_radius() -> bool:
+    return orbit_radius > 0.0
 
 
 func get_orbit_levels_num() -> int:

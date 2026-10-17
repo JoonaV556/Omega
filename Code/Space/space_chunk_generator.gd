@@ -36,6 +36,10 @@ class generator_params:
 	
 	var orbital_center_grid_size: Vector2i = Vector2i(3, 3)
 
+	var minimum_orbit_radius: float = 10.0
+
+	var copy_sibling_orbit_radius_odds: float = 0.2 
+
 
 static func generate_chunk(
 	coords: Vector2i, 
@@ -102,6 +106,9 @@ static func generate_chunk_realistic(
 	# Generate orbital structure (strictly data, which bodies orbit which etc.)
 	var bodies_orbital_structure := generate_bodies_orbital_structure(chunk_hash, params)
 
+	if bodies_orbital_structure == null:
+		return chunk
+
 	_print_orbital_structure(bodies_orbital_structure)
 
 	# Decide orbital center position (Position in chunk where bodies orbit around)
@@ -118,12 +125,14 @@ static func generate_chunk_realistic(
 		 chunk_rng,
 		 params
 		 )
-	
+	_print_orbit_radius_report(bodies_with_radiuses)
+
 	# Decide sizes of the bodies
 
 	return chunk
 
 
+## NOTE: may remove bodies in the orbital hierarchy if they dont fit inside the chunk bounds
 static func generate_orbit_radiuses(
 	root: OrbitalBody,
 	orbital_center_position: Vector2,
@@ -131,8 +140,8 @@ static func generate_orbit_radiuses(
 	params: generator_params = SpaceGlobals.get_chunk_generator_params()
 	) -> OrbitalBody:
 		
-	# The root has a radius of 0.0 because it is the center
-	root.parent_orbit_radius = 0.0
+	# The root has a radius of 0.0 because it is the center and doesnt have a parent to orbit around
+	root.orbit_radius = 0.0
 
 	# Calulate distance to closest chunk edge
 	var _center_edge_distance := _get_distance_to_closest_chunk_edge(
@@ -152,12 +161,82 @@ static func generate_orbit_radiuses(
 		var bodies_on_level := root.get_bodies_on_orbit_level(orbit_level) 
 
 		for body in bodies_on_level:
-			var radius_min := 0.0
-			var radius_max := 1.0
 
-			body.parent_orbit_radius = rng.randf_range(radius_min, radius_max)
+			# Remove the body and its children if it doesnt fit inside the chunk
+			var radius_extent := body.get_accumulated_orbit_radius() + params.minimum_orbit_radius
+			if radius_extent >= _center_edge_distance:
+				body.orbit_parent.orbiting_children.erase(body)
+				continue
+
+			# Make some bodies copy their siblings orbit (orbit parent at same distance)
+			var try_copy_radius := rng.randf() <= params.copy_sibling_orbit_radius_odds
+
+			var siblings := body.get_siblings_with_set_radiuses(params.minimum_orbit_radius)
+			if try_copy_radius and !siblings.is_empty():
+				var sib_idx := rng.randi_range(0, siblings.size() - 1)
+				body.orbit_radius = siblings[sib_idx].orbit_radius
+				continue
+
+			# Generate maximum of 3 orbit track candidates and choose one for the body
+			# Calculate track bounds
+			var tracks_bounds_min := params.minimum_orbit_radius
+
+			var parent_to_edge_distance := _center_edge_distance - body.orbit_parent.get_accumulated_orbit_radius() - params.minimum_orbit_radius
+
+			var usable_distance = parent_to_edge_distance / 2.0
+			
+			var tracks_bounds_max: float
+			if !body.orbit_parent.has_orbit_radius(): # Parent is root body, so max radius is limited only by chunk edges
+				tracks_bounds_max = usable_distance
+			else:
+				tracks_bounds_max = minf( # Parent orbits another body, so ensure all orbit tracks are smaller than parents orbit radius
+					usable_distance, 
+					body.orbit_parent.orbit_radius - params.minimum_orbit_radius
+					)
+				
+			var orbit_tracks := _generate_orbit_tracks(
+				tracks_bounds_min,
+				tracks_bounds_max,
+				2.0 * params.minimum_orbit_radius # Ensure orbit tracks are spaced enough
+			)
+
+			if orbit_tracks.is_empty():
+				body.orbit_parent.orbiting_children.erase(body)
+				continue
+
+			body.orbit_radius = orbit_tracks[rng.randi_range(0, orbit_tracks.size() - 1)]
 		
 	return root
+
+
+## Returns up to three evenly spaced orbit radii that fit within the bounds.
+static func _generate_orbit_tracks(
+	bounds_min: float,
+	bounds_max: float,
+	minimum_spacing: float
+) -> Array[float]:
+
+	var orbit_tracks: Array[float] = []
+	var free_range := bounds_max - bounds_min
+
+	if free_range < 0.0:
+		return orbit_tracks
+
+	var track_count := 3
+
+	if minimum_spacing > 0.0:
+		track_count = mini(3, int(floor(free_range / minimum_spacing)) + 1)
+
+	for track_index in range(track_count):
+		var track_radius: float
+
+		if track_count == 1:
+			track_radius = (bounds_min + bounds_max) / 2.0
+		else:
+			track_radius = bounds_min + free_range * float(track_index) / float(track_count - 1)
+		orbit_tracks.append(track_radius)
+
+	return orbit_tracks
 
 
 ## Generates an orbital structure (orbital bodies orbiting each other). Returns the root body other bodies orbit around
@@ -243,6 +322,29 @@ static func _print_orbital_children(parent: OrbitalBody, depth: int) -> void:
 		var indentation := "  ".repeat(depth)
 		print("%sSecondary body: %s orbits %s" % [indentation, body.name, parent.name])
 		_print_orbital_children(body, depth + 1)
+
+
+## Prints each body's orbit radius, parent, and total distance from the orbital center.
+static func _print_orbit_radius_report(body: OrbitalBody, depth: int = 0) -> void:
+	if depth == 0:
+		print("\nGenerated orbit radii:")
+
+	if body == null:
+		print("No orbital bodies generated")
+		return
+
+	var parent_name := "orbital center"
+	if body.orbit_parent != null:
+		parent_name = body.orbit_parent.name
+
+	var indentation := "  ".repeat(depth)
+	print(
+		"%s%s: orbit radius %.2f px around %s; accumulated radius %.2f px"
+		% [indentation, body.name, body.orbit_radius, parent_name, body.get_accumulated_orbit_radius()]
+	)
+
+	for child: OrbitalBody in body.orbiting_children:
+		_print_orbit_radius_report(child, depth + 1)
 
 
 ## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).

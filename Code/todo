@@ -1042,28 +1042,106 @@ generation func
 - pick orbit radiuses for all orbital bodies
     start from center body -> ascend orbit levels towards outer rim
 
-    center body
-        doesnt have orbit radius (doesnt have parent to orbit)
+    ✔ center body @done(26-10-17 22:31)
+        ✔ doesnt have orbit radius (doesnt have parent to orbit) @done(26-10-17 22:31)
 
-    bodies have pre-defined minimum orbit radius relative to parent
+    ✔ bodies have pre-defined minimum orbit radius relative to parent @done(26-10-17 21:54)
 
-    if minimum radius exceeds over closest chunk edge, delete the body and its children (Filter out bodies which dont fit inside chunk)
+    ✔ if minimum radius exceeds over closest chunk edge, delete the body and its children (Filter out bodies which dont fit inside chunk) @done(26-10-17 22:31)
+        ✔ func get_accumulated_radius @done(26-10-17 22:31)
+        ✔ if radius accumulus + min radius >= center edge distance @done(26-10-17 22:31)
+            ✔ destroy body @done(26-10-17 22:31)
 
-    first level body
+    other bodies
+        ✔ if body has siblings with radiuses already set, copy the radius by set odds @done(26-10-17 22:53)
+            ✔ func get siblings (exlude self) @done(26-10-17 22:53)
+            ✔ filter out siblings without radiuses @done(26-10-17 22:53)
+            ✔ if siblings @done(26-10-17 22:53)
+                ✔ copy radius by chance @done(26-10-17 22:53)
+
+        take into account sibling radiuses (either same as sibling or )
+            for bodies on level, generate 3 radius track candidates
+
+            for each body, select one of the possible tracks
+
+            rework radius copy among siblings
+
+
+
+
         radius min = min radius
         body radius max = free distance / 2 
         (in center bodys case free distance = distance towards closest edge)
-
-    other bodies
-        body radius max = pick_smaller(distance towards edge, parents radius ) / 2
-        
-        if multiple bodies with bodys parent
-            body radius has a chance to be same as its sibling
 
 - pick sizes for all orbital bodies
     calculate distance from center to closest chunk edge 
 
     assign radiuses for bodies starting from origin body, ascending towards the body furthest away from origin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 replace old func with new func
