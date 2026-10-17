@@ -1045,7 +1045,12 @@ generation func
     center body
         doesnt have orbit radius (doesnt have parent to orbit)
 
+    bodies have pre-defined minimum orbit radius relative to parent
+
+    if minimum radius exceeds over closest chunk edge, delete the body and its children (Filter out bodies which dont fit inside chunk)
+
     first level body
+        radius min = min radius
         body radius max = free distance / 2 
         (in center bodys case free distance = distance towards closest edge)
 

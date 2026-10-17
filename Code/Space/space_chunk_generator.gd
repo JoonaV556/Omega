@@ -115,6 +115,7 @@ static func generate_chunk_realistic(
 	var bodies_with_radiuses = generate_orbit_radiuses(
 		bodies_orbital_structure,
 		 _orbital_center_position, 
+		 chunk_rng,
 		 params
 		 )
 	
@@ -126,6 +127,7 @@ static func generate_chunk_realistic(
 static func generate_orbit_radiuses(
 	root: OrbitalBody,
 	orbital_center_position: Vector2,
+	rng: RandomNumberGenerator,
 	params: generator_params = SpaceGlobals.get_chunk_generator_params()
 	) -> OrbitalBody:
 		
@@ -138,9 +140,23 @@ static func generate_orbit_radiuses(
 		params.chunk_size_pixels
 	)
 
+	var orbit_levels := root.get_orbit_levels_num()
 
+	# Root body has no children to generate orbits for
+	if orbit_levels <= 0:
+		return root
 
+	# Assign radiuses to bodies, starting from direct children of the root body.
+	for orbit_level in range(orbit_levels):
+		
+		var bodies_on_level := root.get_bodies_on_orbit_level(orbit_level) 
 
+		for body in bodies_on_level:
+			var radius_min := 0.0
+			var radius_max := 1.0
+
+			body.parent_orbit_radius = rng.randf_range(radius_min, radius_max)
+		
 	return root
 
 
