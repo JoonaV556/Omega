@@ -1039,8 +1039,8 @@ generation func
 
 ✔ Pick chunk center position (The position which all bodies orbit around) @done(26-10-17 01:25)
 
-- pick orbit radiuses for all orbital bodies
-    start from center body -> ascend orbit levels towards outer rim
+✔ pick orbit radiuses for all orbital bodies @done(26-10-18 01:19)
+    ✔ start from center body -> ascend orbit levels towards outer rim @done(26-10-18 01:19)
 
     ✔ center body @done(26-10-17 22:31)
         ✔ doesnt have orbit radius (doesnt have parent to orbit) @done(26-10-17 22:31)
@@ -1052,26 +1052,33 @@ generation func
         ✔ if radius accumulus + min radius >= center edge distance @done(26-10-17 22:31)
             ✔ destroy body @done(26-10-17 22:31)
 
-    other bodies
+    ✔ other bodies @done(26-10-18 01:18)
         ✔ if body has siblings with radiuses already set, copy the radius by set odds @done(26-10-17 22:53)
             ✔ func get siblings (exlude self) @done(26-10-17 22:53)
             ✔ filter out siblings without radiuses @done(26-10-17 22:53)
             ✔ if siblings @done(26-10-17 22:53)
                 ✔ copy radius by chance @done(26-10-17 22:53)
 
-        take into account sibling radiuses (either same as sibling or )
-            for bodies on level, generate 3 radius track candidates
+        ✔ take into account sibling radiuses (either same as sibling or ) @done(26-10-18 01:18)
+            ✔ for bodies on level, generate 3 radius track candidates @done(26-10-18 01:18)
 
-            for each body, select one of the possible tracks
+            ✔ for each body, select one of the possible tracks @done(26-10-18 01:18)
 
-            rework radius copy among siblings
+            ✔ rework radius copy among siblings @done(26-10-18 01:18)
+
+        ✔ radius min = min radius @done(26-10-18 01:19)
+        ✔ body radius max = free distance / 2 @done(26-10-18 01:19)
+        ✔ (in center bodys case free distance = distance towards closest edge) @done(26-10-18 01:19)
 
 
+Ensure orbits dont collide with other bodies on the same level (divide the orbital circle into segments and limit orbit radiuses)
+    ✔ If body has a parent with 3 or more siblings limit radius to parent_sibling_limiter_distance() / 2 @done(26-10-19 05:25)
 
+    ✔ get_sibling_divider_distance() @done(26-10-19 05:25)
+        ✔ root angle = (360 / sibling_count) / 2 @done(26-10-19 05:25)
+        ✔ return orbit_radius * sin(root_angle) @done(26-10-19 05:25)
 
-        radius min = min radius
-        body radius max = free distance / 2 
-        (in center bodys case free distance = distance towards closest edge)
+    test function by setting up a test scenario with 3 objects on a orbit radius of 100
 
 - pick sizes for all orbital bodies
     calculate distance from center to closest chunk edge 
@@ -1079,69 +1086,10 @@ generation func
     assign radiuses for bodies starting from origin body, ascending towards the body furthest away from origin
 
 
+Assign spin speeds for all orbital bodies
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Assign the bodies to the chunk
 
 
 replace old func with new func

@@ -184,15 +184,22 @@ static func generate_orbit_radiuses(
 			var parent_to_edge_distance := _center_edge_distance - body.orbit_parent.get_accumulated_orbit_radius() - params.minimum_orbit_radius
 
 			var usable_distance = parent_to_edge_distance / 2.0
+
+			var radius_limiters: Array[float] = [usable_distance]
 			
 			var tracks_bounds_max: float
-			if !body.orbit_parent.has_orbit_radius(): # Parent is root body, so max radius is limited only by chunk edges
-				tracks_bounds_max = usable_distance
-			else:
-				tracks_bounds_max = minf( # Parent orbits another body, so ensure all orbit tracks are smaller than parents orbit radius
-					usable_distance, 
-					body.orbit_parent.orbit_radius - params.minimum_orbit_radius
-					)
+
+			# Limit radius by several criteria
+
+			# If Parent orbits another body, limit its childs orbit to half of its parents
+			if body.orbit_parent.has_orbit_radius(): 
+				radius_limiters.append(body.orbit_parent.orbit_radius - params.minimum_orbit_radius / 2.0)
+
+			# If parent has 3 or more siblings, ensure the radius doesnt extend over to its siblings area
+			if (body.orbit_parent.get_siblings().size() + 1) >= 3:
+				radius_limiters.append(body.orbit_parent.get_sibling_divider_distance() / 2.0)
+				
+			tracks_bounds_max = radius_limiters.min()
 				
 			var orbit_tracks := _generate_orbit_tracks(
 				tracks_bounds_min,
