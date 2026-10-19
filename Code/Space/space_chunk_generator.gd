@@ -190,6 +190,10 @@ static func generate_orbit_radiuses(
 			
 			var tracks_bounds_max: float
 
+			# Limit radius to half of parents radius
+			if body.orbit_parent.has_orbit_radius():
+				radius_limiters.append(body.orbit_parent.orbit_radius / 2.0)
+
 			# If Parent orbits another body, limit its childs orbit to half of its parents
 			if body.orbit_parent.has_orbit_radius(): 
 				radius_limiters.append(body.orbit_parent.orbit_radius - params.minimum_orbit_radius / 2.0)

@@ -1080,13 +1080,18 @@ generation func
 
     ✔ test function by setting up a test scenario with 3 objects on a orbit' radius of 100 @done(26-10-19 23:16)
 
-Limit orbit radius of children bodies if their parent has siblings on different orbit tracks
+✔ Limit orbit radius of children bodies if their parent has siblings on different orbit tracks @done(26-10-20 01:02)
+    ✔ check if body has parent with siblings on different rad tracks @done(26-10-20 01:02)
+    ✔ if body has a parent with siblings dif tracks @done(26-10-20 01:02)
+        ✔ get distances to all tracks @done(26-10-20 01:02)
+        ✔ add to limiters (smallest distance / 4) @done(26-10-20 01:02)
 
 
 - pick sizes for all orbital bodies
-    calculate distance from center to closest chunk edge 
-
     assign radiuses for bodies starting from origin body, ascending towards the body furthest away from origin
+
+    rad_min
+    rad_max
 
 
 Assign spin speeds for all orbital bodies
