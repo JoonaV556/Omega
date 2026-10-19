@@ -1071,14 +1071,17 @@ generation func
         ✔ (in center bodys case free distance = distance towards closest edge) @done(26-10-18 01:19)
 
 
-Ensure orbits dont collide with other bodies on the same level (divide the orbital circle into segments and limit orbit radiuses)
+✔ Ensure orbits dont collide with other bodies on the same level (divide the orbital circle into segments and limit orbit radiuses) @done(26-10-19 22:52)
     ✔ If body has a parent with 3 or more siblings limit radius to parent_sibling_limiter_distance() / 2 @done(26-10-19 05:25)
 
     ✔ get_sibling_divider_distance() @done(26-10-19 05:25)
         ✔ root angle = (360 / sibling_count) / 2 @done(26-10-19 05:25)
         ✔ return orbit_radius * sin(root_angle) @done(26-10-19 05:25)
 
-    test function by setting up a test scenario with 3 objects on a orbit radius of 100
+    ✔ test function by setting up a test scenario with 3 objects on a orbit' radius of 100 @done(26-10-19 23:16)
+
+Limit orbit radius of children bodies if their parent has siblings on different orbit tracks
+
 
 - pick sizes for all orbital bodies
     calculate distance from center to closest chunk edge 

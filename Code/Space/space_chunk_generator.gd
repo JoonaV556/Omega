@@ -184,16 +184,39 @@ static func generate_orbit_radiuses(
 			var parent_to_edge_distance := _center_edge_distance - body.orbit_parent.get_accumulated_orbit_radius() - params.minimum_orbit_radius
 
 			var usable_distance = parent_to_edge_distance / 2.0
-
+			
+			# Limit radius by several criteria to prevent orbits from colliding with each other, and to give leeway for body sizes
 			var radius_limiters: Array[float] = [usable_distance]
 			
 			var tracks_bounds_max: float
 
-			# Limit radius by several criteria
-
 			# If Parent orbits another body, limit its childs orbit to half of its parents
 			if body.orbit_parent.has_orbit_radius(): 
 				radius_limiters.append(body.orbit_parent.orbit_radius - params.minimum_orbit_radius / 2.0)
+
+			# If body has parent with siblings on different orbits, prevent orbit from colliding with parents sibling orbits
+			if body.orbit_parent.has_orbit_radius() and !body.orbit_parent.get_siblings().is_empty():
+				var parent_orbit_radius := body.orbit_parent.orbit_radius
+				var parent_siblings := body.orbit_parent.get_siblings()
+				var has_siblings_on_varying_orbits := false
+				var distance_to_closest_sibling_orbit: float
+
+				for sib : OrbitalBody in parent_siblings:
+					var distance_to_sibling_orbit = abs(sib.orbit_radius - parent_orbit_radius)
+
+					if distance_to_sibling_orbit < 1.0:
+						continue
+
+					if !has_siblings_on_varying_orbits:
+						has_siblings_on_varying_orbits = true
+						distance_to_closest_sibling_orbit = distance_to_sibling_orbit
+						continue
+
+					if distance_to_sibling_orbit < distance_to_closest_sibling_orbit:
+						distance_to_closest_sibling_orbit = distance_to_sibling_orbit
+				
+				if has_siblings_on_varying_orbits:
+					radius_limiters.append(distance_to_closest_sibling_orbit / 4.0)
 
 			# If parent has 3 or more siblings, ensure the radius doesnt extend over to its siblings area
 			if (body.orbit_parent.get_siblings().size() + 1) >= 3:
@@ -295,7 +318,7 @@ static func generate_bodies_orbital_structure(
 			_generate_random_name(rng)
 		)
 
-		var parent_candidates = generated_bodies.duplicate()
+		var parent_candidates := generated_bodies.duplicate()
 
 		# Make secondary bodies less likely to orbit around center
 		var orbit_around_center := rng.randf() <= params.secondary_body_orbit_around_center_odds
@@ -304,10 +327,9 @@ static func generate_bodies_orbital_structure(
 			parent_candidates.remove_at(0)
 
 		# Decide which object the body orbits around
-		body.orbit_parent = parent_candidates[
-			rng.randi_range(0, parent_candidates.size() - 1)
-		]
-		body.orbit_parent.orbiting_children.append(body)
+		var parent = parent_candidates[rng.randi_range(0, parent_candidates.size() - 1)]
+
+		parent.add_child(body)
 
 		generated_bodies.append(body)
 
@@ -433,7 +455,7 @@ static func _generate_objects(
 	return objects
 
 
-static func _generate_random_name(_rng: RandomNumberGenerator) -> String:
+static func _generate_random_name(_rng: RandomNumberGenerator = RandomNumberGenerator.new()) -> String:
 	var roots: Array = [
 		"Aster", "Boreal", "Cinder", "Drift", "Eos", "Feral",
 		"Gale", "Hallow", "Iris", "Juno", "Kite", "Lyra",

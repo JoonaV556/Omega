@@ -83,3 +83,8 @@ func get_bodies_on_orbit_level(level: int) -> Array[OrbitalBody]:
 func get_sibling_divider_distance() -> float:
     var root_angle := (360.0 / (get_siblings().size() + 1.0)) / 2.0
     return orbit_radius * sin(deg_to_rad(root_angle))
+
+
+func add_child(body: OrbitalBody):
+    orbiting_children.append(body)
+    body.orbit_parent = self
