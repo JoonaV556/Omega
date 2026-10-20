@@ -36,9 +36,11 @@ class generator_params:
 	
 	var orbital_center_grid_size: Vector2i = Vector2i(3, 3)
 
-	var minimum_orbit_radius: float = 10.0
+	var minimum_orbit_radius: float = 100.0
 
 	var copy_sibling_orbit_radius_odds: float = 0.2 
+
+	var physical_body_minimum_size_radius: float = 50.0
 
 
 static func generate_chunk(
@@ -119,17 +121,70 @@ static func generate_chunk_realistic(
 	)
 
 	# Decide sizes of orbits
-	var bodies_with_radiuses = generate_orbit_radiuses(
+	var bodies_with_orbits = generate_orbit_radiuses(
 		bodies_orbital_structure,
 		 _orbital_center_position, 
 		 chunk_rng,
 		 params
 		 )
-	_print_orbit_radius_report(bodies_with_radiuses)
+	_print_orbit_radius_report(bodies_with_orbits)
 
 	# Decide sizes of the bodies
+	var bodies_with_sizes = generate_body_sizes(
+		bodies_with_orbits,
+		_orbital_center_position,
+		chunk_rng,
+		params
+	)
+	_print_body_size_report(bodies_with_sizes)
 
 	return chunk
+
+
+static func generate_body_sizes(
+	root: OrbitalBody,
+	orbital_center_position: Vector2,
+	rng: RandomNumberGenerator,
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()
+	) -> OrbitalBody:
+
+	# Calculate distance to closest chunk edge
+	var _center_edge_distance := _get_distance_to_closest_chunk_edge(
+		orbital_center_position,
+		params.chunk_size_pixels
+	)
+
+	# Assign sizes to child bodies starting from children on deepest level, descending towards root.
+	var orbit_levels := root.get_orbit_levels_num()
+
+	if orbit_levels > 0:
+
+		for level in range(orbit_levels - 1, -1, -1): # Descend through child bodies, starting from children on deepest level
+
+			var bodies_on_level := root.get_bodies_on_orbit_level(level)
+
+			for body: OrbitalBody in bodies_on_level:
+				
+				if body is not PhysicalBody: # Make sure body is physical
+					continue
+
+				_generate_body_size(
+					body as PhysicalBody,
+					rng,
+					_center_edge_distance,
+					params
+				)
+
+	# Assign size to root body.
+	if root is PhysicalBody:
+		_generate_body_size(
+			root as PhysicalBody,
+			rng,
+			_center_edge_distance,
+			params
+		)
+
+	return root
 
 
 ## NOTE: may remove bodies in the orbital hierarchy if they dont fit inside the chunk bounds
@@ -241,6 +296,59 @@ static func generate_orbit_radiuses(
 			body.orbit_radius = orbit_tracks[rng.randi_range(0, orbit_tracks.size() - 1)]
 		
 	return root
+
+
+static func _generate_body_size(
+	body: PhysicalBody, 
+	rng: RandomNumberGenerator, 
+	_center_edge_distance: float,
+	params: SpaceChunkGenerator.generator_params = generator_params.new()
+	):
+
+	var radius_min := params.physical_body_minimum_size_radius
+
+	var radius_max: float
+
+	# Limit body radius by various factors
+	var radius_limiters: Array[float]
+	var distance_to_chunk_edge := _center_edge_distance - (body.get_accumulated_orbit_radius() + params.physical_body_minimum_size_radius)
+
+	if distance_to_chunk_edge < params.physical_body_minimum_size_radius:
+		body.orbit_parent.remove_child(body)
+		return
+
+	radius_limiters.append(distance_to_chunk_edge)
+
+
+	# Limit size to half of orbit radius
+	if body.has_orbit_radius():
+		if body.orbit_radius / 2.0 < params.physical_body_minimum_size_radius:
+			body.orbit_parent.remove_child(body)
+			return
+		radius_limiters.append(body.orbit_radius / 2.0)
+
+
+	# Limit size to half of childrens orbit radius
+	if !body.orbiting_children.is_empty():
+		var smallest_child_orbit_radius := INF
+
+		for child in body.orbiting_children:
+			if child.orbit_radius < smallest_child_orbit_radius:
+				smallest_child_orbit_radius = child.orbit_radius
+
+		var half_size := smallest_child_orbit_radius / 2.0
+		if half_size < params.physical_body_minimum_size_radius:
+			body.orbit_parent.remove_child(body)
+			return
+		radius_limiters.append(half_size)
+
+
+	# Randomize size between bounds
+	radius_max = radius_limiters.min()
+	body = body as PhysicalBody
+	body.size_radius = rng.randf_range(radius_min, radius_max)
+
+	return body
 
 
 ## Returns up to three evenly spaced orbit radii that fit within the bounds.
@@ -378,6 +486,36 @@ static func _print_orbit_radius_report(body: OrbitalBody, depth: int = 0) -> voi
 
 	for child: OrbitalBody in body.orbiting_children:
 		_print_orbit_radius_report(child, depth + 1)
+
+
+## Prints each physical body's size radius and diameter alongside its orbital distance.
+static func _print_body_size_report(body: OrbitalBody, depth: int = 0) -> void:
+	if depth == 0:
+		print("\nGenerated body sizes:")
+
+	if body == null:
+		print("No orbital bodies generated")
+		return
+
+	var indentation := "  ".repeat(depth)
+	if body is PhysicalBody:
+		var physical_body := body as PhysicalBody
+		print(
+			"%s%s: size radius %.2f px; diameter %.2f px; orbit radius %.2f px; accumulated orbit radius %.2f px"
+			% [
+				indentation,
+				body.name,
+				physical_body.size_radius,
+				physical_body.size_radius * 2.0,
+				body.orbit_radius,
+				body.get_accumulated_orbit_radius()
+			]
+		)
+	else:
+		print("%s%s: non-physical orbital center" % [indentation, body.name])
+
+	for child: OrbitalBody in body.orbiting_children:
+		_print_body_size_report(child, depth + 1)
 
 
 ## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).

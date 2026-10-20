@@ -3,4 +3,4 @@ extends OrbitalBody
 
 
 ## Radius of the body in pixels
-var radius: float 
+var size_radius: float 

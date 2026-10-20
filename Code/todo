@@ -1087,18 +1087,25 @@ generation func
         ✔ add to limiters (smallest distance / 4) @done(26-10-20 01:02)
 
 
-- pick sizes for all orbital bodies
-    assign radiuses for bodies starting from origin body, ascending towards the body furthest away from origin
+✔ pick sizes for all orbital bodies @done(26-10-20 04:11)
+    ✔ assign radiuses for bodies starting from children on deepest level, ascending towards the root body @done(26-10-20 04:11)
 
-    rad_min
-    rad_max
+    ✔ limit radius by various factors @done(26-10-20 04:11)
+        ✔ distance to chunk edge @done(26-10-20 03:30)
+
+        ✔ half of orbit radius @done(26-10-20 03:32)
+
+        ✔ take into account childrens radiuses @done(26-10-20 04:11)
+
+    ✔ delete the body early if minimum_radius doesnt fit the limits @done(26-10-20 03:35)
+
+    ✔ rad_min @done(26-10-20 04:11)
+    ✔ rad_max @done(26-10-20 04:11)
 
 
 Assign spin speeds for all orbital bodies
 
-
 Assign the bodies to the chunk
-
 
 replace old func with new func
 

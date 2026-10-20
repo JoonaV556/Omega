@@ -55,6 +55,7 @@ func has_orbit_radius() -> bool:
     return orbit_radius > 0.0
 
 
+## Returns number of hierarchical orbit levels of bodies orbiting this body. 0 means no children.
 func get_orbit_levels_num() -> int:
     var levels_num := 0
 
@@ -88,3 +89,8 @@ func get_sibling_divider_distance() -> float:
 func add_child(body: OrbitalBody):
     orbiting_children.append(body)
     body.orbit_parent = self
+
+
+func remove_child(body: OrbitalBody):
+    if orbiting_children.has(body):
+        orbiting_children.erase(body)
