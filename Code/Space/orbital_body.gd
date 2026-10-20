@@ -6,6 +6,8 @@ extends SpaceObject
 ## How fast the body spins around its center, in degrees per second.
 var spin_speed: float
 
+var orbital_velocity: float
+
 ## The body this body orbits around, may be null if primary etc.
 var orbit_parent: OrbitalBody
 

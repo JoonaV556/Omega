@@ -42,6 +42,15 @@ class generator_params:
 
 	var physical_body_minimum_size_radius: float = 50.0
 
+	# Orbital spin and velocity 
+	var body_min_spin_speed: float = 1.0
+	var body_max_spin_speed: float = 4.0
+
+	## Pixels per second
+	var root_min_orbital_velocity: float = 5.0
+	var root_max_orbital_velocity: float = 10.0
+
+	var orbital_velocity_scale: float = 1.0
 
 static func generate_chunk(
 	coords: Vector2i, 
@@ -138,7 +147,50 @@ static func generate_chunk_realistic(
 	)
 	_print_body_size_report(bodies_with_sizes)
 
+	# Assign spin speeds and velocities for bodies
+	assign_spins_and_velocities(
+		bodies_with_orbits,
+		chunk_rng,
+		params
+		)
+
 	return chunk
+
+
+static func assign_spins_and_velocities(
+	root: OrbitalBody,
+	rng: RandomNumberGenerator,
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()
+	):
+	# Use a randomized root velocity as the baseline for every orbiting body.
+	var base_velocity := rng.randf_range(
+		params.root_min_orbital_velocity,
+		params.root_max_orbital_velocity
+	)
+	
+	root.orbital_velocity = base_velocity
+	root.spin_speed = rng.randf_range(
+		params.body_min_spin_speed,
+		params.body_max_spin_speed
+	)
+
+	var minimum_distance := maxf(params.minimum_orbit_radius, 0.001)
+	var orbit_levels := root.get_orbit_levels_num()
+
+	# Scale orbital and spin rates down as bodies get farther from the center.
+	for level in range(orbit_levels):
+		for body: OrbitalBody in root.get_bodies_on_orbit_level(level):
+			var distance_scale := minimum_distance / maxf(
+				body.get_accumulated_orbit_radius(),
+				minimum_distance
+			)
+
+			body.orbital_velocity = base_velocity * params.orbital_velocity_scale * distance_scale
+			
+			body.spin_speed = rng.randf_range(
+				params.body_min_spin_speed,
+				params.body_max_spin_speed
+			) * distance_scale
 
 
 static func generate_body_sizes(
