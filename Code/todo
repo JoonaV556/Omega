@@ -1105,13 +1105,25 @@ generation func
 
 ✔ Assign spin speeds for all orbital bodies @done(26-10-20 23:45)
 
-Assign the bodies to the chunk
+✔ Refactor func for replacement @done(26-10-21 03:13)
+    ✔ Create bodies based on chance @done(26-10-21 03:13)
+        ✔ generate bodies @done(26-10-21 03:13)
+            ✔ param has system @done(26-10-21 03:13)
+            ✔ param bodies min @done(26-10-21 03:13)
+            ✔ param bodies max @done(26-10-21 03:13)
 
-replace old func with new func
+        ✔ low chance if no system @done(26-10-21 03:13)
+        ✔ 100 chance if system @done(26-10-21 03:13)
 
-replace / refactor old classes to fit the new class structure
+    ✔ assign primary body for systems @done(26-10-21 03:19)
+
+✔ return with correct detail @done(26-10-21 03:19)
+
+✔ replace old func with new func @done(26-10-21 03:27)
 
 reimplement chunk drawing
+
+replace / refactor old classes to fit the new class structure
 
 remove old / unused properties
 

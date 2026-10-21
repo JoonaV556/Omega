@@ -10,7 +10,7 @@ func _ready() -> void:
 		c.x += n
 		c.y += n
 		print("Generating orbital struct %s " % [n])
-		SpaceChunkGenerator.generate_chunk_realistic(
+		SpaceChunkGenerator.generate_chunk(
 			c,
 			SpaceChunkGenerator.ChunkDetailLevel.FULL
 		)

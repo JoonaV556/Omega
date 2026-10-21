@@ -21,8 +21,8 @@ static func get_chunk_generator_params() -> SpaceChunkGenerator.generator_params
 	params.has_system_odds_in_galaxy = 0.2	
 	params.has_system_odds_no_galaxy = 0.05
 
-	params.planets_per_system_min = 1 
-	params.planets_per_system_max = 10
+	params.bodies_per_system_min = 1 
+	params.bodies_per_system_max = 10
 
 	params.planet_radius_min = good_radius.x
 	params.planet_radius_max = good_radius.y

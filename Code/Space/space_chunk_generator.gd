@@ -4,7 +4,7 @@ extends RefCounted
 
 enum ChunkDetailLevel {
 	LOW, ## Returns chunk without any object data. Contains parent galaxy (if any) and system (if any).
-	MEDIUM, ## Returns a chunk. If chunk has a system, contains primary object and its position in the system.
+	MEDIUM, ## Returns a chunk with orbital structure (excluding body sizes and orbit radiuses) If chunk has a system, system contains primary object.
 	FULL ## Returns a chunk with complete object information (type, location, size etc.)
 }
 
@@ -20,8 +20,13 @@ class generator_params:
 	var has_system_odds_in_galaxy: float = 0.2
 	var has_system_odds_no_galaxy: float = 0.05
 
-	var planets_per_system_min: int = 1 
-	var planets_per_system_max: int = 10
+	var bodies_per_system_min: int = 1 
+	var bodies_per_system_max: int = 10
+
+	var has_bodies_odds_without_system: float = 0.02
+
+	var bodies_without_system_min: int = 1 
+	var bodies_without_system_max: int = 3
 
 	## Radius in pixels
 	var planet_radius_min: float = 100.0
@@ -52,7 +57,7 @@ class generator_params:
 
 	var orbital_velocity_scale: float = 1.0
 
-static func generate_chunk(
+static func generate_chunk_old(
 	coords: Vector2i, 
 	detail_level: ChunkDetailLevel = ChunkDetailLevel.FULL,
 	params: generator_params = SpaceGlobals.get_chunk_generator_params()
@@ -101,7 +106,7 @@ static func generate_chunk(
 	return chunk
 
 
-static func generate_chunk_realistic(
+static func generate_chunk(
 	coords: Vector2i, 
 	detail_level: ChunkDetailLevel = ChunkDetailLevel.FULL,
 	params: generator_params = SpaceGlobals.get_chunk_generator_params()
@@ -114,8 +119,39 @@ static func generate_chunk_realistic(
 	
 	var chunk := SpaceChunk.new(coords)
 
+	# Decide if chunk belongs to a galaxy
+	var gal := _generate_galaxy(coords, params.chunk_belongs_to_galaxy_odds)
+
+	if gal:
+		chunk.galaxy = gal
+
+	# Decide if has system
+	var system_odds: float = params.has_system_odds_no_galaxy if !gal else params.has_system_odds_in_galaxy
+
+	var has_system = chunk_rng.randf() <= system_odds
+	
+	# Generate empty system
+	if has_system:
+		var system := System.new(_generate_random_name(chunk_rng))
+		chunk.system = system
+
+	# Return with low detail
+	if detail_level == ChunkDetailLevel.LOW:
+		return chunk
+
+	# Decide if chunk has bodies
+	var has_bodies := chunk_rng.randf() <= (100.0 if has_system else params.has_bodies_odds_without_system)
+
+	if !has_bodies:
+		return chunk
+
 	# Generate orbital structure (strictly data, which bodies orbit which etc.)
-	var bodies_orbital_structure := generate_bodies_orbital_structure(chunk_hash, params)
+	var bodies_orbital_structure := generate_bodies(
+		chunk_hash,
+		params.bodies_per_system_min if has_system else params.bodies_without_system_min,
+		params.bodies_per_system_max if has_system else params.bodies_without_system_max,
+		params
+		)
 
 	if bodies_orbital_structure == null:
 		return chunk
@@ -128,6 +164,15 @@ static func generate_chunk_realistic(
 		params.chunk_size_pixels,
 		params.orbital_center_grid_size
 	)
+
+	# Assign primary object for system
+	if has_system:
+		chunk.system.primary_object = bodies_orbital_structure
+		chunk.system.primary_object_position = _orbital_center_position
+
+	# Return with medium detail
+	if detail_level == ChunkDetailLevel.MEDIUM:
+		return chunk
 
 	# Decide sizes of orbits
 	var bodies_with_orbits = generate_orbit_radiuses(
@@ -239,13 +284,12 @@ static func generate_body_sizes(
 	return root
 
 
-## NOTE: may remove bodies in the orbital hierarchy if they dont fit inside the chunk bounds
+ ## NOTE: may remove bodies in the orbital hierarchy if they dont fit inside the chunk bounds
 static func generate_orbit_radiuses(
 	root: OrbitalBody,
 	orbital_center_position: Vector2,
 	rng: RandomNumberGenerator,
-	params: generator_params = SpaceGlobals.get_chunk_generator_params()
-	) -> OrbitalBody:
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()) -> OrbitalBody:
 		
 	# The root has a radius of 0.0 because it is the center and doesnt have a parent to orbit around
 	root.orbit_radius = 0.0
@@ -433,9 +477,11 @@ static func _generate_orbit_tracks(
 	return orbit_tracks
 
 
-## Generates an orbital structure (orbital bodies orbiting each other). Returns the root body other bodies orbit around
-static func generate_bodies_orbital_structure(
-	bodies_seed: int, 
+## Generates an orbital structure (orbital bodies orbiting each other). Returns the root body other bodies orbit around. Does not generate orbit radiuses or body sizes.
+static func generate_bodies(
+	bodies_seed: int,
+	bodies_min: int,
+	bodies_max: int,
 	params: generator_params = SpaceGlobals.get_chunk_generator_params()
 	) -> OrbitalBody:
 
@@ -444,7 +490,7 @@ static func generate_bodies_orbital_structure(
 	rng.seed = bodies_seed
 
 	# Decide number of bodies
-	var bodies_to_generate := rng.randi_range(params.planets_per_system_min, params.planets_per_system_max)
+	var bodies_to_generate := rng.randi_range(bodies_min, bodies_max)
 
 	# No bodies
 	if bodies_to_generate <= 0:
@@ -599,7 +645,7 @@ static func _generate_objects(
 	## TODO - Anything past this line should be reworked once new stellar objects other than planets are introduced, and in case if chunk generation requires rework
 	# Generate planets by dividing the chunk into a grid and picking a cell for each object
 	# Init grid variables
-	var num_planets := rng.randi_range(params.planets_per_system_min, params.planets_per_system_max)
+	var num_planets := rng.randi_range(params.bodies_per_system_min, params.bodies_per_system_max)
 	var grid_size := _pick_planet_grid_size(num_planets)
 	var chunk_size := params.chunk_size_pixels
 	var cell_size := Vector2(
