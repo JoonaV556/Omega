@@ -34,10 +34,10 @@ class generator_params:
 	
 	var chunk_size_pixels: Vector2 = Vector2(5000.0, 5000.0)
 
-	var orbit_around_empty_center_odds: float = 0.5
+	var orbit_around_empty_center_odds: float = 0.1
 
 	## Odds for a body to orbit around the center (root) body. Lower values introduce more complex orbits.
-	var secondary_body_orbit_around_center_odds: float = 0.1
+	var secondary_body_orbit_around_center_odds: float = 0.3
 	
 	var orbital_center_grid_size: Vector2i = Vector2i(3, 3)
 
@@ -146,17 +146,15 @@ static func generate_chunk(
 		return chunk
 
 	# Generate orbital structure (strictly data, which bodies orbit which etc.)
-	var bodies_orbital_structure := generate_bodies(
+	var bodies := generate_bodies(
 		chunk_hash,
 		params.bodies_per_system_min if has_system else params.bodies_without_system_min,
 		params.bodies_per_system_max if has_system else params.bodies_without_system_max,
 		params
 		)
 
-	if bodies_orbital_structure == null:
+	if bodies == null:
 		return chunk
-
-	_print_orbital_structure(bodies_orbital_structure)
 
 	# Decide orbital center position (Position in chunk where bodies orbit around)
 	var _orbital_center_position := _pick_random_grid_cell_center(
@@ -167,37 +165,42 @@ static func generate_chunk(
 
 	# Assign primary object for system
 	if has_system:
-		chunk.system.primary_object = bodies_orbital_structure
+		chunk.system.primary_object = bodies
 		chunk.system.primary_object_position = _orbital_center_position
+		chunk.primary_object_position = _orbital_center_position
 
 	# Return with medium detail
 	if detail_level == ChunkDetailLevel.MEDIUM:
 		return chunk
 
 	# Decide sizes of orbits
-	var bodies_with_orbits = generate_orbit_radiuses(
-		bodies_orbital_structure,
+	generate_orbit_radiuses(
+		bodies,
 		 _orbital_center_position, 
 		 chunk_rng,
 		 params
 		 )
-	_print_orbit_radius_report(bodies_with_orbits)
 
 	# Decide sizes of the bodies
-	var bodies_with_sizes = generate_body_sizes(
-		bodies_with_orbits,
+	generate_body_sizes(
+		bodies,
 		_orbital_center_position,
 		chunk_rng,
 		params
 	)
-	_print_body_size_report(bodies_with_sizes)
 
 	# Assign spin speeds and velocities for bodies
 	assign_spins_and_velocities(
-		bodies_with_orbits,
+		bodies,
 		chunk_rng,
 		params
-		)
+	)
+
+	print('Generated chunk %s with following orbital structure: ' % [coords])
+	print_orbital_structure(bodies)
+
+	# Assign bodies to chunk 
+	chunk.bodies_root = bodies
 
 	return chunk
 
@@ -243,7 +246,7 @@ static func generate_body_sizes(
 	orbital_center_position: Vector2,
 	rng: RandomNumberGenerator,
 	params: generator_params = SpaceGlobals.get_chunk_generator_params()
-	) -> OrbitalBody:
+	):
 
 	# Calculate distance to closest chunk edge
 	var _center_edge_distance := _get_distance_to_closest_chunk_edge(
@@ -281,15 +284,13 @@ static func generate_body_sizes(
 			params
 		)
 
-	return root
-
 
  ## NOTE: may remove bodies in the orbital hierarchy if they dont fit inside the chunk bounds
 static func generate_orbit_radiuses(
 	root: OrbitalBody,
 	orbital_center_position: Vector2,
 	rng: RandomNumberGenerator,
-	params: generator_params = SpaceGlobals.get_chunk_generator_params()) -> OrbitalBody:
+	params: generator_params = SpaceGlobals.get_chunk_generator_params()) -> void:
 		
 	# The root has a radius of 0.0 because it is the center and doesnt have a parent to orbit around
 	root.orbit_radius = 0.0
@@ -304,7 +305,7 @@ static func generate_orbit_radiuses(
 
 	# Root body has no children to generate orbits for
 	if orbit_levels <= 0:
-		return root
+		return
 
 	# Assign radiuses to bodies, starting from direct children of the root body.
 	for orbit_level in range(orbit_levels):
@@ -390,8 +391,6 @@ static func generate_orbit_radiuses(
 				continue
 
 			body.orbit_radius = orbit_tracks[rng.randi_range(0, orbit_tracks.size() - 1)]
-		
-	return root
 
 
 static func _generate_body_size(
@@ -447,7 +446,7 @@ static func _generate_body_size(
 	return body
 
 
-## Returns up to three evenly spaced orbit radii that fit within the bounds.
+ ## Returns up to three evenly spaced orbit radii that fit within the bounds.
 static func _generate_orbit_tracks(
 	bounds_min: float,
 	bounds_max: float,
@@ -477,7 +476,7 @@ static func _generate_orbit_tracks(
 	return orbit_tracks
 
 
-## Generates an orbital structure (orbital bodies orbiting each other). Returns the root body other bodies orbit around. Does not generate orbit radiuses or body sizes.
+ ## Generates an orbital structure (orbital bodies orbiting each other). Returns the root body other bodies orbit around. Does not generate orbit radiuses or body sizes.
 static func generate_bodies(
 	bodies_seed: int,
 	bodies_min: int,
@@ -546,7 +545,7 @@ static func generate_bodies(
 	return root
 
 
-static func _print_orbital_structure(root: OrbitalBody) -> void:
+static func print_orbital_structure(root: OrbitalBody) -> void:
 	if root == null:
 		print("\nOrbital structure: no bodies generated")
 		return
@@ -563,7 +562,7 @@ static func _print_orbital_children(parent: OrbitalBody, depth: int) -> void:
 		_print_orbital_children(body, depth + 1)
 
 
-## Prints each body's orbit radius, parent, and total distance from the orbital center.
+ ## Prints each body's orbit radius, parent, and total distance from the orbital center.
 static func _print_orbit_radius_report(body: OrbitalBody, depth: int = 0) -> void:
 	if depth == 0:
 		print("\nGenerated orbit radii:")
@@ -616,7 +615,7 @@ static func _print_body_size_report(body: OrbitalBody, depth: int = 0) -> void:
 		_print_body_size_report(child, depth + 1)
 
 
-## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).
+ ## Returns the galaxy the given chunk belongs to. Null if the chunk is in empty space (no galaxy).
 static func _generate_galaxy(chunk_coords: Vector2i, galaxy_odds: float) -> Galaxy:
 	# Decide if chunk has galaxy 
 	var gal_coords := SpaceUtils.get_galaxy_space_coords(chunk_coords)

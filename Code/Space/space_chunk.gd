@@ -9,3 +9,7 @@ var galaxy: Galaxy
 
 ## dict where [object: SpaceObject, local position]
 var objects: Dictionary[SpaceObject, Vector2]
+
+var bodies_root: OrbitalBody
+
+var primary_object_position: Vector2

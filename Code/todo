@@ -1121,7 +1121,19 @@ generation func
 
 ✔ replace old func with new func @done(26-10-21 03:27)
 
-reimplement chunk drawing
+✔ reimplement chunk drawing @done(26-10-22 05:15)
+    ✔ create root node2d orbitroot for each body @done(26-10-22 05:15)
+
+    ✔ create body node2d for planet and place it in correct position on the orbital track to prevent body collisions @done(26-10-22 05:15)
+
+    ✔ make orbitroot spin with orbital velocity @done(26-10-22 05:15)
+        ✔ transform orbital velocity to rotation in degrees @done(26-10-22 05:15)
+
+    ✔ make body2d spin around axis with spin speed @done(26-10-22 05:15)
+
+✔ Verify map works correctly @done(26-10-22 05:15)
+
+Rework orbit generation
 
 replace / refactor old classes to fit the new class structure
 
