@@ -157,10 +157,9 @@ static func generate_chunk(
 		return chunk
 
 	# Decide orbital center position (Position in chunk where bodies orbit around)
-	var _orbital_center_position := _pick_random_grid_cell_center(
-		chunk_rng,
+	var _orbital_center_position := get_random_point_in_inner_square(
 		params.chunk_size_pixels,
-		params.orbital_center_grid_size
+		chunk_rng
 	)
 
 	# Assign primary object for system
@@ -692,6 +691,17 @@ static func _generate_objects(
 		_consume_cells_for_radius(occupied_cells, candidate_position, planet_radius, chunk_size, grid_size, cell_size)
 
 	return objects
+
+
+static func get_random_point_in_inner_square(square_dimensions: Vector2, rng: RandomNumberGenerator, inner_square_scale_ratio: float = 0.7) -> Vector2:
+	var scale_ratio := clampf(inner_square_scale_ratio, 0.0, 1.0)
+	var inner_dimensions := square_dimensions * scale_ratio
+	var inner_min := (square_dimensions - inner_dimensions) * 0.5
+
+	return Vector2(
+		rng.randf_range(inner_min.x, inner_min.x + inner_dimensions.x),
+		rng.randf_range(inner_min.y, inner_min.y + inner_dimensions.y)
+	)
 
 
 static func _generate_random_name(_rng: RandomNumberGenerator = RandomNumberGenerator.new()) -> String:

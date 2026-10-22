@@ -125,6 +125,25 @@ func unrender_chunk(chunk: SpaceChunk):
 	print('Unrendered chunk %s' % [chunk.coordinates])
 
 
+func draw_body(body: OrbitalBody) -> Node2D:
+	var drawn: Node2D
+	
+	if body is PhysicalBody:
+		drawn = draw_physical_body(body as PhysicalBody)
+
+	return drawn
+
+
+func draw_physical_body(body: PhysicalBody) -> Node2D:
+	var body_node := phyiscal_body_2d_scene.instantiate() as CollidableStellarObject2D
+
+	body_node.set_radius_pixels(body.size_radius)
+
+	body_node.name = "Physical Body 2D - %s" % [body.name]
+
+	return body_node
+
+
 func _draw_chunk_bodies(chunk: SpaceChunk, chunk_root: Node2D, bodies_root: OrbitalBody):
 	var bodies: Array[OrbitalBody] = [bodies_root]
 	while true:
@@ -174,25 +193,6 @@ func _draw_chunk_bodies(chunk: SpaceChunk, chunk_root: Node2D, bodies_root: Orbi
 		
 		bodies.clear()
 		bodies = found_children
-
-
-func draw_body(body: OrbitalBody) -> Node2D:
-	var drawn: Node2D
-	
-	if body is PhysicalBody:
-		drawn = draw_physical_body(body as PhysicalBody)
-
-	return drawn
-
-
-func draw_physical_body(body: PhysicalBody) -> Node2D:
-	var body_node := phyiscal_body_2d_scene.instantiate() as CollidableStellarObject2D
-
-	body_node.set_radius_pixels(body.size_radius)
-
-	body_node.name = "Physical Body 2D - %s" % [body.name]
-
-	return body_node
 
 
 func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
