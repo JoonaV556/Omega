@@ -45,7 +45,7 @@ func draw_chunk(chunk: SpaceChunk):
 
 	# Create root node for chunk
 	var chunk_root := Node2D.new()
-	chunk_root.name = String("Space chunk %s" % [chunk.coordinates])
+	chunk_root.name = String("Space chunk %s - Bodies %s" % [chunk.coordinates, 0 if !chunk.bodies_root else chunk.bodies_root.get_bodies_num_in_hierarchy()])
 	
 	# add to tree
 	chunk_parent.add_child(chunk_root)
@@ -185,7 +185,7 @@ func _draw_chunk_bodies(chunk: SpaceChunk, chunk_root: Node2D, bodies_root: Orbi
 
 			# Place root body in the center position
 			if is_root:
-				orbital_root.position = chunk.primary_object_position
+				orbital_root.position = chunk.orbital_center_position
 
 			_body_nodes[body] = orbital_root
 

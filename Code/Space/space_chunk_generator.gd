@@ -55,7 +55,7 @@ class generator_params:
 	var root_min_orbital_velocity: float = 5.0
 	var root_max_orbital_velocity: float = 10.0
 
-	var orbital_velocity_scale: float = 1.0
+	var orbital_velocity_scale: float = 30.0
 
 static func generate_chunk_old(
 	coords: Vector2i, 
@@ -166,7 +166,9 @@ static func generate_chunk(
 	if has_system:
 		chunk.system.primary_object = bodies
 		chunk.system.primary_object_position = _orbital_center_position
-		chunk.primary_object_position = _orbital_center_position
+
+	# Assign orbital center
+	chunk.orbital_center_position = _orbital_center_position
 
 	# Return with medium detail
 	if detail_level == ChunkDetailLevel.MEDIUM:
@@ -197,6 +199,9 @@ static func generate_chunk(
 
 	print('Generated chunk %s with following orbital structure: ' % [coords])
 	print_orbital_structure(bodies)
+
+	if coords == Vector2i(1005, 1000):
+		print("asd")
 
 	# Assign bodies to chunk 
 	chunk.bodies_root = bodies

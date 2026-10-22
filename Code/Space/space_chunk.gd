@@ -12,4 +12,4 @@ var objects: Dictionary[SpaceObject, Vector2]
 
 var bodies_root: OrbitalBody
 
-var primary_object_position: Vector2
+var orbital_center_position: Vector2

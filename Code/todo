@@ -1133,6 +1133,18 @@ generation func
 
 ✔ Verify map works correctly @done(26-10-22 05:15)
 
+✔ body - add get_number_of bodies func @done(26-10-22 20:37)
+
+✔ renderer - add number of bodies to chunk parent name @done(26-10-22 20:41)
+
+✔ fix - some bodies are centered in chunk corner @done(26-10-22 20:48)
+    ✔ check which chunk has two bodies (possibly rogue bodies) @done(26-10-22 20:48)
+        ✔ 1005, 1000 @done(26-10-22 20:48)
+    ✔ @done(26-10-22 20:48)
+    ✔ debug  - check chunk center position @done(26-10-22 20:48)
+✔ @done(26-10-22 20:48)
+    ✔ fix @done(26-10-22 20:48)
+
 Rework orbit generation
 
 replace / refactor old classes to fit the new class structure

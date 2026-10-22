@@ -96,3 +96,11 @@ func add_child(body: OrbitalBody):
 func remove_child(body: OrbitalBody):
     if orbiting_children.has(body):
         orbiting_children.erase(body)
+
+
+func get_bodies_num_in_hierarchy() -> int:
+    var total := 1
+    for child: OrbitalBody in orbiting_children:
+        total += child.get_bodies_num_in_hierarchy()
+        
+    return total
