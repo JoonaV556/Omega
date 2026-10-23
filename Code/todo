@@ -1145,10 +1145,43 @@ generation func
 ✔ @done(26-10-22 20:48)
     ✔ fix @done(26-10-22 20:48)
 
-Rework orbit generation
+Rework chunk body generation
+    ✔ Only allow bodies on 2 orbit levels @done(26-10-23 01:04)
+        ✔ Root @done(26-10-23 01:04)
+            ✔ Children of root @done(26-10-23 01:04)
+                ✔ children of children @done(26-10-23 01:04)
+
+    ✔ Rework orbit generation @done(26-10-24 02:50)
+        ✔ If parent has already good tracks for body, choose one @done(26-10-23 22:58)
+
+        ✔ For each body, generate 3 possible orbit tracks @done(26-10-23 22:58)
+
+        ✔ if parent already has generated track candidates, choose one of them @done(26-10-23 22:58)
+
+        ✔ Filter out too small orbit tracks @done(26-10-23 23:59)
+
+        ✔ Filter out tracks too close to each other @done(26-10-23 23:59)
+
+        ✔ Limit radius of orbit tracks with following criteria @done(26-10-23 22:09)
+            ✔ smallest of @done(26-10-23 22:09)
+                ✔ 2/5 of parents radius @done(26-10-23 21:44)
+                ✔ 2/3 of distance to chunk edge @done(26-10-23 21:43)
+                ✔ 2/3 of distance to sibling divider line @done(26-10-23 21:38)
+                ✔ 2/5 of distance to nearest parents sibling orbit track @done(26-10-23 22:07)
+
+        ✔ Randomize orbit track radius @done(26-10-24 02:50)
+            ✔ Base = average(min - max) @done(26-10-24 02:50)
+
+            ✔ Check if can randomize radius @done(26-10-24 02:50)
+
+            ✔ if can randomize @done(26-10-24 02:50)
+                ✔ Reduce by random normal distro amount @done(26-10-24 02:50)
+
+
+    Rework size generation
+        Limit 
+
 
 replace / refactor old classes to fit the new class structure
 
 remove old / unused properties
-
-        

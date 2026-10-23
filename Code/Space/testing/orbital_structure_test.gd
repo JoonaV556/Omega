@@ -2,18 +2,22 @@ extends Node
 
 
 func _ready() -> void:
-	var c := Vector2i(0, 0)
-
-	var iterations := 5
-
-	for n in range(0, iterations):
-		c.x += n
-		c.y += n
-		print("Generating orbital struct %s " % [n])
-		SpaceChunkGenerator.generate_chunk(
-			c,
-			SpaceChunkGenerator.ChunkDetailLevel.FULL
-		)
+	print("Printing tracks")
+	for track in SpaceChunkGenerator._generate_orbit_tracks_v2(100.0):
+		print(track)
+		
+	#var c := Vector2i(0, 0)
+#
+	#var iterations := 5
+#
+	#for n in range(0, iterations):
+		#c.x += n
+		#c.y += n
+		#print("Generating orbital struct %s " % [n])
+		#SpaceChunkGenerator.generate_chunk(
+			#c,
+			#SpaceChunkGenerator.ChunkDetailLevel.FULL
+		#)
 
 	# var parent := OrbitalBody.new(SpaceChunkGenerator._generate_random_name())
 
