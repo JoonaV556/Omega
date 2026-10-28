@@ -28,6 +28,7 @@ func get_accumulated_orbit_radius() -> float:
 	return accumulated_radius
 
 
+## Returns siblings of the body, excluding the body itself
 func get_siblings() -> Array[OrbitalBody]:
 	var sibs: Array[OrbitalBody] = []
 
@@ -38,6 +39,51 @@ func get_siblings() -> Array[OrbitalBody]:
 	sibs.erase(self) 
 
 	return sibs
+
+
+## If body has siblings on other orbital tracks, returns distance to the nearest siblings orbital track. If no siblings or all siblings on same track, returns float.INF
+func get_distance_to_nearest_sibling_orbit_track() -> float:
+	var dist := INF
+
+	if get_siblings().is_empty():
+		return dist
+
+	# get siblings on other orbit tracks
+	var sibs := get_siblings_on_other_orbits()
+
+	if sibs.is_empty():
+		return dist
+
+	# Calculate distance to nearest sibling
+	for sib in sibs:
+		var sib_dist := absf(sib.orbit_radius - orbit_radius)
+		if sib_dist < dist:
+			dist = sib_dist
+
+	return dist
+
+
+func get_siblings_on_other_orbits() -> Array[OrbitalBody]:
+	var sibs := get_siblings()
+
+	if sibs.is_empty():
+		return sibs
+
+	# Filter out siblings on same orbit track
+	const other_orbit_treshold := 1.0
+
+	var sibs_on_same_track: Array[OrbitalBody] = []
+	
+	for sib in sibs:
+		var sib_dist := absf(sib.orbit_radius - orbit_radius)
+		if sib_dist < other_orbit_treshold:
+			sibs_on_same_track.append(sib)
+
+	for _sib in sibs_on_same_track:
+		sibs.erase(_sib)
+
+	return sibs
+
 
 
 func get_siblings_with_set_radiuses(min_orbit_radius: float) -> Array[OrbitalBody]:
@@ -96,6 +142,7 @@ func add_child(body: OrbitalBody):
 
 func remove_child(body: OrbitalBody):
 	if orbiting_children.has(body):
+		body.orbit_parent = null
 		orbiting_children.erase(body)
 
 

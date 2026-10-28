@@ -1179,7 +1179,32 @@ Rework chunk body generation
 
 
     Rework size generation
-        Limit 
+        ✔ Limit body size by several criteria @done(26-10-28 22:32)
+            ✔ Distance to chunk edge @done(26-10-28 20:47)
+            ✔ Distance to parents sibling orbit tracks @done(26-10-28 22:14)
+            ✔ Distance to parent - 0.9 of orbit radius / 2 @done(26-10-28 22:22)
+            ✔ Distance to nearest child - (4/5) of nearest child orbit radius / 2 @done(26-10-28 22:30)
+
+        ✔ Remove body if it doesnt fit some of the criteria @done(26-10-28 22:31)
+
+        ✔ Randomize body size within limits @done(26-10-28 22:32)
+
+        ✔ fix - limit body size so it doesnt collide with siblings on other tracks @done(26-10-28 22:55)
+            ✔ test on chunk 994 995 @done(26-10-28 22:55)
+
+        ✔ generate body sizes from root outwards @done(26-10-28 23:09)
+
+        ✔ fix - Ensure bodies orbiting parents are smaller than parent @done(26-10-28 23:17)
+            ✔ test on chunk 997 997 @done(26-10-28 23:17)
+
+        fix - child bodies may collide with their parents parent (root body)
+            example: 1002, 993
+            1003, 996
+
+        test
+            debug how many bodies are left after radius generation 
+
+
 
 
 replace / refactor old classes to fit the new class structure

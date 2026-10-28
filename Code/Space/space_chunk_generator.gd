@@ -43,7 +43,7 @@ class generator_params:
 
 	var minimum_orbit_radius: float = 100.0
 
-	var physical_body_minimum_size_radius: float = 50.0
+	var physical_body_minimum_size_radius: float = 10.0
 
 	# Orbital spin and velocity 
 	var body_min_spin_speed: float = 1.0
@@ -256,28 +256,7 @@ static func generate_body_sizes(
 		params.chunk_size_pixels
 	)
 
-	# Assign sizes to child bodies starting from children on deepest level, descending towards root.
-	var orbit_levels := root.get_orbit_levels_num()
-
-	if orbit_levels > 0:
-
-		for level in range(orbit_levels - 1, -1, -1): # Descend through child bodies, starting from children on deepest level
-
-			var bodies_on_level := root.get_bodies_on_orbit_level(level)
-
-			for body: OrbitalBody in bodies_on_level:
-				
-				if body is not PhysicalBody: # Make sure body is physical
-					continue
-
-				_generate_body_size(
-					body as PhysicalBody,
-					rng,
-					_center_edge_distance,
-					params
-				)
-
-	# Assign size to root body.
+	# Assign size to root body before sizing its descendants.
 	if root is PhysicalBody:
 		_generate_body_size(
 			root as PhysicalBody,
@@ -285,6 +264,23 @@ static func generate_body_sizes(
 			_center_edge_distance,
 			params
 		)
+
+	# Assign sizes to child bodies from the root outward, ascending towards the deepest level.
+	var orbit_levels := root.get_orbit_levels_num()
+
+	for level in range(orbit_levels):
+		var bodies_on_level := root.get_bodies_on_orbit_level(level)
+
+		for body: OrbitalBody in bodies_on_level:
+			if body is not PhysicalBody:
+				continue
+
+			_generate_body_size(
+				body as PhysicalBody,
+				rng,
+				_center_edge_distance,
+				params
+			)
 
 
 ## NOTE: may remove bodies in the orbital hierarchy if they dont fit inside the chunk bounds
@@ -403,40 +399,88 @@ static func _generate_body_size(
 	var radius_min := params.physical_body_minimum_size_radius
 
 	var radius_max: float
+	
+	var radius_limiters: Array[float]
 
 	# Limit body radius by various factors
-	var radius_limiters: Array[float]
-	var distance_to_chunk_edge := _center_edge_distance - (body.get_accumulated_orbit_radius() + params.physical_body_minimum_size_radius)
 
+	# Limit so body is always smaller than its parent
+	if body.orbit_parent:
+		if body.orbit_parent is PhysicalBody:
+			var _parent := body.orbit_parent as PhysicalBody
+			var parent_radius := _parent.size_radius
+
+			var _max_radius := parent_radius * 0.95
+
+			if params.physical_body_minimum_size_radius > _max_radius:
+				_parent.remove_child(body)
+			else:
+				radius_limiters.append(_max_radius)
+
+	# Limit by distance to chunk edge
+	var distance_to_chunk_edge := _center_edge_distance - body.get_accumulated_orbit_radius() - params.physical_body_minimum_size_radius
+	
 	if distance_to_chunk_edge < params.physical_body_minimum_size_radius:
 		body.orbit_parent.remove_child(body)
 		return
 
 	radius_limiters.append(distance_to_chunk_edge)
 
+	# Limit by distance to siblings on other tracks
+	if !body.get_siblings().is_empty():
+		var orbit_distance_to_nearest_sibling := body.get_distance_to_nearest_sibling_orbit_track()
 
-	# Limit size to half of orbit radius
-	if body.has_orbit_radius():
-		if body.orbit_radius / 2.0 < params.physical_body_minimum_size_radius:
+		if !is_inf(orbit_distance_to_nearest_sibling):
+			var _max_radius := (orbit_distance_to_nearest_sibling / 2.0) * 0.9
+
+			if params.physical_body_minimum_size_radius > _max_radius:
+				body.orbit_parent.remove_child(body)
+			else:
+				radius_limiters.append(_max_radius)
+
+	# Limit by distance to parents sibling orbit tracks
+	if body.orbit_parent:
+		var parent_sibs := body.orbit_parent.get_siblings()
+
+		if !parent_sibs.is_empty():
+			# Get distance to parents closest sibling
+			var p_cs_distance := body.orbit_parent.get_distance_to_nearest_sibling_orbit_track()
+			
+			if !is_inf(p_cs_distance):
+				var is_too_close_to_parent_sibling_track := (body.orbit_radius + params.physical_body_minimum_size_radius) >= (p_cs_distance / 2.0) * 0.8
+				
+				if is_too_close_to_parent_sibling_track:
+					body.orbit_parent.remove_child(body) # Not enough space between orbit tracks to give the body a size
+				else:
+					radius_limiters.append(
+						0.8 * ((p_cs_distance / 2.0) - body.orbit_radius) 
+					)
+
+	# Limit by distance to parent the body orbits around 
+	if body.orbit_parent:
+		var _max_radius_within_orbit = (body.orbit_radius / 2.0) * 0.9
+
+		# Body orbits too close to parent to have a size. Erase it
+		if _max_radius_within_orbit <= params.physical_body_minimum_size_radius:
 			body.orbit_parent.remove_child(body)
-			return
-		radius_limiters.append(body.orbit_radius / 2.0)
-
-
-	# Limit size to half of childrens orbit radius
+		else:
+			radius_limiters.append(
+				_max_radius_within_orbit
+			)
+	
+	# Limit by distance to nearest child body
 	if !body.orbiting_children.is_empty():
-		var smallest_child_orbit_radius := INF
+		var children := body.orbiting_children
 
-		for child in body.orbiting_children:
-			if child.orbit_radius < smallest_child_orbit_radius:
-				smallest_child_orbit_radius = child.orbit_radius
+		# Get distance to nearest child
+		var nearest_distance: float = INF
+		for c in children:
+			if c.orbit_radius < nearest_distance:
+				nearest_distance = c.orbit_radius
 
-		var half_size := smallest_child_orbit_radius / 2.0
-		if half_size < params.physical_body_minimum_size_radius:
-			body.orbit_parent.remove_child(body)
-			return
-		radius_limiters.append(half_size)
-
+		radius_limiters.append(
+			(nearest_distance / 2.0) * 0.9
+		)
 
 	# Randomize size between bounds
 	radius_max = radius_limiters.min()
