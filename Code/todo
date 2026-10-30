@@ -1201,6 +1201,8 @@ Rework chunk body generation
             example: 1002, 993
             1003, 996
 
+            Limit orbit radius
+
         test
             debug how many bodies are left after radius generation 
 

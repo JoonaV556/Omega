@@ -41,7 +41,7 @@ class generator_params:
 	
 	var orbital_center_grid_size: Vector2i = Vector2i(3, 3)
 
-	var minimum_orbit_radius: float = 100.0
+	var minimum_orbit_radius: float = 30.0
 
 	var physical_body_minimum_size_radius: float = 10.0
 
@@ -338,6 +338,11 @@ static func generate_orbit_radiuses(
 				parents_sibling_orbit_tracks
 			)
 
+			# Erase the body if max radius is smaller than allowed
+			if max_orbit_radius < params.minimum_orbit_radius:
+				body.orbit_parent.remove_child(body)
+				continue
+
 			# Randomize orbit radius
 			var deviation := absf(max_orbit_radius - params.minimum_orbit_radius) / 5.15
 			var randomized_max := clampf(
@@ -523,9 +528,9 @@ static func _body_limit_orbit_radius(
 	if (body.orbit_parent.get_siblings().size() + 1) >= 3:
 		radius_limiters.append((2.0 / 3.0) * body.orbit_parent.get_sibling_divider_distance())
 
-	# Limit radius to 2/5 of parents orbit radius
+	# Limit radius to 0.4 of parents orbit radius
 	if (body.orbit_parent.has_orbit_radius()):
-		radius_limiters.append((2.0 / 5.0) * body.orbit_parent.orbit_radius)
+		radius_limiters.append(0.4 * body.orbit_parent.orbit_radius)
 
 	# Limit radius to 2/5 of distance to parents nearest sibling orbit track
 	if parents_sibling_orbit_tracks and !parents_sibling_orbit_tracks.is_empty():
