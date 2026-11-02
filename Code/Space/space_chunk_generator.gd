@@ -157,7 +157,8 @@ static func generate_chunk(
 	# Decide orbital center position (Position in chunk where bodies orbit around)
 	var _orbital_center_position := get_random_point_in_inner_square(
 		params.chunk_size_pixels,
-		chunk_rng
+		chunk_rng,
+		0.5
 	)
 
 	# Assign primary object for system
@@ -597,10 +598,19 @@ static func generate_bodies(
 		)
 
 		# Allow new bodies to be created only on first 2 orbit levels (children of root, and children of roots children)
-		var parent_candidates := [root]
+		var parent_candidates: Array[OrbitalBody] = [root]
 
 		if !root.orbiting_children.is_empty():
 			parent_candidates.append_array(root.orbiting_children)
+
+		# Prevent secondary bodies having more than 3 children
+		parent_candidates = parent_candidates.filter(
+			func(candidate: OrbitalBody):
+				if candidate.orbit_parent == null:
+					return true 
+				
+				return candidate.orbiting_children.size() < 3
+		)
 
 		# Make secondary bodies less likely to orbit around center
 		var orbit_around_center := rng.randf() <= params.secondary_body_orbit_around_center_odds
@@ -609,7 +619,7 @@ static func generate_bodies(
 			parent_candidates.remove_at(0)
 
 		# Decide which object the body orbits around
-		var parent = parent_candidates[rng.randi_range(0, parent_candidates.size() - 1)]
+		var parent := parent_candidates[rng.randi_range(0, parent_candidates.size() - 1)] as OrbitalBody
 
 		parent.add_child(body)
 
