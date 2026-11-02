@@ -14,8 +14,6 @@ static var origin_shift_version: int = 0
 static func get_chunk_generator_params() -> SpaceChunkGenerator.generator_params:
 	var params := SpaceChunkGenerator.generator_params.new()
 
-	var good_radius := get_appropriate_planet_radius(chunk_size_pixels)
-
 	params.chunk_belongs_to_galaxy_odds = 0.3
 
 	params.has_system_odds_in_galaxy = 0.2	
@@ -24,8 +22,9 @@ static func get_chunk_generator_params() -> SpaceChunkGenerator.generator_params
 	params.bodies_per_system_min = 1 
 	params.bodies_per_system_max = 10
 
-	params.planet_radius_min = good_radius.x
-	params.planet_radius_max = good_radius.y
+	params.physical_body_minimum_size_radius = 20.0
+
+	params.minimum_orbit_radius = params.physical_body_minimum_size_radius * 3.0
 
 	params.chunk_size_pixels = chunk_size_pixels
 

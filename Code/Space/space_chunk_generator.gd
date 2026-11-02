@@ -27,10 +27,6 @@ class generator_params:
 
 	var bodies_without_system_min: int = 1 
 	var bodies_without_system_max: int = 3
-
-	## Radius in pixels
-	var planet_radius_min: float = 100.0
-	var planet_radius_max: float = 2000.0
 	
 	var chunk_size_pixels: Vector2 = Vector2(5000.0, 5000.0)
 
@@ -54,54 +50,6 @@ class generator_params:
 	var root_max_orbital_velocity: float = 10.0
 
 	var orbital_velocity_scale: float = 30.0
-
-static func generate_chunk_old(
-	coords: Vector2i, 
-	detail_level: ChunkDetailLevel = ChunkDetailLevel.FULL,
-	params: generator_params = SpaceGlobals.get_chunk_generator_params()
-	) -> SpaceChunk:
-
-	# Ensure chunk stays same across platforms with same seed
-	var chunk_rng := RandomNumberGenerator.new()
-	var chunk_hash = hash(Vector3i(coords.x, coords.y, _seed))
-	chunk_rng.seed = chunk_hash
-
-	var chunk := SpaceChunk.new(coords)
-
-	# Decide if chunk belongs to a galaxy
-	var gal := _generate_galaxy(coords, params.chunk_belongs_to_galaxy_odds)
-
-	if gal:
-		chunk.galaxy = gal
-
-	# Decide if has system
-	var system_odds: float = params.has_system_odds_no_galaxy
-
-	if gal:
-		system_odds = params.has_system_odds_in_galaxy
-
-	var has_system = chunk_rng.randf() <= system_odds
-	
-	# Generate empty system
-	if has_system:
-		var system := System.new(_generate_random_name(chunk_rng))
-		chunk.system = system
-	
-	# Return with low detail
-	if detail_level == ChunkDetailLevel.LOW:
-		return chunk
-
-	# Generate objects for the chunk
-	if has_system:
-		var objects := _generate_objects(chunk_rng, detail_level, params)
-		chunk.objects = objects
-
-		# Update objects for system too
-		var system := chunk.system as System
-		system.objects = objects.keys()
-		system.primary_object = objects.keys()[0] # Pick primary object for the system
-
-	return chunk
 
 
 static func generate_chunk(
@@ -394,6 +342,7 @@ static func generate_orbit_radiuses(
 
 			# Update track candidates
 			body_children_orbit_tracks[body.orbit_parent] = generated_orbit_tracks
+
 
 static func _generate_body_size(
 	body: PhysicalBody, 
@@ -720,67 +669,6 @@ static func _generate_galaxy(chunk_coords: Vector2i, galaxy_odds: float) -> Gala
 	var gal := Galaxy.new(_generate_random_name(rng))
 
 	return gal
-
-
-static func _generate_objects(
-	rng: RandomNumberGenerator, 
-	detail_level: ChunkDetailLevel, 
-	params: generator_params = generator_params.new()
-	) -> Dictionary[SpaceObject, Vector2]:
-
-	var objects: Dictionary[SpaceObject, Vector2]
-
-	## TODO - Anything past this line should be reworked once new stellar objects other than planets are introduced, and in case if chunk generation requires rework
-	# Generate planets by dividing the chunk into a grid and picking a cell for each object
-	# Init grid variables
-	var num_planets := rng.randi_range(params.bodies_per_system_min, params.bodies_per_system_max)
-	var grid_size := _pick_planet_grid_size(num_planets)
-	var chunk_size := params.chunk_size_pixels
-	var cell_size := Vector2(
-		chunk_size.x / float(grid_size.x),
-		chunk_size.y / float(grid_size.y)
-	)
-	var occupied_cells: Dictionary = {}
-	var free_cells: Array[Vector2i] = []
-
-	for x in range(grid_size.x):
-		for y in range(grid_size.y):
-			free_cells.append(Vector2i(x, y))
-
-	# Only generate primary object
-	if detail_level == ChunkDetailLevel.MEDIUM:
-		num_planets = 1
-
-	# Place each planet in the grid
-	for _planet_index in range(num_planets):
-		if free_cells.is_empty():
-			break
-
-		# Pick a free grid cell for the planet
-		var cell_index := rng.randi_range(0, free_cells.size() - 1) 
-		var cell := free_cells[cell_index]
-		free_cells.remove_at(cell_index) # Consume the cell so other planets cannot pick it
-
-		# Place the planet in the center of the grid cell
-		var candidate_position := _get_grid_cell_center(cell, chunk_size, grid_size)
-
-		# Limit the radius of the planet so it doesnt extend over the chunk boundaries or occupied planet grid cells
-		var max_radius := _get_max_radius_for_position(candidate_position, chunk_size, occupied_cells, cell_size, grid_size)
-		var max_allowed_radius := minf(params.planet_radius_max, max_radius)
-		if max_allowed_radius < params.planet_radius_min:
-			continue
-
-		var planet_radius := rng.randf_range(params.planet_radius_min, max_allowed_radius)
-		var planet_name := _generate_random_name(rng)
-		var planet: Planet = Planet.new(planet_name, planet_radius)
-
-		objects[planet as SpaceObject] = candidate_position
-		
-		# Mark the grid cell occupied so it wont be picked for other planets
-		occupied_cells[cell] = true
-		_consume_cells_for_radius(occupied_cells, candidate_position, planet_radius, chunk_size, grid_size, cell_size)
-
-	return objects
 
 
 static func get_random_point_in_inner_square(square_dimensions: Vector2, rng: RandomNumberGenerator, inner_square_scale_ratio: float = 0.7) -> Vector2:

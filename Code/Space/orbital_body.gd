@@ -140,6 +140,11 @@ func add_child(body: OrbitalBody):
 	body.orbit_parent = self
 
 
+func remove():
+	if orbit_parent:
+		orbit_parent.remove_child(self)
+
+
 func remove_child(body: OrbitalBody):
 	if orbiting_children.has(body):
 		body.orbit_parent = null

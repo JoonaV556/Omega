@@ -1214,15 +1214,56 @@ Rework chunk body generation
 
     ✔ Decide number of bodies by normal distro @done(26-11-02 03:48)
 
+    ✔ min orbit radius = min body size radius * 3 @done(26-11-02 20:51)
+
     Allow bodies to orbit on more than 3 orbit levels
         specs
             Ensure parent body has still space to be given a bigger size
+
+            Orbits around root?
+            Orbits around secondary bodies
+
+
+        tracks[body, tracks]
+
+        Generate tracks
+            Generate orbit tracks for each body which has children
+                Limit tracks to values between (min_orbit_radius, max radius - use limit_radius())
+                1st track = min orbit radius
+                track spacing = min orbit radius
+
+            Allow space for parent body
+                for each body with tracks
+                    if tracks count > 1
+                        Remove random number of tracks starting from nearest 
+                        clamp to 1/2 of track count
+
+        Assign tracks to bodies
+            for each body
+                if parent has no tracks
+                    remove body
+                    continue
+
+                Copy sibling track by rng
+                if !siblings with radius.isempty()  and rnd_float <= copy sibling track odds
+                    radius = sib radius
+                    continue
+
+                Pick random track
+
+        test
+            Visualize orbit tracks ingame debug
+            
+            Track how many bodies are removed after track assignment
+
+                
+
+
         
-        Generate as many orbit track candidates as fits into bounds
-        
-        If parent is root and tracks_num > 1
-            Remove rng number of orbit tracks starting from tracks nearest to root
-            clamp tracks to remove to 1/2 of tracks num
+
+
+
+
 
     Renderer, account only siblings on same orbit level when adding even split position offset (Siblings on different orbit levels are now spaced evenly apart)
 
