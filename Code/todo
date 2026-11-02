@@ -1218,10 +1218,11 @@ Rework chunk body generation
         specs
             Ensure parent body has still space to be given a bigger size
         
-        for children of root 
-            Generate as many orbit track candidates as fits into chunk
-            
-            Remove
+        Generate as many orbit track candidates as fits into bounds
+        
+        If parent is root and tracks_num > 1
+            Remove rng number of orbit tracks starting from tracks nearest to root
+            clamp tracks to remove to 1/2 of tracks num
 
     Renderer, account only siblings on same orbit level when adding even split position offset (Siblings on different orbit levels are now spaced evenly apart)
 
