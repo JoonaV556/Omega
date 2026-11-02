@@ -1178,7 +1178,7 @@ Rework chunk body generation
                 ✔ Reduce by random normal distro amount @done(26-10-24 02:50)
 
 
-    Rework size generation
+    ✔ Rework size generation @done(26-11-02 03:05)
         ✔ Limit body size by several criteria @done(26-10-28 22:32)
             ✔ Distance to chunk edge @done(26-10-28 20:47)
             ✔ Distance to parents sibling orbit tracks @done(26-10-28 22:14)
@@ -1209,6 +1209,21 @@ Rework chunk body generation
             ✔ if no parent candidates left, remove body @done(26-11-02 02:53)
 
         ✔ Make child bodies smaller than parent @done(26-11-02 02:59)
+
+    ✔ Ensure all bodies on same orbit level move at same velocity @done(26-11-02 03:38)
+
+    ✔ Decide number of bodies by normal distro @done(26-11-02 03:48)
+
+    Allow bodies to orbit on more than 3 orbit levels
+        specs
+            Ensure parent body has still space to be given a bigger size
+        
+        for children of root 
+            Generate as many orbit track candidates as fits into chunk
+            
+            Remove
+
+    Renderer, account only siblings on same orbit level when adding even split position offset (Siblings on different orbit levels are now spaced evenly apart)
 
         test
             debug how many bodies are left after radius generation 

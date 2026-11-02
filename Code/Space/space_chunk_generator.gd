@@ -562,10 +562,16 @@ static func generate_bodies(
 	rng.seed = bodies_seed
 
 	# Decide number of bodies
-	var bodies_to_generate := rng.randi_range(bodies_min, bodies_max)
+	var body_count_mean := (bodies_min + bodies_max) / 2.0
+	var body_count_std_dev := (bodies_max - bodies_min) / (2.0 * 2.576)
+	var num_bodies_to_generate := clampi(
+		roundi(rng.randfn(body_count_mean, body_count_std_dev)),
+		bodies_min,
+		bodies_max
+	)
 
 	# No bodies
-	if bodies_to_generate <= 0:
+	if num_bodies_to_generate <= 0:
 		return null
 
 	# Decide if bodies orbit each other around an empty center, or if the center is a physical body 
@@ -573,7 +579,7 @@ static func generate_bodies(
 
 	var root: OrbitalBody
 
-	var bodies_left := bodies_to_generate
+	var bodies_left := num_bodies_to_generate
 
 	var generated_bodies: Array[OrbitalBody] = []
 
