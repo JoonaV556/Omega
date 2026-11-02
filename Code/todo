@@ -1208,7 +1208,7 @@ Rework chunk body generation
         ✔ Prevent more than 3 bodies orbiting around a secondary body @done(26-11-02 02:53)
             ✔ if no parent candidates left, remove body @done(26-11-02 02:53)
 
-        
+        ✔ Make child bodies smaller than parent @done(26-11-02 02:59)
 
         test
             debug how many bodies are left after radius generation 

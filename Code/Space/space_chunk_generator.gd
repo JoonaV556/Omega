@@ -416,7 +416,7 @@ static func _generate_body_size(
 			var _parent := body.orbit_parent as PhysicalBody
 			var parent_radius := _parent.size_radius
 
-			var _max_radius := parent_radius * 0.95
+			var _max_radius := parent_radius * 0.70
 
 			if params.physical_body_minimum_size_radius > _max_radius:
 				_parent.remove_child(body)
