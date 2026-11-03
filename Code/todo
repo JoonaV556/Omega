@@ -1248,7 +1248,7 @@ Rework chunk body generation
                     ✔ if tracks count > 1 @done(26-11-03 01:40)
                         ✔ Remove random number of tracks starting from nearest @done(26-11-03 01:40)
                         ✔ clamp to 1/2 of track count @done(26-11-03 01:40)
-☐
+
         ✔ Assign tracks to bodies @done(26-11-03 01:05)
             ✔ for each body @done(26-11-03 01:05)
                 ✔ if parent has no tracks @done(26-11-03 01:05)
@@ -1262,12 +1262,19 @@ Rework chunk body generation
 
                 ✔ Pick random track @done(26-11-03 01:05)
 
-        fix - No bodies seem to orbit secondary bodies
+        ✔ fix - No bodies seem to orbit secondary bodies @done(26-11-03 22:58)
+            ✔ func get_sibling_orbit_tracks @done(26-11-03 22:43)
 
-        test
+            ✔ rework body limit radius by getting parents sibling orbit tracks directly from parent @done(26-11-03 22:43)
+
+        ✔ test @done(26-11-03 22:58)
             ✔ Visualize orbit tracks ingame debug @done(26-11-03 02:10)
             
-            Track how many bodies are removed after track assignment
+            ✔ Find which body is removed due to radius limit @done(26-11-03 22:58)
+                ✔ Gale 570 @done(26-11-03 22:58)
+                ✔ limit orbit radius parent sibling orbit tracks uses unused tracks? @done(26-11-03 22:58)
+
+            ✔ find why radius limit is so small< @done(26-11-03 22:58)
 
                 
 

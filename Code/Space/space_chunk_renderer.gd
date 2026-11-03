@@ -246,7 +246,7 @@ func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 			if parent_orbital_root == null:
 				continue
 
-			var orbit_center = parent_orbital_root.position
+			var orbit_center := debug_visuals.to_local(parent_orbital_root.body_pivot.global_position)
 
 			var orbit_circle := Line2D.new()
 			orbit_circle.name = "Orbit debug - %s" % [body.name]

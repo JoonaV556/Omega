@@ -85,6 +85,15 @@ func get_siblings_on_other_orbits() -> Array[OrbitalBody]:
 	return sibs
 
 
+func get_sibling_orbit_tracks() -> Array[float]:
+	var so: Array[float] = []
+
+	for sib in get_siblings_on_other_orbits():
+		so.append(sib.orbit_radius)
+
+	return so
+
+
 func get_siblings_with_set_radiuses(min_orbit_radius: float) -> Array[OrbitalBody]:
 	var sibs_s: Array[OrbitalBody] = [] 
 

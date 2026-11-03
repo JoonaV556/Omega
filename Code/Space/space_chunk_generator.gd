@@ -51,7 +51,7 @@ class generator_params:
 	var root_min_orbital_velocity: float = 5.0
 	var root_max_orbital_velocity: float = 10.0
 
-	var orbital_velocity_scale: float = 30.0
+	var orbital_velocity_scale: float = 100.0
 
 
 static func generate_chunk(
@@ -101,6 +101,7 @@ static func generate_chunk(
 		params
 		)
 
+
 	if bodies == null:
 		return chunk
 
@@ -123,6 +124,9 @@ static func generate_chunk(
 	if detail_level == ChunkDetailLevel.MEDIUM:
 		return chunk
 
+	print("Orbital struct pre orbit assignment")
+	print_orbital_structure(bodies)
+
 	# Decide sizes of orbits
 	generate_orbit_radiuses(
 		bodies,
@@ -130,7 +134,7 @@ static func generate_chunk(
 		 chunk_rng,
 		 params
 		 )
-
+		
 	# Decide sizes of the bodies
 	generate_body_sizes(
 		bodies,
@@ -138,14 +142,14 @@ static func generate_chunk(
 		chunk_rng,
 		params
 	)
-
+	
 	# Assign spin speeds and velocities for bodies
 	assign_spins_and_velocities(
 		bodies,
 		chunk_rng,
 		params
 	)
-
+	
 	print('Generated chunk %s with following orbital structure: ' % [coords])
 	print_orbital_structure(bodies)
 
@@ -287,15 +291,10 @@ static func generate_orbit_radiuses(
 				continue
 
 			# Limit orbit radius by various criteria to prevent colliding orbits
-			var parents_sibling_orbit_tracks: Array[float] = []
-			if children_orbit_tracks.has(body.orbit_parent.orbit_parent):
-				parents_sibling_orbit_tracks = children_orbit_tracks[body.orbit_parent.orbit_parent]
-
 			var max_orbit_radius := _body_limit_orbit_radius( # Limit orbit radius by several criteria
 				body,
 				_center_edge_distance,
 				params,
-				parents_sibling_orbit_tracks
 			)
 
 			# Erase the body if max radius is smaller than allowed
@@ -404,7 +403,6 @@ static func generate_orbit_radiuses_old(
 				body,
 				_center_edge_distance,
 				params,
-				parents_sibling_orbit_tracks
 			)
 
 			# Erase the body if max radius is smaller than allowed
@@ -590,7 +588,6 @@ static func _body_limit_orbit_radius(
 	body: OrbitalBody,
 	_center_edge_distance: float,
 	params: SpaceChunkGenerator.generator_params,
-	parents_sibling_orbit_tracks: Array[float] = []
 	) -> float:
 
 	var radius_limiters: Array[float] = []
@@ -608,13 +605,13 @@ static func _body_limit_orbit_radius(
 		radius_limiters.append(0.4 * body.orbit_parent.orbit_radius)
 
 	# Limit radius to 2/5 of distance to parents nearest sibling orbit track
+	var parents_sibling_orbit_tracks := body.orbit_parent.get_sibling_orbit_tracks()
+
 	if parents_sibling_orbit_tracks and !parents_sibling_orbit_tracks.is_empty():
 		var parent_orbit_track := body.orbit_parent.orbit_radius
-		var tracks_excluding_parents := parents_sibling_orbit_tracks.duplicate()
-		tracks_excluding_parents.erase(parent_orbit_track)
 
 		var dist_to_nearest_track := INF
-		for track_radius in tracks_excluding_parents:
+		for track_radius in parents_sibling_orbit_tracks:
 			if absf(parent_orbit_track - track_radius) < dist_to_nearest_track:
 				dist_to_nearest_track = absf(parent_orbit_track - track_radius)
 		
