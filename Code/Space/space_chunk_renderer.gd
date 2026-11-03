@@ -66,9 +66,9 @@ func draw_chunk(chunk: SpaceChunk):
 	if chunk.bodies_root:
 		_draw_chunk_bodies(chunk, chunk_root, chunk.bodies_root)
 
-	_draw_debug_visuals(chunk, chunk_root)
-
 	_rendered_chunks[chunk] = chunk_root
+
+	_draw_debug_visuals(chunk, chunk_root)
 
 	print('Rendered chunk %s' % [chunk.coordinates])
 
@@ -121,6 +121,12 @@ func unrender_chunk(chunk: SpaceChunk):
 	_debug_chunk_bounds.erase(chunk)
 
 	chunk_parent_node.queue_free()
+
+	# Update body node references
+	if chunk.bodies_root:
+		var chunk_bodies := chunk.bodies_root.get_bodies_in_hierarchy()
+		for _body in chunk_bodies:
+			_body_nodes.erase(_body)
 	
 	print('Unrendered chunk %s' % [chunk.coordinates])
 
@@ -199,11 +205,13 @@ func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 	if !debug_draw_chunk_bounds:
 		return
 
+	# Build a dedicated debug layer for the chunk overlay.
 	var debug_visuals := Node2D.new()
 	debug_visuals.name = "Debug visuals"
 	debug_visuals.z_index = 100
 	chunk_root.add_child(debug_visuals)
 
+	# Draw the chunk bounds so the generated region is visible in the world.
 	var chunk_bounds := Line2D.new()
 	chunk_bounds.name = "Debug chunk bounds"
 	chunk_bounds.points = PackedVector2Array([
@@ -217,6 +225,7 @@ func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 	chunk_bounds.default_color = Color.GREEN
 	debug_visuals.add_child(chunk_bounds)
 
+	# Label the chunk itself so its coordinates are readable while debugging.
 	var chunk_coordinates := Label.new()
 	chunk_coordinates.name = "Debug chunk coordinates"
 	chunk_coordinates.position = Vector2(8.0, 8.0)
@@ -225,6 +234,37 @@ func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 	chunk_coordinates.add_theme_color_override("font_outline_color", Color.BLACK)
 	chunk_coordinates.add_theme_constant_override("outline_size", 2)
 	debug_visuals.add_child(chunk_coordinates)
+
+	# Draw orbital rings for the current chunk only so stale node data doesn't leak between chunks.
+	if chunk.bodies_root:
+		var chunk_bodies := chunk.bodies_root.get_bodies_in_hierarchy()
+		for body in chunk_bodies:
+			if !body.orbit_parent or body.orbit_radius <= 0.0:
+				continue
+
+			var parent_orbital_root = _body_nodes.get(body.orbit_parent)
+			if parent_orbital_root == null:
+				continue
+
+			var orbit_center = parent_orbital_root.position
+
+			var orbit_circle := Line2D.new()
+			orbit_circle.name = "Orbit debug - %s" % [body.name]
+			orbit_circle.width = 1.0
+			orbit_circle.default_color = Color(0.2, 1.0, 0.2, 0.8)
+			orbit_circle.closed = true
+
+			var circle_points := PackedVector2Array()
+			for i in range(97):
+				var angle := TAU * float(i) / 96.0
+				circle_points.append(
+					orbit_center + Vector2(
+						cos(angle) * body.orbit_radius,
+						sin(angle) * body.orbit_radius
+					)
+				)
+			orbit_circle.points = circle_points
+			debug_visuals.add_child(orbit_circle)
 
 	_debug_chunk_bounds[chunk] = debug_visuals
 

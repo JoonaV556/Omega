@@ -85,7 +85,6 @@ func get_siblings_on_other_orbits() -> Array[OrbitalBody]:
 	return sibs
 
 
-
 func get_siblings_with_set_radiuses(min_orbit_radius: float) -> Array[OrbitalBody]:
 	var sibs_s: Array[OrbitalBody] = [] 
 
@@ -157,3 +156,12 @@ func get_bodies_num_in_hierarchy() -> int:
 		total += child.get_bodies_num_in_hierarchy()
 		
 	return total
+
+
+func get_bodies_in_hierarchy() -> Array[OrbitalBody]:
+	var bodies: Array[OrbitalBody] = [self]
+
+	for child: OrbitalBody in orbiting_children:
+		bodies.append_array(child.get_bodies_in_hierarchy())
+
+	return bodies

@@ -2,9 +2,10 @@ extends Node
 
 
 func _ready() -> void:
-	print("Printing tracks")
-	for track in SpaceChunkGenerator._generate_orbit_tracks_v2(100.0):
-		print(track)
+	pass
+	# print("Printing tracks")
+	# for track in SpaceChunkGenerator._generate_orbit_tracks(100.0):
+	# 	print(track)
 		
 	#var c := Vector2i(0, 0)
 #
