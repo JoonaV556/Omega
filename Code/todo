@@ -1276,23 +1276,27 @@ Rework chunk body generation
 
             ✔ find why radius limit is so small< @done(26-11-03 22:58)
 
-                
 
 
-        
+    ✔ change - rework orbital structure generation so body parents are assigned in orbit radius phase to retain larger number of initial bodies @done(26-11-04 04:45)
+        ✔ Generate bodies (array) @done(26-11-04 02:06)
 
+        ✔ Generate orbits & assign parents @done(26-11-04 04:45)
+            ✔ choose root [0] @done(26-11-04 03:34)
 
+            ✔ for each body @done(26-11-04 04:45)
+                ✔ if not root @done(26-11-04 04:45)
+                    ✔ choose parent @done(26-11-04 03:28)
+                        ✔ parent candidates = bodies with tracks @done(26-11-04 03:28)
+                            ✔ filter out bodies without tracks @done(26-11-04 03:28)
+                            ✔ filter out secondary bodies with max number of children @done(26-11-04 03:28)
 
+                        ✔ if no parent candidates @done(26-11-04 03:28)
+                            ✔ remove body @done(26-11-04 03:28)
 
+            
+                        ✔ With 0.3 odds, choose secondary body as parent @done(26-11-04 03:28)
 
-    Renderer, account only siblings on same orbit level when adding even split position offset (Siblings on different orbit levels are now spaced evenly apart)
+                    ✔ choose orbit track @done(26-11-04 03:39)
 
-        test
-            debug how many bodies are left after radius generation 
-
-
-
-
-replace / refactor old classes to fit the new class structure
-
-remove old / unused properties
+                ✔ generate orbit tracks @done(26-11-04 04:14)

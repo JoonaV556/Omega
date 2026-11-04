@@ -85,7 +85,8 @@ func get_siblings_on_other_orbits() -> Array[OrbitalBody]:
 	return sibs
 
 
-func get_sibling_orbit_tracks() -> Array[float]:
+## Returns the orbit radiuses of siblings which differ from the body's orbit
+func get_other_sibling_orbits() -> Array[float]:
 	var so: Array[float] = []
 
 	for sib in get_siblings_on_other_orbits():
@@ -165,6 +166,23 @@ func get_bodies_num_in_hierarchy() -> int:
 		total += child.get_bodies_num_in_hierarchy()
 		
 	return total
+
+
+func get_highest_level_physical_bodies() -> Array[OrbitalBody]:
+	var bodies: Array[OrbitalBody] = []
+	
+	if self is PhysicalBody:
+		bodies.append(self)
+		return bodies
+
+	for child in orbiting_children:
+		if child is PhysicalBody:
+			bodies.append(child)
+	
+	return bodies
+
+func is_secondary() -> bool:
+	return orbit_parent and orbit_parent is PhysicalBody
 
 
 func get_bodies_in_hierarchy() -> Array[OrbitalBody]:
