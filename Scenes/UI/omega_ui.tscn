@@ -191,6 +191,5 @@ script = ExtResource("16_c38xp")
 [node name="DebugDrawGrid" type="Node2D" parent="." unique_id=1404666936]
 position = Vector2(-160, -150)
 script = ExtResource("13_1iui5")
-grid_size = Vector2(200, 200)
 grid_extent_pixels = Vector2(2500, 2500)
 metadata/_custom_type_script = "uid://rd1dchgc0l82"

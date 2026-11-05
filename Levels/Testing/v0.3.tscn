@@ -1329,7 +1329,6 @@ metadata/_custom_type_script = "uid://df1pt71808fxv"
 script = ExtResource("21_f43e3")
 chunk_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 phyiscal_body_2d_scene = ExtResource("17_mqia6")
-debug_draw_chunk_bounds = true
 metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
 [node name="OriginShifter" type="Node" parent="." unique_id=1746782482 node_paths=PackedStringArray("origin_shift_individual_targets", "origin_shift_target_parents")]

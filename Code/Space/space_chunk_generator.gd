@@ -264,6 +264,7 @@ static func _generate_orbits(
 
 	# Pick parents and generate orbit tracks for each body
 	var orbit_tracks: Dictionary[OrbitalBody, Array]
+	var to_erase: Array[OrbitalBody] = []
 
 	for n in range(0, _bodies.size()):
 
@@ -273,6 +274,7 @@ static func _generate_orbits(
 
 			# Pick parent for the body
 			if !_assign_orbit_parent(body, orbit_tracks, rng, params):
+				to_erase.append(body)
 				break # No space for more child bodies, cancel
 
 			# Pick orbit track
@@ -329,6 +331,9 @@ static func _generate_orbits(
 
 		orbit_tracks[body] = generated_orbit_tracks
 	
+	for _body in to_erase:
+		_body.erase()
+
 	return root
 
 
@@ -405,7 +410,7 @@ static func _generate_body_size(
 			var _max_radius := parent_radius * 0.70
 
 			if params.physical_body_minimum_size_radius > _max_radius:
-				_parent.remove_child(body)
+				body.erase()
 			else:
 				radius_limiters.append(_max_radius)
 
@@ -413,7 +418,7 @@ static func _generate_body_size(
 	var distance_to_chunk_edge := _center_edge_distance - body.get_accumulated_orbit_radius() - params.physical_body_minimum_size_radius
 	
 	if distance_to_chunk_edge < params.physical_body_minimum_size_radius:
-		body.orbit_parent.remove_child(body)
+		body.erase()
 		return
 
 	radius_limiters.append(distance_to_chunk_edge)
@@ -426,7 +431,7 @@ static func _generate_body_size(
 			var _max_radius := (orbit_distance_to_nearest_sibling / 2.0) * 0.9
 
 			if params.physical_body_minimum_size_radius > _max_radius:
-				body.orbit_parent.remove_child(body)
+				body.erase()
 			else:
 				radius_limiters.append(_max_radius)
 
@@ -442,7 +447,7 @@ static func _generate_body_size(
 				var is_too_close_to_parent_sibling_track := (body.orbit_radius + params.physical_body_minimum_size_radius) >= (p_cs_distance / 2.0) * 0.8
 				
 				if is_too_close_to_parent_sibling_track:
-					body.orbit_parent.remove_child(body) # Not enough space between orbit tracks to give the body a size
+					body.erase() # Not enough space between orbit tracks to give the body a size
 				else:
 					radius_limiters.append(
 						0.8 * ((p_cs_distance / 2.0) - body.orbit_radius) 
@@ -454,7 +459,7 @@ static func _generate_body_size(
 
 		# Body orbits too close to parent to have a size. Erase it
 		if _max_radius_within_orbit <= params.physical_body_minimum_size_radius:
-			body.orbit_parent.remove_child(body)
+			body.erase()
 		else:
 			radius_limiters.append(
 				_max_radius_within_orbit

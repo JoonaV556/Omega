@@ -149,15 +149,20 @@ func add_child(body: OrbitalBody):
 	body.orbit_parent = self
 
 
-func remove():
+func erase():
+	for child in orbiting_children:
+		erase()
+
 	if orbit_parent:
-		orbit_parent.remove_child(self)
+		orbit_parent.orbiting_children.erase(self)
+
+	orbit_parent = null
+	orbiting_children.clear()
 
 
-func remove_child(body: OrbitalBody):
+func erase_child(body: OrbitalBody):
 	if orbiting_children.has(body):
-		body.orbit_parent = null
-		orbiting_children.erase(body)
+		body.erase()
 
 
 func get_bodies_num_in_hierarchy() -> int:
@@ -180,6 +185,7 @@ func get_highest_level_physical_bodies() -> Array[OrbitalBody]:
 			bodies.append(child)
 	
 	return bodies
+
 
 func is_secondary() -> bool:
 	return orbit_parent and orbit_parent is PhysicalBody
