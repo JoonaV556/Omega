@@ -46,6 +46,41 @@ core features
             Universe can be run as a background process without window
             Updates can be feeded to terminal session and over internet 
 
+Features pool
+    Ship control - fleets 
+    
+    Hierarchical empire command system
+
+    Stations 
+        Sation modules
+    
+    Ships
+        sizes 
+            S 
+            M
+            L 
+            XL
+        types
+            combat ships 
+            industrial ships 
+                resource extractor 
+                con
+            scouts 
+            explorers
+            civilian 
+
+    Ship activity 
+        Resource extraction 
+        military
+        civilian 
+        transport 
+        colonisation
+        exploration
+
+
+
+
+
 ✔ Implement v0.3 @done(26-10-12 19:42)
     ✔ Naming - rename starsystem to system (more abstract and gives more freedom) @done(26-10-06 23:32)
 
@@ -64,7 +99,7 @@ core features
 
     ✔ build & release @done(26-10-12 19:42)
 
-☐ implement v0.4
+✔ implement v0.4 @done(26-11-06 01:04)
     ✔ Allow intergalactic travel seamlessly @done(26-10-13 02:12)
         ✔ Galaxy level chunks without a galaxy have near zero of any kind of objects, maybe some asteroid clouds? @done(26-10-13 02:12)
 
@@ -75,16 +110,6 @@ core features
         ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-13 02:12)
         ✔ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler @done(26-10-13 02:12)
 
-☐ v0.5
-    Discovery system
-
-    Autonomous NPC ships
-
-    Autonomous NPC fleets
-
-    Autopilot 
-        Click to automatically fly to a position in space
-            Target can be set in game view
-            Target can be set in map view
-
-    New map features
+☐ v0.4.1
+    AI ship 
+        Flies around a chunk 

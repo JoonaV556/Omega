@@ -8,11 +8,6 @@ extends Node2D
 @export var collision_object_to_ignore_for_hits : CollisionObject2D
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("Fire"):
-		fire()
-
-
 func fire():
 	var _spawned_projectile : Node
 	

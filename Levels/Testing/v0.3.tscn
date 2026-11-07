@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dponu0tksyqpk" path="res://Assets_LICENSED/Sprites/tileset_placeholder_three-step-gradient_30x30.png" id="13_gtru1"]
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_551uo"]
 [ext_resource type="Script" uid="uid://dkiiopqap8m14" path="res://Code/Space/omega_ui.gd" id="15_gu1vu"]
+[ext_resource type="Script" uid="uid://bvauvrtpif65y" path="res://Code/Space/player_ship_input.gd" id="15_l3iv5"]
 [ext_resource type="Theme" uid="uid://bf1p3fspe0340" path="res://Resources/UI/theme_globa.tres" id="16_gsxhu"]
 [ext_resource type="Script" uid="uid://cxhd4hqfa1osn" path="res://Code/Other/close_app_debug.gd" id="17_gsxhu"]
 [ext_resource type="PackedScene" uid="uid://cshuce513ed8u" path="res://Scenes/Space/collidable_stellar_object_2d_planet_generic.tscn" id="17_mqia6"]
@@ -871,7 +872,7 @@ texture = SubResource("AtlasTexture_i6rb2")
 
 [node name="Camera2DFollowTarget" type="Node" parent="CanvasLayer - Gameworld/Camera2D" unique_id=377611598 node_paths=PackedStringArray("target")]
 script = ExtResource("2_83a0a")
-target = NodePath("../../Ship")
+target = NodePath("../../Ship - Player")
 metadata/_custom_type_script = "uid://bdxr1200utaxm"
 
 [node name="Camera2DZoom" type="Node" parent="CanvasLayer - Gameworld/Camera2D" unique_id=1483938491 node_paths=PackedStringArray("camera")]
@@ -1033,7 +1034,41 @@ metadata/_custom_type_script = "uid://svhubkh86bxl"
 position = Vector2(0, 7)
 texture = SubResource("AtlasTexture_yp573")
 
-[node name="Ship" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=38539155]
+[node name="Ship - Player" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=38539155 node_paths=PackedStringArray("guns")]
+gravity_scale = 0.0
+script = ExtResource("4_nwgxt")
+max_speed = 100.0
+forward_thruster_force = 600.0
+backward_thruster_force = 150.0
+guns = [NodePath("Gun2D")]
+metadata/_custom_type_script = "uid://cchvsnfh6tt62"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=488211328]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_pb00k")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=1262590524]
+position = Vector2(0, -3)
+texture = ExtResource("5_f43e3")
+
+[node name="Gun2D" type="Node2D" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=1814902854 node_paths=PackedStringArray("projectile_node", "collision_object_to_ignore_for_hits")]
+position = Vector2(0, -45)
+script = ExtResource("6_1kytk")
+projectile_node = NodePath("../../Bullet2D prefab - Starship Laser")
+collision_object_to_ignore_for_hits = NodePath("..")
+metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
+
+[node name="StellarPositionTracker" type="Node" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=1280718680]
+script = ExtResource("7_83a0a")
+metadata/_custom_type_script = "uid://pvt88xa50146"
+
+[node name="PlayerShipInput" type="Node2D" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=885119686 node_paths=PackedStringArray("spaceship_controller")]
+script = ExtResource("15_l3iv5")
+spaceship_controller = NodePath("..")
+metadata/_custom_type_script = "uid://bvauvrtpif65y"
+
+[node name="NPC Ship" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=426751875]
+position = Vector2(-250, -230)
 gravity_scale = 0.0
 script = ExtResource("4_nwgxt")
 max_speed = 100.0
@@ -1041,22 +1076,22 @@ forward_thruster_force = 600.0
 backward_thruster_force = 150.0
 metadata/_custom_type_script = "uid://cchvsnfh6tt62"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer - Gameworld/Ship" unique_id=488211328]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=1533210528]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_pb00k")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer - Gameworld/Ship" unique_id=1262590524]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=697407220]
 position = Vector2(0, -3)
 texture = ExtResource("5_f43e3")
 
-[node name="Gun2D" type="Node2D" parent="CanvasLayer - Gameworld/Ship" unique_id=1814902854 node_paths=PackedStringArray("projectile_node", "collision_object_to_ignore_for_hits")]
+[node name="Gun2D" type="Node2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=596787250 node_paths=PackedStringArray("projectile_node", "collision_object_to_ignore_for_hits")]
 position = Vector2(0, -45)
 script = ExtResource("6_1kytk")
 projectile_node = NodePath("../../Bullet2D prefab - Starship Laser")
 collision_object_to_ignore_for_hits = NodePath("..")
 metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
 
-[node name="StellarPositionTracker" type="Node" parent="CanvasLayer - Gameworld/Ship" unique_id=1280718680]
+[node name="StellarPositionTracker" type="Node" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=133265301]
 script = ExtResource("7_83a0a")
 metadata/_custom_type_script = "uid://pvt88xa50146"
 
@@ -1333,7 +1368,7 @@ metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
 [node name="OriginShifter" type="Node" parent="." unique_id=1746782482 node_paths=PackedStringArray("origin_shift_individual_targets", "origin_shift_target_parents")]
 script = ExtResource("22_1kytk")
-origin_shift_individual_targets = [NodePath("../CanvasLayer - Gameworld/Ship")]
+origin_shift_individual_targets = [NodePath("../CanvasLayer - Gameworld/Ship - Player")]
 origin_shift_target_parents = [NodePath("../CanvasLayer - Gameworld/Chunks Parent")]
 metadata/_custom_type_script = "uid://bvjhuttqbicme"
 
@@ -1353,14 +1388,22 @@ script = ExtResource("36_l8f3a")
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid7/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid7" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid8/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid8" method="queue_free"]
 [connection signal="on_died" from="CanvasLayer - Gameworld/Node2D asteroids/Asteroid9/Health" to="CanvasLayer - Gameworld/Node2D asteroids/Asteroid9" method="queue_free"]
-[connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
-[connection signal="on_current_chunk_changed" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location"]
-[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
-[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="set_origin_chunk" unbinds=2]
-[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location" unbinds=2]
-[connection signal="on_init" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
-[connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
-[connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
+[connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
+[connection signal="on_current_chunk_changed" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location"]
+[connection signal="on_init" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
+[connection signal="on_init" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="set_origin_chunk" unbinds=2]
+[connection signal="on_init" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location" unbinds=2]
+[connection signal="on_init" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
+[connection signal="on_origin_shift" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
+[connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
+[connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
+[connection signal="on_current_chunk_changed" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location"]
+[connection signal="on_init" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="init"]
+[connection signal="on_init" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" method="set_origin_chunk" unbinds=2]
+[connection signal="on_init" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location" unbinds=2]
+[connection signal="on_init" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="SpaceChunkLoader" method="init" unbinds=2]
+[connection signal="on_origin_shift" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="SpaceChunkRenderer" method="update_render_origin"]
+[connection signal="on_origin_shift_position_treshold_exceeded" from="CanvasLayer - Gameworld/NPC Ship/StellarPositionTracker" to="OriginShifter" method="origin_shift"]
 [connection signal="on_activated" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="CanvasLayer - Gameworld/Camera2D/Camera2DZoom" method="set_process_input" binds= [false]]
 [connection signal="on_deactivated" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="CanvasLayer - Gameworld/Camera2D/Camera2DZoom" method="set_process_input" binds= [true]]
 [connection signal="on_object_selected" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" method="show_info"]

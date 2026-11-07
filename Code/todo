@@ -1301,7 +1301,16 @@ Rework chunk body generation
 
                 ✔ generate orbit tracks @done(26-11-04 04:14)
 
-    build 0.4 
-        disable debug visuals
+    ✔ build 0.4 @done(26-11-06 01:06)
+        ✔ disable debug visuals @done(26-11-06 01:06)
 
-    plan 0.5
+
+✔ separate input from ship controller @done(26-11-07 02:06)
+        
+
+    ✔ player ship input @done(26-11-07 01:44)
+
+    ✔ separate firing input @done(26-11-07 02:06)
+
+    
+AI ship flies in circles around chunk 
