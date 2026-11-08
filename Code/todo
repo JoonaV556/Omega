@@ -1314,3 +1314,20 @@ Rework chunk body generation
 
     
 AI ship flies in circles around chunk 
+    ✔ define points @done(26-11-08 18:37)
+
+    ✔ create bb @done(26-11-08 18:37)
+
+    flyto task 
+        ✔ get path to wp or nearby as possible @done(26-11-08 21:11)
+
+        ✔ success if last wp reached @done(26-11-08 21:11)
+
+        ✔ fix no navigation regions @done(26-11-09 00:00)
+            ✔ renderer create nav region for each chunk @done(26-11-09 00:00)
+
+        ✔ make asteroids obstacles @done(26-11-09 00:44)
+
+        ✔ Make planets obstacles @done(26-11-09 00:59)
+
+

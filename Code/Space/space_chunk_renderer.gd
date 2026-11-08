@@ -66,49 +66,55 @@ func draw_chunk(chunk: SpaceChunk):
 	if chunk.bodies_root:
 		_draw_chunk_bodies(chunk, chunk_root, chunk.bodies_root)
 
-	_rendered_chunks[chunk] = chunk_root
+	# Create nav region for chunk
+	var nav_reg := NavigationRegion2D.new()
+	var nav_poly := NavigationPolygon.new()
 
-	_draw_debug_visuals(chunk, chunk_root)
+	nav_poly.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	nav_poly.source_geometry_group_name = 'navigation'
 
-	print('Rendered chunk %s' % [chunk.coordinates])
+	var bounding_outline = PackedVector2Array(
+		[Vector2(0, 0), 
+		Vector2(0, SpaceGlobals.chunk_size_pixels.y), 
+		Vector2(SpaceGlobals.chunk_size_pixels.x, SpaceGlobals.chunk_size_pixels.y), 
+		Vector2(SpaceGlobals.chunk_size_pixels.x, 0)]
+		)
 
+	nav_poly.add_outline(bounding_outline)
+	nav_reg.navigation_polygon = nav_poly
+	chunk_root.add_child(nav_reg)
 
-func render_chunk_old(chunk: SpaceChunk):
-	# Decide under which node objects are placed
-	var chunk_parent: Node
-	if chunk_nodes_parent:
-		chunk_parent = chunk_nodes_parent
-	else:
-		chunk_parent = get_tree().current_scene
-
-	# Create root node for chunk
-	var chunk_root := Node2D.new()
-	chunk_root.name = String("Space chunk %s" % [chunk.coordinates])
-	
-	# add to tree
-	chunk_parent.add_child(chunk_root)
-
-	# Position chunk
-	var chunk_offset := chunk.coordinates - _origin_chunk_coords
-	var chunk_world_position := (_world_origin_global_position - _player_initial_local_position) + Vector2(
-		chunk_offset.x * SpaceGlobals.chunk_size_pixels.x,
-		chunk_offset.y * SpaceGlobals.chunk_size_pixels.y
+	var source_geometry_data := NavigationMeshSourceGeometryData2D.new() # Parse grouped chunk obstacles before baking them into the navigation polygon.
+	NavigationServer2D.parse_source_geometry_data(
+		nav_poly,
+		source_geometry_data,
+		chunk_root,
+		func(): _bake_nav_polygon(nav_poly, source_geometry_data, nav_reg)
 	)
-	chunk_root.global_position = chunk_world_position
 
-	# If chunk is system, add name to chunk root's name as suffix
-	if chunk.system and chunk.system is System:
-		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.system.name]
-
-	# Render objects in the chunk 
-	#for object in chunk.objects.keys():
-		#draw_body(object, chunk_root, chunk.objects[object])
+	# Update rendered chunks
+	_rendered_chunks[chunk] = chunk_root
 
 	_draw_debug_visuals(chunk, chunk_root)
 
-	_rendered_chunks[chunk] = chunk_root
-
 	print('Rendered chunk %s' % [chunk.coordinates])
+
+
+func _bake_nav_polygon(
+	nav_poly: NavigationPolygon,
+	source_geometry_data: NavigationMeshSourceGeometryData2D,
+	nav_reg: NavigationRegion2D
+) -> void:
+	if !is_instance_valid(nav_reg):
+		return
+
+	NavigationServer2D.bake_from_source_geometry_data(
+		nav_poly,
+		source_geometry_data,
+		func():
+			if is_instance_valid(nav_reg):
+				nav_reg.navigation_polygon = nav_poly
+	)
 
 
 func unrender_chunk(chunk: SpaceChunk):

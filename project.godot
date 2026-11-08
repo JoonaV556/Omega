@@ -81,6 +81,10 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/vsync/vsync_mode=0
 
+[global_group]
+
+navigation=""
+
 [gui]
 
 theme/custom="uid://bf1p3fspe0340"
@@ -240,7 +244,8 @@ ToggleMap={
 
 [limbo_ai]
 
-behavior_tree/user_task_dirs=PackedStringArray("res://Code/AI/tasks")
+behavior_tree/user_task_dirs=PackedStringArray("res://Code/Space/limboai_tasks")
+behavior_tree/behavior_tree_default_dir="res://Code/Space/limboai_behavior_trees"
 
 [rendering]
 
