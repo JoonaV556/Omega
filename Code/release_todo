@@ -110,6 +110,6 @@ Features pool
         ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-13 02:12)
         ✔ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler @done(26-10-13 02:12)
 
-☐ v0.4.1
-    AI ship 
-        Flies around a chunk 
+✔ v0.4.1 @done(26-11-09 02:14)
+    ✔ AI ship @done(26-11-09 02:14)
+        ✔ Flies around a chunk @done(26-11-09 02:14)

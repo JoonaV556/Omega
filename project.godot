@@ -247,6 +247,10 @@ ToggleMap={
 behavior_tree/user_task_dirs=PackedStringArray("res://Code/Space/limboai_tasks")
 behavior_tree/behavior_tree_default_dir="res://Code/Space/limboai_behavior_trees"
 
+[navigation]
+
+2d/default_edge_connection_margin=2.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

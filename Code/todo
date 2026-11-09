@@ -1313,12 +1313,12 @@ Rework chunk body generation
     ✔ separate firing input @done(26-11-07 02:06)
 
     
-AI ship flies in circles around chunk 
+✔ AI ship flies in circles around chunk @done(26-11-09 02:12)
     ✔ define points @done(26-11-08 18:37)
 
     ✔ create bb @done(26-11-08 18:37)
 
-    flyto task 
+    ✔ flyto task @done(26-11-09 01:57)
         ✔ get path to wp or nearby as possible @done(26-11-08 21:11)
 
         ✔ success if last wp reached @done(26-11-08 21:11)
@@ -1329,5 +1329,11 @@ AI ship flies in circles around chunk
         ✔ make asteroids obstacles @done(26-11-09 00:44)
 
         ✔ Make planets obstacles @done(26-11-09 00:59)
+
+    ✔ loop through waypoints @done(26-11-09 02:12)
+
+build
+
+plan next releases
 
 

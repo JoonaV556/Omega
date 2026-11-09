@@ -70,15 +70,24 @@ size = Vector2(32, 57)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_l3iv5"]
 
-[sub_resource type="BTWait" id="BTWait_i2a4i"]
-duration = 2.0
-
 [sub_resource type="BTAction" id="BTAction_5ohbi"]
 script = ExtResource("16_i2a4i")
 target_position_nodepath = NodePath("CanvasLayer - Gameworld/Node2D - npc waypoints/wp1")
 
+[sub_resource type="BTAction" id="BTAction_go2ds"]
+script = ExtResource("16_i2a4i")
+target_position_nodepath = NodePath("CanvasLayer - Gameworld/Node2D - npc waypoints/wp2")
+
+[sub_resource type="BTAction" id="BTAction_c6gcs"]
+script = ExtResource("16_i2a4i")
+target_position_nodepath = NodePath("CanvasLayer - Gameworld/Node2D - npc waypoints/wp3")
+
+[sub_resource type="BTAction" id="BTAction_y2t08"]
+script = ExtResource("16_i2a4i")
+target_position_nodepath = NodePath("CanvasLayer - Gameworld/Node2D - npc waypoints/wp4")
+
 [sub_resource type="BTSequence" id="BTSequence_i2a4i"]
-children = [SubResource("BTWait_i2a4i"), SubResource("BTAction_5ohbi")]
+children = [SubResource("BTAction_5ohbi"), SubResource("BTAction_go2ds"), SubResource("BTAction_c6gcs"), SubResource("BTAction_y2t08")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_5ohbi"]
 blackboard_plan = SubResource("BlackboardPlan_l3iv5")
@@ -88,10 +97,6 @@ root_task = SubResource("BTSequence_i2a4i")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5jd2g"]
 radius = 8.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_i2a4i"]
-source_geometry_mode = 1
-source_geometry_group_name = &"navigation"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86u60"]
 shader = ExtResource("19_l8f3a")
@@ -950,8 +955,11 @@ script = ExtResource("15_l3iv5")
 spaceship_controller = NodePath("..")
 metadata/_custom_type_script = "uid://bvauvrtpif65y"
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=856946326]
+radius = 29.0
+
 [node name="NPC Ship" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=426751875]
-position = Vector2(-250, -230)
+position = Vector2(-323, -469)
 gravity_scale = 0.0
 script = ExtResource("4_nwgxt")
 max_speed = 100.0
@@ -980,6 +988,9 @@ blackboard_plan = SubResource("BlackboardPlan_28gtx")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=330838150]
 unique_name_in_owner = true
+avoidance_enabled = true
+radius = 29.0
+debug_enabled = true
 
 [node name="Chunks Parent" type="Node2D" parent="CanvasLayer - Gameworld" unique_id=752525633]
 
@@ -1160,21 +1171,19 @@ radius = 8.0
 avoidance_layers = 4294967295
 
 [node name="Node2D - npc waypoints" type="Node2D" parent="CanvasLayer - Gameworld" unique_id=1238785616]
+position = Vector2(-2699, -2530)
 
 [node name="wp1" type="Node2D" parent="CanvasLayer - Gameworld/Node2D - npc waypoints" unique_id=239176754]
-position = Vector2(21420, -6940)
+position = Vector2(2965, 1882)
 
 [node name="wp2" type="Node2D" parent="CanvasLayer - Gameworld/Node2D - npc waypoints" unique_id=611841019]
-position = Vector2(330, 328)
+position = Vector2(2565, 2430)
 
 [node name="wp3" type="Node2D" parent="CanvasLayer - Gameworld/Node2D - npc waypoints" unique_id=15298832]
-position = Vector2(-320, 300)
+position = Vector2(2156, 2132)
 
 [node name="wp4" type="Node2D" parent="CanvasLayer - Gameworld/Node2D - npc waypoints" unique_id=214957194]
-position = Vector2(-470, -300)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="CanvasLayer - Gameworld/Node2D - npc waypoints" unique_id=1955066490]
-navigation_polygon = SubResource("NavigationPolygon_i2a4i")
+position = Vector2(2677, 1858)
 
 [node name="Omega UI" type="CanvasLayer" parent="." unique_id=1645446355 node_paths=PackedStringArray("map_ui")]
 script = ExtResource("15_gu1vu")
@@ -1419,11 +1428,11 @@ metadata/_custom_type_script = "uid://cxhd4hqfa1osn"
 
 [node name="DebugDrawGrid 32x32" type="Node2D" parent="." unique_id=1713802824]
 visible = false
-position = Vector2(-1104, -1563)
+position = Vector2(-2458, -2530)
 script = ExtResource("18_83a0a")
-grid_cell_size = Vector2(200, 200)
+grid_cell_size = Vector2(5000, 5000)
 line_color = Color(1, 1, 1, 0.14117648)
-grid_extent_pixels = Vector2(3200, 3200)
+grid_extent_pixels = Vector2(50000, 50000)
 editor_only = false
 metadata/_custom_type_script = "uid://rd1dchgc0l82"
 

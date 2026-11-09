@@ -70,6 +70,10 @@ func draw_chunk(chunk: SpaceChunk):
 	var nav_reg := NavigationRegion2D.new()
 	var nav_poly := NavigationPolygon.new()
 
+	nav_poly.agent_radius = 0.0 # Ensure there are no gaps between chunk nav regions
+
+	nav_reg.use_edge_connections = true
+
 	nav_poly.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
 	nav_poly.source_geometry_group_name = 'navigation'
 

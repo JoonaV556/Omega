@@ -7,14 +7,14 @@
 atlas = ExtResource("1_c86hp")
 region = Rect2(0, 0, 32, 32)
 
-[node name="CollidableStellarObject2D" type="Sprite2D" unique_id=250570756 groups=["navigation"]]
+[node name="CollidableStellarObject2D" type="Sprite2D" unique_id=250570756]
 texture = SubResource("AtlasTexture_f43e3")
 script = ExtResource("2_taod2")
 metadata/_custom_type_script = "uid://d01lg12rij5oy"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1787642249 groups=["navigation"]]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1787642249]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=401556378 groups=["navigation"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=401556378]
 unique_name_in_owner = true
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=2142121778 groups=["navigation"]]
