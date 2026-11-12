@@ -907,6 +907,7 @@ metadata/_custom_type_script = "uid://bdxr1200utaxm"
 script = ExtResource("3_pk6eb")
 camera = NodePath("..")
 zoom_step = 0.2
+use_dynamic_zoom_step = true
 min_zoom = Vector2(0.001, 0.001)
 metadata/_custom_type_script = "uid://bk5sryhfug4dp"
 
@@ -925,7 +926,7 @@ texture = SubResource("AtlasTexture_yp573")
 [node name="Ship - Player" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=38539155 node_paths=PackedStringArray("guns")]
 gravity_scale = 0.0
 script = ExtResource("4_nwgxt")
-max_speed = 100.0
+max_speed = 10000.0
 forward_thruster_force = 600.0
 backward_thruster_force = 150.0
 guns = [NodePath("Gun2D")]
@@ -1452,6 +1453,7 @@ metadata/_custom_type_script = "uid://df1pt71808fxv"
 script = ExtResource("21_f43e3")
 chunk_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 phyiscal_body_2d_scene = ExtResource("17_mqia6")
+debug_draw_chunk_bounds = true
 metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
 [node name="OriginShifter" type="Node" parent="." unique_id=1746782482 node_paths=PackedStringArray("origin_shift_individual_targets", "origin_shift_target_parents")]

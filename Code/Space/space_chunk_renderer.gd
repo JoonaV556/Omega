@@ -12,6 +12,7 @@ extends Node
 		debug_draw_chunk_bounds = value
 		for bounds in _debug_chunk_bounds.values():
 			bounds.visible = value
+@export_range(0.5, 10.0, 0.5) var debug_chunk_bounds_width_pixels: float = 2.0
 
 
 var _origin_chunk_coords: Vector2i
@@ -24,7 +25,7 @@ var _rendered_chunks: Dictionary[SpaceChunk, Node2D]
 
 var _body_nodes: Dictionary[OrbitalBody, OrbitalBodyRoot2D]
 
-var _debug_chunk_bounds: Dictionary[SpaceChunk, Node2D]
+var _debug_chunk_bounds: Dictionary[SpaceChunk, Line2D]
 
 
 func init(player_initial_chunk_coords: Vector2i, player_initial_local_position: Vector2, player_initial_world_position: Vector2):
@@ -37,6 +38,29 @@ func update_render_origin(chunk_coords: Vector2, local_chunk_coords: Vector2, wo
 	_origin_chunk_coords = chunk_coords
 	_player_initial_local_position = local_chunk_coords
 	_world_origin_global_position = world_position
+
+
+func _process(_delta: float) -> void:
+	# Ensure chunk bound line thickness stays consistent regardless of camera zoom
+	_update_debug_chunk_bounds_width()
+
+
+func _update_debug_chunk_bounds_width() -> void:
+	if _debug_chunk_bounds.is_empty():
+		return
+
+	var canvas_transform := get_viewport().get_canvas_transform()
+	var horizontal_scale := canvas_transform.basis_xform(Vector2.RIGHT).length()
+	var vertical_scale := canvas_transform.basis_xform(Vector2.DOWN).length()
+
+	var pixels_per_world_unit := maxf(
+		minf(horizontal_scale, vertical_scale),
+		0.001
+	)
+	var world_width := debug_chunk_bounds_width_pixels / pixels_per_world_unit
+	for bounds: Line2D in _debug_chunk_bounds.values():
+		if is_instance_valid(bounds):
+			bounds.width = world_width
 
 
 func draw_chunk(chunk: SpaceChunk):
@@ -276,7 +300,7 @@ func _draw_debug_visuals(chunk: SpaceChunk, chunk_root: Node2D) -> void:
 			orbit_circle.points = circle_points
 			debug_visuals.add_child(orbit_circle)
 
-	_debug_chunk_bounds[chunk] = debug_visuals
+	_debug_chunk_bounds[chunk] = chunk_bounds
 
 
 func _get_chunks_parent() -> Node:

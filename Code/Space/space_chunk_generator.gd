@@ -37,12 +37,10 @@ class generator_params:
 	## Odds for a body to orbit around a secondary body. Higher values introduce more complex orbits.
 	var body_orbit_around_secondary_body_odds: float = 0.4
 
-	var body_copy_sibling_orbit_odds: float = 0.3
-	
-	var orbital_center_grid_size: Vector2i = Vector2i(3, 3)
-
+	# Orbit radius settings
 	var minimum_orbit_radius: float = 30.0
 
+	# Body size settings
 	var physical_body_minimum_size_radius: float = 10.0
 
 	# Orbital spin and velocity 

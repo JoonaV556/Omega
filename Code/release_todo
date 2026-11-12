@@ -110,6 +110,27 @@ Features pool
         ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-13 02:12)
         ✔ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler @done(26-10-13 02:12)
 
-✔ v0.4.1 @done(26-11-09 02:14)
-    ✔ AI ship @done(26-11-09 02:14)
-        ✔ Flies around a chunk @done(26-11-09 02:14)
+☐ v0.4.2
+    ✔ AI ship @done(26-11-13 00:10)
+        ✔ Flies around a chunk @done(26-11-13 00:10)
+
+    Switch to real-scale chunks (100 000 x 100 000 px)
+
+    Empire scouting expeditions
+
+        Spaceship fuel system - flight consumes fuel
+            Spaceship 
+            Ship components
+
+        Ship virtualization
+            When ship enters unloaded chunk, it is virtualized
+            Virtualized spaceship flight
+            Fuel consumption 
+
+        Scouting system
+            Player can scan planets in range using spectrometry scanner
+            Ai ships can scan planets
+            Virtualized ai ships can scan planets
+
+        Empire command system
+            Dispatches scouting expeditions

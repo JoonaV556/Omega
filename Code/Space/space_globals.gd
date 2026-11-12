@@ -1,6 +1,6 @@
 class_name SpaceGlobals
 
-const chunk_size_pixels: Vector2 = Vector2(5000.0, 5000.0)
+const chunk_size_pixels: Vector2 = Vector2(100000.0, 100000.0)
 
 const global_position_origin_shift_treshold: Vector2 = Vector2(800000.0, 800000.0)
 
@@ -26,6 +26,7 @@ static func get_chunk_generator_params() -> SpaceChunkGenerator.generator_params
 
 	params.minimum_orbit_radius = params.physical_body_minimum_size_radius * 3.0
 
+	# Chunk size
 	params.chunk_size_pixels = chunk_size_pixels
 
 	return params 
