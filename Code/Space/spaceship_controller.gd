@@ -27,6 +27,9 @@ var input_strafe: float = 0.0
 
 var input_fire: bool = false
 
+## Measure of the total thruster effort. Can be used to calculate fuel consumption etc.
+var _total_thruster_effort: float
+
 
 func _ready() -> void:
 	input_aim_target_position = global_position + Vector2.UP.rotated(global_rotation)
@@ -50,20 +53,38 @@ func _physics_process(delta: float) -> void:
 	# 2. Smoothly accelerate toward the target angular velocity
 	angular_velocity = move_toward(angular_velocity, target_angular_velocity, turn_acceleration * delta)
 
+	var total_thruster_force := Vector2.ZERO
+	
+	_total_thruster_effort = 0.0
+
 	# Forward & backwards thrust
 	if input_thrust != 0.0:
 		var force = forward_thruster_force if input_thrust > 0.0 else backward_thruster_force
-		apply_central_force(Vector2.UP.rotated(rotation) * force * input_thrust)
+		var forward_force: Vector2 = Vector2.UP.rotated(rotation) * force * input_thrust
+
+		total_thruster_force += forward_force
+
+		_total_thruster_effort += forward_force.length()
 
 	# Strafing
 	if input_strafe != 0.0:
-		apply_central_force(Vector2.RIGHT.rotated(rotation) * strafing_thruster_force * input_strafe)
+		var strafing_force: Vector2 = Vector2.RIGHT.rotated(rotation) * strafing_thruster_force * input_strafe
+
+		total_thruster_force += strafing_force
+
+		_total_thruster_effort += strafing_force.length()
 
 	# Braking
 	if input_thrust == 0.0 and input_strafe == 0.0 and not linear_velocity.is_zero_approx():
 		var speed := linear_velocity.length()
 		var brake_force := minf(braking_force, mass * speed / delta)
-		apply_central_force(-linear_velocity / speed * brake_force)
+		var total_brake_force: Vector2 = -linear_velocity / speed * brake_force
+
+		total_thruster_force += total_brake_force
+		
+		_total_thruster_effort += total_brake_force.length()
+
+	apply_central_force(total_thruster_force)
 
 
 func apply_input(aim_target_position: Vector2, thrust: float, strafe: float, fire_input: bool = false) -> void:
