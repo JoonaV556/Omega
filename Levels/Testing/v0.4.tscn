@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://dyg4xmu08exn" path="res://Code/Space/impact_effect_deal_damage.gd" id="11_ekjiw"]
 [ext_resource type="Script" uid="uid://dyk6ysv3eokqt" path="res://Code/Space/impact_effect_deal_knockback.gd" id="12_s6nm1"]
 [ext_resource type="Texture2D" uid="uid://dponu0tksyqpk" path="res://Assets_LICENSED/Sprites/tileset_placeholder_three-step-gradient_30x30.png" id="13_gtru1"]
+[ext_resource type="PackedScene" uid="uid://bwpqetyfarmi8" path="res://Scenes/Space/scene_spaceship.tscn" id="14_go2ds"]
 [ext_resource type="LabelSettings" uid="uid://cfjb0jjtmfohv" path="res://Resources/UI/label_settings_overlay_transparent.tres" id="15_551uo"]
 [ext_resource type="Script" uid="uid://dkiiopqap8m14" path="res://Code/Space/omega_ui.gd" id="15_gu1vu"]
 [ext_resource type="Script" uid="uid://bvauvrtpif65y" path="res://Code/Space/player_ship_input.gd" id="15_l3iv5"]
@@ -38,6 +39,7 @@
 [ext_resource type="Script" uid="uid://cct8l480asbuf" path="res://Code/Other/label_build_version.gd" id="25_yxer7"]
 [ext_resource type="Script" uid="uid://bk15b854bjoo5" path="res://Code/Space/current_location_label.gd" id="28_w03s2"]
 [ext_resource type="Script" uid="uid://dprsbqewgld7c" path="res://Code/Space/testing/orbital_structure_test.gd" id="36_l8f3a"]
+[ext_resource type="Script" uid="uid://b8152rmsy37j1" path="res://Code/Space/testing/ship_virtualization_test.gd" id="39_c6gcs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -68,6 +70,9 @@ region = Rect2(418, 146, 1, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pb00k"]
 size = Vector2(32, 57)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_go2ds"]
+size = Vector2(32, 57)
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_l3iv5"]
 
 [sub_resource type="BTAction" id="BTAction_5ohbi"]
@@ -93,7 +98,7 @@ children = [SubResource("BTAction_5ohbi"), SubResource("BTAction_go2ds"), SubRes
 blackboard_plan = SubResource("BlackboardPlan_l3iv5")
 root_task = SubResource("BTSequence_i2a4i")
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_28gtx"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_pel40"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5jd2g"]
 radius = 8.0
@@ -959,7 +964,7 @@ metadata/_custom_type_script = "uid://bvauvrtpif65y"
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="CanvasLayer - Gameworld/Ship - Player" unique_id=856946326]
 radius = 29.0
 
-[node name="NPC Ship" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=426751875]
+[node name="NPC Ship" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=1429536951]
 position = Vector2(-323, -469)
 gravity_scale = 0.0
 script = ExtResource("4_nwgxt")
@@ -968,26 +973,25 @@ forward_thruster_force = 600.0
 backward_thruster_force = 150.0
 metadata/_custom_type_script = "uid://cchvsnfh6tt62"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=1533210528]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=1945259469]
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_pb00k")
+shape = SubResource("RectangleShape2D_go2ds")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=697407220]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=243805561]
 position = Vector2(0, -3)
 texture = ExtResource("5_f43e3")
 
-[node name="Gun2D" type="Node2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=596787250 node_paths=PackedStringArray("projectile_node", "collision_object_to_ignore_for_hits")]
+[node name="Gun2D" type="Node2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=719584081 node_paths=PackedStringArray("collision_object_to_ignore_for_hits")]
 position = Vector2(0, -45)
 script = ExtResource("6_1kytk")
-projectile_node = NodePath("../../Bullet2D prefab - Starship Laser")
 collision_object_to_ignore_for_hits = NodePath("..")
 metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
 
-[node name="BTPlayer" type="BTPlayer" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=794249711]
+[node name="BTPlayer" type="BTPlayer" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=726313528]
 behavior_tree = SubResource("BehaviorTree_5ohbi")
-blackboard_plan = SubResource("BlackboardPlan_28gtx")
+blackboard_plan = SubResource("BlackboardPlan_pel40")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=330838150]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CanvasLayer - Gameworld/NPC Ship" unique_id=1963340485]
 unique_name_in_owner = true
 avoidance_enabled = true
 radius = 29.0
@@ -1453,6 +1457,7 @@ metadata/_custom_type_script = "uid://df1pt71808fxv"
 script = ExtResource("21_f43e3")
 chunk_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 phyiscal_body_2d_scene = ExtResource("17_mqia6")
+spaceship_scene = ExtResource("14_go2ds")
 debug_draw_chunk_bounds = true
 metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
@@ -1468,6 +1473,9 @@ metadata/_custom_type_script = "uid://c2dcn87ckklk3"
 
 [node name="Node" type="Node" parent="." unique_id=229344559]
 script = ExtResource("36_l8f3a")
+
+[node name="Node - ship virtualization test" type="Node" parent="." unique_id=2091309838]
+script = ExtResource("39_c6gcs")
 
 [connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
 [connection signal="on_current_chunk_changed" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location"]

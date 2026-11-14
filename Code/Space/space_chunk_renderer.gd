@@ -6,6 +6,8 @@ extends Node
 
 @export var phyiscal_body_2d_scene: PackedScene
 
+@export var spaceship_scene: PackedScene
+
 @export_category("Debug")
 @export var debug_draw_chunk_bounds: bool = false:
 	set(value):
@@ -119,6 +121,16 @@ func draw_chunk(chunk: SpaceChunk):
 		chunk_root,
 		func(): _bake_nav_polygon(nav_poly, source_geometry_data, nav_reg)
 	)
+
+	# Draw ships in chunk
+	var ships := SpaceshipManager.get_ships_in_chunk(chunk.coordinates)
+	for ship in ships:
+		var ship_scn = spaceship_scene.instantiate() as Node2D
+		ship_scn.name = "Space Ship"
+
+		chunk_root.add_child(ship_scn)
+
+		ship_scn.position = ship.get_local_position()
 
 	# Update rendered chunks
 	_rendered_chunks[chunk] = chunk_root

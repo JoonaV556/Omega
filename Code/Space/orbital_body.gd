@@ -151,13 +151,12 @@ func add_child(body: OrbitalBody):
 
 func erase():
 	for child in orbiting_children:
-		erase()
+		child.erase()
 
 	if orbit_parent:
 		orbit_parent.orbiting_children.erase(self)
 
 	orbit_parent = null
-	orbiting_children.clear()
 
 
 func erase_child(body: OrbitalBody):

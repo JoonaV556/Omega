@@ -1,6 +1,6 @@
 class_name SpaceGlobals
 
-const chunk_size_pixels: Vector2 = Vector2(100000.0, 100000.0)
+const chunk_size_pixels: Vector2 = Vector2(10000.0, 10000.0)
 
 const global_position_origin_shift_treshold: Vector2 = Vector2(800000.0, 800000.0)
 

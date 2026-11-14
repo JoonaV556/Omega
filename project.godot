@@ -24,6 +24,10 @@ config/icon="res://Assets_LICENSED/icon.svg"
 
 buses/default_bus_layout="res://other/default_bus_layout.tres"
 
+[autoload]
+
+SpaceshipManager="*uid://b4nwpt4eg51gd"
+
 [debug]
 
 gdscript/warnings/unused_signal=0

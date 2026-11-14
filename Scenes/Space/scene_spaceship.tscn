@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bwpqetyfarmi8"]
+
+[ext_resource type="Script" uid="uid://cchvsnfh6tt62" path="res://Code/Space/spaceship_controller.gd" id="1_rlhhq"]
+[ext_resource type="Texture2D" uid="uid://iu4dco8fmhb7" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_1.png" id="2_ho0kk"]
+[ext_resource type="Script" uid="uid://dvptk1jbvxb5i" path="res://Code/Space/gun2d.gd" id="3_ysirt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pb00k"]
+size = Vector2(32, 57)
+
+[node name="NPC Ship" type="RigidBody2D" unique_id=1429536951]
+gravity_scale = 0.0
+script = ExtResource("1_rlhhq")
+max_speed = 100.0
+forward_thruster_force = 600.0
+backward_thruster_force = 150.0
+metadata/_custom_type_script = "uid://cchvsnfh6tt62"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945259469]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_pb00k")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=243805561]
+position = Vector2(0, -3)
+texture = ExtResource("2_ho0kk")
+
+[node name="Gun2D" type="Node2D" parent="." unique_id=719584081 node_paths=PackedStringArray("collision_object_to_ignore_for_hits")]
+position = Vector2(0, -45)
+script = ExtResource("3_ysirt")
+collision_object_to_ignore_for_hits = NodePath("..")
+metadata/_custom_type_script = "uid://dvptk1jbvxb5i"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1963340485]
+unique_name_in_owner = true
+avoidance_enabled = true
+radius = 29.0
+debug_enabled = true

@@ -1341,8 +1341,34 @@ Rework chunk body generation
 ✔ switch to real scale chunk sizes @done(26-11-13 01:31)
 
 
- Spaceship fuel system - flight consumes fuel
-            Spaceship 
-            Ship components
+✔ Spaceship virtualization @done(26-11-14 01:59)
+    ✔ Spaceship class @done(26-11-13 23:58)
+
+    ✔ Spaceship manager autoload @done(26-11-14 01:37)
+        ✔ ships - dict[ship] @done(26-11-14 01:37)
+
+        ✔ func register_ship(ship) @done(26-11-14 01:37)
+
+    ✔ make chunks a bit smaller @done(26-11-14 01:39)
+
+
+    ✔ virtualizationtest @done(26-11-14 01:59)
+        ✔ create ship in center of chunk 998, 1000 @done(26-11-14 01:59)
+
+    ✔ spacerenderer @done(26-11-14 01:59)
+        ✔ load ships in chunk @done(26-11-14 01:59)
+            ✔ get ships from spaceship manager @done(26-11-14 01:59)
+
+
+
+
+
+
+
+
+
+Spaceship fuel system - flight consumes fuel
+    Spaceship 
+    Ship components
 
 

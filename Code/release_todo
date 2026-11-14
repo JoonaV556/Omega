@@ -118,14 +118,14 @@ Features pool
 
     Empire scouting expeditions
 
+        ✔ Ship virtualization @done(26-11-14 01:59)
+            ✔ When ship enters unloaded chunk, it is virtualized @done(26-11-14 01:59)
+        
+        Virtualized ship movement
+
         Spaceship fuel system - flight consumes fuel
             Spaceship 
             Ship components
-
-        Ship virtualization
-            When ship enters unloaded chunk, it is virtualized
-            Virtualized spaceship flight
-            Fuel consumption 
 
         Scouting system
             Player can scan planets in range using spectrometry scanner
