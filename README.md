@@ -9,6 +9,12 @@ Core features:
 - Seamless, Infinite 2D-chunk based universe. Ships can fly between systems and galaxies, across deep space, without any loading screens. Seamless space traversal introduces completely new tactical dimensions to space combat and system defenses.
 - Rare galactic threats and natural events, which can wipe out entire civilizations if not dealt with correctly. Unlike in most space simulations, the power nature itself is a threat to be considered.
 
+[preview_npc.webm](https://github.com/user-attachments/assets/1b7aa42f-125d-4950-ae1d-f529ea4a8e71)  
+
+[preview_galactic_travel.webm](https://github.com/user-attachments/assets/be109b73-3b26-44f0-9dd2-02c020844f8d)  
+
+[preview_npc.webm](https://github.com/user-attachments/assets/265ffcca-8f6b-475c-b792-26affdb2dc90)  
+
 Gameplay-related source code can be found in **/Code/** folder
 
 Due to licensing reasons, asset dependencies such as image- and audio files are not publicly available in the main repository, but instead in private submodules.  
