@@ -1,16 +1,13 @@
-# Omega
+# Omega Space
 
-Roguelite 2D shooter powered by Godot 4 game engine.
+4X space-simulation sandbox featuring an infinite, procedurally generated universe.
 
 ## Description
 
-Features:  
-+ wip      - Procedural level-generation  
-+ wip      - Shooter mechanics  
-+ wip      - Story / Campaign  
-+ planned  - Dynamic NPC behavior (Inspired by the *A-Life* -system from S.T.A.L.K.E.R games)  
-+ planned  - Roguelite mechanics  
-+ planned  - Horror elements  
+Core features:  
+- Autonomous NPC empires which grow, expand and battle each other in majestic fleet fights.
+- Seamless, Infinite 2D-chunk based universe. Ships can fly between systems and galaxies, across deep space, without any loading screens. Seamless space traversal introduces completely new tactical dimensions to space combat and system defenses.
+- Rare galactic threats and natural events, which can wipe out entire civilizations if not dealt with correctly. Unlike in most space simulations, the power nature itself is a threat to be considered.
 
 Gameplay-related source code can be found in **/Code/** folder
 
@@ -18,7 +15,7 @@ Due to licensing reasons, asset dependencies such as image- and audio files are 
 
 ### Dependencies
 
-Godot Editor 4.4
+Godot Editor 4.6.2
 
 ## License
 
