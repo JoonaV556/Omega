@@ -13,7 +13,7 @@ Core features:
 
 [preview_galactic_travel.webm](https://github.com/user-attachments/assets/be109b73-3b26-44f0-9dd2-02c020844f8d)  
 
-[preview_npc.webm](https://github.com/user-attachments/assets/265ffcca-8f6b-475c-b792-26affdb2dc90)  
+[preview_map.webm](https://github.com/user-attachments/assets/62302146-e0b3-438e-92c5-aaee8709e982)  
 
 Gameplay-related source code can be found in **/Code/** folder
 
