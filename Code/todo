@@ -1371,6 +1371,11 @@ Virtualized spaceship movement
         shipcontroller
             register as new ship to ss_manager if ship is not yet registered
 
+    chunk renderer
+        untie ship nodes from chunks
+
+        unload ship nodes outside loaded chunks
+
     ship scene has a node spaceship interface which trasnfers physical movement to virtualized spaceship positioner
 
 Spaceship fuel system - flight consumes fuel
