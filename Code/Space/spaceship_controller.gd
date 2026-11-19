@@ -15,7 +15,8 @@ extends RigidBody2D
 @export_group("Weapons")
 @export var guns: Array[Gun2D]
 
-var ship_id: int
+## Reference to the virtual spaceship instance.
+var ship_id: int = -1
 
 
 # Where ship points to
@@ -35,6 +36,11 @@ var _total_thruster_effort: float
 
 func _ready() -> void:
 	input_aim_target_position = global_position + Vector2.UP.rotated(global_rotation)
+
+	# Register as new ship if not yet registered - useful for enabling virtualization for editor-placed spaceship nodes
+	if SpaceshipManager.get_ship(ship_id) == null:
+		var ship = SpaceShip.new()
+		ship_id = SpaceshipManager.register_ship(ship)
 
 
 func _physics_process(delta: float) -> void:

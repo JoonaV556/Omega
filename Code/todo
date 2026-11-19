@@ -1368,15 +1368,16 @@ Virtualized spaceship movement
         ✔ chunkloader @done(26-11-19 02:46)
             ✔ passes ships id to shipcontroller @done(26-11-19 02:46)
 
-        shipcontroller
-            register as new ship to ss_manager if ship is not yet registered
+        ✔ shipcontroller @done(26-11-20 01:30)
+            ✔ register as new ship to ss_manager if ship is not yet registered @done(26-11-20 01:30)
 
     ✔ throttled node @done(26-11-19 23:09)
 
-    chunk renderer
-        untie ship nodes from chunks
+    reimplement ship loading 
+        chunk renderer
+            untie ship loading
 
-        unload ship nodes outside loaded chunks
+
 
     ship scene has a node spaceship interface which trasnfers physical movement to virtualized spaceship positioner
 

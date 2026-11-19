@@ -8,8 +8,6 @@ var position_tracker: VirtualStellarPositionTracker
 func _init() -> void:
     position_tracker = VirtualStellarPositionTracker.new()
 
-    SpaceshipManager.register_ship(self)
-
 
 func get_chunk() -> Vector2i:
     return position_tracker.current_chunk_coordinates

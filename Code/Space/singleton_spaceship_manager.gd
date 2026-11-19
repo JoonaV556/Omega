@@ -7,11 +7,14 @@ var ship_ids: Dictionary[SpaceShip, int]
 static var  _assigned_ids: int = 0
 
 
-func register_ship(ship: SpaceShip):
-	registered_ships[_assigned_ids] = ship
-	ship_ids[ship] = _assigned_ids
+func register_ship(ship: SpaceShip) -> int:
+	var id := _assigned_ids
+	registered_ships[id] = ship
+	ship_ids[ship] = id
 
 	_assigned_ids += 1
+
+	return id
 
 
 ## Returns id of the ship. Returns -1 if given ship is not registered nor found.
@@ -24,6 +27,10 @@ func get_ship_id(ship: SpaceShip) -> int:
 		id = found_ship_id
 
 	return id
+
+
+func get_ship(ship_id: int) -> SpaceShip:
+	return registered_ships.get(ship_id, null)
 
 
 ## TODO - optimize

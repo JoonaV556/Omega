@@ -7,3 +7,5 @@ func _ready() -> void:
         Vector2i(998, 1000), 
         Vector2(SpaceGlobals.chunk_size_pixels / 2.0)
         )
+
+    SpaceshipManager.register_ship(ship)
