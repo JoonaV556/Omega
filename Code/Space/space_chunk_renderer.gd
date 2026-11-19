@@ -122,17 +122,6 @@ func draw_chunk(chunk: SpaceChunk):
 		func(): _bake_nav_polygon(nav_poly, source_geometry_data, nav_reg)
 	)
 
-	# Draw ships in chunk
-	var ships := SpaceshipManager.get_ships_in_chunk(chunk.coordinates)
-	for ship in ships:
-		var ship_node = spaceship_scene.instantiate() as SpaceShipController
-		ship_node.name = "Space Ship"
-		ship_node.ship_id = SpaceshipManager.get_ship_id(ship) # IMPORTANT - pass id so other ship nodes have reference to virtualized ship identity
-
-		chunk_root.add_child(ship_node)
-
-		ship_node.position = ship.get_local_position()
-
 	# Update rendered chunks
 	_rendered_chunks[chunk] = chunk_root
 

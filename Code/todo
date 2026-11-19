@@ -1374,8 +1374,22 @@ Virtualized spaceship movement
     ✔ throttled node @done(26-11-19 23:09)
 
     reimplement ship loading 
-        chunk renderer
-            untie ship loading
+        ✔ chunk renderer @done(26-11-20 01:32)
+            ✔ untie ship loading @done(26-11-20 01:32)
+
+        # Draw ships in chunk
+        var ships := SpaceshipManager.get_ships_in_chunk(chunk.coordinates)
+        for ship in ships:
+            var ship_node = spaceship_scene.instantiate() as SpaceShipController
+            ship_node.name = "Space Ship"
+            ship_node.ship_id = SpaceshipManager.get_ship_id(ship) # IMPORTANT - pass id so other ship nodes have reference to virtualized ship identity
+
+            chunk_root.add_child(ship_node)
+
+            ship_node.position = ship.get_local_position()
+
+        
+
 
 
 
