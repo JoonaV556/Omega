@@ -125,12 +125,13 @@ func draw_chunk(chunk: SpaceChunk):
 	# Draw ships in chunk
 	var ships := SpaceshipManager.get_ships_in_chunk(chunk.coordinates)
 	for ship in ships:
-		var ship_scn = spaceship_scene.instantiate() as Node2D
-		ship_scn.name = "Space Ship"
+		var ship_node = spaceship_scene.instantiate() as SpaceShipController
+		ship_node.name = "Space Ship"
+		ship_node.ship_id = SpaceshipManager.get_ship_id(ship) # IMPORTANT - pass id so other ship nodes have reference to virtualized ship identity
 
-		chunk_root.add_child(ship_scn)
+		chunk_root.add_child(ship_node)
 
-		ship_scn.position = ship.get_local_position()
+		ship_node.position = ship.get_local_position()
 
 	# Update rendered chunks
 	_rendered_chunks[chunk] = chunk_root

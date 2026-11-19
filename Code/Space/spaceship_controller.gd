@@ -15,6 +15,8 @@ extends RigidBody2D
 @export_group("Weapons")
 @export var guns: Array[Gun2D]
 
+var ship_id: int
+
 
 # Where ship points to
 var input_aim_target_position: Vector2

@@ -1307,6 +1307,7 @@ mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 text = "Map"
 label_settings = ExtResource("20_l3iv5")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label - Object Info" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" unique_id=1012108420]
 layout_mode = 1
@@ -1323,6 +1324,7 @@ text = "Object Info
 label_settings = ExtResource("22_5ohbi")
 script = ExtResource("24_vt7fa")
 metadata/_custom_type_script = "uid://b8524337d5kmn"
+metadata/_edit_use_anchors_ = true
 
 [node name="Panel - bg" type="Panel" parent="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" unique_id=97841822]
 z_index = -1
@@ -1335,6 +1337,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("16_gsxhu")
 theme_override_styles/panel = ExtResource("23_28gtx")
+metadata/_edit_use_anchors_ = true
 
 [node name="Label - Build Title" type="Label" parent="Omega UI/CanvasLayer - Omega UI/Omega UI" unique_id=120518261]
 layout_mode = 1

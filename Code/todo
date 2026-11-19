@@ -1360,12 +1360,18 @@ Rework chunk body generation
             ✔ get ships from spaceship manager @done(26-11-14 01:59)
 
 
+Virtualized spaceship movement
+    ✔ ship id system @done(26-11-19 02:46)
+        ✔ smanager @done(26-11-19 02:42)
+            ✔ assigns unique id to all registered ships @done(26-11-19 02:42)
+        
+        ✔ chunkloader @done(26-11-19 02:46)
+            ✔ passes ships id to shipcontroller @done(26-11-19 02:46)
 
+        shipcontroller
+            register as new ship to ss_manager if ship is not yet registered
 
-
-
-
-
+    ship scene has a node spaceship interface which trasnfers physical movement to virtualized spaceship positioner
 
 Spaceship fuel system - flight consumes fuel
     Spaceship 
