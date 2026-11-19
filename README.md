@@ -21,7 +21,11 @@ Due to licensing reasons, asset dependencies such as image- and audio files are 
 
 ### Dependencies
 
-Godot Editor 4.6.2
+Running:
+- Linux system (windows, etc. support will come in future)
+
+Editing / building:
+- Godot Editor 4.6.2
 
 ## License
 
