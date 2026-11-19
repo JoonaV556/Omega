@@ -1371,6 +1371,8 @@ Virtualized spaceship movement
         shipcontroller
             register as new ship to ss_manager if ship is not yet registered
 
+    ✔ throttled node @done(26-11-19 23:09)
+
     chunk renderer
         untie ship nodes from chunks
 
