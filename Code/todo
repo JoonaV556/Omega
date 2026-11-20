@@ -1388,6 +1388,14 @@ Virtualized spaceship movement
 
             ship_node.position = ship.get_local_position()
 
+        move spaceship loading into screnderer
+            make screnderer throttled node 
+
+            move loading logic into renderer
+
+            place ship nodes using chunk node positions
+
+
         
 
 

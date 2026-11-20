@@ -39,8 +39,7 @@ func _ready() -> void:
 
 	# Register as new ship if not yet registered - useful for enabling virtualization for editor-placed spaceship nodes
 	if SpaceshipManager.get_ship(ship_id) == null:
-		var ship = SpaceShip.new()
-		ship_id = SpaceshipManager.register_ship(ship)
+		ship_id = SpaceshipManager.register_ship(SpaceShip.new())
 
 
 func _physics_process(delta: float) -> void:

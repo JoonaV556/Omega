@@ -8,6 +8,7 @@ extends Node
 signal on_chunk_loaded(chunk: SpaceChunk)
 signal on_chunk_unloaded(chunk: SpaceChunk)
 signal on_chunk_loaded_at_coords(chunk_coords: Vector2i)
+signal on_loaded_chunks_changed(loaded: Array[Vector2i])
 
 var loaded_chunks: Dictionary[Vector2i, Chunk]
 
@@ -60,6 +61,7 @@ func load_chunk(chunk_coords: Vector2i) -> SpaceChunk:
 
 	on_chunk_loaded.emit(chunk)
 	on_chunk_loaded_at_coords.emit(chunk_coords)
+	on_loaded_chunks_changed.emit(loaded_chunks.keys())
 
 	return chunk
 
@@ -83,6 +85,7 @@ func unload_chunk(chunk_coords: Vector2i) -> void:
 	var chunk := loaded_chunks[chunk_coords] as SpaceChunk
 	loaded_chunks.erase(chunk_coords)
 	on_chunk_unloaded.emit(chunk)
+	on_loaded_chunks_changed.emit(loaded_chunks.keys())
 
 
 func is_loaded(chunk_coords: Vector2i):

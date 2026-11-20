@@ -31,7 +31,7 @@ func get_ship_id(ship: SpaceShip) -> int:
 
 func get_ship(ship_id: int) -> SpaceShip:
 	return registered_ships.get(ship_id, null)
-
+	
 
 ## TODO - optimize
 func get_ships_in_chunk(chunk_coords: Vector2i) -> Array[SpaceShip]:
