@@ -9,12 +9,12 @@ var _accumulated_delta: float = 0.0
 
 
 func _process(delta: float) -> void:
-    _accumulated_delta += delta
+	_accumulated_delta += delta
 
-    if _accumulated_delta >= seconds_between_ticks:
-        _throttled_process(_accumulated_delta)
+	if _accumulated_delta >= seconds_between_ticks:
+		_throttled_process(_accumulated_delta)
 
-        _accumulated_delta -= seconds_between_ticks
+		_accumulated_delta -= seconds_between_ticks
 
 
 @abstract

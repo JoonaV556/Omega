@@ -1,12 +1,23 @@
+## Draws loaded chunks and ships in game world.
 class_name SpaceChunkRenderer
-extends Node
+extends ThrottledNode
+
+## Chunk drawing is done using signals. Connect chunk_loaded to draw_chunk and chunk_unloaded to undraw_chunk
+## Spaceship loading is done continously in _throttled_process, which polls for virtualized ship positions and loads/unloads them once they enter and leave loaded chunk area.
 
 
 @export var chunk_nodes_parent: Node
 
 @export var phyiscal_body_2d_scene: PackedScene
 
+@export_category("Ship Loading")
 @export var spaceship_scene: PackedScene
+@export var ship_nodes_parent: Node:
+	set(value):
+		if !value:
+			ship_nodes_parent = self
+		else:
+			ship_nodes_parent = value
 
 @export_category("Debug")
 @export var debug_draw_chunk_bounds: bool = false:
@@ -29,22 +40,59 @@ var _body_nodes: Dictionary[OrbitalBody, OrbitalBodyRoot2D]
 
 var _debug_chunk_bounds: Dictionary[SpaceChunk, Line2D]
 
+var _loaded_chunks: Array[Vector2i] = []
 
-func init(player_initial_chunk_coords: Vector2i, player_initial_local_position: Vector2, player_initial_world_position: Vector2):
-	_origin_chunk_coords = player_initial_chunk_coords
-	_world_origin_global_position = player_initial_world_position
-	_player_initial_local_position = player_initial_local_position
+var _loaded_ships: Dictionary[SpaceShip, SpaceShipController] = {}
 
 
-func update_render_origin(chunk_coords: Vector2, local_chunk_coords: Vector2, world_position: Vector2):
-	_origin_chunk_coords = chunk_coords
-	_player_initial_local_position = local_chunk_coords
-	_world_origin_global_position = world_position
 
-
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	super._process(delta)
 	# Ensure chunk bound line thickness stays consistent regardless of camera zoom
 	_update_debug_chunk_bounds_width()
+
+
+func _throttled_process(delta: float):
+	
+	# Load unloaded ships in loaded area
+	var ships: Array[SpaceShip] # get ships in loaded chunks
+	for chunk in _loaded_chunks:
+		ships.append_array(SpaceshipManager.get_ships_in_chunk(chunk))
+
+	for ship: SpaceShip in ships:
+		if _loaded_ships.has(ship):
+			continue
+			
+		var chunk_node := get_chunk_node(ship.get_chunk())
+		
+		if !chunk_node: # Chunk node might not be created yet, since chunk loading is not done synchronously with ship loading. In this case, ship will be loaded later once chunk is ready.
+			continue
+
+		var ship_id = SpaceshipManager.get_ship_id(ship)
+		var ship_ctr := spaceship_scene.instantiate() as SpaceShipController
+
+		ship_ctr.ship_id = ship_id
+
+		ship_nodes_parent.add_child(ship_ctr)
+
+		# Place ship in correct position
+		var ship_local_pos := ship.get_local_position()
+
+		ship_ctr.global_position = chunk_node.global_position + ship_local_pos
+
+		_loaded_ships[ship] = ship_ctr
+
+		print("loaded ship")
+
+
+	# Unload loaded ships outside loaded area
+	for ship in _loaded_ships.keys():
+		var ship_chunk: Vector2i = ship.get_chunk()
+
+		if !_loaded_chunks.has(ship_chunk):
+			_loaded_ships[ship].queue_free()
+			_loaded_ships.erase(ship)
+			print("unloaded ship")
 
 
 func _update_debug_chunk_bounds_width() -> void:
@@ -65,71 +113,6 @@ func _update_debug_chunk_bounds_width() -> void:
 			bounds.width = world_width
 
 
-func draw_chunk(chunk: SpaceChunk):
-	# Decide under which node objects are placed
-	var chunk_parent := _get_chunks_parent()
-
-	# Create root node for chunk
-	var chunk_root := Node2D.new()
-	chunk_root.name = String("Space chunk %s - Bodies %s" % [chunk.coordinates, 0 if !chunk.bodies_root else chunk.bodies_root.get_bodies_num_in_hierarchy()])
-	
-	# add to tree
-	chunk_parent.add_child(chunk_root)
-
-	# Position chunk root node
-	var chunk_offset := chunk.coordinates - _origin_chunk_coords
-	var chunk_world_position := (_world_origin_global_position - _player_initial_local_position) + Vector2(
-		chunk_offset.x * SpaceGlobals.chunk_size_pixels.x,
-		chunk_offset.y * SpaceGlobals.chunk_size_pixels.y
-	)
-	chunk_root.global_position = chunk_world_position
-
-	# If chunk is system, add name to chunk root's name as suffix
-	if chunk.system and chunk.system is System:
-		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.system.name]
-
-	# Draw bodies in the chunk
-	if chunk.bodies_root:
-		_draw_chunk_bodies(chunk, chunk_root, chunk.bodies_root)
-
-	# Create nav region for chunk
-	var nav_reg := NavigationRegion2D.new()
-	var nav_poly := NavigationPolygon.new()
-
-	nav_poly.agent_radius = 0.0 # Ensure there are no gaps between chunk nav regions
-
-	nav_reg.use_edge_connections = true
-
-	nav_poly.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
-	nav_poly.source_geometry_group_name = 'navigation'
-
-	var bounding_outline = PackedVector2Array(
-		[Vector2(0, 0), 
-		Vector2(0, SpaceGlobals.chunk_size_pixels.y), 
-		Vector2(SpaceGlobals.chunk_size_pixels.x, SpaceGlobals.chunk_size_pixels.y), 
-		Vector2(SpaceGlobals.chunk_size_pixels.x, 0)]
-		)
-
-	nav_poly.add_outline(bounding_outline)
-	nav_reg.navigation_polygon = nav_poly
-	chunk_root.add_child(nav_reg)
-
-	var source_geometry_data := NavigationMeshSourceGeometryData2D.new() # Parse grouped chunk obstacles before baking them into the navigation polygon.
-	NavigationServer2D.parse_source_geometry_data(
-		nav_poly,
-		source_geometry_data,
-		chunk_root,
-		func(): _bake_nav_polygon(nav_poly, source_geometry_data, nav_reg)
-	)
-
-	# Update rendered chunks
-	_rendered_chunks[chunk] = chunk_root
-
-	_draw_debug_visuals(chunk, chunk_root)
-
-	print('Rendered chunk %s' % [chunk.coordinates])
-
-
 func _bake_nav_polygon(
 	nav_poly: NavigationPolygon,
 	source_geometry_data: NavigationMeshSourceGeometryData2D,
@@ -145,45 +128,6 @@ func _bake_nav_polygon(
 			if is_instance_valid(nav_reg):
 				nav_reg.navigation_polygon = nav_poly
 	)
-
-
-func unrender_chunk(chunk: SpaceChunk):
-	if !_rendered_chunks.has(chunk):
-		return
-		
-	var chunk_parent_node := _rendered_chunks[chunk]
-	_rendered_chunks.erase(chunk)
-
-	_debug_chunk_bounds.erase(chunk)
-
-	chunk_parent_node.queue_free()
-
-	# Update body node references
-	if chunk.bodies_root:
-		var chunk_bodies := chunk.bodies_root.get_bodies_in_hierarchy()
-		for _body in chunk_bodies:
-			_body_nodes.erase(_body)
-	
-	print('Unrendered chunk %s' % [chunk.coordinates])
-
-
-func draw_body(body: OrbitalBody) -> Node2D:
-	var drawn: Node2D
-	
-	if body is PhysicalBody:
-		drawn = draw_physical_body(body as PhysicalBody)
-
-	return drawn
-
-
-func draw_physical_body(body: PhysicalBody) -> Node2D:
-	var body_node := phyiscal_body_2d_scene.instantiate() as CollidableStellarObject2D
-
-	body_node.set_radius_pixels(body.size_radius)
-
-	body_node.name = "Physical Body 2D - %s" % [body.name]
-
-	return body_node
 
 
 func _draw_chunk_bodies(chunk: SpaceChunk, chunk_root: Node2D, bodies_root: OrbitalBody):
@@ -312,3 +256,135 @@ func _get_chunks_parent() -> Node:
 	else:
 		chunk_parent = get_tree().current_scene
 	return chunk_parent
+
+
+func get_chunk_node(chunk_coords) -> Node2D:
+	var cn: Node2D = null
+
+	for chunk in _rendered_chunks.keys():
+		if chunk.coordinates == chunk_coords:
+			cn = _rendered_chunks[chunk]
+			break
+
+	return cn
+
+
+
+func draw_chunk(chunk: SpaceChunk):
+	# Decide under which node objects are placed
+	var chunk_parent := _get_chunks_parent()
+
+	# Create root node for chunk
+	var chunk_root := Node2D.new()
+	chunk_root.name = String("Space chunk %s - Bodies %s" % [chunk.coordinates, 0 if !chunk.bodies_root else chunk.bodies_root.get_bodies_num_in_hierarchy()])
+	
+	# add to tree
+	chunk_parent.add_child(chunk_root)
+
+	# Position chunk root node
+	var chunk_offset := chunk.coordinates - _origin_chunk_coords
+	var chunk_world_position := (_world_origin_global_position - _player_initial_local_position) + Vector2(
+		chunk_offset.x * SpaceGlobals.chunk_size_pixels.x,
+		chunk_offset.y * SpaceGlobals.chunk_size_pixels.y
+	)
+	chunk_root.global_position = chunk_world_position
+
+	# If chunk is system, add name to chunk root's name as suffix
+	if chunk.system and chunk.system is System:
+		chunk_root.name = "%s - %s" % [chunk_root.name, chunk.system.name]
+
+	# Draw bodies in the chunk
+	if chunk.bodies_root:
+		_draw_chunk_bodies(chunk, chunk_root, chunk.bodies_root)
+
+	# Create nav region for chunk
+	var nav_reg := NavigationRegion2D.new()
+	var nav_poly := NavigationPolygon.new()
+
+	nav_poly.agent_radius = 0.0 # Ensure there are no gaps between chunk nav regions
+
+	nav_reg.use_edge_connections = true
+
+	nav_poly.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_WITH_CHILDREN
+	nav_poly.source_geometry_group_name = 'navigation'
+
+	var bounding_outline = PackedVector2Array(
+		[Vector2(0, 0), 
+		Vector2(0, SpaceGlobals.chunk_size_pixels.y), 
+		Vector2(SpaceGlobals.chunk_size_pixels.x, SpaceGlobals.chunk_size_pixels.y), 
+		Vector2(SpaceGlobals.chunk_size_pixels.x, 0)]
+		)
+
+	nav_poly.add_outline(bounding_outline)
+	nav_reg.navigation_polygon = nav_poly
+	chunk_root.add_child(nav_reg)
+
+	var source_geometry_data := NavigationMeshSourceGeometryData2D.new() # Parse grouped chunk obstacles before baking them into the navigation polygon.
+	NavigationServer2D.parse_source_geometry_data(
+		nav_poly,
+		source_geometry_data,
+		chunk_root,
+		func(): _bake_nav_polygon(nav_poly, source_geometry_data, nav_reg)
+	)
+
+	# Update rendered chunks
+	_rendered_chunks[chunk] = chunk_root
+
+	_draw_debug_visuals(chunk, chunk_root)
+
+	print('Rendered chunk %s' % [chunk.coordinates])
+
+
+func undraw_chunk(chunk: SpaceChunk):
+	if !_rendered_chunks.has(chunk):
+		return
+		
+	var chunk_parent_node := _rendered_chunks[chunk]
+	_rendered_chunks.erase(chunk)
+
+	_debug_chunk_bounds.erase(chunk)
+
+	chunk_parent_node.queue_free()
+
+	# Update body node references
+	if chunk.bodies_root:
+		var chunk_bodies := chunk.bodies_root.get_bodies_in_hierarchy()
+		for _body in chunk_bodies:
+			_body_nodes.erase(_body)
+	
+	print('Unrendered chunk %s' % [chunk.coordinates])
+
+
+func draw_body(body: OrbitalBody) -> Node2D:
+	var drawn: Node2D
+	
+	if body is PhysicalBody:
+		drawn = draw_physical_body(body as PhysicalBody)
+
+	return drawn
+
+
+func draw_physical_body(body: PhysicalBody) -> Node2D:
+	var body_node := phyiscal_body_2d_scene.instantiate() as CollidableStellarObject2D
+
+	body_node.set_radius_pixels(body.size_radius)
+
+	body_node.name = "Physical Body 2D - %s" % [body.name]
+
+	return body_node
+
+
+func init(player_initial_chunk_coords: Vector2i, player_initial_local_position: Vector2, player_initial_world_position: Vector2):
+	_origin_chunk_coords = player_initial_chunk_coords
+	_world_origin_global_position = player_initial_world_position
+	_player_initial_local_position = player_initial_local_position
+
+
+func update_render_origin(chunk_coords: Vector2, local_chunk_coords: Vector2, world_position: Vector2):
+	_origin_chunk_coords = chunk_coords
+	_player_initial_local_position = local_chunk_coords
+	_world_origin_global_position = world_position
+
+
+func update_loaded_chunks(loaded_chunks: Array[Vector2i]):
+	_loaded_chunks = loaded_chunks

@@ -40,7 +40,6 @@
 [ext_resource type="Script" uid="uid://bk15b854bjoo5" path="res://Code/Space/current_location_label.gd" id="28_w03s2"]
 [ext_resource type="Script" uid="uid://dprsbqewgld7c" path="res://Code/Space/testing/orbital_structure_test.gd" id="36_l8f3a"]
 [ext_resource type="Script" uid="uid://b8152rmsy37j1" path="res://Code/Space/testing/ship_virtualization_test.gd" id="39_c6gcs"]
-[ext_resource type="Script" uid="uid://cngiqu4k2lj1" path="res://Code/Space/spaceship_loader.gd" id="41_bgxre"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykpje"]
 atlas = ExtResource("1_rw14f")
@@ -1457,11 +1456,12 @@ metadata/_custom_type_script = "uid://rd1dchgc0l82"
 script = ExtResource("19_pk6eb")
 metadata/_custom_type_script = "uid://df1pt71808fxv"
 
-[node name="SpaceChunkRenderer" type="Node" parent="." unique_id=1874235251 node_paths=PackedStringArray("chunk_nodes_parent")]
+[node name="SpaceChunkRenderer" type="Node" parent="." unique_id=1874235251 node_paths=PackedStringArray("chunk_nodes_parent", "ship_nodes_parent")]
 script = ExtResource("21_f43e3")
 chunk_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 phyiscal_body_2d_scene = ExtResource("17_mqia6")
 spaceship_scene = ExtResource("14_go2ds")
+ship_nodes_parent = NodePath("../CanvasLayer - Gameworld/Chunks Parent")
 debug_draw_chunk_bounds = true
 metadata/_custom_type_script = "uid://xqg8f0pthhor"
 
@@ -1480,10 +1480,6 @@ script = ExtResource("36_l8f3a")
 
 [node name="Node - ship virtualization test" type="Node" parent="." unique_id=2091309838]
 script = ExtResource("39_c6gcs")
-
-[node name="ShipLoader" type="Node" parent="." unique_id=814552647]
-script = ExtResource("41_bgxre")
-metadata/_custom_type_script = "uid://cngiqu4k2lj1"
 
 [connection signal="on_chunk_changed" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="SpaceChunkLoader" method="update_chunks" unbinds=2]
 [connection signal="on_current_chunk_changed" from="CanvasLayer - Gameworld/Ship - Player/StellarPositionTracker" to="Omega UI/CanvasLayer - Omega UI/Omega UI/Label - Current Location" method="set_location"]
@@ -1509,4 +1505,4 @@ metadata/_custom_type_script = "uid://cngiqu4k2lj1"
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="draw_chunk"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
 [connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]
-[connection signal="on_loaded_chunks_changed" from="SpaceChunkLoader" to="ShipLoader" method="update_loaded_chunks"]
+[connection signal="on_loaded_chunks_changed" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="update_loaded_chunks"]

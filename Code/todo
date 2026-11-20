@@ -1377,30 +1377,20 @@ Virtualized spaceship movement
         ✔ chunk renderer @done(26-11-20 01:32)
             ✔ untie ship loading @done(26-11-20 01:32)
 
-        # Draw ships in chunk
-        var ships := SpaceshipManager.get_ships_in_chunk(chunk.coordinates)
-        for ship in ships:
-            var ship_node = spaceship_scene.instantiate() as SpaceShipController
-            ship_node.name = "Space Ship"
-            ship_node.ship_id = SpaceshipManager.get_ship_id(ship) # IMPORTANT - pass id so other ship nodes have reference to virtualized ship identity
+        ✔ move spaceship loading into screnderer @done(26-11-20 23:12)
+            ✔ make screnderer throttled node @done(26-11-20 22:23)
 
-            chunk_root.add_child(ship_node)
+            ✔ move loading logic into renderer @done(26-11-20 22:26)
 
-            ship_node.position = ship.get_local_position()
+            ✔ place ship nodes using chunk node positions @done(26-11-20 22:45)
 
-        move spaceship loading into screnderer
-            make screnderer throttled node 
+            ✔ set ships parent node @done(26-11-20 23:12)
 
-            move loading logic into renderer
+            ✔ remove ship loader class @done(26-11-20 23:12)
 
-            place ship nodes using chunk node positions
+fix - SCRenderer draws editor-placed ship-nodes in duplicate, since it doesnt know they are already drawn 
 
-
-        
-
-
-
-
+Implement virtualized spaceship movement
     ship scene has a node spaceship interface which trasnfers physical movement to virtualized spaceship positioner
 
 Spaceship fuel system - flight consumes fuel
