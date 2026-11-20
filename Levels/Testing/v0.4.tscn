@@ -1504,5 +1504,5 @@ script = ExtResource("39_c6gcs")
 [connection signal="on_unselected" from="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI" to="Omega UI/CanvasLayer - Omega UI/Omega UI/MapUI/Label - Object Info" method="hide"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="draw_chunk"]
 [connection signal="on_chunk_loaded" from="SpaceChunkLoader" to="DiscoveryAgent" method="discover"]
-[connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="unrender_chunk"]
+[connection signal="on_chunk_unloaded" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="undraw_chunk"]
 [connection signal="on_loaded_chunks_changed" from="SpaceChunkLoader" to="SpaceChunkRenderer" method="update_loaded_chunks"]

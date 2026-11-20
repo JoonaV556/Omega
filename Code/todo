@@ -1360,33 +1360,34 @@ Rework chunk body generation
             ✔ get ships from spaceship manager @done(26-11-14 01:59)
 
 
-Virtualized spaceship movement
-    ✔ ship id system @done(26-11-19 02:46)
-        ✔ smanager @done(26-11-19 02:42)
-            ✔ assigns unique id to all registered ships @done(26-11-19 02:42)
-        
-        ✔ chunkloader @done(26-11-19 02:46)
-            ✔ passes ships id to shipcontroller @done(26-11-19 02:46)
+✔ ship id system @done(26-11-19 02:46)
+    ✔ smanager @done(26-11-19 02:42)
+        ✔ assigns unique id to all registered ships @done(26-11-19 02:42)
+    
+    ✔ chunkloader @done(26-11-19 02:46)
+        ✔ passes ships id to shipcontroller @done(26-11-19 02:46)
 
-        ✔ shipcontroller @done(26-11-20 01:30)
-            ✔ register as new ship to ss_manager if ship is not yet registered @done(26-11-20 01:30)
+    ✔ shipcontroller @done(26-11-20 01:30)
+        ✔ register as new ship to ss_manager if ship is not yet registered @done(26-11-20 01:30)
 
-    ✔ throttled node @done(26-11-19 23:09)
+✔ throttled node @done(26-11-19 23:09)
 
-    reimplement ship loading 
-        ✔ chunk renderer @done(26-11-20 01:32)
-            ✔ untie ship loading @done(26-11-20 01:32)
+✔ reimplement ship loading @done(26-11-20 23:13)
+    ✔ chunk renderer @done(26-11-20 01:32)
+        ✔ untie ship loading @done(26-11-20 01:32)
 
-        ✔ move spaceship loading into screnderer @done(26-11-20 23:12)
-            ✔ make screnderer throttled node @done(26-11-20 22:23)
+    ✔ move spaceship loading into screnderer @done(26-11-20 23:12)
+        ✔ make screnderer throttled node @done(26-11-20 22:23)
 
-            ✔ move loading logic into renderer @done(26-11-20 22:26)
+        ✔ move loading logic into renderer @done(26-11-20 22:26)
 
-            ✔ place ship nodes using chunk node positions @done(26-11-20 22:45)
+        ✔ place ship nodes using chunk node positions @done(26-11-20 22:45)
 
-            ✔ set ships parent node @done(26-11-20 23:12)
+        ✔ set ships parent node @done(26-11-20 23:12)
 
-            ✔ remove ship loader class @done(26-11-20 23:12)
+        ✔ remove ship loader class @done(26-11-20 23:12)
+
+✔ fix - SCRenderer does not undraw chunks for some reason @done(26-11-20 23:16)
 
 fix - SCRenderer draws editor-placed ship-nodes in duplicate, since it doesnt know they are already drawn 
 
