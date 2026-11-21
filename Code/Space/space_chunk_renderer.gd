@@ -42,7 +42,7 @@ var _debug_chunk_bounds: Dictionary[SpaceChunk, Line2D]
 
 var _loaded_chunks: Array[Vector2i] = []
 
-var _loaded_ships: Dictionary[SpaceShip, SpaceShipController] = {}
+static var  _loaded_ships: Dictionary[SpaceShip, SpaceShipController] = {}
 
 
 
@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 	_update_debug_chunk_bounds_width()
 
 
-func _throttled_process(delta: float):
+func _throttled_process(_delta: float):
 	
 	# Load unloaded ships in loaded area
 	var ships: Array[SpaceShip] # get ships in loaded chunks
@@ -258,6 +258,14 @@ func _get_chunks_parent() -> Node:
 	return chunk_parent
 
 
+static func mark_loaded(ship: SpaceShip, ship_controller: SpaceShipController):
+	_loaded_ships[ship] = ship_controller
+
+
+static func is_loaded(ship: SpaceShip) -> bool:
+	return _loaded_ships.has(ship)
+
+
 func get_chunk_node(chunk_coords) -> Node2D:
 	var cn: Node2D = null
 
@@ -267,7 +275,6 @@ func get_chunk_node(chunk_coords) -> Node2D:
 			break
 
 	return cn
-
 
 
 func draw_chunk(chunk: SpaceChunk):

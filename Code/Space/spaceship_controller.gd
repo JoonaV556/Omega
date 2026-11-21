@@ -18,7 +18,6 @@ extends RigidBody2D
 ## Reference to the virtual spaceship instance.
 var ship_id: int = -1
 
-
 # Where ship points to
 var input_aim_target_position: Vector2
 
@@ -40,6 +39,11 @@ func _ready() -> void:
 	# Register as new ship if not yet registered - useful for enabling virtualization for editor-placed spaceship nodes
 	if SpaceshipManager.get_ship(ship_id) == null:
 		ship_id = SpaceshipManager.register_ship(SpaceShip.new())
+
+	# Make sure editor-placed spaceship nodes are recognized as loaded by chunk renderer
+	var ship: SpaceShip = SpaceshipManager.get_ship(ship_id)
+	if !SpaceChunkRenderer.is_loaded(ship):
+		SpaceChunkRenderer.mark_loaded(ship, self)
 
 
 func _physics_process(delta: float) -> void:

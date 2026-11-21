@@ -1389,7 +1389,13 @@ Rework chunk body generation
 
 ✔ fix - SCRenderer does not undraw chunks for some reason @done(26-11-20 23:16)
 
-fix - SCRenderer draws editor-placed ship-nodes in duplicate, since it doesnt know they are already drawn 
+✔ fix - SCRenderer draws editor-placed ship-nodes in duplicate, since it doesnt know they are already drawn @done(26-11-22 01:39)
+    ✔ alt @done(26-11-22 01:39)
+        ✔ static func mark_loaded(ship, node) @done(26-11-22 01:31)
+
+        ✔ ship controller @done(26-11-22 01:38)
+            ✔ marks itself loaded by screnderer on init @done(26-11-22 01:38)
+
 
 Implement virtualized spaceship movement
     ship scene has a node spaceship interface which trasnfers physical movement to virtualized spaceship positioner
