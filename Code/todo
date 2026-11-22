@@ -1396,9 +1396,26 @@ Rework chunk body generation
         ✔ ship controller @done(26-11-22 01:38)
             ✔ marks itself loaded by screnderer on init @done(26-11-22 01:38)
 
+✔ virtualized ship name @done(26-11-22 03:17)
+    ✔ ship @done(26-11-22 03:17)
+        ✔ var ship name @done(26-11-22 03:17)
+
+    ✔ controller @done(26-11-22 03:17)
+        ✔ names ship based on node name @done(26-11-22 03:17)
+
+✔ implement loaded ship movement @done(26-11-22 03:17)
+    ✔ Ship node updates virtualized ship position with their movement @done(26-11-22 03:17)
+         ✔ StellarPositionUpdater @done(26-11-22 03:17)
+            ✔ init @done(26-11-22 03:17)
+                ✔ gets ref to spaceship @done(26-11-22 03:17)
+
+            ✔ update @done(26-11-22 03:17)
+                ✔ updates position based on node position changes @done(26-11-22 03:17)
+
+    Scene placed ship nodes initialize their space position using spacechunkrenderers chunk nodes
 
 Implement virtualized spaceship movement
-    ship scene has a node spaceship interface which trasnfers physical movement to virtualized spaceship positioner
+    loaded ship nodes notify spaceship instance about movements in world space
 
 Spaceship fuel system - flight consumes fuel
     Spaceship 

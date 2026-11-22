@@ -2,6 +2,8 @@ class_name SpaceShip
 extends RefCounted
 
 
+var name: String
+
 var position_tracker: VirtualStellarPositionTracker
 
 

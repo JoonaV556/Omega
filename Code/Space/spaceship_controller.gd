@@ -43,6 +43,7 @@ func _ready() -> void:
 	# Make sure editor-placed spaceship nodes are recognized as loaded by chunk renderer
 	var ship: SpaceShip = SpaceshipManager.get_ship(ship_id)
 	if !SpaceChunkRenderer.is_loaded(ship):
+		ship.name = self.name
 		SpaceChunkRenderer.mark_loaded(ship, self)
 
 

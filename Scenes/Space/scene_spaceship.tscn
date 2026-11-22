@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bwpqetyfarmi8"]
 
 [ext_resource type="Script" uid="uid://cchvsnfh6tt62" path="res://Code/Space/spaceship_controller.gd" id="1_rlhhq"]
-[ext_resource type="Texture2D" uid="uid://iu4dco8fmhb7" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_1.png" id="2_ho0kk"]
+[ext_resource type="Texture2D" uid="uid://ddltdu6gkoggb" path="res://Assets_LICENSED/Sprites/Modern_Exteriors_16x16/Modern_Exteriors_Complete_Singles_16x16/ME_Singles_Vehicles_16x16_Car_Up_1.png" id="2_ho0kk"]
 [ext_resource type="Script" uid="uid://dvptk1jbvxb5i" path="res://Code/Space/gun2d.gd" id="3_ysirt"]
+[ext_resource type="Script" uid="uid://dnekswxt7c1md" path="res://Code/Space/stellar_position_updater.gd" id="4_rlhhq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pb00k"]
 size = Vector2(32, 57)
@@ -34,3 +35,7 @@ unique_name_in_owner = true
 avoidance_enabled = true
 radius = 29.0
 debug_enabled = true
+
+[node name="StellarPositionUpdater2D" type="Node" parent="." unique_id=347182499]
+script = ExtResource("4_rlhhq")
+metadata/_custom_type_script = "uid://dnekswxt7c1md"

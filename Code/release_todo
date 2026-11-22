@@ -121,7 +121,10 @@ Features pool
         ✔ Ship virtualization @done(26-11-14 01:59)
             ✔ When ship enters unloaded chunk, it is virtualized @done(26-11-14 01:59)
         
+        Loaded ship movement
+
         Virtualized ship movement
+            Ship moves between set waypoints 
 
         Spaceship fuel system - flight consumes fuel
             Spaceship 
