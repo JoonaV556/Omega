@@ -32,12 +32,16 @@ var input_fire: bool = false
 ## Measure of the total thruster effort. Can be used to calculate fuel consumption etc.
 var _total_thruster_effort: float
 
+var _is_probably_editor_placed: bool = false
+
+
 
 func _ready() -> void:
 	input_aim_target_position = global_position + Vector2.UP.rotated(global_rotation)
 
 	# Register as new ship if not yet registered - useful for enabling virtualization for editor-placed spaceship nodes
 	if SpaceshipManager.get_ship(ship_id) == null:
+		_is_probably_editor_placed = true
 		ship_id = SpaceshipManager.register_ship(SpaceShip.new())
 
 	# Make sure editor-placed spaceship nodes are recognized as loaded by chunk renderer
@@ -45,6 +49,14 @@ func _ready() -> void:
 	if !SpaceChunkRenderer.is_loaded(ship):
 		ship.name = self.name
 		SpaceChunkRenderer.mark_loaded(ship, self)
+
+	# Initialize stellar position of editor placed ships by referencing rendered space chunk positions (wait until spacechunkrenderer has some chunks rendered)
+	if _is_probably_editor_placed:
+		await SpaceUtils.wait_process_ticks(self, 5)
+		var space_coords := SpaceChunkRenderer.instance.to_space_coordinate(
+			global_position
+		)
+		ship.position_tracker.set_position(space_coords[0], space_coords[1])
 
 
 func _physics_process(delta: float) -> void:

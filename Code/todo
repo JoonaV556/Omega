@@ -1412,7 +1412,14 @@ Rework chunk body generation
             ✔ update @done(26-11-22 03:17)
                 ✔ updates position based on node position changes @done(26-11-22 03:17)
 
-    Scene placed ship nodes initialize their space position using spacechunkrenderers chunk nodes
+✔ Scene placed ship nodes initialize their space position using spacechunkrenderers chunk nodes @done(26-11-25 00:39)
+    ✔ make renderer singleton @done(26-11-24 21:29)
+
+    ✔ renderer @done(26-11-25 00:16)
+        ✔ to_space_coordinate(vec2 global pos) @done(26-11-25 00:16)
+
+    ✔ ship control @done(26-11-25 00:39)
+        ✔ set position using renderer @done(26-11-25 00:39)
 
 Implement virtualized spaceship movement
     loaded ship nodes notify spaceship instance about movements in world space

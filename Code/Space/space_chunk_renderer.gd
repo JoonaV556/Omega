@@ -27,6 +27,7 @@ extends ThrottledNode
 			bounds.visible = value
 @export_range(0.5, 10.0, 0.5) var debug_chunk_bounds_width_pixels: float = 2.0
 
+static var instance: SpaceChunkRenderer
 
 var _origin_chunk_coords: Vector2i
 
@@ -44,6 +45,14 @@ var _loaded_chunks: Array[Vector2i] = []
 
 static var  _loaded_ships: Dictionary[SpaceShip, SpaceShipController] = {}
 
+
+func _ready() -> void:
+	if !instance:
+		instance = self
+	else:
+		push_warning("duplicate space chunk renderer instance detected")
+		instance.queue_free()
+		instance = self
 
 
 func _process(delta: float) -> void:
@@ -256,6 +265,39 @@ func _get_chunks_parent() -> Node:
 	else:
 		chunk_parent = get_tree().current_scene
 	return chunk_parent
+
+
+## Converts world-space position to [chunk coordinates, local position] using a loaded chunk as reference.
+func to_space_coordinate(world_coord: Vector2) -> Array:
+	var res = []
+	
+	var chunk: SpaceChunk = _rendered_chunks.keys().get(0)
+	
+	if !chunk:
+		return res
+
+	var chunk_node: Node2D = _rendered_chunks[chunk]
+
+	var chunk_coord := chunk.coordinates
+
+	var pix_offset: Vector2 = world_coord - chunk_node.global_position 
+
+	var chunk_offset := Vector2i(
+		floori(pix_offset.x / SpaceGlobals.chunk_size_pixels.x),
+		floori(pix_offset.y / SpaceGlobals.chunk_size_pixels.y)
+	)
+
+	var pos_chunk_coord: Vector2i = chunk_coord + chunk_offset
+
+	var pos_local_coord := Vector2(
+		fposmod(pix_offset.x, SpaceGlobals.chunk_size_pixels.x),
+		fposmod(pix_offset.y, SpaceGlobals.chunk_size_pixels.y)
+	)
+
+	res.append(pos_chunk_coord)
+	res.append(pos_local_coord)
+	
+	return res
 
 
 static func mark_loaded(ship: SpaceShip, ship_controller: SpaceShipController):
