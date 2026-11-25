@@ -1,6 +1,9 @@
 class_name SpaceShipController
 extends RigidBody2D
 
+@export_group("General")
+@export var override_max_speed: bool = false
+
 @export_group("Thrust settings") # Defaults are calibrated for a small fighter-sized ship with a rigidbody mass of 1kg
 ## meters per second (tiles)
 @export var max_speed = 50.0
@@ -49,6 +52,10 @@ func _ready() -> void:
 	if !SpaceChunkRenderer.is_loaded(ship):
 		ship.name = self.name
 		SpaceChunkRenderer.mark_loaded(ship, self)
+
+	# Fetch max_speed from virtualized instance
+	if !override_max_speed:
+		max_speed = ship.max_speed
 
 	# Initialize stellar position of editor placed ships by referencing rendered space chunk positions (wait until spacechunkrenderer has some chunks rendered)
 	if _is_probably_editor_placed:

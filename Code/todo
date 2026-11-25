@@ -1423,16 +1423,16 @@ Rework chunk body generation
 
 implement way to move virtualized spaceship in space, without a spaceship controller
 
-    Spaceship max speed data is stored in virtualized instance
-        whatever spaceship class
-            func get_max_speed_meters
-            func get_max_speed_pixels
+    ✔ Spaceship max speed data is stored in virtualized instance @done(26-11-25 22:58)
+        ✔ whatever spaceship class @done(26-11-25 22:58)
+            ✔ func get_max_speed_meters @done(26-11-25 22:58)
+            ✔ func get_max_speed_pixels @done(26-11-25 22:58)
 
-    controller 
-        bool override max speed = false
+    ✔ controller @done(26-11-25 23:00)
+        ✔ bool override max speed = false @done(26-11-25 23:00)
 
-        if !override max speed
-            fetch max speed from instance
+        ✔ if !override max speed @done(26-11-25 23:00)
+            ✔ fetch max speed from instance @done(26-11-25 23:00)
 
     Virtualized spaceship behavior trees
         Each spaceship instance has a behvior tree which is executed by a specific system

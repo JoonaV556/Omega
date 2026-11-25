@@ -932,6 +932,7 @@ texture = SubResource("AtlasTexture_yp573")
 [node name="Ship - Player" type="RigidBody2D" parent="CanvasLayer - Gameworld" unique_id=38539155 node_paths=PackedStringArray("guns")]
 gravity_scale = 0.0
 script = ExtResource("4_nwgxt")
+override_max_speed = true
 max_speed = 10000.0
 forward_thruster_force = 600.0
 backward_thruster_force = 150.0
