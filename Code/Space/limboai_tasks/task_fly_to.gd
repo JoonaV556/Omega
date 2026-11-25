@@ -56,11 +56,15 @@ func _enter() -> void:
 # Called each time this task is exited.
 func _exit() -> void:
 	if nav_agent:
+		# Stop movement
 		if nav_agent.velocity_computed.is_connected(_on_navigation_velocity_computed):
 			nav_agent.velocity_computed.disconnect(_on_navigation_velocity_computed)
 		nav_agent.velocity = Vector2.ZERO
+
+		# Reset flags to initial values
 		nav_agent.avoidance_enabled = previous_avoidance_enabled
 		nav_agent.max_speed = previous_agent_max_speed
+
 	target_found = false
 
 
@@ -104,6 +108,7 @@ func _apply_navigation_input() -> void:
 	var travel_direction := displacement.normalized()
 	var forward := Vector2.UP.rotated(ss_controller.global_rotation)
 	var right := Vector2.RIGHT.rotated(ss_controller.global_rotation)
+	
 	# Estimate braking force along the path using the thruster limits in that direction.
 	var reverse_direction := -travel_direction
 	var forward_brake_projection := reverse_direction.dot(forward)

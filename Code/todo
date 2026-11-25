@@ -1421,8 +1421,45 @@ Rework chunk body generation
     ✔ ship control @done(26-11-25 00:39)
         ✔ set position using renderer @done(26-11-25 00:39)
 
-Implement virtualized spaceship movement
-    loaded ship nodes notify spaceship instance about movements in world space
+implement way to move virtualized spaceship in space, without a spaceship controller
+
+    Spaceship max speed data is stored in virtualized instance
+        whatever spaceship class
+            func get_max_speed_meters
+            func get_max_speed_pixels
+
+    controller 
+        bool override max speed = false
+
+        if !override max speed
+            fetch max speed from instance
+
+    Virtualized spaceship behavior trees
+        Each spaceship instance has a behvior tree which is executed by a specific system
+
+        If ship instance is virtualized
+            behavior tree is updated by slower delta time intervals
+
+        if ship instance is loaded
+            behavior tree is updated using physics process
+
+    abstract class spaceshiptask
+        executes behavior differently based on whether the ship is virtualized or loaded
+
+        tick_super
+
+        tick_virtualized
+
+        tick_loaded
+
+    spaceshiptask fly to
+        Flys spaceship to given position, making the ship behave differently based on if its virtualized or loaded
+
+    
+Implement Virtualized ship movement
+    Ship moves between set waypoints 
+
+    
 
 Spaceship fuel system - flight consumes fuel
     Spaceship 
