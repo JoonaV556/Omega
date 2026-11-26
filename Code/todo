@@ -1434,19 +1434,36 @@ implement way to move virtualized spaceship in space, without a spaceship contro
         ✔ if !override max speed @done(26-11-25 23:00)
             ✔ fetch max speed from instance @done(26-11-25 23:00)
 
-    Virtualized spaceship behavior trees
-        Each spaceship instance has a behvior tree which is executed by a specific system
+    ✔ Each spaceship instance has a behvior tree which is executed by a specific system @done(26-11-26 20:51)
+        ✔ spaceship @done(26-11-26 20:51)
+            ✔ btresource @done(26-11-26 20:51)
+            ✔ btinstace @done(26-11-26 20:51)
 
-        If ship instance is virtualized
-            behavior tree is updated by slower delta time intervals
+    ✔ implement way to track if ship is loaded or virtualized @done(26-11-26 21:31)
+        ✔ spaceship @done(26-11-26 21:28)
+            ✔ loaded bool @done(26-11-26 21:28)
 
-        if ship instance is loaded
-            behavior tree is updated using physics process
+        ✔ renderer @done(26-11-26 21:30)
+            ✔ when loading is finished, tick flag @done(26-11-26 21:30)
+
+            ✔ before unloading begins, untick flag @done(26-11-26 21:30)
+
+        ✔ account editor placed ships @done(26-11-26 21:31)
+
+    Spaceship manager 
+        ✔ register_ship @done(26-11-26 21:32)
+            ✔ if spaceship has tree resource @done(26-11-26 21:32)
+                ✔ create behavior tree & inlude in updates @done(26-11-26 21:32)
+
+        updates behavior trees
+            If ship instance is virtualized
+                behavior tree is updated by slower delta time intervals
+
+            if ship instance is loaded
+                behavior tree is updated using physics process
 
     abstract class spaceshiptask
         executes behavior differently based on whether the ship is virtualized or loaded
-
-        tick_super
 
         tick_virtualized
 

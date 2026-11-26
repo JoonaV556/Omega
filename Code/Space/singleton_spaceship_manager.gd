@@ -14,6 +14,14 @@ func register_ship(ship: SpaceShip) -> int:
 
 	_assigned_ids += 1
 
+	# Assign behavior tree 
+	if ship.bt_resource:
+		ship.bt_instance = SpaceUtils.bt_instantiate(
+			ship.bt_resource,
+			self,
+			self
+		)
+
 	return id
 
 

@@ -110,7 +110,7 @@ Features pool
         ✔ Refactor space chunk loader to utilize new static generator class @done(26-10-13 02:12)
         ✔ Start chunk rendering / placement from world origin (0, 0) - makes stuff much simpler @done(26-10-13 02:12)
 
-☐ v0.4.2
+☐ v0.5 - Autonomous empires & NPC spaceships
     ✔ AI ship @done(26-11-13 00:10)
         ✔ Flies around a chunk @done(26-11-13 00:10)
 

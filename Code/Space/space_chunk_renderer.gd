@@ -91,6 +91,8 @@ func _throttled_process(_delta: float):
 
 		_loaded_ships[ship] = ship_ctr
 
+		ship.is_loaded = true
+
 		print("loaded ship")
 
 
@@ -99,6 +101,9 @@ func _throttled_process(_delta: float):
 		var ship_chunk: Vector2i = ship.get_chunk()
 
 		if !_loaded_chunks.has(ship_chunk):
+
+			ship.is_loaded = false
+
 			_loaded_ships[ship].queue_free()
 			_loaded_ships.erase(ship)
 			print("unloaded ship")
@@ -302,6 +307,7 @@ func to_space_coordinate(world_coord: Vector2) -> Array:
 
 static func mark_loaded(ship: SpaceShip, ship_controller: SpaceShipController):
 	_loaded_ships[ship] = ship_controller
+	ship.is_loaded = true
 
 
 static func is_loaded(ship: SpaceShip) -> bool:

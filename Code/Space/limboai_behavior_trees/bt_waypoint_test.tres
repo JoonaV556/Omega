@@ -1,0 +1,10 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://g7b41hr6m8lk"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_3ot8d"]
+prefetch_nodepath_vars = false
+
+[sub_resource type="BTSelector" id="BTSelector_yadi8"]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_3ot8d")
+root_task = SubResource("BTSelector_yadi8")
