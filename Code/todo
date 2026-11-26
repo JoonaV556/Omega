@@ -1450,17 +1450,17 @@ implement way to move virtualized spaceship in space, without a spaceship contro
 
         ✔ account editor placed ships @done(26-11-26 21:31)
 
-    Spaceship manager 
+    ✔ Spaceship manager @done(26-11-26 22:44)
         ✔ register_ship @done(26-11-26 21:32)
             ✔ if spaceship has tree resource @done(26-11-26 21:32)
                 ✔ create behavior tree & inlude in updates @done(26-11-26 21:32)
 
-        updates behavior trees
-            If ship instance is virtualized
-                behavior tree is updated by slower delta time intervals
+        ✔ updates behavior trees @done(26-11-26 22:44)
+            ✔ If ship instance is virtualized @done(26-11-26 22:42)
+                ✔ behavior tree is updated by slower delta time intervals @done(26-11-26 22:42)
 
-            if ship instance is loaded
-                behavior tree is updated using physics process
+            ✔ if ship instance is loaded @done(26-11-26 22:44)
+                ✔ behavior tree is updated using physics process @done(26-11-26 22:44)
 
     abstract class spaceshiptask
         executes behavior differently based on whether the ship is virtualized or loaded

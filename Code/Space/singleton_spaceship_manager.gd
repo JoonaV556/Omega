@@ -1,10 +1,30 @@
-extends Node
+extends ThrottledNode
+
+## Tracks persistent spaceship instances and updates their behavior trees
 
 ## ship, ship_id
 var registered_ships: Dictionary[int, SpaceShip]
 var ship_ids: Dictionary[SpaceShip, int]
 
+# Ships with AI (behavior trees)
+var autonomous_ships: Array[SpaceShip] = []
+
+##  Interval in seconds between virtualized ship behavior tree updates
+const virtualized_ship_bt_update_interval: float = 0.25
+
 static var  _assigned_ids: int = 0
+
+
+func _throttled_process(delta: float):
+	for ship: SpaceShip in autonomous_ships:
+		if !ship.is_loaded:
+			ship.bt_instance.update(delta)
+
+
+func _physics_process(delta: float) -> void:
+	for ship: SpaceShip in autonomous_ships:
+		if ship.is_loaded:
+			ship.bt_instance.update(delta)
 
 
 func register_ship(ship: SpaceShip) -> int:
@@ -21,6 +41,7 @@ func register_ship(ship: SpaceShip) -> int:
 			self,
 			self
 		)
+		autonomous_ships.append(ship)
 
 	return id
 
