@@ -47,4 +47,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## Returns the associated spaceship instance this task & behavior tree belongs to
 func get_ship() -> SpaceShip:
-	return blackboard.get_var('ship') as SpaceShip
+	var ship := blackboard.get_var('ship') as SpaceShip
+
+	if !ship:
+		push_error("Spaceship task couldn't get reference to spaceship instance!")
+		
+	return ship
