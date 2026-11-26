@@ -7,7 +7,7 @@ var registered_ships: Dictionary[int, SpaceShip]
 var ship_ids: Dictionary[SpaceShip, int]
 
 # Ships with AI (behavior trees)
-var autonomous_ships: Array[SpaceShip] = []
+var autonomous_ships: Dictionary[SpaceShip, BTInstance] = {}
 
 ##  Interval in seconds between virtualized ship behavior tree updates
 const virtualized_ship_bt_update_interval: float = 0.25
@@ -36,12 +36,18 @@ func register_ship(ship: SpaceShip) -> int:
 
 	# Assign behavior tree 
 	if ship.bt_resource:
-		ship.bt_instance = SpaceUtils.bt_instantiate(
+		var inst := SpaceUtils.bt_instantiate(
 			ship.bt_resource,
 			self,
 			self
 		)
-		autonomous_ships.append(ship)
+		
+		ship.bt_instance = inst
+
+		# Allow bt tasks to get reference to their spaceship through the blackboard
+		inst.get_blackboard().set_var('ship', ship)
+
+		autonomous_ships[ship] = inst
 
 	return id
 

@@ -1462,12 +1462,20 @@ implement way to move virtualized spaceship in space, without a spaceship contro
             ✔ if ship instance is loaded @done(26-11-26 22:44)
                 ✔ behavior tree is updated using physics process @done(26-11-26 22:44)
 
-    abstract class spaceshiptask
-        executes behavior differently based on whether the ship is virtualized or loaded
+    ✔ Allow btactions to get reference to its spaceship @done(26-11-27 01:08)
+        ✔ shipmanager @done(26-11-27 01:08)
+            ✔ when initing spaceship bt @done(26-11-27 01:08)
+                ✔ add its ship object to the blackboard @done(26-11-27 01:08)
 
-        tick_virtualized
+        ✔ shiptask @done(26-11-27 01:08)
+            ✔ retrieves ref to ship instance through blackboard @done(26-11-27 01:08)
 
-        tick_loaded
+    ✔ abstract class spaceshiptask @done(26-11-27 01:08)
+        ✔ executes behavior differently based on whether the ship is virtualized or loaded @done(26-11-27 01:08)
+
+        ✔ tick_virtualized @done(26-11-27 01:08)
+
+        ✔ tick_loaded @done(26-11-27 01:08)
 
     spaceshiptask fly to
         Flys spaceship to given position, making the ship behave differently based on if its virtualized or loaded
