@@ -443,3 +443,7 @@ func update_render_origin(chunk_coords: Vector2, local_chunk_coords: Vector2, wo
 
 func update_loaded_chunks(loaded_chunks: Array[Vector2i]):
 	_loaded_chunks = loaded_chunks
+
+
+func get_ship_controller(ship: SpaceShip) -> SpaceShipController:
+	return _loaded_ships.get(ship, null)

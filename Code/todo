@@ -1477,12 +1477,30 @@ implement way to move virtualized spaceship in space, without a spaceship contro
 
         ✔ tick_loaded @done(26-11-27 01:08)
 
+
+    
+    ✔ func get_interstellar_direction -> Vector2 @done(26-11-27 17:53)
+        ✔ returns vector pointing from point inside chunk a to point inside chunk b @done(26-11-27 17:53)
+
+
     spaceshiptask fly to
         Flys spaceship to given position, making the ship behave differently based on if its virtualized or loaded
+            Implement movement while loaded 
+                shipcontroller
+                    Add way to set ship steering direction with a vector
+                        applyinput param steeringmethod
+
+                        
+
+
+                1st movement pass
+                    simply move along target vector
 
     
 Implement Virtualized ship movement
     Ship moves between set waypoints 
+
+    test
 
     
 

@@ -1,6 +1,11 @@
 class_name SpaceShipController
 extends RigidBody2D
 
+enum SteeringMode {
+	STEER_TOWARDS_POSITION,
+	STEER_TOWARDS_DIRECTION
+}
+
 @export_group("General")
 @export var override_max_speed: bool = false
 
@@ -22,7 +27,7 @@ extends RigidBody2D
 var ship_id: int = -1
 
 # Where ship points to
-var input_aim_target_position: Vector2
+var input_steer_direction: Vector2
 
 ## -1,0 backwards, 1.0 forward
 var input_thrust: float = 0.0
@@ -38,9 +43,8 @@ var _total_thruster_effort: float
 var _is_probably_editor_placed: bool = false
 
 
-
 func _ready() -> void:
-	input_aim_target_position = global_position + Vector2.UP.rotated(global_rotation)
+	input_steer_direction = global_position + Vector2.UP.rotated(global_rotation)
 
 	# Register as new ship if not yet registered - useful for enabling virtualization for editor-placed spaceship nodes
 	if SpaceshipManager.get_ship(ship_id) == null:
@@ -68,8 +72,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# steer 
-	var aim_direction := global_position.direction_to(input_aim_target_position)
-	var angle_rad = Vector2.UP.angle_to(aim_direction)
+	var angle_rad = Vector2.UP.angle_to(input_steer_direction)
 
 	var angle_error := wrapf(angle_rad - global_rotation, -PI, PI)
 
@@ -118,8 +121,20 @@ func _physics_process(delta: float) -> void:
 	apply_central_force(total_thruster_force)
 
 
-func apply_input(aim_target_position: Vector2, thrust: float, strafe: float, fire_input: bool = false) -> void:
-	input_aim_target_position = aim_target_position
+func apply_input(
+	aim_target_position: Vector2, 
+	thrust: float, 
+	strafe: float, 
+	fire_input: bool = false, 
+	steering_mode: SteeringMode = SteeringMode.STEER_TOWARDS_POSITION,
+	steer_towards_direction: Vector2 = Vector2.ZERO
+	) -> void:
+
+	if steering_mode == SteeringMode.STEER_TOWARDS_POSITION:
+		input_steer_direction = global_position.direction_to(aim_target_position)
+	else:
+		input_steer_direction = steer_towards_direction.normalized()
+
 	input_thrust = clampf(thrust, -1.0, 1.0)
 	input_strafe = clampf(strafe, -1.0, 1.0)
 	input_fire = fire_input
