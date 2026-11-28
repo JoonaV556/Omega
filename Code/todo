@@ -1485,16 +1485,25 @@ implement way to move virtualized spaceship in space, without a spaceship contro
 
     spaceshiptask fly to
         Flys spaceship to given position, making the ship behave differently based on if its virtualized or loaded
-            Implement movement while loaded 
-                shipcontroller
-                    Add way to set ship steering direction with a vector
-                        applyinput param steeringmethod
+            Implement movement while loaded
+                ✔ shipcontroller @done(26-11-28 17:46)
+                    ✔ Add way to set ship steering direction with a vector @done(26-11-28 17:46)
+                        ✔ applyinput param steeringmethod @done(26-11-28 17:46)
 
-                        
+                ✔ 1st movement pass @done(26-11-28 18:56)
+                    ✔ simply move along target vector @done(26-11-28 18:04)
 
+                    ✔ set target on blackboard @done(26-11-28 18:56)
 
-                1st movement pass
-                    simply move along target vector
+                    ✔ task @done(26-11-28 18:56)
+                        ✔ get dtarget from blackboard @done(26-11-28 18:56)
+
+                    ✔ test @done(26-11-28 18:56)
+
+                Prevent overshoots
+                    slow down ship the closer it is to target
+
+                End if target is reached
 
     
 Implement Virtualized ship movement

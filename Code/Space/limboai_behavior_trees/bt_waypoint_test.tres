@@ -1,9 +1,15 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://g7b41hr6m8lk"]
 
+[ext_resource type="Script" uid="uid://dpvugmqg77phv" path="res://Code/Space/limboai_tasks/shiptask_flyto.gd" id="1_yadi8"]
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_3ot8d"]
 prefetch_nodepath_vars = false
 
+[sub_resource type="BTAction" id="BTAction_yfg0h"]
+script = ExtResource("1_yadi8")
+
 [sub_resource type="BTSelector" id="BTSelector_yadi8"]
+children = [SubResource("BTAction_yfg0h")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_3ot8d")

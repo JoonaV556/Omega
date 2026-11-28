@@ -19,10 +19,11 @@ func _process(delta: float) -> void:
 	var fire := Input.is_action_just_pressed("Fire")
 
 	spaceship_controller.apply_input(
-		get_global_mouse_position(),
 		Input.get_axis("MoveDown", "MoveUp"),
 		Input.get_axis("MoveLeft", "MoveRight"),
-		fire
+		fire,
+		SpaceShipController.SteeringMode.STEER_TOWARDS_POSITION,
+		get_global_mouse_position(),
 	)
 
 	

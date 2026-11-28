@@ -122,11 +122,11 @@ func _physics_process(delta: float) -> void:
 
 
 func apply_input(
-	aim_target_position: Vector2, 
 	thrust: float, 
 	strafe: float, 
 	fire_input: bool = false, 
 	steering_mode: SteeringMode = SteeringMode.STEER_TOWARDS_POSITION,
+	aim_target_position: Vector2 = Vector2.ZERO, 
 	steer_towards_direction: Vector2 = Vector2.ZERO
 	) -> void:
 

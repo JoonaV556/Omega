@@ -146,7 +146,13 @@ func _on_navigation_velocity_computed(safe_velocity: Vector2) -> void:
 	var thrust := forward_acceleration * mass / forward_force if forward_force > 0.0 else 0.0
 	var strafe := strafe_acceleration * mass / ss_controller.strafing_thruster_force if ss_controller.strafing_thruster_force > 0.0 else 0.0
 
-	ss_controller.apply_input(next_path_pos, thrust, strafe)
+	ss_controller.apply_input(
+		thrust, 
+		strafe, 
+		false, 
+		SpaceShipController.SteeringMode.STEER_TOWARDS_POSITION, 
+		next_path_pos
+		)
 
 
 func _hold_heading() -> void:
@@ -155,7 +161,13 @@ func _hold_heading() -> void:
 	if aim_direction.is_zero_approx():
 		aim_direction = Vector2.UP.rotated(ss_controller.global_rotation)
 	
-	ss_controller.apply_input(ss_controller.global_position + aim_direction * 1000.0, 0.0, 0.0)
+	ss_controller.apply_input( 
+		0.0, 
+		0.0,
+		false,
+		SpaceShipController.SteeringMode.STEER_TOWARDS_POSITION,
+		ss_controller.global_position + aim_direction * 1000.0
+		)
 
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).

@@ -18,7 +18,11 @@ func _ready() -> void:
 	ship_b.name = "wp test"
 
 	# Set initial position
-	ship_b.position_tracker.set_position(Vector2i(997, 1000), Vector2(SpaceGlobals.chunk_size_pixels / 2.0))
+	ship_b.position_tracker.set_position(Vector2i(1000, 1000), Vector2(SpaceGlobals.chunk_size_pixels / 2.0))
 
 	# Register
 	SpaceshipManager.register_ship(ship_b)
+
+	# Set target position 
+	ship_b.bt_instance.get_blackboard().set_var('target_chunk', Vector2i(999, 999))
+	ship_b.bt_instance.get_blackboard().set_var('target_pos', Vector2(1000, 1000))
